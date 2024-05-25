@@ -21,13 +21,6 @@ public class Program {
 
     public void Menu() {
         login();
-        ac = new AdminController();
-        System.out.println(ac.PrintEmployees());
-
-        Employee e1 = new Employee("100", "Hagai", "22", 150000, 0, new Date("12/02/2022"), "Cashier");
-        Gson g = new Gson();
-        JsonElement je = g.toJsonTree(e1);
-        ac.AddEmployee(je.getAsJsonObject());
     }
 
     private void login() {
@@ -48,10 +41,10 @@ public class Program {
         String[] UsernamePassword = UserPassInput();
         while (true) {
             if (UserKind.equals("1") && admin_checker(UsernamePassword)) {
-                // Admin logic here
+                AdminMenu();
                 break;
             } else if (UserKind.equals("2") && user_checker(UsernamePassword)) {
-                // User logic here
+                UserMenu();
                 break;
             } else {
                 System.out.println("Invalid username or password. Try again.");
@@ -84,11 +77,78 @@ public class Program {
     }
 
     private void AdminMenu(){
-        System.out.println("Admin Menu");
+        this.ac = new AdminController();
+        while (true) {
+            System.out.println("\nAdmin Menu:");
+            System.out.println("1. View all employees");
+            System.out.println("2. Add new employee");
+            System.out.println("3. Remove employee");
+            System.out.println("4. Update employee details");
+            System.out.println("5. Back to Main Menu");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1:
+                    // Call method to view all employees
+                    System.out.println(ac.PrintEmployees());
+                    break;
+                case 2:
+                    // Call method to add new employee
+                    Employee e1 = new Employee("100", "Hagai", "22", 150000, 0,
+                            new Date("12/02/2022"), "Cashier");
+                    Gson g = new Gson();
+                    JsonElement je = g.toJsonTree(e1);
+                    ac.AddEmployee(je.getAsJsonObject());
+                    break;
+                case 3:
+                    // Call method to remove employee
+                    //removeEmployee(scanner);
+                    break;
+                case 4:
+                    // Call method to update employee details
+                    //updateEmployeeDetails(scanner);
+                    break;
+                case 5:
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
     }
 
+    //TODO: Get ID from successful user login, insert it into the employee controller.
     private void UserMenu(){
-        System.out.println("User Menu");
+        while (true) {
+            System.out.println("\nEmployee Menu:");
+            System.out.println("1. View personal details");
+            System.out.println("2. View salary");
+            System.out.println("3. View remaining rest days");
+            System.out.println("4. Back to Main Menu");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1:
+                    // Call method to view personal details
+                    //viewPersonalDetails();
+                    break;
+                case 2:
+                    // Call method to view salary
+                    //viewSalary();
+                    break;
+                case 3:
+                    // Call method to view remaining rest days
+                    //viewRemainingRestDays();
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
     }
 
     private void Config(){
