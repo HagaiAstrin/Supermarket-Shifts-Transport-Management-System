@@ -10,16 +10,17 @@ public class SHA_256_Hasher {
     public boolean Checker(JsonObject[] j){
         String user_name = j[0].toString();
         String password = j[1].getAsString(); // Assuming password is a string
+        String id = j[2].getAsString();
 
         // Convert password to SHA-256 hash
         String hashedPassword = hashPassword(password); // TODO: what will happend if null
 
-        //heyy
+
         // Perform authentication or validation logic using the hashed password
         // For example, compare it with a stored hashed password
 
-        // Placeholder return value
-        return false;
+        IO_Data io = new IO_Data();
+        return io.Authentication(user_name, hashedPassword, id, Constants.PATH_DataValid);
     }
 
     private String hashPassword(String password) {

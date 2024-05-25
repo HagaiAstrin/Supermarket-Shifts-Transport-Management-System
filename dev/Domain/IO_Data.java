@@ -1,8 +1,6 @@
 package Domain;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
+
 
 public class IO_Data {
     public List<JsonObject> ImportEmployees(String filePath) {
@@ -45,4 +45,24 @@ public class IO_Data {
     }
 
 
+    public boolean Authentication(String username, String password, String id, String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] fields = line.split(",");
+                if (fields.length != 3) continue; // Skip malformed lines
+
+                String storedUsername = fields[0].trim();
+                String storedHashedPassword = fields[1].trim();
+                String storedID = fields[2].trim();
+
+                if (storedUsername.equals(username) && storedHashedPassword.equals(password) && storedID.equals(id)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
