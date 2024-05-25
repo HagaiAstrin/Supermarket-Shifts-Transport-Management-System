@@ -1,21 +1,33 @@
 package Presentation;
-
+import Domain.Employee;
+import com.google.gson.Gson;
 import Controller.*;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import java.util.Date;
 import java.util.Scanner;
 
 public class Program {
-    AdminController ac;
+    private AdminController ac;
+
     private Scanner scanner = new Scanner(System.in); // Use a single scanner instance
 
     public static void main(String[] args) {
         Program program = new Program();
         program.Menu();
+
     }
 
     public void Menu() {
         login();
         ac = new AdminController();
-        ac.PrintEmployees();
+        System.out.println(ac.PrintEmployees());
+
+        Employee e1 = new Employee("100", "Hagai", "22", 150000, 0, new Date("12/02/2022"), "Cashier");
+        Gson g = new Gson();
+        JsonElement je = g.toJsonTree(e1);
+        ac.AddEmployee(je.getAsJsonObject());
     }
 
     private void login() {

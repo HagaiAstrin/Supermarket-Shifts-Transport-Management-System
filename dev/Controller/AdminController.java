@@ -1,20 +1,25 @@
 package Controller;
-
+import com.google.gson.Gson;
 import Domain.*;
+import com.google.gson.JsonObject;
+
+import java.util.List;
 
 public class AdminController {
-    IO_Data io_data;
-    String[] UserPass;
-    String UserKind;
-//    public AdminController(String[] userPass, String userKind) {
-//        UserPass = userPass;
-//        UserKind = userKind;
-//    }
+    private IO_Data io_data;
     public AdminController() {
         io_data = new IO_Data();
     }
 
-    public void PrintEmployees(){
-        System.out.println(io_data.ImportEmployees("C:\\BGU\\Year 2\\Semester 2\\Analysis & Design Of Software Systems\\ADSS_Group_AT\\dev\\Data\\Employees.csv"));
+    /**
+     * Get all information regarding employees.
+     * @return List of Json objects containing raw data about employees.
+     */
+    public List<JsonObject> PrintEmployees(){
+        return io_data.ImportEmployees(Constants.PATH_EMPLOYEES);
+    }
+
+    public void AddEmployee(JsonObject json){
+        System.out.println(json);
     }
 }

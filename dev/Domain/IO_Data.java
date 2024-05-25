@@ -8,10 +8,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 public class IO_Data {
-    public List<Employee> ImportEmployees(String filePath) {
-        List<Employee> employees = new ArrayList<>();
+    public List<JsonObject> ImportEmployees(String filePath) {
+        List<JsonObject> employees = new ArrayList<>();
         String line;
         String csvSplitBy = ",";
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -32,7 +34,8 @@ public class IO_Data {
                     int restDays = Integer.parseInt(fields[6]);
 
                     Employee employee = new Employee(id,  name, bankID, salary, restDays, startDate, jobType);
-                    employees.add(employee);
+                    Gson gson = new Gson();
+                    employees.add(gson.toJsonTree(employee).getAsJsonObject());
                 }
             }
         } catch (IOException | ParseException e) {
