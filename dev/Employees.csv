@@ -1,0 +1,6 @@
+id,JobType,name,startDate,bankID,salary,restDays
+1,Cashier,John Doe,25/05/2024,1234,50000,10
+2,Cashier,Jane Smith,26/05/2024,5678,60000,8
+3,Cashier,Bob Johnson,27/05/2024,9101,55000,12
+4,ShiftManager,Alice Williams,28/05/2024,1121,62000,15
+5,StockKeeper,Chris Brown,29/05/2024,3141,58000,9
