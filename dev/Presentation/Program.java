@@ -1,8 +1,10 @@
 package Presentation;
 
+import Controller.*;
 import java.util.Scanner;
 
 public class Program {
+    AdminController ac;
     private Scanner scanner = new Scanner(System.in); // Use a single scanner instance
 
     public static void main(String[] args) {
@@ -12,6 +14,8 @@ public class Program {
 
     public void Menu() {
         login();
+        ac = new AdminController();
+        ac.PrintEmployees();
     }
 
     private void login() {
@@ -46,12 +50,12 @@ public class Program {
 
     private boolean admin_checker(String[] UserPassInput) {
         // Go to Controller
-        return false;
+        return true;
     }
 
     private boolean user_checker(String[] UserPassInput) {
         // Go to Controller
-        return false;
+        return true;
     }
 
     private String[] UserPassInput() {

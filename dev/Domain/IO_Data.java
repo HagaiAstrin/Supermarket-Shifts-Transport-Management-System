@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 public class IO_Data {
-    public List<Employee> readCsvFile(String filePath) {
+    public List<Employee> ImportEmployees(String filePath) {
         List<Employee> employees = new ArrayList<>();
         String line;
         String csvSplitBy = ",";
