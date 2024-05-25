@@ -14,7 +14,7 @@ public class SHA_256_Hasher {
         // Convert password to SHA-256 hash
         String hashedPassword = hashPassword(password); // TODO: what will happend if null
 
-        //hey
+        //heyy
         // Perform authentication or validation logic using the hashed password
         // For example, compare it with a stored hashed password
 
