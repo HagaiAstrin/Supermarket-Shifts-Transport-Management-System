@@ -12,10 +12,15 @@ public class Employee {
     Contract contract;
 
     public Employee(String id, String name, String bankID, int salary, int restDays, Date startDate, String workType) {
+        this.jobType = JobTypeEnum.valueOf(workType.toUpperCase().replaceAll(" ", "_"));
         this.id = id;
         this.name = name;
         this.bankID = bankID;
         this.contract = new Contract(startDate, workType, salary, salary, restDays);
+    }
+
+    public String toString() {
+        return "Person{Name='" + name +'}';
     }
 }
 
