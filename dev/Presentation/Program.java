@@ -82,7 +82,6 @@ public class Program {
     }
 
     private void AdminMenu(){
-        this.ac = new AdminController();
         while (true) {
             System.out.println("\nAdmin Menu:");
             System.out.println("1. Load all employees data");
@@ -97,7 +96,7 @@ public class Program {
             switch (choice) {
                 case 1:
                     // Call method to view all employees
-                    System.out.println(ac.PrintEmployees());
+                    System.out.println(AdminController.PrintEmployees());
                     break;
                 case 2:
                     // Call method to add new employee

@@ -12,7 +12,7 @@ import com.google.gson.JsonObject;
 
 
 public class IO_Data {
-    static List<Employee> currEmployees;
+    static List<Employee> currEmployees = new ArrayList<>();
     static boolean flag = false;
     /**
      * Import all employees data.
