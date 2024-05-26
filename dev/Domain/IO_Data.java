@@ -55,17 +55,29 @@ public class IO_Data {
         return employees;
     }
 
+    /**
+     * Add an Employee to the database.
+     * @param json of an employee
+     * @return a message of the performed action.
+     */
+    // TODO: Append to database.
+    // TODO: add the employee to the .csv
+    // TODO: add the employee to the List in IO_Data.
     public static String AddEmployee(JsonObject json){
         if(SearchEmployee(String.valueOf(json.get("id"))) == -1){
             return "Can't add employee with the same ID as " + json.get("id").getAsString() + ".\n";
         }
 
         System.out.println(json);
-        // TODO: add the employee to the .csv
-        // TODO: add the employee to the List in IO_Data.
         return "Employee " + json.get("id").getAsString() + " has been added!\n";
     }
 
+    /**
+     * Add an Employee to the database.
+     * @param id of an employee
+     * @return a message of the performed action.
+     */
+    // TODO: Delete from database.
     public static boolean RemoveEmployee(String id){
         int indexToRemove = SearchEmployee(id);
         if(indexToRemove != -1){
@@ -111,6 +123,11 @@ public class IO_Data {
         return false;
     }
 
+    /**
+     *  Get Employee in JSON format.
+     * @param id of an employee
+     * @return Employee as JSON, if not exists - null
+     */
     public static JsonObject GetEmployee(String id){
         for(int i = 0; i < currEmployees.size(); i++){
             if(currEmployees.get(i).getId().equals(id)){
@@ -120,6 +137,9 @@ public class IO_Data {
         return null;
     }
 
+    /**
+     *  Convert Employee to JSON format.
+     */
     private static JsonObject ConvertEmployeeToJson(Employee employee){
         Gson gson = new Gson();
         return gson.toJsonTree(employee).getAsJsonObject();

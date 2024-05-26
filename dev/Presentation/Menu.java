@@ -12,6 +12,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class Menu {
+    /**
+     * Adding employee to the database.
+     */
     public static void AddEmployee() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Employee ID: ");
@@ -46,9 +49,12 @@ public class Menu {
         Gson gson = new Gson();
         Employee e = new Employee(id, name, bankID, salary, restDays, startDate, jobType);
 
-        AdminController.AddEmployee(gson.toJsonTree(e).getAsJsonObject());
+        System.out.println(AdminController.AddEmployee(gson.toJsonTree(e).getAsJsonObject()));
     }
 
+    /**
+     * Removing Employee from the database.
+     */
     public static void RemoveEmployee(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Employee ID: ");
@@ -77,7 +83,6 @@ public class Menu {
             System.out.println("4. Update Rest Days");
             System.out.println("5. Update Start Date");
             System.out.println("6. Update Job Type");
-            System.out.println("7. Back to Main Menu");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
@@ -133,6 +138,8 @@ public class Menu {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
+
+            AdminController.UpdateEmployee(SystemController.ConvertEmployeeToJson(employee));
         }
     }
 

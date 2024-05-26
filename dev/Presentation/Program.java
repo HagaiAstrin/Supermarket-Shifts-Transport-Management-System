@@ -21,7 +21,6 @@ public class Program {
     public static void main(String[] args) {
         Program program = new Program();
         program.Menu();
-
     }
 
     public void Menu() {
@@ -76,11 +75,6 @@ public class Program {
         return new String[]{userName, password, id};
     }
 
-    private void Logout(){
-        System.out.println("Goodbye!");
-        System.exit(0);
-    }
-
     private void AdminMenu(){
         while (true) {
             System.out.println("\nAdmin Menu:");
@@ -88,7 +82,7 @@ public class Program {
             System.out.println("2. Add new employee");
             System.out.println("3. Remove employee");
             System.out.println("4. Update employee details");
-            System.out.println("5. Back to Main Menu");
+            System.out.println("5. Logout");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
@@ -108,10 +102,11 @@ public class Program {
                     break;
                 case 4:
                     // Call method to update employee details
-//                    Menu.UpdateEmployeeDetails();
+                    Menu.UpdateEmployeeDetails();
                     break;
                 case 5:
-                    return;
+                    // TODO: Implement LOGOUT
+                    SystemController.Logout();
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }

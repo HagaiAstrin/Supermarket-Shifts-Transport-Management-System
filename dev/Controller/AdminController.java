@@ -34,4 +34,9 @@ public class AdminController {
     public static JsonObject GetEmployee(String id){
         return IO_Data.GetEmployee(id);
     }
+
+    //TODO: Update employee data in .csv and in list.
+    public static void UpdateEmployee(JsonObject json){
+
+    }
 }
