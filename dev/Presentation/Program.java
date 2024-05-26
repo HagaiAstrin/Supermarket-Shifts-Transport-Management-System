@@ -59,13 +59,11 @@ public class Program {
     }
 
     private boolean admin_checker(String[] UserPassInput) {
-        // Go to Controller
-        return true;
+        return new SystemController().LoginInputValidatorAdmin(UserPassInput);
     }
 
     private boolean user_checker(String[] UserPassInput) {
-        // Go to Controller
-        return true;
+        return new SystemController().LoginInputValidatorUser(UserPassInput);
     }
 
     private String[] UserPassInput() {
@@ -73,7 +71,9 @@ public class Program {
         String userName = scanner.nextLine();
         System.out.print("Please enter your password: ");
         String password = scanner.nextLine();
-        return new String[]{userName, password};
+        System.out.print("Please enter your ID: ");
+        String id = scanner.nextLine();
+        return new String[]{userName, password, id};
     }
 
     private void Logout(){
@@ -109,7 +109,7 @@ public class Program {
                     break;
                 case 4:
                     // Call method to update employee details
-                    Menu.UpdateEmployeeDetails();
+//                    Menu.UpdateEmployeeDetails();
                     break;
                 case 5:
                     return;

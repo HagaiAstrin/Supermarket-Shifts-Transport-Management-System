@@ -7,10 +7,10 @@ import java.security.NoSuchAlgorithmException;
 public class SHA_256_Hasher {
     public SHA_256_Hasher() {}
 
-    public boolean Checker(JsonObject[] j, String path){
-        String user_name = j[0].toString();
-        String password = j[1].getAsString(); // Assuming password is a string
-        String id = j[2].getAsString();
+    public boolean Checker(String[] j, String path){
+        String user_name = j[0];
+        String password = j[1]; // Assuming password is a string
+        String id = j[2];
 
         // Convert password to SHA-256 hash
         String hashedPassword = hashPassword(password); // TODO: what will happend if null
