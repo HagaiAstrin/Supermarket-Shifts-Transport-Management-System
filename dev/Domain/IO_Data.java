@@ -74,8 +74,8 @@ public class IO_Data {
         return -1;
     }
 
-    public static boolean Authentication(String username, String password, String id) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(Constants.PATH_DATA_VALIDATION))) {
+    public static boolean Authentication(String username, String password, String id, String path) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",");

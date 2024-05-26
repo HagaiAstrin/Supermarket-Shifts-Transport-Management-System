@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 public class SHA_256_Hasher {
     public SHA_256_Hasher() {}
 
-    public boolean Checker(JsonObject[] j){
+    public boolean Checker(JsonObject[] j, String path){
         String user_name = j[0].toString();
         String password = j[1].getAsString(); // Assuming password is a string
         String id = j[2].getAsString();
@@ -19,7 +19,7 @@ public class SHA_256_Hasher {
         // Perform authentication or validation logic using the hashed password
         // For example, compare it with a stored hashed password
 
-        return IO_Data.Authentication(user_name, hashedPassword, id);
+        return IO_Data.Authentication(user_name, hashedPassword, id, path);
     }
 
     private String hashPassword(String password) {
