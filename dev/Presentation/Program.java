@@ -118,9 +118,9 @@ public class Program {
         while (true) {
             System.out.println("\nEmployee Menu:");
             System.out.println("1. View personal details");
-            System.out.println("2. View salary");
-            System.out.println("3. View remaining rest days");
-            System.out.println("4. Back to Main Menu");
+            System.out.println("2. Update preferences");
+            System.out.println("3. I dont know");
+            System.out.println("4. Logout");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
@@ -128,7 +128,9 @@ public class Program {
             switch (choice) {
                 case 1:
                     // Call method to view personal details
-                    //viewPersonalDetails();
+                    Employee e = SystemController.ConvertFronJsonToEmployee(
+                            EmployeeController.ViewPersonalData());
+                    System.out.println(e);
                     break;
                 case 2:
                     // Call method to view salary
@@ -139,6 +141,8 @@ public class Program {
                     //viewRemainingRestDays();
                     break;
                 case 4:
+                    // TODO: Implement!
+                    SystemController.Logout();
                     return;
                 default:
                     System.out.println("Invalid choice. Please try again.");

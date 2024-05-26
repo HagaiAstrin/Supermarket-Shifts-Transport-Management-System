@@ -26,4 +26,9 @@ public class SystemController {
         Gson gson = new Gson();
         return gson.toJsonTree(employee).getAsJsonObject();
     }
+
+    public static Employee ConvertFronJsonToEmployee(JsonObject json){
+        Gson gson = new Gson();
+        return gson.fromJson(json, Employee.class);
+    }
 }

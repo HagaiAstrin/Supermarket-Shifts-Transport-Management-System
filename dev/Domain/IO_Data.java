@@ -14,6 +14,8 @@ import com.google.gson.JsonObject;
 public class IO_Data {
     static List<Employee> currEmployees = new ArrayList<>();
     static boolean flag = false;
+    public static boolean isAdmin = false; // for user menu
+    public static String employeeID; // for user interactions with his data
     /**
      * Import all employees data.
      * @return List of employees in Json format.
