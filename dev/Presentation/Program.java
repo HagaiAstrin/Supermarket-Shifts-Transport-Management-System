@@ -59,13 +59,11 @@ public class Program {
     }
 
     private boolean admin_checker(String[] UserPassInput) {
-        // Go to Controller
-        return true;
+        return new SystemController().LoginInputValidatorAdmin(UserPassInput);
     }
 
     private boolean user_checker(String[] UserPassInput) {
-        // Go to Controller
-        return true;
+        return new SystemController().LoginInputValidatorUser(UserPassInput);
     }
 
     private String[] UserPassInput() {
