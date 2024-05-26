@@ -113,7 +113,7 @@ public class Program {
                     break;
                 case 4:
                     // Call method to update employee details
-                    //updateEmployeeDetails(scanner);
+                    Menu.UpdateEmployeeDetails();
                     break;
                 case 5:
                     return;
