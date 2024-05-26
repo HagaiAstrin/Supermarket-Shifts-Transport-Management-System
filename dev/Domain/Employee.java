@@ -7,6 +7,55 @@ public class Employee {
     String id;
     String name;
     JobTypeEnum jobType;
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public JobTypeEnum getJobType() {
+        return jobType;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setJobType(JobTypeEnum jobType) {
+        this.jobType = jobType;
+    }
+
+    public void setBankID(String bankID) {
+        this.bankID = bankID;
+    }
+
+    public void setGivenShifts(Map<Integer, List<Shift>> givenShifts) {
+        this.givenShifts = givenShifts;
+    }
+
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
+
+    public String getBankID() {
+        return bankID;
+    }
+
+    public Map<Integer, List<Shift>> getGivenShifts() {
+        return givenShifts;
+    }
+
+    public Contract getContract() {
+        return contract;
+    }
+
     String bankID;
     Map<Integer, List<Shift>> givenShifts;
     Contract contract;

@@ -10,6 +10,11 @@ import java.util.Scanner;
 
 public class Program {
     private AdminController ac;
+    private EmployeeController ec;
+
+    public Program(){
+
+    }
 
     private Scanner scanner = new Scanner(System.in); // Use a single scanner instance
 
@@ -80,7 +85,7 @@ public class Program {
         this.ac = new AdminController();
         while (true) {
             System.out.println("\nAdmin Menu:");
-            System.out.println("1. View all employees");
+            System.out.println("1. Load all employees data");
             System.out.println("2. Add new employee");
             System.out.println("3. Remove employee");
             System.out.println("4. Update employee details");
@@ -96,15 +101,15 @@ public class Program {
                     break;
                 case 2:
                     // Call method to add new employee
-                    Employee e1 = new Employee("100", "Hagai", "22", 150000, 0,
-                            new Date("12/02/2022"), "Cashier");
+                    // TODO: Convert AddEmployee to return Json.
+                    Employee e1 = Menu.AddEmployee();
                     Gson g = new Gson();
                     JsonElement je = g.toJsonTree(e1);
                     ac.AddEmployee(je.getAsJsonObject());
                     break;
                 case 3:
                     // Call method to remove employee
-                    //removeEmployee(scanner);
+                    Menu.RemoveEmployee();
                     break;
                 case 4:
                     // Call method to update employee details

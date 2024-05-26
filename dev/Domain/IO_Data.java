@@ -12,11 +12,13 @@ import com.google.gson.JsonObject;
 
 
 public class IO_Data {
+    static List<Employee> currEmployees;
+    static boolean flag = false;
     /**
      * Import all employees data.
      * @return List of employees in Json format.
      */
-    public List<JsonObject> ImportEmployees() {
+    public static List<JsonObject> ImportEmployees() {
         List<JsonObject> employees = new ArrayList<>();
         String line;
         String csvSplitBy = ",";
@@ -38,6 +40,9 @@ public class IO_Data {
                     int restDays = Integer.parseInt(fields[6]);
 
                     Employee employee = new Employee(id,  name, bankID, salary, restDays, startDate, jobType);
+                    if(!flag){
+                        currEmployees.add(employee);
+                    }
                     Gson gson = new Gson();
                     employees.add(gson.toJsonTree(employee).getAsJsonObject());
                 }
@@ -45,11 +50,31 @@ public class IO_Data {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+
+        flag = true;
         return employees;
     }
 
+    public static boolean RemoveEmployee(String id){
+        int indexToRemove = SearchEmployee(id);
+        if(indexToRemove != -1){
+            currEmployees.remove(indexToRemove);
+            return true;
+        }
+        return false;
+    }
 
-    public boolean Authentication(String username, String password, String id) {
+    private static int SearchEmployee(String id){
+        if(!flag) { return -1; }
+        for(int i = 0; i < currEmployees.size(); i++){
+            if(currEmployees.get(i).getId().equals(id)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static boolean Authentication(String username, String password, String id) {
         try (BufferedReader reader = new BufferedReader(new FileReader(Constants.PATH_DATA_VALIDATION))) {
             String line;
             while ((line = reader.readLine()) != null) {

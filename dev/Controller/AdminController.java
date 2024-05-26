@@ -6,9 +6,7 @@ import com.google.gson.JsonObject;
 import java.util.List;
 
 public class AdminController {
-    private IO_Data io_data;
     public AdminController() {
-        io_data = new IO_Data();
     }
 
     /**
@@ -16,10 +14,17 @@ public class AdminController {
      * @return List of Json objects containing raw data about employees.
      */
     public List<JsonObject> PrintEmployees(){
-        return io_data.ImportEmployees();
+        return IO_Data.ImportEmployees();
     }
 
     public void AddEmployee(JsonObject json){
         System.out.println(json);
+    }
+
+    public String RemoveEmployee(String id){
+        if(IO_Data.RemoveEmployee(id)){
+            return "Employee " + id + " was removed successfully!\n";
+        }
+        return "No employee was found with id: " + id + "\nPlease make sure you imported the employees data.\n";
     }
 }

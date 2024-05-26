@@ -19,8 +19,7 @@ public class SHA_256_Hasher {
         // Perform authentication or validation logic using the hashed password
         // For example, compare it with a stored hashed password
 
-        IO_Data io = new IO_Data();
-        return io.Authentication(user_name, hashedPassword, id);
+        return IO_Data.Authentication(user_name, hashedPassword, id);
     }
 
     private String hashPassword(String password) {
