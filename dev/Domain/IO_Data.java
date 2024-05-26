@@ -55,6 +55,17 @@ public class IO_Data {
         return employees;
     }
 
+    public static String AddEmployee(JsonObject json){
+        if(SearchEmployee(String.valueOf(json.get("id"))) == -1){
+            return "Can't add employee with the same ID as " + json.get("id").getAsString() + ".\n";
+        }
+
+        System.out.println(json);
+        // TODO: add the employee to the .csv
+        // TODO: add the employee to the List in IO_Data.
+        return "Employee " + json.get("id").getAsString() + " has been added!\n";
+    }
+
     public static boolean RemoveEmployee(String id){
         int indexToRemove = SearchEmployee(id);
         if(indexToRemove != -1){
@@ -64,7 +75,12 @@ public class IO_Data {
         return false;
     }
 
-    private static int SearchEmployee(String id){
+    /**
+     * Search for employee by ID
+     * @param id to check
+     * @return index of employee in the list if exists, otherwise -1
+     */
+    public static int SearchEmployee(String id){
         if(!flag) { return -1; }
         for(int i = 0; i < currEmployees.size(); i++){
             if(currEmployees.get(i).getId().equals(id)){
@@ -93,5 +109,19 @@ public class IO_Data {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static JsonObject GetEmployee(String id){
+        for(int i = 0; i < currEmployees.size(); i++){
+            if(currEmployees.get(i).getId().equals(id)){
+                return ConvertEmployeeToJson(currEmployees.get(i));
+            }
+        }
+        return null;
+    }
+
+    private static JsonObject ConvertEmployeeToJson(Employee employee){
+        Gson gson = new Gson();
+        return gson.toJsonTree(employee).getAsJsonObject();
     }
 }

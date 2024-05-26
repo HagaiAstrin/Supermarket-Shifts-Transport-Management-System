@@ -71,5 +71,13 @@ public class Employee {
     public String toString() {
         return "Person{Name='" + name +'}';
     }
+
+    public void setSalary(int salary) {
+        contract.setGlobalSalary(salary);
+    }
+
+    public void setRestDays(int restDays) {
+        contract.setRestDays(restDays);
+    }
 }
 

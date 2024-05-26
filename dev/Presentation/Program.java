@@ -101,11 +101,7 @@ public class Program {
                     break;
                 case 2:
                     // Call method to add new employee
-                    // TODO: Convert AddEmployee to return Json.
-                    Employee e1 = Menu.AddEmployee();
-                    Gson g = new Gson();
-                    JsonElement je = g.toJsonTree(e1);
-                    ac.AddEmployee(je.getAsJsonObject());
+                    Menu.AddEmployee();
                     break;
                 case 3:
                     // Call method to remove employee
