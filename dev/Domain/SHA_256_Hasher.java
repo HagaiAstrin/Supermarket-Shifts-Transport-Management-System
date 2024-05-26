@@ -20,7 +20,7 @@ public class SHA_256_Hasher {
         // For example, compare it with a stored hashed password
 
         IO_Data io = new IO_Data();
-        return io.Authentication(user_name, hashedPassword, id, Constants.PATH_DataValid);
+        return io.Authentication(user_name, hashedPassword, id);
     }
 
     private String hashPassword(String password) {

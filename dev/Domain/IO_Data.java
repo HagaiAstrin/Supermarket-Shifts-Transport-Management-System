@@ -12,13 +12,17 @@ import com.google.gson.JsonObject;
 
 
 public class IO_Data {
-    public List<JsonObject> ImportEmployees(String filePath) {
+    /**
+     * Import all employees data.
+     * @return List of employees in Json format.
+     */
+    public List<JsonObject> ImportEmployees() {
         List<JsonObject> employees = new ArrayList<>();
         String line;
         String csvSplitBy = ",";
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Constants.PATH_EMPLOYEES))) {
             br.readLine(); // Skip the header line
             while ((line = br.readLine()) != null) {
                 // Use comma as separator
@@ -45,8 +49,8 @@ public class IO_Data {
     }
 
 
-    public boolean Authentication(String username, String password, String id, String filePath) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+    public boolean Authentication(String username, String password, String id) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(Constants.PATH_DATA_VALIDATION))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",");

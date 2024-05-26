@@ -16,7 +16,7 @@ public class AdminController {
      * @return List of Json objects containing raw data about employees.
      */
     public List<JsonObject> PrintEmployees(){
-        return io_data.ImportEmployees(Constants.PATH_EMPLOYEES);
+        return io_data.ImportEmployees();
     }
 
     public void AddEmployee(JsonObject json){
