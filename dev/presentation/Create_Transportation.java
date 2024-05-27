@@ -160,7 +160,7 @@ public class Create_Transportation {
         Create_Document.create(DataStructManager.manager_Map.get(area).get("Supplier").get(map_shipping.get(sup)), new_t);
     }
 
-        public static void choose_store (String area){
+    public static void choose_store (String area){
 
             Scanner reader = new Scanner(System.in);
 

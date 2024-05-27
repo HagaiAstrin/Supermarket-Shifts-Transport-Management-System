@@ -36,8 +36,8 @@ public class Create_Document {
         }
 
         transport.add_document(d);
-        if (transport.is_Over_Wight()){
-            Solve_problem.solve();
-        }
+//        if (transport.is_Weight_Good()){         /////////////  need to check after the transport is complete
+//            Solve_problem.solve();
+//        }
     }
 }

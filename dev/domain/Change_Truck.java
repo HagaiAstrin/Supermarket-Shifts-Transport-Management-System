@@ -15,7 +15,7 @@ public class Change_Truck implements ITruck_Solution {
         ArrayList<Truck> lst = new ArrayList<>();
         for(Truck tr : DataStructManager.trucks){
             if(tr.isAvailability() && tr.getMax_weight() >=
-                    (tran.getCur_weight() - tran.getTr().getNet_weight() + tr.getNet_weight())){
+                    (tran.get_transport_Max_weight() - tran.getTr().getNet_weight() + tr.getNet_weight())){
                 lst.add(tr);
             }
         }

@@ -7,7 +7,7 @@ public class Transport {
     private Driver dr;
     private String source;
     private ArrayList<Document> targets = null;
-    private double Exit_weight;
+    private double max_weight;
 
     public Transport(String date, String out_time, Truck tr, Driver dr, String source) {
         this.date = date;
@@ -15,6 +15,7 @@ public class Transport {
         this.tr = tr;
         this.dr = dr;
         this.source = source;
+        this.max_weight = tr.getNet_weight();
     }
 
     /**
@@ -42,19 +43,23 @@ public class Transport {
      * @return true if the Truck can make the Transport, false otherwise
      */
     public boolean is_Weight_Good() {
+        boolean bool = true;
         double count = this.tr.getNet_weight();
         for (Document d : targets) {
             Site new_site = d.getTarget();
             if (new_site instanceof Supplier) {
                 count += d.cul_weight();
+                if(count > this.max_weight){
+                    this.max_weight = count;
+                }
                 if (count > this.tr.getMax_weight()) {
-                    return false;
+                    bool = false;
                 }
             } else {
                 count -= d.cul_weight();
             }
         }
-        return true;
+        return bool;
     }
 
     public void set_Truck(Truck truck) {
@@ -66,8 +71,8 @@ public class Transport {
     }
 
 
-    public double getExit_weight() {
-        return 1.2;
+    public double get_transport_Max_weight() {
+        return this.max_weight;
     }
 
     public Truck getTr() {
