@@ -1,5 +1,7 @@
 package domain;
 
+import com.google.gson.JsonObject;
+
 public class Driver {
     private String name;
     private int id;

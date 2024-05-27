@@ -1,15 +1,20 @@
 package presentation;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import controller.Driver_controller;
 import domain.DataStructManager;
 import domain.Driver;
 
 import java.util.Scanner;
 
-public class driver {
+public class Driver_x {
 
     public static void driver_x() {
 
         Driver driver;
+
+        JsonObject new_Json = new JsonObject();
 
         System.out.println("Enter name:");
 
@@ -19,19 +24,26 @@ public class driver {
         System.out.println("Enter password:");
         String password = reader.next();
 
-        driver = checking(name, password);
+        new_Json.addProperty("name", name);
+        new_Json.addProperty("password", password);
 
-        while (driver == null) {
+        String driver_name = controller.Driver_controller.check_driver(new_Json);
+
+        while (driver_name == null) {
             System.out.println("The name or password are wrong, try again..");
             System.out.println("Enter name:");
             name = reader.next();
 
             System.out.println("Enter password:");
             password = reader.next();
-            driver = checking(name, password);
+
+            new_Json.addProperty("name", name);
+            new_Json.addProperty("password", password);
+
+            driver_name = controller.Driver_controller.check_driver(new_Json);
         }
 
-        System.out.println("Hello " + driver.getName() + "! What do you want to do?");
+        System.out.println("Hello " + driver_name + "! What do you want to do?");
         System.out.println("""
                 Report on leaving - '1'.
                 Report on back - '2'.""");
@@ -39,7 +51,7 @@ public class driver {
 
         while (!answer.equals("1") && !answer.equals("2")) {
             System.out.println("Wrong input, try again..");
-            System.out.println("Hello " + driver.getName() + "! What do you want to do?");
+            System.out.println("Hello " + driver_name + "! What do you want to do?");
             System.out.println("""
                 Report on leaving - '1'.
                 Report on back - '2'.""");
@@ -49,30 +61,17 @@ public class driver {
         }
         switch (answer) {
             case "1" -> leaving();
-            case "2" -> back(driver);
+            case "2" -> back(new_Json);
         }
     }
 
-    public static Driver checking (String n, String p) {
-
-        for (Driver driver : DataStructManager.drivers) {
-            if (n.equals(driver.getName()) && p.equals(driver.getPassword())) {
-                return driver;
-            }
-        }
-        return null;
-    }
     public static void leaving (){
         System.out.println("Have a good trip!");
-//        d.setAvailability(false);
-//        d.getUsing_truck().setAvailability(false);
     }
 
-    public static void back (Driver d){
+    public static void back (JsonObject j){
         System.out.println("Welcome back!");
-        d.setAvailability(true);
-        d.getUsing_truck().setAvailability(true);
-
+        Driver_controller.update_back(j);
     }
 }
 

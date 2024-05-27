@@ -1,5 +1,5 @@
 import presentation.Transportation_manager;
-import presentation.driver;
+import presentation.Driver_x;
 
 import java.util.Scanner;
 
@@ -20,7 +20,7 @@ public class main {
             }
             switch (type) {
                 case "1" ->Transportation_manager.transportation_manager();
-                case "2" -> driver.driver_x();
+                case "2" -> Driver_x.driver_x();
             }
         }
 

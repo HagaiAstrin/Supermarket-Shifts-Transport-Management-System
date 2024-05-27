@@ -1,5 +1,7 @@
 package domain;
 
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -71,4 +73,21 @@ public class DataStructManager {
      */
     public static void add_Transport(Transport tran){
         transports.add(tran);}
+
+    public static String check_driver(JsonObject j){
+        for (Driver driver : drivers) {
+            if (j.get("name").toString().equals(driver.getName()) && j.get("password").toString().equals(driver.getPassword())) {
+                return driver.getName();
+            }
+        }
+        return null;
+    }
+    public static void update_back_driver(JsonObject j){
+        for (Driver driver : drivers) {
+            if (j.get("name").toString().equals(driver.getName()) && j.get("password").toString().equals(driver.getPassword())) {
+                driver.setAvailability(true);
+                driver.getUsing_truck().setAvailability(true);
+            }
+        }
+    }
 }
