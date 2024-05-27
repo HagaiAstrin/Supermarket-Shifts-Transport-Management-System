@@ -12,10 +12,7 @@ public class DataStructManager {
     public static ArrayList<Driver> drivers;
     public static ArrayList<Transport> transports;
 
-    /**
-     * adding a new region to the Map
-     * @param Shipping_area - the name of the region
-     */
+
     public static void add_Shipping_area(String Shipping_area){
         Map<String, Map<String, Site>> map = new HashMap<>();
         map.put("Store",new HashMap<>());
@@ -23,11 +20,7 @@ public class DataStructManager {
         manager_Map.put(Shipping_area, map);
     }
 
-    /**
-     * put a new Store in the Data Structure
-     * @param Shipping_area - the Shipping_area of the Store
-     * @param store - the Store
-     */
+
     public static void add_Store(String Shipping_area, Store store){
         if(!manager_Map.containsKey(Shipping_area)) {
             add_Shipping_area(Shipping_area);
@@ -38,11 +31,7 @@ public class DataStructManager {
         }
     }
 
-    /**
-     * put a new Supplier in the Data Structure
-     * @param Shipping_area - the region of the Supplier
-     * @param sp - the Supplier
-     */
+
     public static void add_Supplier(String Shipping_area, Supplier sp){
         if(!manager_Map.containsKey(Shipping_area)){
             add_Shipping_area(Shipping_area);
@@ -56,17 +45,9 @@ public class DataStructManager {
     public static void add_Truck(Truck tr){
         trucks.add(tr);}
 
-    /**
-     * adding a Driver to the Array List
-     * @param dr - Driver type
-     */
     public static void add_Driver(Driver dr){
         drivers.add(dr);}
 
-    /**
-     * adding Transport to the Array List
-     * @param tran - Transport type
-     */
     public static void add_Transport(Transport tran){
         transports.add(tran);}
 
@@ -94,5 +75,48 @@ public class DataStructManager {
                 driver.getUsing_truck().setAvailability(false);
             }
         }
+    }
+    public static void add_driver(JsonObject j){
+
+        String name = j.get("name").toString();
+        String licence = j.get("licence").toString();
+        String password = j.get("password").toString();
+
+        Driver new_driver = new Driver(name, licence, password);
+
+        drivers.add(new_driver);
+    }
+    public static void add_truck(JsonObject j){
+
+        String licence_level = j.get("licence level").toString();
+
+        char l = licence_level.charAt(0);
+        int n = Integer.parseInt(j.get("licence number").toString());
+        double net = Double.parseDouble(j.get("net weight").toString());
+        double max = Double.parseDouble(j.get("max weight").toString());
+
+        Truck new_truck = new Truck(n, l, net, max);
+
+        trucks.add(new_truck);
+    }
+    public static void add_store(JsonObject j){
+
+        String name = j.get("name").toString();
+        String licence = j.get("licence").toString();
+        String password = j.get("password").toString();
+
+        Driver new_driver = new Driver(name, licence, password);
+
+        drivers.add(new_driver);
+    }
+    public static void add_supplier(JsonObject j){
+
+        String name = j.get("name").toString();
+        String licence = j.get("licence").toString();
+        String password = j.get("password").toString();
+
+        Driver new_driver = new Driver(name, licence, password);
+
+        drivers.add(new_driver);
     }
 }

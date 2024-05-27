@@ -16,7 +16,7 @@ public class main {
             if (answer.equals("9"))
                 return;
 
-            System.out.println("press 1 if you are manager.\npress 2 if you are driver.");
+            System.out.println("press '1' if you are manager.\npress '2' if you are driver.");
 
             String type = reader.next();
             while (!type.equals("1") && !type.equals("2")){

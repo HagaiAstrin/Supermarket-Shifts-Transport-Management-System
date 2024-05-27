@@ -1,5 +1,7 @@
 package presentation;
 
+import com.google.gson.JsonObject;
+import controller.Transportation_manager_controller;
 import domain.DataStructManager;
 import domain.Driver;
 
@@ -9,7 +11,7 @@ public class Add_Driver {
 
     public static void add_driver() {
 
-//        need to do Jsons!!!
+        JsonObject new_json = new JsonObject();
 
         Scanner reader = new Scanner(System.in);
 
@@ -37,9 +39,13 @@ public class Add_Driver {
                 password = reader.next();
             }
 
-            char l = license.charAt(0);
+            new_json.addProperty("name",name);
+            new_json.addProperty("licence",license);
+            new_json.addProperty("password",password);
 
-            DataStructManager.add_Driver(new Driver(name, l, password));
+            Transportation_manager_controller.add_driver(new_json);
+
+            System.out.println("Added driver successful!");
 
             System.out.println("Would you like to add another driver? Enter 'yes' or 'no'.");
             answer = reader.next();

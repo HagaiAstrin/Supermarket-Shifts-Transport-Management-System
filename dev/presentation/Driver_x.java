@@ -1,18 +1,14 @@
 package presentation;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import controller.Driver_controller;
-import domain.DataStructManager;
-import domain.Driver;
+
 
 import java.util.Scanner;
 
 public class Driver_x {
 
     public static void driver_x() {
-
-        Driver driver;
 
         JsonObject new_Json = new JsonObject();
 

@@ -5,26 +5,28 @@ import com.google.gson.JsonObject;
 public class Driver {
     private String name;
     private int id;
-    private char license;
+    private String license;
     private String password;
     private boolean availability;
+    private boolean hold;
     private Truck using_truck;
     private static int num = 10;
 
-    public Driver(String name, char license, String password) {
+    public Driver(String name, String license, String password) {
         this.name = name;
         this.id = num++;
         this.license = license;
         this.password = password;
         this.availability = true;
         this.using_truck = null;
+        this.hold = false;
     }
 
     public String getName() {
         return name;
     }
 
-    public char getLicense() {
+    public String getLicense() {
         return license;
     }
 

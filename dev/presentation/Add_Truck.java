@@ -1,5 +1,7 @@
 package presentation;
 
+import com.google.gson.JsonObject;
+import controller.Transportation_manager_controller;
 import domain.DataStructManager;
 import domain.Truck;
 
@@ -9,7 +11,7 @@ public class Add_Truck {
 
     public static void add_truck() {
 
-//        need to do Jsons!!!
+        JsonObject new_json = new JsonObject();
 
         Scanner reader = new Scanner(System.in);
 
@@ -29,15 +31,20 @@ public class Add_Truck {
             String licence_level = reader.next();
 
             System.out.println("Please enter net_weight:");
-            double net_weight = reader.nextDouble();
+            String net_weight = reader.next();
 
             System.out.println("Please enter max_weight:");
-            double max_weight = reader.nextDouble();
+            String max_weight = reader.next();
 
-            char t = licence_level.charAt(0);
-            int l = Integer.parseInt(licence_number);
 
-            DataStructManager.add_Truck(new Truck(l, t, net_weight, max_weight));
+            new_json.addProperty("licence number", licence_number);
+            new_json.addProperty("licence level", licence_level);
+            new_json.addProperty("net_weight", net_weight);
+            new_json.addProperty("max_weight", max_weight);
+
+            Transportation_manager_controller.add_truck(new_json);
+
+            System.out.println("Added truck successful!");
 
             System.out.println("Would you like to add another truck? Enter 'yes' or 'no'");
             answer = reader.next();

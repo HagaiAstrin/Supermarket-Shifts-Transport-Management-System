@@ -15,6 +15,7 @@ public class Transportation_manager {
             System.out.println("Enter password: ");
             password = reader.next();
         }
+
         System.out.println("Hello Transportation Manager! What do you want to do?");
         System.out.println("""
                 Add driver - '1'.
@@ -34,6 +35,7 @@ public class Transportation_manager {
                 Make transportation - '5'.""");
             answer = reader.next();
         }
+
         switch (answer) {
             case "1" -> add_driver();
             case "2" -> add_truck();
