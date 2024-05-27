@@ -60,13 +60,15 @@ public class Driver_x {
 
         }
         switch (answer) {
-            case "1" -> leaving();
+            case "1" -> leaving(new_Json);
             case "2" -> back(new_Json);
         }
     }
 
-    public static void leaving (){
+    public static void leaving (JsonObject j){
         System.out.println("Have a good trip!");
+        Driver_controller.update_leaving(j);
+
     }
 
     public static void back (JsonObject j){

@@ -53,10 +53,6 @@ public class DataStructManager {
         }
     }
 
-    /**
-     * adding a Truck to the Array List
-     * @param tr - Truck type
-     */
     public static void add_Truck(Truck tr){
         trucks.add(tr);}
 
@@ -87,6 +83,15 @@ public class DataStructManager {
             if (j.get("name").toString().equals(driver.getName()) && j.get("password").toString().equals(driver.getPassword())) {
                 driver.setAvailability(true);
                 driver.getUsing_truck().setAvailability(true);
+            }
+        }
+    }
+
+    public static void update_leaving_driver(JsonObject j){
+        for (Driver driver : drivers) {
+            if (j.get("name").toString().equals(driver.getName()) && j.get("password").toString().equals(driver.getPassword())) {
+                driver.setAvailability(false);
+                driver.getUsing_truck().setAvailability(false);
             }
         }
     }
