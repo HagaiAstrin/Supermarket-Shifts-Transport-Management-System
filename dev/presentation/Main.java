@@ -1,9 +1,7 @@
-import presentation.Transportation_manager;
-import presentation.Driver_x;
-
+package presentation;
 import java.util.Scanner;
 
-public class main {
+public class Main {
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
 
@@ -21,8 +19,10 @@ public class main {
             String type = reader.next();
             while (!type.equals("1") && !type.equals("2")){
                 System.out.println("Wrong input! please try again..");
-                System.out.println("Hello! Welcome to Super-Li Transportation system!\n" +
-                        "press 1 if you are manager\npress 2 if you are driver.");
+                System.out.println("""
+                        Hello! Welcome to Super-Li Transportation system!
+                        press 1 if you are manager
+                        press 2 if you are driver.""");
                 type = reader.next();
             }
             switch (type) {

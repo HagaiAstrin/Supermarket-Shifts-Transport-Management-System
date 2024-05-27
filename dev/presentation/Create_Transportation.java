@@ -1,7 +1,10 @@
 package presentation;
 
+import com.google.gson.JsonObject;
+import controller.Transportation_manager_controller;
 import domain.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,14 +14,13 @@ import static domain.DataStructManager.trucks;
 
 public class Create_Transportation {
     public static Transport new_t;
-    public Create_Transportation(){
+    public static void create_Transport(){
 
-//        need to do Jsons!!!
+        JsonObject new_json = new JsonObject();
 
         Scanner reader = new Scanner(System.in);
 
-        System.out.println("Would you like to add a site for the transportation?\nEnter 'yes' or 'no'.");
-        String answer = reader.next();
+        String answer = "yes";
 
         System.out.println("Please enter the date of the transportation:");
         String date = reader.next();
@@ -28,6 +30,8 @@ public class Create_Transportation {
 
         System.out.println("Please enter the source place of the transportation:");
         String source = reader.next();
+
+        c_t();
 
         Truck t =  choose_truck();
         Driver d = choose_driver(t);
@@ -81,6 +85,17 @@ public class Create_Transportation {
         new_t.is_Weight_Good();
     }
 
+
+    public static void c_t(){
+        JsonObject new_trucks = new JsonObject();
+
+        Scanner reader = new Scanner(System.in);
+        System.out.println("Enter a truck:");
+
+        new_trucks = Transportation_manager_controller.choose_truck();
+
+
+    }
     public static Truck choose_truck(){
         Scanner reader = new Scanner(System.in);
 

@@ -50,7 +50,6 @@ public class Add_Driver {
             System.out.println("Would you like to add another driver? Enter 'yes' or 'no'.");
             answer = reader.next();
         }
-
         reader.close();
     }
 }

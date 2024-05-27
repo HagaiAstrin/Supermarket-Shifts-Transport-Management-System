@@ -1,5 +1,8 @@
 package presentation;
 
+import com.google.gson.JsonObject;
+import controller.Transportation_manager_controller;
+
 import java.util.Scanner;
 
 public class Transportation_manager {
@@ -35,12 +38,13 @@ public class Transportation_manager {
                 Make transportation - '5'.""");
             answer = reader.next();
         }
+        JsonObject new_json = new JsonObject();
 
         switch (answer) {
             case "1" -> add_driver();
             case "2" -> add_truck();
-            case "3" -> add_store();
-            case "4" -> add_supplier();
+            case "3" -> add_store(new_json);
+            case "4" -> add_supplier(new_json);
             case "5" -> make_transportation();
         }
     }
@@ -53,43 +57,43 @@ public class Transportation_manager {
         Add_Truck.add_truck();
     }
 
-    public static void add_store(){
-        String[] arr = add_site();
-        int Phone = Integer.parseInt(arr[2]);
-        Add_Store.add_store(arr[0],arr[1], Phone, arr[3], arr[4]);
+    public static void add_store(JsonObject j){
+        j = add_site();
+        Transportation_manager_controller.add_store(j);
     }
 
-    public static void add_supplier(){
-        String[] arr = add_site();
-        int Phone = Integer.parseInt(arr[2]);
-        Add_Supplier.add_supplier(arr[0],arr[1], Phone, arr[3], arr[4]);
+    public static void add_supplier(JsonObject j){
+        j = add_site();
+        Transportation_manager_controller.add_supplier(j);
     }
 
     public static void make_transportation(){
-        new Create_Transportation();
+        Create_Transportation.create_Transport();
     }
 
-    public static String[] add_site(){
-        String[] arr = new String[5];
+    public static JsonObject add_site(){
+        JsonObject new_json = new JsonObject();
+
         Scanner reader = new Scanner(System.in);
+
         System.out.println("Enter name:");
-        arr[0] = reader.next();
+        new_json.addProperty("name", reader.next());
 
         System.out.println("Enter address:");
-        arr[1] = reader.next();
+        new_json.addProperty("address", reader.next());
 
         System.out.println("Enter phone number:");
-        arr[2] = reader.next();
+        new_json.addProperty("phone number", reader.next());
 
         System.out.println("Enter contact:");
-        arr[3] = reader.next();
+        new_json.addProperty("contact", reader.next());
 
         System.out.println("Enter Shipping area:");
-        arr[4] = reader.next();
+        new_json.addProperty("Shipping area", reader.next());
 
         reader.close();
 
-        return arr;
+        return new_json;
     }
 }
 

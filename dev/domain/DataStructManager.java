@@ -119,4 +119,25 @@ public class DataStructManager {
 
         drivers.add(new_driver);
     }
+    public static JsonObject choose_truck(){
+
+        JsonObject j = new JsonObject();
+        int count = 1;
+        for (Truck a:trucks){
+            if (a.isAvailability()){
+                String s = "Press '" + count + "' for - " + a.getLicence_number() + ".";
+                j.addProperty(String.valueOf(count), s);
+            }
+        }
+        return j;
+    }
+    public static void create_document(JsonObject j){
+
+        String name = j.get("name").toString();
+
+        double weight = Double.parseDouble(j.get("weight").toString());
+        int amount = Integer.parseInt(j.get("amount").toString());
+
+        Item new_item = new Item(name,weight);
+    }
 }

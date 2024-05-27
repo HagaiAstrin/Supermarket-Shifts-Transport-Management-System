@@ -1,5 +1,7 @@
 package presentation;
 
+import com.google.gson.JsonObject;
+import controller.Transportation_manager_controller;
 import domain.Document;
 import domain.Item;
 import domain.Site;
@@ -11,7 +13,10 @@ import java.util.Scanner;
 public class Create_Document {
     public static Document d;
     public static void create(Site s, Transport transport){
+
         Scanner reader = new Scanner(System.in);
+
+        JsonObject new_json_document = new JsonObject();
 
         d = new Document(s);
 
@@ -22,14 +27,16 @@ public class Create_Document {
             String name = reader.next();
 
             System.out.println("Please enter the weight of this product:");
-            double weight = reader.nextDouble();
+            String weight = reader.next();
 
             System.out.println("Please enter the amount of products would you like to order:");
-            int amount = reader.nextInt();
+            String amount = reader.next();
 
-            Item item = new Item(name, weight);
+            new_json_document.addProperty("name", name);
+            new_json_document.addProperty("weight", weight);
+            new_json_document.addProperty("amount", amount);
 
-            d.add_Item(item, amount);
+            Transportation_manager_controller.create_document(new_json_document);
 
             System.out.println("Would you like to add products?\nPlease enter 'yes' or 'no'.");
             a = reader.next();
