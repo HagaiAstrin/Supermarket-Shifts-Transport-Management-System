@@ -8,9 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import static domain.DataStructManager.drivers;
-import static domain.DataStructManager.trucks;
-
 public class Create_Transportation {
     public static Transport new_t;
     public static void create_Transport(){
@@ -30,40 +27,35 @@ public class Create_Transportation {
         System.out.println("Please enter the source place of the transportation:");
         String source = reader.next();
 
-        String id_truck = c_t();
-        String driver = c_d();
+        String truck = choose_truck();
+        String driver = choose_driver();
 
-        Truck t =  choose_truck();
-        Driver d = choose_driver(t);
-
-        if (t == null || d == null){
-            System.out.println("Sorry but we can't arrange the transport!");
+        if (truck == null || driver == null){
+            System.out.println("Sorry but we can't arrange the transport, " +
+                    "because there are no truck or driver that available");
             return;
         }
 
-        new_t = new Transport (date, l_time, t,d, source);
+        new_json.addProperty("date", date);
+        new_json.addProperty("leaving time", l_time);
+        new_json.addProperty("truck", truck);
+        new_json.addProperty("driver", driver);
+        new_json.addProperty("source", source);
 
-        while (answer.equals("yes")){
-            System.out.println("Please choose an Shipping area:\n");
-            Map<Integer, String> map_shipping = new HashMap<>();
-            StringBuilder areas = new StringBuilder();
-            int count = 1;
-            for (Map.Entry<String, Map<String, Map<String, Site>>> iter : DataStructManager.manager_Map.entrySet()) {
-                String s = "Press '"+count+"' for - "+iter.getKey()+".\n";
-                areas.append(s);
-                map_shipping.put(count++, iter.getKey());
-            }
+//        Transportation_manager_controller.create_transport(new_json);
 
-            System.out.println(areas);
-            int shipping = reader.nextInt();
+        while (answer.equals("yes")) {
 
-            while (shipping>count){
-                System.out.println("Wrong input! try again..");
-                System.out.println(areas);
-                shipping = reader.nextInt();
-            }
 
-            String Shipping_area = map_shipping.get(shipping);
+        }
+
+
+
+
+
+
+
+
 
             System.out.println("Please choose supplier or store:\n" +
                                "Supplier - '1'.\nStore - '2'.");
@@ -85,86 +77,108 @@ public class Create_Transportation {
         new_t.is_Weight_Good();
     }
 
-
-    public static String c_t(){
-        JsonObject new_trucks = new JsonObject();
+    public static String choose_truck(){
 
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter a truck:");
 
-        new_trucks = Transportation_manager_controller.choose_truck();
+        JsonObject new_trucks = Transportation_manager_controller.choose_truck();
 
         int count = Integer.parseInt(new_trucks.get("count").toString());
 
-        for (int i = 0; i < count; i++){
-            System.out.println(new_trucks.get(String.valueOf(count)));
-        }
+        if (count == 0)
+            return null;
 
-        String answer = reader.next();
+        String answer;
+        while (true) {
+            for (int i = 1; i <= count; i++) {
+                System.out.println("press "+i+" for - "+new_trucks.get(String.valueOf(count)));
+            }
 
+            answer = reader.next();
 
-        while (Integer.parseInt(answer) > count || Integer.parseInt(answer) <= 0){
-            for (int i = 0; i < count; i++){
-                System.out.println(new_trucks.get(String.valueOf(count)));
+            try {
+                Integer.parseInt(answer);
+                if (Integer.parseInt(answer) > count || Integer.parseInt(answer) <= 0) {
+                    throw new Exception();
+                }
+                break;
+            }
+            catch (Exception e) {
+                System.out.println("Wrong input! try again..");
             }
         }
-        return "";
+        int end_index = (new_trucks.get(answer).toString().indexOf(" ", 16));
+        return new_trucks.get(answer).toString().substring(16, end_index);
     }
 
-    public static String c_d(){
-        JsonObject new_drivers = new JsonObject();
-        return "";
-    }
-    public static Truck choose_truck(){
-        Scanner reader = new Scanner(System.in);
-
-        System.out.println("Enter a truck:");
-        Map<Integer, Truck> trucks_map = new HashMap<>();
-        StringBuilder Trucks = new StringBuilder();
-        int count = 1;
-        for (Truck a:trucks){
-            if (a.isAvailability()){
-                String s = "Press '" + count + "' for - " + a.getLicence_number() + ".";
-                Trucks.append(s);
-                trucks_map.put(count++, a);
-            }
-        }
-        if (Trucks.isEmpty()){
-            System.out.println("There are no available trucks!");
-            return null;
-        }
-        System.out.println(Trucks);
-        int answer = reader.nextInt();
-
-        return trucks_map.get(answer);
-    }
-
-    public static Driver choose_driver(Truck truck) {
-        if (truck == null)
-            return null;
+    public static String choose_driver(){
 
         Scanner reader = new Scanner(System.in);
+        System.out.println("Enter a Driver:");
 
-        System.out.println("Enter a driver:");
-        Map<Integer, Driver> drivers_map = new HashMap<>();
-        StringBuilder Drivers = new StringBuilder();
-        int count = 1;
-        for (Driver a : drivers) {
-            if (a.isAvailability() && a.getLicense() >= truck.getLicence_level()) {
-                String s = "Press '" + count + "' for - " + a.getName() + ".";
-                Drivers.append(s);
-                drivers_map.put(count++, a);
+        JsonObject new_drivers = Transportation_manager_controller.choose_driver();
+
+        int count = Integer.parseInt(new_drivers.get("count").toString());
+
+        if (count == 0)
+            return null;
+
+        String answer;
+        while (true) {
+            for (int i = 1; i <= count; i++) {
+                System.out.println("press "+i+" for - "+new_drivers.get(String.valueOf(count)));
+            }
+
+            answer = reader.next();
+
+            try {
+                Integer.parseInt(answer);
+                if (Integer.parseInt(answer) > count || Integer.parseInt(answer) <= 0) {
+                    throw new Exception();
+                }
+                break;
+            }
+            catch (Exception e) {
+                System.out.println("Wrong input! try again..");
             }
         }
-        if (Drivers.isEmpty()){
-            System.out.println("There are no available drivers!");
-            return null;
-        }
-        System.out.println(Drivers);
-        int answer = reader.nextInt();
-        reader.close();
+        int end_index = (new_drivers.get(answer).toString().indexOf(" ", 15));
+        return new_drivers.get(answer).toString().substring(15, end_index);
+    }
 
-        return drivers_map.get(answer);
+    public static String choose_Area(){
+
+        System.out.println("Please choose an Shipping area:\n");
+
+        JsonObject new_trucks = Transportation_manager_controller.choose_Area();
+
+        int count = Integer.parseInt(new_trucks.get("count").toString());
+
+        if (count == 0)
+            return null;
+
+        String answer;
+        while (true) {
+            for (int i = 1; i <= count; i++) {
+                System.out.println("press " + i + " for - " + new_trucks.get(String.valueOf(count)));
+            }
+
+            answer = reader.next();
+
+            try {
+                Integer.parseInt(answer);
+                if (Integer.parseInt(answer) > count || Integer.parseInt(answer) <= 0) {
+                    throw new Exception();
+                }
+                break;
+            }
+            catch (Exception e) {
+                System.out.println("Wrong input! try again..");
+            }
+        }
+        int end_index = (new_trucks.get(answer).toString().indexOf(" ", 16));
+        return new_trucks.get(answer).toString().substring(16, end_index);
     }
 
     public static void choose_supplier(String area) {
@@ -218,4 +232,5 @@ public class Create_Transportation {
             }
             Create_Document.create(DataStructManager.manager_Map.get(area).get("Store").get(map_shipping.get(str)), new_t);
         }
+
 }

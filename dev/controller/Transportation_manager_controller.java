@@ -28,4 +28,11 @@ public class Transportation_manager_controller {
     public static JsonObject choose_driver(){
         return DataStructManager.choose_driver();
     }
+
+    public static void create_transport(JsonObject j){
+
+    }
+    public static JsonObject choose_Area(){
+        return DataStructManager.choose_Area();
+    }
 }

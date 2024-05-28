@@ -1,10 +1,8 @@
 package domain;
 
-import com.google.gson.JsonObject;
-
 public class Driver {
     private String name;
-    private int id;
+    private int worker_num;
     private String license;
     private String password;
     private boolean availability;
@@ -14,7 +12,7 @@ public class Driver {
 
     public Driver(String name, String license, String password) {
         this.name = name;
-        this.id = num++;
+        this.worker_num = num++;
         this.license = license;
         this.password = password;
         this.availability = true;
@@ -22,6 +20,9 @@ public class Driver {
         this.hold = false;
     }
 
+    public int getId() {
+        return worker_num;
+    }
     public String getName() {
         return name;
     }
@@ -50,6 +51,6 @@ public class Driver {
     }
 
     public String to_String(){
-        return ("Name: " + name + ", Licence Level: " + license + ".");
+        return ("Worker number: " + worker_num + ", Name:" + name + ", Licence Level: " + license + ".");
     }
 }

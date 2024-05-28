@@ -119,8 +119,7 @@ public class DataStructManager {
         int count = 1;
         for (Truck a:trucks){
             if (a.isAvailability()){
-                String s = "Press '" + count + "' for - " + a.to_String() + ".";
-                j.addProperty(String.valueOf(count), s);
+                j.addProperty(String.valueOf(count), a.to_String());
                 count++;
             }
         }
@@ -135,8 +134,7 @@ public class DataStructManager {
         int count = 1;
         for (Driver d:drivers){
             if (d.isAvailability()){
-                String s = "Press '" + count + "' for - " + d.to_String() + ".";
-                j.addProperty(String.valueOf(count), s);
+                j.addProperty(String.valueOf(count), d.to_String());
                 count++;
             }
         }
@@ -152,5 +150,16 @@ public class DataStructManager {
         int amount = Integer.parseInt(j.get("amount").toString());
 
         Item new_item = new Item(name,weight);
+    }
+
+    public static JsonObject choose_Area(){
+        JsonObject j = new JsonObject();
+        int count = 1;
+        for (Map.Entry<String, Map<String, Map<String, Site>>> iter : manager_Map.entrySet()) {
+            j.addProperty(String.valueOf(count++), iter.getKey());
+        }
+
+        j.addProperty("count", count);
+        return j;
     }
 }

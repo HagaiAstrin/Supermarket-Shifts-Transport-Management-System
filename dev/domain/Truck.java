@@ -40,7 +40,7 @@ public class Truck {
     }
 
     public String to_String(){
-        return ("Licence Number:" + licence_number + ", Licence Level: "
+        return ("Licence Number: " + licence_number + ", Licence Level: "
                 + licence_level + ", Max weight: " + max_weight + ".");
     }
 }
