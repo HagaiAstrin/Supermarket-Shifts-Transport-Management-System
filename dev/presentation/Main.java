@@ -1,5 +1,4 @@
 package presentation;
-import com.google.gson.JsonObject;
 
 import java.util.Scanner;
 
@@ -9,25 +8,28 @@ public class Main {
 
         while (true) {
 
-            System.out.println("Hello! Welcome to Super-Li Transportation system!");
-            System.out.println("press '1' if you are manager.\npress '2' if you are driver.\npress '9' to exit.");
+            System.out.println("Hello! Welcome to Super-Li Transportation system!\n");
+            System.out.println("press '1' if you are the Manager\n");
+            System.out.println("press '2' if you are a Driver\n");
+            System.out.println("press '9' to exit\n");
 
             String type = reader.next();
 
-            if (type.equals("9"))
-                return;
+            while (!type.equals("1") && !type.equals("2") && !type.equals("9")) {
 
-            while (!type.equals("1") && !type.equals("2")) {
-                System.out.println("Wrong input! please try again..");
-                System.out.println("""
-                        Hello! Welcome to Super-Li Transportation system!
-                        press 1 if you are manager
-                        press 2 if you are driver.""");
+                System.out.println("Wrong input! please try again..\n");
+                System.out.println("press '1' if you are the Manager\n");
+                System.out.println("press '2' if you are a Driver\n");
+                System.out.println("press '9' to exit\n");
+
                 type = reader.next();
             }
             switch (type) {
                 case "1" -> Transportation_manager.transportation_manager();
                 case "2" -> Driver_x.driver_x();
+                case "9" -> {
+                    return;
+                }
             }
         }
     }

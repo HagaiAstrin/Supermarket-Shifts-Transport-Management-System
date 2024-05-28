@@ -9,11 +9,12 @@ public class Transport {
     private ArrayList<Document> targets = null;
     private double max_weight;
 
-    public Transport(String date, String leaving_time, Truck truck, Driver driver, String source) {
+    public Transport(String date, String leaving_time, Truck truck, Driver driver, String source, ArrayList<Document> t) {
         this.date = date;
         this.leaving_time = leaving_time;
         this.truck = truck;
         this.driver = driver;
+        this.targets = t;
         this.source = source;
         this.max_weight = truck.getNet_weight();
     }

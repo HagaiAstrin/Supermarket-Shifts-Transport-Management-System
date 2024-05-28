@@ -90,9 +90,8 @@ public class Create_Transportation {
                 a = reader.next();
             }
             boolean result = create_Transportation(new_json, targets);
-            if (!result){
 
-            }
+//            add false
 
             System.out.println("Would you like to add a site for the transportation? ");
             System.out.println("Enter 'yes' or 'no': ");
@@ -167,6 +166,7 @@ public class Create_Transportation {
         System.out.println("Amount");
         j.addProperty("amount", reader.next());
 
+        Transportation_manager_controller.create_items_list(j);
     }
     public static void create_document(String site, String type, String area){
         JsonObject j = new JsonObject();

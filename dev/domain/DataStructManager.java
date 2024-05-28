@@ -25,12 +25,12 @@ public class DataStructManager {
 
     public static void add_Site(JsonObject j) {
 
-        String name = j.get("name").toString();
-        String address = j.get("address").toString();
-        String phone = j.get("phone").toString();
-        String contact = j.get("contact").toString();
-        String Shipping_area = j.get("Shipping area").toString();
-        String type = j.get("type").toString();
+        String name = j.get("name").getAsString();
+        String address = j.get("address").getAsString();
+        String phone = j.get("phone number").getAsString();
+        String contact = j.get("contact").getAsString();
+        String Shipping_area = j.get("Shipping area").getAsString();
+        String type = j.get("type").getAsString();
 
 
         if (!manager_Map.containsKey(Shipping_area)) {
@@ -56,7 +56,7 @@ public class DataStructManager {
     }
     public static String check_driver(JsonObject j){
         for (Driver driver : drivers) {
-            if (j.get("name").toString().equals(driver.getName()) && j.get("password").toString().equals(driver.getPassword())) {
+            if (j.get("name").getAsString().equals(driver.getName()) && j.get("password").getAsString().equals(driver.getPassword())) {
                 return driver.getName();
             }
         }
@@ -64,7 +64,7 @@ public class DataStructManager {
     }
     public static void update_back_driver(JsonObject j){
         for (Driver driver : drivers) {
-            if (j.get("name").toString().equals(driver.getName()) && j.get("password").toString().equals(driver.getPassword())) {
+            if (j.get("name").getAsString().equals(driver.getName()) && j.get("password").getAsString().equals(driver.getPassword())) {
                 driver.setAvailability(true);
                 driver.getUsing_truck().setAvailability(true);
             }
@@ -73,7 +73,7 @@ public class DataStructManager {
 
     public static void update_leaving_driver(JsonObject j){
         for (Driver driver : drivers) {
-            if (j.get("name").toString().equals(driver.getName()) && j.get("password").toString().equals(driver.getPassword())) {
+            if (j.get("name").getAsString().equals(driver.getName()) && j.get("password").getAsString().equals(driver.getPassword())) {
                 driver.setAvailability(false);
                 driver.getUsing_truck().setAvailability(false);
             }
@@ -81,9 +81,9 @@ public class DataStructManager {
     }
     public static void add_driver(JsonObject j){
 
-        String name = j.get("name").toString();
-        String licence = j.get("licence").toString();
-        String password = j.get("password").toString();
+        String name = j.get("name").getAsString();
+        String licence = j.get("licence").getAsString();
+        String password = j.get("password").getAsString();
 
         Driver new_driver = new Driver(name, licence, password);
 
@@ -91,11 +91,10 @@ public class DataStructManager {
     }
     public static void add_truck(JsonObject j){
 
-
-        char l = (j.get("licence level").toString()).charAt(0);
-        int n = Integer.parseInt(j.get("licence number").toString());
-        double net = Double.parseDouble(j.get("net weight").toString());
-        double max = Double.parseDouble(j.get("max weight").toString());
+        String n = j.get("licence number").toString();
+        char l = j.get("licence level").getAsCharacter();
+        double net = j.get("net weight").getAsDouble();
+        double max = j.get("max weight").getAsDouble();
 
         Truck new_truck = new Truck(n, l, net, max);
 
@@ -103,10 +102,10 @@ public class DataStructManager {
     }
     public static void create_items_list(JsonObject j) {
 
-        String name = j.get("name").toString();
+        String name = j.get("name").getAsString();
 
-        double weight = Double.parseDouble(j.get("weight").toString());
-        int amount = Integer.parseInt(j.get("amount").toString());
+        double weight = j.get("weight").getAsDouble();
+        int amount = j.get("amount").getAsInt();
 
         Item new_item = new Item(name, weight);
 
@@ -115,14 +114,14 @@ public class DataStructManager {
 
     public static void create_document(JsonObject j){
 
-        String site = j.get("site").toString();
-        String type = j.get("type").toString();
-        String area = j.get("area").toString();
+        String site = j.get("site").getAsString();
+        String type = j.get("type").getAsString();
+        String area = j.get("area").getAsString();
 
         switch (type){
             case "store" -> {
-                for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Supplier").entrySet()){
-                    if (iter.toString().equals(site)){
+                for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Store").entrySet()){
+                    if (iter.getValue().to_string().equals(site)){
                         Document d = new Document(iter.getValue(), items);
                         items = null;
                         documents.add(d);
@@ -130,10 +129,10 @@ public class DataStructManager {
                 }
             }
             case "supplier" ->{
-                for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Store").entrySet()){
-                    if (iter.toString().equals(site)){
+                for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Supplier").entrySet()){
+                    if (iter.getValue().to_string().equals(site)){
                         Document d = new Document(iter.getValue(), items);
-                        items =null;
+                        items = null;
                         documents.add(d);
                     }
                 }
@@ -142,6 +141,7 @@ public class DataStructManager {
     }
 
     public static boolean create_transportation(JsonObject j, ArrayList<String> a){
+
         String date = j.get("date").toString();
         String leaving_time = j.get("leaving time").toString();
         String source = j.get("source").toString();
@@ -150,7 +150,8 @@ public class DataStructManager {
             if (d.to_String().equals(j.get("driver").toString())){
                 for (Truck t: trucks){
                     if (t.to_String().equals(j.get("truck").toString())){
-                        Transport new_transport = new Transport(date, leaving_time,t,d,source);
+                        Transport new_transport = new Transport(date, leaving_time,t,d,source, documents);
+                        documents = null;
                         return new_transport.is_Weight_Good();
                     }
                 }

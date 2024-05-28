@@ -18,6 +18,10 @@ public class Transportation_manager_controller {
     }
     public static void add_supplier(JsonObject j){
         DataStructManager.add_Site(j);}
+    public static void create_items_list(JsonObject j){
+        DataStructManager.create_items_list(j);
+    }
+
     public static void create_document(JsonObject j){
        DataStructManager.create_document(j);
     }

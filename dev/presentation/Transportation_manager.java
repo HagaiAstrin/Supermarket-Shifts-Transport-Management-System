@@ -21,26 +21,27 @@ public class Transportation_manager {
 //        }
         while (true) {
 
-            System.out.println("Hello Transportation Manager! What do you want to do?");
-            System.out.println("""
-                    Add driver - '1'.
-                    Add truck - '2'.
-                    Add store - '3'.
-                    Add supplier - '4'.
-                    Make transportation - '5'.
-                    Exit - '9'.""");
+            System.out.println("Hello Transportation Manager! What do you want to do?\n");
+            System.out.println("Choose from the options bellow:\n");
+            System.out.println("'1' - Add Driver\n");
+            System.out.println("'2' - Add Truck.\n");
+            System.out.println("'3' - Add Store.\n");
+            System.out.println("'4' - Add Supplier\n");
+            System.out.println("'5' - Make Transportation.\n");
+            System.out.println("'9' - To Exit.\n");
+
             String answer = reader.next();
 
             while (!answer.equals("1") && !answer.equals("2") && !answer.equals("3") && !answer.equals("4")
                                                               && !answer.equals("5") && !answer.equals("9")) {
-                System.out.println("Wrong input! please write your ans ware again..");
-                System.out.println("""
-                        Add driver - '1'.
-                        Add truck - '2'.
-                        Add store - '3'.
-                        Add supplier - '4'.
-                        Make transportation - '5'.
-                        Exit - '9'.""");
+                System.out.println("Wrong input! please write your ans ware again..\n");
+                System.out.println("Choose from the options bellow:\n");
+                System.out.println("'1' - Add driver\n");
+                System.out.println("'2' - Add store.\n");
+                System.out.println("'3' - Add supplier.\n");
+                System.out.println("'4' - Add driver\n");
+                System.out.println("'5' - Make transportation.\n");
+                System.out.println("'9' - To Exit.\n");
 
                 answer = reader.next();
             }
@@ -48,13 +49,27 @@ public class Transportation_manager {
             if (answer.equals("9"))
                 break;
 
-//            JsonObject new_json = new JsonObject();
-
             switch (answer) {
                 case "1" -> add_driver();
                 case "2" -> add_truck();
-                case "3" -> add_store();
-                case "4" -> add_supplier();
+                case "3" ->{
+                    String a = "yes";
+                    while (a.equals("yes")){
+                        add_store();
+                        System.out.println("Added Store successful!");
+                        System.out.println("Would you like to add another Store? Enter 'yes' or 'no'.");
+                        a = reader.next();
+                    }
+                }
+                case "4" -> {
+                    String b = "yes";
+                    while (b.equals("yes")){
+                        add_store();
+                        System.out.println("Added Supplier successful!");
+                        System.out.println("Would you like to add another Supplier? Enter 'yes' or 'no'.");
+                        b = reader.next();
+                    }
+                }
                 case "5" -> make_transportation();
             }
         }
@@ -69,8 +84,10 @@ public class Transportation_manager {
     }
 
     public static void add_store(){
-        add_site().addProperty("type", "store");
-        Transportation_manager_controller.add_store(add_site());
+
+        JsonObject j = add_site();
+        j.addProperty("type", "store");
+        Transportation_manager_controller.add_store(j);
     }
 
     public static void add_supplier(){
@@ -88,21 +105,25 @@ public class Transportation_manager {
         Scanner reader = new Scanner(System.in);
 
         System.out.println("Enter name:");
-        new_json.addProperty("name", reader.next());
+        String name = reader.next();
 
         System.out.println("Enter address:");
-        new_json.addProperty("address", reader.next());
+        String address = reader.next();
 
         System.out.println("Enter phone number:");
-        new_json.addProperty("phone number", reader.next());
+        String phone = reader.next();
 
         System.out.println("Enter contact:");
-        new_json.addProperty("contact", reader.next());
+        String contact = reader.next();
 
         System.out.println("Enter Shipping area:");
-        new_json.addProperty("Shipping area", reader.next());
+        String Shipping_area = reader.next();
 
-        reader.close();
+        new_json.addProperty("name", name);
+        new_json.addProperty("address", address);
+        new_json.addProperty("phone number", phone);
+        new_json.addProperty("contact", contact);
+        new_json.addProperty("Shipping area", Shipping_area);
 
         return new_json;
     }
