@@ -20,8 +20,16 @@ public class DataStructManager {
         manager_Map.put(Shipping_area, map);
     }
 
+    public static void add_Store(JsonObject j){
 
-    public static void add_Store(String Shipping_area, Store store){
+        String name = j.get("name").toString();
+        String address = j.get("address").toString();
+        int phone = Integer.parseInt(j.get("phone").toString());
+        String contact = j.get("contact").toString();
+        String Shipping_area = j.get("Shipping area").toString();
+
+        Store store = new Store(name, address, phone, contact, Shipping_area);
+
         if(!manager_Map.containsKey(Shipping_area)) {
             add_Shipping_area(Shipping_area);
         }
@@ -32,13 +40,22 @@ public class DataStructManager {
     }
 
 
-    public static void add_Supplier(String Shipping_area, Supplier sp){
+    public static void add_Supplier(JsonObject j){
+
+        String name = j.get("name").toString();
+        String address = j.get("address").toString();
+        int phone = Integer.parseInt(j.get("phone").toString());
+        String contact = j.get("contact").toString();
+        String Shipping_area = j.get("Shipping area").toString();
+
+        Supplier supplier = new Supplier(name, address, phone, contact, Shipping_area);
+
         if(!manager_Map.containsKey(Shipping_area)){
             add_Shipping_area(Shipping_area);
         }
         Map<String, Site> map = manager_Map.get(Shipping_area).get("Supplier");
-        if(!map.containsKey(sp.getName())){
-            manager_Map.get(Shipping_area).get("Supplier").put(sp.getName(), sp);
+        if(!map.containsKey(supplier.getName())){
+            manager_Map.get(Shipping_area).get("Supplier").put(supplier.getName(), supplier);
         }
     }
 
@@ -90,28 +107,19 @@ public class DataStructManager {
 
         trucks.add(new_truck);
     }
-    public static void add_store(JsonObject j){
+
+    public static void create_document(JsonObject j){
 
         String name = j.get("name").toString();
-        String licence = j.get("licence").toString();
-        String password = j.get("password").toString();
 
-        Driver new_driver = new Driver(name, licence, password);
+        double weight = Double.parseDouble(j.get("weight").toString());
+        int amount = Integer.parseInt(j.get("amount").toString());
 
-        drivers.add(new_driver);
+        Item new_item = new Item(name,weight);
     }
-    public static void add_supplier(JsonObject j){
+    public static void create_transportation(JsonObject j){
 
-        String name = j.get("name").toString();
-        String licence = j.get("licence").toString();
-        String password = j.get("password").toString();
-
-        Driver new_driver = new Driver(name, licence, password);
-
-        drivers.add(new_driver);
     }
-    public static void add_Transport(Transport tran){
-        transports.add(tran);}
 
     public static JsonObject choose_truck(){
 
@@ -142,15 +150,6 @@ public class DataStructManager {
         j.addProperty("count", count);
         return j;
     }
-    public static void create_document(JsonObject j){
-
-        String name = j.get("name").toString();
-
-        double weight = Double.parseDouble(j.get("weight").toString());
-        int amount = Integer.parseInt(j.get("amount").toString());
-
-        Item new_item = new Item(name,weight);
-    }
 
     public static JsonObject choose_area(){
         JsonObject j = new JsonObject();
@@ -158,8 +157,6 @@ public class DataStructManager {
         for (Map.Entry<String, Map<String, Map<String, Site>>> iter : manager_Map.entrySet()) {
             j.addProperty(String.valueOf(count++), iter.getKey());
         }
-
-        j.addProperty("count", count);
         return j;
     }
     public static JsonObject choose_supplier(String area){
@@ -168,8 +165,6 @@ public class DataStructManager {
         for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Supplier").entrySet()) {
             j.addProperty(String.valueOf(count++), iter.getKey());
         }
-
-        j.addProperty("count", count);
         return j;
     }
 
@@ -179,8 +174,6 @@ public class DataStructManager {
         for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Store").entrySet()) {
             j.addProperty(String.valueOf(count++), iter.getKey());
         }
-
-        j.addProperty("count", count);
         return j;
     }
 

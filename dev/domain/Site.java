@@ -36,5 +36,8 @@ public abstract class Site {
     }
 
     public abstract String get_class();
+    public String to_string(){
+        return ("Address: " + address + ", Name: " + name + ", Shipping area: " + shipping_area);
+    }
 
 }

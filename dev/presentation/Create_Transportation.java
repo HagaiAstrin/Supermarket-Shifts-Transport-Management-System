@@ -4,8 +4,6 @@ import com.google.gson.JsonObject;
 import controller.Transportation_manager_controller;
 import domain.*;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Create_Transportation {
@@ -35,7 +33,7 @@ public class Create_Transportation {
 
             if (truck == null || driver == null) {
                 System.out.println("Sorry but we can't arrange the transport, " +
-                        "because there are no truck or driver that available");
+                                   "because there are no truck or driver that available");
                 return;
             }
 
@@ -49,18 +47,29 @@ public class Create_Transportation {
 
             String area = choose_area();
 
-            System.out.println("Please choose supplier or store:\n" +
-                    "Supplier - '1'.\nStore - '2'.");
+
+            System.out.println("Please choose supplier or store:");
+            System.out.println("""
+                Supplier - '1'.
+                Store - '2'.""");
+
             String site = reader.next();
             while (!site.equals("1") && !site.equals("2")) {
                 System.out.println("Wrong input!, try again..");
-                System.out.println("Please choose supplier or store:\n" +
-                        "Supplier - '1'.\nStore - '2'.");
+                System.out.println("Please choose supplier or store:");
+                System.out.println("""
+                Supplier - '1'.
+                Store - '2'.""");
                 site = reader.next();
             }
             switch (site) {
-                case "1" -> choose_supplier(area);
-                case "2" -> choose_store(area);
+                case "1" -> {
+                    String supplier = choose_supplier(area);
+
+                }
+                case "2" ->{
+                    String store = choose_store(area);
+                }
             }
             System.out.println("Would you like to add a site for the transportation? ");
             System.out.println("Enter 'yes' or 'no': ");
@@ -70,7 +79,6 @@ public class Create_Transportation {
 
     public static String choose_truck(){
 
-        Scanner reader = new Scanner(System.in);
         System.out.println("Please choose an Truck: ");
 
         JsonObject new_trucks = Transportation_manager_controller.choose_truck();
@@ -86,7 +94,6 @@ public class Create_Transportation {
 
     public static String choose_driver(){
 
-        Scanner reader = new Scanner(System.in);
         System.out.println("Please choose an Driver: ");
 
         JsonObject new_drivers = Transportation_manager_controller.choose_driver();
@@ -104,8 +111,6 @@ public class Create_Transportation {
 
         System.out.println("Please choose an Shipping area: ");
 
-        Scanner reader = new Scanner(System.in);
-
         JsonObject new_areas = Transportation_manager_controller.choose_area();
 
         if (new_areas.size() == 0)
@@ -121,8 +126,6 @@ public class Create_Transportation {
 
         System.out.println("Please choose an Supplier: ");
 
-        Scanner reader = new Scanner(System.in);
-
         JsonObject new_suppliers = Transportation_manager_controller.choose_supplier(area);
 
         if (new_suppliers.size() == 0)
@@ -137,8 +140,6 @@ public class Create_Transportation {
     public static String choose_store(String area){
 
         System.out.println("Please choose an Store: ");
-
-        Scanner reader = new Scanner(System.in);
 
         JsonObject new_stores = Transportation_manager_controller.choose_store(area);
 
