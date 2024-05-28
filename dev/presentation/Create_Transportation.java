@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import controller.Transportation_manager_controller;
 import domain.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Create_Transportation {
@@ -13,6 +14,8 @@ public class Create_Transportation {
         JsonObject new_json = new JsonObject();
 
         Scanner reader = new Scanner(System.in);
+
+        ArrayList<String> targets = new ArrayList<>();
 
         String answer = "yes";
 
@@ -43,34 +46,57 @@ public class Create_Transportation {
             new_json.addProperty("driver", driver);
             new_json.addProperty("source", source);
 
-            Transportation_manager_controller.create_transport(new_json);
-
             String area = choose_area();
 
+            String a = "yes";
 
-            System.out.println("Please choose supplier or store:");
-            System.out.println("""
-                Supplier - '1'.
-                Store - '2'.""");
-
-            String site = reader.next();
-            while (!site.equals("1") && !site.equals("2")) {
-                System.out.println("Wrong input!, try again..");
+            while (a.equals("yes")){
                 System.out.println("Please choose supplier or store:");
                 System.out.println("""
                 Supplier - '1'.
                 Store - '2'.""");
-                site = reader.next();
-            }
-            switch (site) {
-                case "1" -> {
-                    String supplier = choose_supplier(area);
 
+                String site = reader.next();
+                while (!site.equals("1") && !site.equals("2")) {
+                    System.out.println("Wrong input!, try again..");
+                    System.out.println("Please choose supplier or store:");
+                    System.out.println("""
+                Supplier - '1'.
+                Store - '2'.""");
+                    site = reader.next();
                 }
-                case "2" ->{
-                    String store = choose_store(area);
+                switch (site) {
+                    case "1" -> {
+                        String supplier = choose_supplier(area);
+                        targets.add(supplier);
+                        String b = "yes";
+                        while (b.equals("yes")){
+                            add_items();
+                            System.out.println("Do you want to add item?");
+                            b = reader.next();
+                        }
+                        create_document(supplier, "supplier", area);
+                    }
+                    case "2" ->{
+                        String store = choose_store(area);
+                        targets.add(store);
+                        String b = "yes";
+                        while (b.equals("yes")){
+                            add_items();
+                            System.out.println("Do you want to add item?");
+                            b = reader.next();
+                        }
+                        create_document(store, "store", area);
+                    }
                 }
+                System.out.println("Do you want to add site?\nEnter 'yes' or 'no'.");
+                a = reader.next();
             }
+            boolean result = create_Transportation(new_json);
+            if (!result){
+
+            }
+
             System.out.println("Would you like to add a site for the transportation? ");
             System.out.println("Enter 'yes' or 'no': ");
             answer = reader.next();
@@ -88,8 +114,9 @@ public class Create_Transportation {
         if (new_trucks.size() == 0)
             return null;
 
-        int end_index = (new_trucks.get(answer).toString().indexOf(" ", 16));
-        return new_trucks.get(answer).toString().substring(16, end_index);
+//        int end_index = (new_trucks.get(answer).toString().indexOf(" ", 16));
+//        return new_trucks.get(answer).toString().substring(16, end_index);
+        return answer;
     }
 
     public static String choose_driver(){
@@ -103,8 +130,9 @@ public class Create_Transportation {
         if (new_drivers.size() == 0)
             return null;
 
-        int end_index = (new_drivers.get(answer).toString().indexOf(" ", 15));
-        return new_drivers.get(answer).toString().substring(15, end_index);
+//        int end_index = (new_drivers.get(answer).toString().indexOf(",", 15));
+//        return new_drivers.get(answer).toString().substring(15, end_index);
+        return answer;
     }
 
     public static String choose_area(){
@@ -118,7 +146,7 @@ public class Create_Transportation {
 
         String answer = print_to_user(new_areas.size(), new_areas);
 
-        int end_index = (new_areas.get(answer).toString().indexOf(" ", 16));
+        int end_index = (new_areas.get(answer).toString().indexOf(",", 16));
         return new_areas.get(answer).toString().substring(16, end_index);
     }
 
@@ -133,8 +161,7 @@ public class Create_Transportation {
 
         String answer = print_to_user(new_suppliers.size(), new_suppliers);
 
-        int end_index = (new_suppliers.get(answer).toString().indexOf(" ", 16));
-        return new_suppliers.get(answer).toString().substring(16, end_index);
+        return new_suppliers.get(answer).toString();
     }
 
     public static String choose_store(String area){
@@ -148,11 +175,43 @@ public class Create_Transportation {
 
         String answer = print_to_user(new_stores.size(), new_stores);
 
-        int end_index = (new_stores.get(answer).toString().indexOf(" ", 16));
-        return new_stores.get(answer).toString().substring(16, end_index);
+        return new_stores.get(answer).toString();
+    }
+    public static void add_items(){
+        JsonObject j = new JsonObject();
+
+        Scanner reader = new Scanner(System.in);
+
+        System.out.println("Please enter Item:");
+
+        System.out.println("Name:");
+        j.addProperty("name", reader.next());
+
+        System.out.println("Weight:");
+        j.addProperty("weight", reader.next());
+
+        System.out.println("Amount");
+        j.addProperty("amount", reader.next());
+
+    }
+    public static void create_document(String site, String type, String area){
+        JsonObject j = new JsonObject();
+
+        j.addProperty("site", site);
+        j.addProperty("type", type);
+        j.addProperty("area", area);
+
+        Transportation_manager_controller.create_document(j);
+    }
+    public static boolean create_Transportation(JsonObject j){
+        return Transportation_manager_controller.create_transport(j);
+    }
+    public static void make_solution(){
+
     }
 
     public static String print_to_user (int size, JsonObject j){
+
         Scanner reader = new Scanner(System.in);
 
         String answer;
@@ -175,6 +234,6 @@ public class Create_Transportation {
                 System.out.println("Wrong input! try again..");
             }
         }
-        return answer;
+        return j.get(answer).toString();
     }
 }

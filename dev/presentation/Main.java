@@ -8,17 +8,15 @@ public class Main {
         Scanner reader = new Scanner(System.in);
 
         while (true) {
+
             System.out.println("Hello! Welcome to Super-Li Transportation system!");
-            System.out.println("If you want to exit from the system' press '9'.");
-
-            String answer = reader.next();
-
-            if (answer.equals("9"))
-                return;
-
-            System.out.println("press '1' if you are manager.\npress '2' if you are driver.");
+            System.out.println("press '1' if you are manager.\npress '2' if you are driver.\npress '9' to exit.");
 
             String type = reader.next();
+
+            if (type.equals("9"))
+                return;
+
             while (!type.equals("1") && !type.equals("2")) {
                 System.out.println("Wrong input! please try again..");
                 System.out.println("""

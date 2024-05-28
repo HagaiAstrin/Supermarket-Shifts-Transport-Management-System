@@ -21,7 +21,7 @@ public class Transportation_manager_controller {
     public static void create_document(JsonObject j){
        DataStructManager.create_document(j);
     }
-    public static void create_transport(JsonObject j){DataStructManager.create_transportation(j);}
+    public static boolean create_transport(JsonObject j){return DataStructManager.create_transportation(j);}
     public static JsonObject choose_truck(){
         return DataStructManager.choose_truck();
     }
