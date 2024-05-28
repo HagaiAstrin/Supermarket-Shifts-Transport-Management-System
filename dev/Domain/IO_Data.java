@@ -6,13 +6,17 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 
 
 public class IO_Data {
-    static List<Employee> currEmployees = new ArrayList<>();
+    static Map<Integer, Employee> currEmployees = new HashMap<>();
+//    static List<Employee> currEmployees = new ArrayList<>();
     static boolean flag = false;
     public static boolean isAdmin = false; // for user menu
     public static String employeeID; // for user interactions with his data
@@ -43,7 +47,7 @@ public class IO_Data {
 
                     Employee employee = new Employee(id,  name, bankID, salary, restDays, startDate, jobType);
                     if(!flag){
-                        currEmployees.add(employee);
+                        currEmployees.put(Integer.valueOf(employee.getId()), employee);
                     }
                     Gson gson = new Gson();
                     employees.add(gson.toJsonTree(employee).getAsJsonObject());
@@ -143,7 +147,6 @@ public class IO_Data {
      *  Convert Employee to JSON format.
      */
     private static JsonObject ConvertEmployeeToJson(Employee employee){
-        Gson gson = new Gson();
-        return gson.toJsonTree(employee).getAsJsonObject();
+        return new Gson().toJsonTree(employee).getAsJsonObject();
     }
 }
