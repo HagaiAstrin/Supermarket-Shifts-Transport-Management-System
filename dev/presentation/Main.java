@@ -9,7 +9,7 @@ public class Main {
 
         while (true) {
             System.out.println("Hello! Welcome to Super-Li Transportation system!");
-            System.out.println("If you want to exit from the system' press '9'.");
+            System.out.println("If you want to exit from the system' press '9'.\nOtherwise press 1.");
 
             String answer = reader.next();
 

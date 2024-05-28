@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class DataStructManager {
     public static Map<String, Map<String, Map<String, Site>>> manager_Map = new HashMap<>();
-    public static ArrayList<Truck> trucks;
-    public static ArrayList<Driver> drivers;
+    public static ArrayList<Truck> trucks = new ArrayList<>();
+    public static ArrayList<Driver> drivers = new ArrayList<>();
     public static ArrayList<Transport> transports;
 
 
