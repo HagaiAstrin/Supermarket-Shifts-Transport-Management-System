@@ -152,7 +152,7 @@ public class DataStructManager {
         Item new_item = new Item(name,weight);
     }
 
-    public static JsonObject choose_Area(){
+    public static JsonObject choose_area(){
         JsonObject j = new JsonObject();
         int count = 1;
         for (Map.Entry<String, Map<String, Map<String, Site>>> iter : manager_Map.entrySet()) {
@@ -162,4 +162,26 @@ public class DataStructManager {
         j.addProperty("count", count);
         return j;
     }
+    public static JsonObject choose_supplier(String area){
+        JsonObject j = new JsonObject();
+        int count = 1;
+        for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Supplier").entrySet()) {
+            j.addProperty(String.valueOf(count++), iter.getKey());
+        }
+
+        j.addProperty("count", count);
+        return j;
+    }
+
+    public static JsonObject choose_store(String area){
+        JsonObject j = new JsonObject();
+        int count = 1;
+        for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Store").entrySet()) {
+            j.addProperty(String.valueOf(count++), iter.getKey());
+        }
+
+        j.addProperty("count", count);
+        return j;
+    }
+
 }

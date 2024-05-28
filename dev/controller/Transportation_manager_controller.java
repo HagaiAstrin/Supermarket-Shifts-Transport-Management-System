@@ -3,7 +3,6 @@ package controller;
 import com.google.gson.JsonObject;
 import domain.DataStructManager;
 
-import java.util.ArrayList;
 
 public class Transportation_manager_controller {
 
@@ -28,11 +27,16 @@ public class Transportation_manager_controller {
     public static JsonObject choose_driver(){
         return DataStructManager.choose_driver();
     }
-
+    public static JsonObject choose_area(){
+        return DataStructManager.choose_area();
+    }
+    public static JsonObject choose_supplier(String a){
+        return DataStructManager.choose_supplier(a);
+    }
+    public static JsonObject choose_store(String a){
+        return DataStructManager.choose_store(a);
+    }
     public static void create_transport(JsonObject j){
 
-    }
-    public static JsonObject choose_Area(){
-        return DataStructManager.choose_Area();
     }
 }
