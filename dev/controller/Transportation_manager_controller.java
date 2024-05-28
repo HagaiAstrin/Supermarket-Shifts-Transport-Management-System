@@ -25,7 +25,7 @@ public class Transportation_manager_controller {
     public static JsonObject choose_truck(){
         return DataStructManager.choose_truck();
     }
-    public static String[] choose_driver(){
-       return null;
+    public static JsonObject choose_driver(){
+        return DataStructManager.choose_driver();
     }
 }

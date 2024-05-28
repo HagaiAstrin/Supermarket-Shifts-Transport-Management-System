@@ -42,15 +42,6 @@ public class DataStructManager {
         }
     }
 
-    public static void add_Truck(Truck tr){
-        trucks.add(tr);}
-
-    public static void add_Driver(Driver dr){
-        drivers.add(dr);}
-
-    public static void add_Transport(Transport tran){
-        transports.add(tran);}
-
     public static String check_driver(JsonObject j){
         for (Driver driver : drivers) {
             if (j.get("name").toString().equals(driver.getName()) && j.get("password").toString().equals(driver.getPassword())) {
@@ -119,16 +110,38 @@ public class DataStructManager {
 
         drivers.add(new_driver);
     }
+    public static void add_Transport(Transport tran){
+        transports.add(tran);}
+
     public static JsonObject choose_truck(){
 
         JsonObject j = new JsonObject();
         int count = 1;
         for (Truck a:trucks){
             if (a.isAvailability()){
-                String s = "Press '" + count + "' for - " + a.getLicence_number() + ".";
+                String s = "Press '" + count + "' for - " + a.to_String() + ".";
                 j.addProperty(String.valueOf(count), s);
+                count++;
             }
         }
+
+        j.addProperty("count", count);
+        return j;
+    }
+
+    public static JsonObject choose_driver(){
+
+        JsonObject j = new JsonObject();
+        int count = 1;
+        for (Driver d:drivers){
+            if (d.isAvailability()){
+                String s = "Press '" + count + "' for - " + d.to_String() + ".";
+                j.addProperty(String.valueOf(count), s);
+                count++;
+            }
+        }
+
+        j.addProperty("count", count);
         return j;
     }
     public static void create_document(JsonObject j){

@@ -48,4 +48,8 @@ public class Driver {
     public void setUsing_truck(Truck using_truck) {
         this.using_truck = using_truck;
     }
+
+    public String to_String(){
+        return ("Name: " + name + ", Licence Level: " + license + ".");
+    }
 }

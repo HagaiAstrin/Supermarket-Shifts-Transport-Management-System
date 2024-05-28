@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import controller.Transportation_manager_controller;
 import domain.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -31,7 +30,8 @@ public class Create_Transportation {
         System.out.println("Please enter the source place of the transportation:");
         String source = reader.next();
 
-        c_t();
+        String id_truck = c_t();
+        String driver = c_d();
 
         Truck t =  choose_truck();
         Driver d = choose_driver(t);
@@ -86,7 +86,7 @@ public class Create_Transportation {
     }
 
 
-    public static void c_t(){
+    public static String c_t(){
         JsonObject new_trucks = new JsonObject();
 
         Scanner reader = new Scanner(System.in);
@@ -94,7 +94,26 @@ public class Create_Transportation {
 
         new_trucks = Transportation_manager_controller.choose_truck();
 
+        int count = Integer.parseInt(new_trucks.get("count").toString());
 
+        for (int i = 0; i < count; i++){
+            System.out.println(new_trucks.get(String.valueOf(count)));
+        }
+
+        String answer = reader.next();
+
+
+        while (Integer.parseInt(answer) > count || Integer.parseInt(answer) <= 0){
+            for (int i = 0; i < count; i++){
+                System.out.println(new_trucks.get(String.valueOf(count)));
+            }
+        }
+        return "";
+    }
+
+    public static String c_d(){
+        JsonObject new_drivers = new JsonObject();
+        return "";
     }
     public static Truck choose_truck(){
         Scanner reader = new Scanner(System.in);

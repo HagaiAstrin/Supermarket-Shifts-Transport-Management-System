@@ -38,4 +38,9 @@ public class Truck {
     public void setAvailability(boolean availability) {
         this.availability = availability;
     }
+
+    public String to_String(){
+        return ("Licence Number:" + licence_number + ", Licence Level: "
+                + licence_level + ", Max weight: " + max_weight + ".");
+    }
 }
