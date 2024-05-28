@@ -7,6 +7,9 @@ public class Employee {
     String id;
     String name;
     JobTypeEnum jobType;
+    String bankID;
+    Map<Integer, List<Shift>> givenShifts;
+    Contract contract;
 
     public String getId() {
         return id;
@@ -55,10 +58,6 @@ public class Employee {
     public Contract getContract() {
         return contract;
     }
-
-    String bankID;
-    Map<Integer, List<Shift>> givenShifts;
-    Contract contract;
 
     public Employee(String id, String name, String bankID, int salary, int restDays, Date startDate, String workType) {
         this.jobType = JobTypeEnum.valueOf(workType.toUpperCase().replaceAll(" ", "_"));
