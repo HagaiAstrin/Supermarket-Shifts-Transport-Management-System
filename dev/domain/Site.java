@@ -3,11 +3,11 @@ package domain;
 public abstract class Site {
     private String name;
     private String address;
-    private int phone;
+    private String phone;
     private String contact;
     private String shipping_area;
 
-    public Site(String name, String address, int phone, String contact, String shipping_area) {
+    public Site(String name, String address, String phone, String contact, String shipping_area) {
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -23,7 +23,7 @@ public abstract class Site {
         return address;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 

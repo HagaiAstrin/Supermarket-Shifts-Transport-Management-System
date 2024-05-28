@@ -2,13 +2,11 @@ package presentation;
 
 import com.google.gson.JsonObject;
 import controller.Transportation_manager_controller;
-import domain.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Create_Transportation {
-    public static Transport new_t;
     public static void create_Transport() {
 
         JsonObject new_json = new JsonObject();
@@ -20,7 +18,6 @@ public class Create_Transportation {
         String answer = "yes";
 
         while (answer.equals("yes")){
-
 
             System.out.println("Please enter the date of the transportation:");
             String date = reader.next();
@@ -72,7 +69,7 @@ public class Create_Transportation {
                         String b = "yes";
                         while (b.equals("yes")){
                             add_items();
-                            System.out.println("Do you want to add item?");
+                            System.out.println("Do you want to add another item?");
                             b = reader.next();
                         }
                         create_document(supplier, "supplier", area);
@@ -92,7 +89,7 @@ public class Create_Transportation {
                 System.out.println("Do you want to add site?\nEnter 'yes' or 'no'.");
                 a = reader.next();
             }
-            boolean result = create_Transportation(new_json);
+            boolean result = create_Transportation(new_json, targets);
             if (!result){
 
             }
@@ -109,14 +106,10 @@ public class Create_Transportation {
 
         JsonObject new_trucks = Transportation_manager_controller.choose_truck();
 
-        String answer = print_to_user(new_trucks.size(), new_trucks);
-
         if (new_trucks.size() == 0)
             return null;
 
-//        int end_index = (new_trucks.get(answer).toString().indexOf(" ", 16));
-//        return new_trucks.get(answer).toString().substring(16, end_index);
-        return answer;
+        return print_to_user(new_trucks.size(), new_trucks);
     }
 
     public static String choose_driver(){
@@ -125,14 +118,10 @@ public class Create_Transportation {
 
         JsonObject new_drivers = Transportation_manager_controller.choose_driver();
 
-        String answer = print_to_user(new_drivers.size(), new_drivers);
-
         if (new_drivers.size() == 0)
             return null;
 
-//        int end_index = (new_drivers.get(answer).toString().indexOf(",", 15));
-//        return new_drivers.get(answer).toString().substring(15, end_index);
-        return answer;
+        return print_to_user(new_drivers.size(), new_drivers);
     }
 
     public static String choose_area(){
@@ -141,42 +130,27 @@ public class Create_Transportation {
 
         JsonObject new_areas = Transportation_manager_controller.choose_area();
 
-        if (new_areas.size() == 0)
-            return null;
-
-        String answer = print_to_user(new_areas.size(), new_areas);
-
-        int end_index = (new_areas.get(answer).toString().indexOf(",", 16));
-        return new_areas.get(answer).toString().substring(16, end_index);
+        return print_to_user(new_areas.size(), new_areas);
     }
 
     public static String choose_supplier(String area){
 
-        System.out.println("Please choose an Supplier: ");
+        System.out.println("Please choose an Supplier:");
 
         JsonObject new_suppliers = Transportation_manager_controller.choose_supplier(area);
 
-        if (new_suppliers.size() == 0)
-            return null;
-
-        String answer = print_to_user(new_suppliers.size(), new_suppliers);
-
-        return new_suppliers.get(answer).toString();
+        return print_to_user(new_suppliers.size(), new_suppliers);
     }
 
     public static String choose_store(String area){
 
-        System.out.println("Please choose an Store: ");
+        System.out.println("Please choose an Store:");
 
         JsonObject new_stores = Transportation_manager_controller.choose_store(area);
 
-        if (new_stores.size() == 0)
-            return null;
-
-        String answer = print_to_user(new_stores.size(), new_stores);
-
-        return new_stores.get(answer).toString();
+        return print_to_user(new_stores.size(), new_stores);
     }
+
     public static void add_items(){
         JsonObject j = new JsonObject();
 
@@ -203,8 +177,8 @@ public class Create_Transportation {
 
         Transportation_manager_controller.create_document(j);
     }
-    public static boolean create_Transportation(JsonObject j){
-        return Transportation_manager_controller.create_transport(j);
+    public static boolean create_Transportation(JsonObject j, ArrayList<String> a){
+        return Transportation_manager_controller.create_transport(j, a);
     }
     public static void make_solution(){
 

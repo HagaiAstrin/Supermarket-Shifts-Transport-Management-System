@@ -3,6 +3,7 @@ package controller;
 import com.google.gson.JsonObject;
 import domain.DataStructManager;
 
+import java.util.ArrayList;
 
 public class Transportation_manager_controller {
 
@@ -13,15 +14,14 @@ public class Transportation_manager_controller {
         DataStructManager.add_truck(j);
     }
     public static void add_store(JsonObject j){
-        DataStructManager.add_Store(j);
+        DataStructManager.add_Site(j);
     }
     public static void add_supplier(JsonObject j){
-        DataStructManager.add_Supplier(j);
-    }
+        DataStructManager.add_Site(j);}
     public static void create_document(JsonObject j){
        DataStructManager.create_document(j);
     }
-    public static boolean create_transport(JsonObject j){return DataStructManager.create_transportation(j);}
+    public static boolean create_transport(JsonObject j, ArrayList<String> a){return DataStructManager.create_transportation(j, a);}
     public static JsonObject choose_truck(){
         return DataStructManager.choose_truck();
     }

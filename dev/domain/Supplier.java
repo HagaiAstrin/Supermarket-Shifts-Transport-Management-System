@@ -2,7 +2,7 @@ package domain;
 
 public class Supplier extends Site{
 
-    public Supplier(String name, String address, int phone, String contact, String shipping_area) {
+    public Supplier(String name, String address, String phone, String contact, String shipping_area) {
         super(name, address, phone, contact, shipping_area);
     }
 

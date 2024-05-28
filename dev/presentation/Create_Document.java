@@ -2,23 +2,16 @@ package presentation;
 
 import com.google.gson.JsonObject;
 import controller.Transportation_manager_controller;
-import domain.Document;
-import domain.Item;
-import domain.Site;
-import domain.Transport;
 
 import java.util.Scanner;
 
 
 public class Create_Document {
-    public static Document d;
-    public static void create(Site s, Transport transport){
+    public static void create(){
 
         Scanner reader = new Scanner(System.in);
 
         JsonObject new_json_document = new JsonObject();
-
-        d = new Document(s);
 
         String a = "yes";
 
@@ -41,10 +34,5 @@ public class Create_Document {
             System.out.println("Would you like to add products?\nPlease enter 'yes' or 'no'.");
             a = reader.next();
         }
-
-        transport.add_document(d);
-//        if (transport.is_Weight_Good()){         /////////////  need to check after the transport is complete
-//            Solve_problem.solve();
-//        }
     }
 }

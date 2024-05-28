@@ -36,7 +36,6 @@ public class Add_Truck {
             System.out.println("Please enter max_weight:");
             String max_weight = reader.next();
 
-
             new_json.addProperty("licence number", licence_number);
             new_json.addProperty("licence level", licence_level);
             new_json.addProperty("net_weight", net_weight);
@@ -50,6 +49,6 @@ public class Add_Truck {
             answer = reader.next();
         }
 
-        reader.close();
+//        reader.close();
     }
 }
