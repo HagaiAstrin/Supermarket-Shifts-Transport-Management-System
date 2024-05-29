@@ -149,4 +149,16 @@ public class IO_Data {
     private static JsonObject ConvertEmployeeToJson(Employee employee){
         return new Gson().toJsonTree(employee).getAsJsonObject();
     }
+
+//    public static String[][] readEmployeeCSVPreferences(String path){
+//        List<String[]> rows = new ArrayList<>();
+//        try (BufferedReader br = new BufferedReader(new FileReader(path))){
+//
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return {{"""
+//x"""}};
+//    }
 }

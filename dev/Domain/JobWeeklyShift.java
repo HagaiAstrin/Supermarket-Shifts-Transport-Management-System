@@ -27,6 +27,5 @@ public class JobWeeklyShift {
         if (day > 0 && day < days && shift > 0 && shift < shifts) {
             WeeklyShifts[day][shift] = emp;
         }
-
     }
 }
