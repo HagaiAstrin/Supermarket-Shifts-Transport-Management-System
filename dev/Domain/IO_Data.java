@@ -6,13 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -32,7 +26,7 @@ public class IO_Data {
     public static void ImportEmployees() {
         String line;
         String csvSplitBy = ",";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         try (BufferedReader br = new BufferedReader(new FileReader(Constants.PATH_EMPLOYEES))) {
             br.readLine(); // Skip the header line
@@ -49,7 +43,7 @@ public class IO_Data {
                     int salary = Integer.parseInt(fields[5]);
                     int restDays = Integer.parseInt(fields[6]);
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyy");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
                     try {
                         // Parse the string to LocalDate
@@ -74,10 +68,11 @@ public class IO_Data {
     public static List<JsonObject> PrintEmployees() {
         List<JsonObject> employees = new ArrayList<>();
 
-
-        for(int i=0; i < currEmployees.size(); i++){
-            employees.add(currEmployees.get(i).toJson());
+        Collection<Employee> e_List = currEmployees.values();
+        for(Employee employee : e_List){
+            employees.add(employee.toJson());
         }
+
         return employees;
     }
 
