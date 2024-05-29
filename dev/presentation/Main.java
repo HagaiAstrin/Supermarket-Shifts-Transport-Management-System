@@ -1,7 +1,5 @@
 package presentation;
 
-import com.google.gson.JsonObject;
-import controller.Transportation_manager_controller;
 
 import java.util.Scanner;
 
@@ -14,19 +12,19 @@ public class Main {
 
         while (true) {
 
-            System.out.println("\nHello! Welcome to Super-Li Transportation system!\n");
-            System.out.println("press '1' if you are the Manager.");
-            System.out.println("press '2' if you are a Driver.");
-            System.out.println("press '9' to exit.\n");
+            StringBuilder menu = new StringBuilder();
+            menu.append("\nHello! Welcome to Super-Li Transportation system!\n");
+            menu.append("press '1' if you are the Manager.\n");
+            menu.append("press '2' if you are a Driver.\n");
+            menu.append("press '9' to exit.\n");
+            System.out.println(menu);
 
             String type = reader.next();
 
             while (!type.equals("1") && !type.equals("2") && !type.equals("9")) {
 
-                System.out.println("\nWrong input! please try again..\n");
-                System.out.println("press '1' if you are the Manager.");
-                System.out.println("press '2' if you are a Driver.");
-                System.out.println("press '9' to exit\n");
+                System.out.println("\nWrong input! please try again..");
+                System.out.println(menu);
 
                 type = reader.next();
             }

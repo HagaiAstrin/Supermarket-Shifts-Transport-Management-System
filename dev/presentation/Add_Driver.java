@@ -2,8 +2,6 @@ package presentation;
 
 import com.google.gson.JsonObject;
 import controller.Transportation_manager_controller;
-import domain.DataStructManager;
-import domain.Driver;
 
 import java.util.Scanner;
 

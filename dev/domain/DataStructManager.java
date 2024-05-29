@@ -162,7 +162,8 @@ public class DataStructManager {
             if (d.to_String().equals(j.get("Driver").getAsString())){
                 for (Truck t: trucks){
                     if (t.to_String().equals(j.get("Truck").getAsString())){
-                        Transport new_transport = new Transport(date, leaving_time,t,d,source, documents);
+                        d.setHold(true);
+                        Transport new_transport = new Transport(date, leaving_time, t, d, source, documents);
                         documents = null;
                         return new_transport.Is_Over_Weight();
                     }
@@ -189,11 +190,11 @@ public class DataStructManager {
 
         JsonObject j = new JsonObject();
         int count = 1;
-        for (Truck a:trucks){
-            if (a.to_String().equals(truck)){
+        for (Truck t:trucks){
+            if (t.to_String().equals(truck)){
                 for (Driver d:drivers){
                     if (d.isAvailability() && !d.isHold()){
-                        if (d.getLicense() >= a.getLicence_level()){
+                        if (d.getLicense() >= t.getLicence_level()){
                             j.addProperty(String.valueOf(count), d.to_String());
                             count++;
                         }

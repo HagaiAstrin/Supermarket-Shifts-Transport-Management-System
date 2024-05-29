@@ -7,38 +7,37 @@ public class Transportation_manager {
 
         Scanner reader = new Scanner(System.in);
 
-        System.out.println("Enter password:");
-        String password = reader.next();
+  //TODO adding the password to the manager
 
-        while (!password.equals("123456789")) {
-            System.out.println("Wrong password, try again..\n");
-            System.out.println("Enter password:");
-            password = reader.next();
-        }
+//        System.out.println("Enter password:");
+//        String password = reader.next();
+//
+//        while (!password.equals("123456789")) {
+//            System.out.println("Wrong password, try again..\n");
+//            System.out.println("Enter password:");
+//            password = reader.next();
+//        }
+
 
         while (true) {
+            StringBuilder manager_menu = new StringBuilder();
+            manager_menu.append("Hello Transportation Manager! What do you want to do?\n");
+            manager_menu.append("Choose from the options bellow:\n");
+            manager_menu.append("'1' - Add Driver.\n");
+            manager_menu.append("'2' - Add Truck.\n");
+            manager_menu.append("'3' - Add Store.\n");
+            manager_menu.append("'4' - Add Supplier.\n");
+            manager_menu.append("'5' - Make Transportation.\n");
+            manager_menu.append("'9' - Exit to the Main menu.\n");
 
-            System.out.println("\nHello Transportation Manager! What do you want to do?\n");
-            System.out.println("Choose from the options bellow:\n");
-            System.out.println("'1' - Add Driver");
-            System.out.println("'2' - Add Truck.");
-            System.out.println("'3' - Add Store.");
-            System.out.println("'4' - Add Supplier");
-            System.out.println("'5' - Make Transportation.");
-            System.out.println("'9' - To Exit.\n");
+            System.out.println(manager_menu);
 
             String answer = reader.next();
 
             while (!answer.equals("1") && !answer.equals("2") && !answer.equals("3") && !answer.equals("4")
                                                               && !answer.equals("5") && !answer.equals("9")) {
-                System.out.println("Wrong input! please write your ans ware again..\n");
-                System.out.println("Choose from the options bellow:\n");
-                System.out.println("'1' - Add driver");
-                System.out.println("'2' - Add store.");
-                System.out.println("'3' - Add supplier.");
-                System.out.println("'4' - Add driver");
-                System.out.println("'5' - Make transportation.");
-                System.out.println("'9' - To Exit.\n");
+                System.out.println("\nWrong input! please write your ans ware again..\n");
+                System.out.println(manager_menu);
 
                 answer = reader.next();
             }

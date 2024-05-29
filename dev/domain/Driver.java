@@ -50,7 +50,14 @@ public class Driver {
         return availability;
     }
 
+    public void setHold(boolean hold) {
+        this.hold = hold;
+    }
+
     public void setAvailability(boolean availability) {
+        if(availability){
+            setHold(true);
+        }
         this.availability = availability;
     }
     public void setUsing_truck(Truck using_truck) {
