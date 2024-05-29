@@ -25,9 +25,9 @@ public class Create_Document {
             System.out.println("Please enter the amount of products would you like to order:");
             String amount = reader.next();
 
-            new_json_document.addProperty("name", name);
-            new_json_document.addProperty("weight", weight);
-            new_json_document.addProperty("amount", amount);
+            new_json_document.addProperty("Name", name);
+            new_json_document.addProperty("Weight", weight);
+            new_json_document.addProperty("Amount", amount);
 
             Transportation_manager_controller.create_document(new_json_document);
 

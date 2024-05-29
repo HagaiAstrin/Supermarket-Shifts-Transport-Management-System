@@ -23,21 +23,29 @@ public class Driver {
     public int getId() {
         return worker_num;
     }
+
+    public boolean isHold() {
+        return hold;
+    }
+
     public String getName() {
         return name;
     }
-
-    public String getLicense() {
-        return license;
+    public int getLicense() {
+        int level = 0;
+        switch (license){
+            case "A" -> level = 1;
+            case "B" -> level = 2;
+            case "C" -> level = 3;
+        }
+        return level;
     }
-
     public String getPassword() {
         return password;
     }
     public Truck getUsing_truck() {
         return using_truck;
     }
-
     public boolean isAvailability() {
         return availability;
     }
@@ -45,11 +53,9 @@ public class Driver {
     public void setAvailability(boolean availability) {
         this.availability = availability;
     }
-
     public void setUsing_truck(Truck using_truck) {
         this.using_truck = using_truck;
     }
-
     public String to_String(){
         return ("Worker number: " + worker_num + ", Name:" + name + ", Licence Level: " + license + ".");
     }

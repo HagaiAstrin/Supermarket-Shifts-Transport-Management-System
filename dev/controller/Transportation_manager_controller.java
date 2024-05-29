@@ -13,15 +13,12 @@ public class Transportation_manager_controller {
     public static void add_truck(JsonObject j){
         DataStructManager.add_truck(j);
     }
-    public static void add_store(JsonObject j){
+    public static void add_site(JsonObject j){
         DataStructManager.add_Site(j);
     }
-    public static void add_supplier(JsonObject j){
-        DataStructManager.add_Site(j);}
     public static void create_items_list(JsonObject j){
         DataStructManager.create_items_list(j);
     }
-
     public static void create_document(JsonObject j){
        DataStructManager.create_document(j);
     }
@@ -29,8 +26,8 @@ public class Transportation_manager_controller {
     public static JsonObject choose_truck(){
         return DataStructManager.choose_truck();
     }
-    public static JsonObject choose_driver(){
-        return DataStructManager.choose_driver();
+    public static JsonObject choose_driver(String truck){
+        return DataStructManager.choose_driver(truck);
     }
     public static JsonObject choose_area(){
         return DataStructManager.choose_area();

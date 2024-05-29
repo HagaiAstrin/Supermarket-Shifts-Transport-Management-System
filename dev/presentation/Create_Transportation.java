@@ -19,47 +19,53 @@ public class Create_Transportation {
 
         while (answer.equals("yes")){
 
-            System.out.println("Please enter the date of the transportation:");
+            System.out.println("\nPlease enter the date of the transportation:");
             String date = reader.next();
 
-            System.out.println("Please enter the leaving time of the transportation:");
+            System.out.println("\nPlease enter the leaving time of the transportation:");
             String l_time = reader.next();
 
-            System.out.println("Please enter the source place of the transportation:");
+            System.out.println("\nPlease enter the source place of the transportation:");
             String source = reader.next();
 
             String truck = choose_truck();
-            String driver = choose_driver();
 
-            if (truck == null || driver == null) {
+            if (truck == null) {
                 System.out.println("Sorry but we can't arrange the transport, " +
-                                   "because there are no truck or driver that available");
+                        "because there are no truck that available");
                 return;
             }
 
-            new_json.addProperty("date", date);
-            new_json.addProperty("leaving time", l_time);
-            new_json.addProperty("truck", truck);
-            new_json.addProperty("driver", driver);
-            new_json.addProperty("source", source);
+            String driver = choose_driver(truck);
+
+            if (driver == null) {
+                System.out.println("Sorry but we can't arrange the transport, " +
+                        "because there are no driver that available");
+                return;
+            }
+
+            new_json.addProperty("Date", date);
+            new_json.addProperty("Leaving time", l_time);
+            new_json.addProperty("Truck", truck);
+            new_json.addProperty("Driver", driver);
+            new_json.addProperty("Source", source);
 
             String area = choose_area();
 
             String a = "yes";
 
             while (a.equals("yes")){
-                System.out.println("Please choose supplier or store:");
-                System.out.println("""
-                Supplier - '1'.
-                Store - '2'.""");
+                System.out.println("Please choose Supplier or Store:\n");
+                System.out.println("Press '1' to - Supplier");
+                System.out.println("Press '2' to - Store");
+
 
                 String site = reader.next();
                 while (!site.equals("1") && !site.equals("2")) {
-                    System.out.println("Wrong input!, try again..");
-                    System.out.println("Please choose supplier or store:");
-                    System.out.println("""
-                Supplier - '1'.
-                Store - '2'.""");
+                    System.out.println("\nWrong input!, try again..");
+                    System.out.println("Please choose Supplier or Store:\n");
+                    System.out.println("Press '1' to - Supplier");
+                    System.out.println("Press '2' to - Store");
                     site = reader.next();
                 }
                 switch (site) {
@@ -72,7 +78,7 @@ public class Create_Transportation {
                             System.out.println("Do you want to add another item?");
                             b = reader.next();
                         }
-                        create_document(supplier, "supplier", area);
+                        create_document(supplier, "Supplier", area);
                     }
                     case "2" ->{
                         String store = choose_store(area);
@@ -83,7 +89,7 @@ public class Create_Transportation {
                             System.out.println("Do you want to add item?");
                             b = reader.next();
                         }
-                        create_document(store, "store", area);
+                        create_document(store, "Store", area);
                     }
                 }
                 System.out.println("Do you want to add site?\nEnter 'yes' or 'no'.");
@@ -101,7 +107,7 @@ public class Create_Transportation {
 
     public static String choose_truck(){
 
-        System.out.println("Please choose an Truck: ");
+        System.out.println("Please choose an Truck:");
 
         JsonObject new_trucks = Transportation_manager_controller.choose_truck();
 
@@ -111,11 +117,11 @@ public class Create_Transportation {
         return print_to_user(new_trucks.size(), new_trucks);
     }
 
-    public static String choose_driver(){
+    public static String choose_driver(String truck){
 
-        System.out.println("Please choose an Driver: ");
+        System.out.println("Please choose an Driver:");
 
-        JsonObject new_drivers = Transportation_manager_controller.choose_driver();
+        JsonObject new_drivers = Transportation_manager_controller.choose_driver(truck);
 
         if (new_drivers.size() == 0)
             return null;
@@ -125,7 +131,7 @@ public class Create_Transportation {
 
     public static String choose_area(){
 
-        System.out.println("Please choose an Shipping area: ");
+        System.out.println("Please choose an Shipping area:");
 
         JsonObject new_areas = Transportation_manager_controller.choose_area();
 
@@ -157,23 +163,23 @@ public class Create_Transportation {
 
         System.out.println("Please enter Item:");
 
-        System.out.println("Name:");
-        j.addProperty("name", reader.next());
+        System.out.println("Name of the item:");
+        j.addProperty("Name", reader.next());
 
-        System.out.println("Weight:");
-        j.addProperty("weight", reader.next());
+        System.out.println("Weight of the item:");
+        j.addProperty("Weight", reader.next());
 
-        System.out.println("Amount");
-        j.addProperty("amount", reader.next());
+        System.out.println("Amount of the items");
+        j.addProperty("Amount", reader.next());
 
         Transportation_manager_controller.create_items_list(j);
     }
     public static void create_document(String site, String type, String area){
         JsonObject j = new JsonObject();
 
-        j.addProperty("site", site);
-        j.addProperty("type", type);
-        j.addProperty("area", area);
+        j.addProperty("Site", site);
+        j.addProperty("Type", type);
+        j.addProperty("Area", area);
 
         Transportation_manager_controller.create_document(j);
     }

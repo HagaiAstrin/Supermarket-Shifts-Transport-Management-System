@@ -18,20 +18,20 @@ public class Add_Truck {
 
         while (answer.equals("yes")){
 
-            System.out.println("Enter licence_number of 8 digits:");
+            System.out.println("\nEnter licence_number of 8 digits:");
             String licence_number = reader.next();
 
             while (licence_number.length() != 8){
-                System.out.println("Wrong input! The licence_number should hava a 8 digit. try again..");
+                System.out.println("\nWrong input! The licence_number should hava a 8 digit. try again..");
                 System.out.println("Enter licence_number of 8 digits:");
                 licence_number = reader.next();
             }
 
-            System.out.println("Enter the license leve of the Truck: 'A', 'B' OR 'C'");
+            System.out.println("Enter the license leve of the Truck: 'A', 'B', 'C'");
             String licence_level = reader.next();
 
             while (!licence_level.equals("A") && !licence_level.equals("B") && !licence_level.equals("C")){
-                System.out.println("Wrong input! try again..");
+                System.out.println("\nWrong input! try again..");
                 System.out.println("Enter the license leve of the driver: 'A', 'B' OR 'C'");
                 licence_level = reader.next();
             }
@@ -45,21 +45,21 @@ public class Add_Truck {
                     Double.parseDouble(net_weight);
                 }
                 catch (Exception e){
-                    System.out.println("Wrong input! try again..");
+                    System.out.println("\nWrong input! try again..");
                     net_weight = null;
                 }
             }
 
             String max_weight = null;
             while (max_weight == null){
-                System.out.println("Please enter max weight:");
+                System.out.println("\nPlease enter max weight:");
                 max_weight = reader.next();
 
                 try {
                     Double.parseDouble(max_weight);
                 }
                 catch (Exception e){
-                    System.out.println("Wrong input! try again..");
+                    System.out.println("\nWrong input! try again..");
                     max_weight = null;
                 }
             }
@@ -71,7 +71,7 @@ public class Add_Truck {
 
             Transportation_manager_controller.add_truck(new_json);
 
-            System.out.println("Added truck successful!");
+            System.out.println("Truck added successfully!");
 
             System.out.println("Would you like to add another truck? Enter 'yes' or 'no'");
             answer = reader.next();

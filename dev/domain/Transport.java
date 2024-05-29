@@ -36,12 +36,12 @@ public class Transport {
 //            this.cur_weight-=weight;
         targets.remove(dc);
     }
-    public boolean is_Weight_Good() {
+    public boolean Is_Over_Weight() {
         boolean bool = true;
         double count = this.truck.getNet_weight();
         for (Document d : targets) {
             Site new_site = d.getTarget();
-            if (new_site instanceof Supplier) {
+            if (new_site.getType().equals("Supplier")) {
                 count += d.cul_weight();
                 if(count > this.max_weight){
                     this.max_weight = count;

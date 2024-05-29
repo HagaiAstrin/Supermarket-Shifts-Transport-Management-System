@@ -25,27 +25,26 @@ public class DataStructManager {
 
     public static void add_Site(JsonObject j) {
 
-        String name = j.get("name").getAsString();
-        String address = j.get("address").getAsString();
-        String phone = j.get("phone number").getAsString();
-        String contact = j.get("contact").getAsString();
+        String name = j.get("Name").getAsString();
+        String address = j.get("Address").getAsString();
+        String phone = j.get("Phone number").getAsString();
+        String contact = j.get("Contact").getAsString();
         String Shipping_area = j.get("Shipping area").getAsString();
-        String type = j.get("type").getAsString();
-
+        String type = j.get("Type").getAsString();
 
         if (!manager_Map.containsKey(Shipping_area)) {
             add_Shipping_area(Shipping_area);
         }
-        if (type.equals("store")) {
+        if (type.equals("Store")) {
 
-            Store store = new Store(name, address, phone, contact, Shipping_area);
+            Site store = new Site(name, address, phone, contact, Shipping_area, "Store");
 
             Map<String, Site> map = manager_Map.get(Shipping_area).get("Store");
             if (!map.containsKey(store.getName())) {
                 manager_Map.get(Shipping_area).get("Store").put(store.getName(), store);
             }
         } else {
-            Supplier supplier = new Supplier(name, address, phone, contact, Shipping_area);
+            Site supplier = new Site(name, address, phone, contact, Shipping_area, "Supplier");
 
             Map<String, Site> map = manager_Map.get(Shipping_area).get("Supplier");
             if (!map.containsKey(supplier.getName())) {
@@ -56,34 +55,47 @@ public class DataStructManager {
     }
     public static String check_driver(JsonObject j){
         for (Driver driver : drivers) {
-            if (j.get("name").getAsString().equals(driver.getName()) && j.get("password").getAsString().equals(driver.getPassword())) {
+            if (j.get("Name").getAsString().equals(driver.getName()) && j.get("Password").getAsString().equals(driver.getPassword())) {
                 return driver.getName();
             }
         }
         return null;
     }
-    public static void update_back_driver(JsonObject j){
+    public static String update_back_driver(JsonObject j){
         for (Driver driver : drivers) {
-            if (j.get("name").getAsString().equals(driver.getName()) && j.get("password").getAsString().equals(driver.getPassword())) {
-                driver.setAvailability(true);
-                driver.getUsing_truck().setAvailability(true);
+            if (j.get("Name").getAsString().equals(driver.getName()) && j.get
+                    ("Password").getAsString().equals(driver.getPassword())) {
+                if (driver.getUsing_truck() != null && !driver.isAvailability()){
+                    driver.setAvailability(true);
+                    driver.getUsing_truck().setAvailability(true);
+                    return ("\nWelcome back!\n");
+                }
+                return ("\nYou can't report because you are not make Transportation!\n");
             }
         }
+        return ("\nYou are not exist in the system!\n");
     }
 
-    public static void update_leaving_driver(JsonObject j){
+    public static String update_leaving_driver(JsonObject j){
         for (Driver driver : drivers) {
-            if (j.get("name").getAsString().equals(driver.getName()) && j.get("password").getAsString().equals(driver.getPassword())) {
-                driver.setAvailability(false);
-                driver.getUsing_truck().setAvailability(false);
+            if (j.get("Name").getAsString().equals(driver.getName()) && j.get
+                    ("Password").getAsString().equals(driver.getPassword())) {
+                if (driver.getUsing_truck() != null && driver.isHold()){
+                    driver.setAvailability(false);
+                    driver.getUsing_truck().setAvailability(false);
+                    return ("Have a good trip!");
+                }
             }
+            return ("You can't report because you are not make Transportation!");
         }
+        return ("You are not exist in the system!");
     }
+
     public static void add_driver(JsonObject j){
 
-        String name = j.get("name").getAsString();
-        String licence = j.get("licence").getAsString();
-        String password = j.get("password").getAsString();
+        String name = j.get("Name").getAsString();
+        String licence = j.get("Licence").getAsString();
+        String password = j.get("Password").getAsString();
 
         Driver new_driver = new Driver(name, licence, password);
 
@@ -91,10 +103,10 @@ public class DataStructManager {
     }
     public static void add_truck(JsonObject j){
 
-        String n = j.get("licence number").toString();
-        char l = j.get("licence level").getAsCharacter();
-        double net = j.get("net weight").getAsDouble();
-        double max = j.get("max weight").getAsDouble();
+        String n = j.get("Licence number").getAsString();
+        String l = j.get("Licence level").getAsString();
+        double net = j.get("Net weight").getAsDouble();
+        double max = j.get("Max weight").getAsDouble();
 
         Truck new_truck = new Truck(n, l, net, max);
 
@@ -102,10 +114,10 @@ public class DataStructManager {
     }
     public static void create_items_list(JsonObject j) {
 
-        String name = j.get("name").getAsString();
+        String name = j.get("Name").getAsString();
 
-        double weight = j.get("weight").getAsDouble();
-        int amount = j.get("amount").getAsInt();
+        double weight = j.get("Weight").getAsDouble();
+        int amount = j.get("Amount").getAsInt();
 
         Item new_item = new Item(name, weight);
 
@@ -114,12 +126,12 @@ public class DataStructManager {
 
     public static void create_document(JsonObject j){
 
-        String site = j.get("site").getAsString();
-        String type = j.get("type").getAsString();
-        String area = j.get("area").getAsString();
+        String site = j.get("Site").getAsString();
+        String type = j.get("Type").getAsString();
+        String area = j.get("Area").getAsString();
 
         switch (type){
-            case "store" -> {
+            case "Store" -> {
                 for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Store").entrySet()){
                     if (iter.getValue().to_string().equals(site)){
                         Document d = new Document(iter.getValue(), items);
@@ -128,7 +140,7 @@ public class DataStructManager {
                     }
                 }
             }
-            case "supplier" ->{
+            case "Supplier" ->{
                 for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Supplier").entrySet()){
                     if (iter.getValue().to_string().equals(site)){
                         Document d = new Document(iter.getValue(), items);
@@ -142,17 +154,17 @@ public class DataStructManager {
 
     public static boolean create_transportation(JsonObject j, ArrayList<String> a){
 
-        String date = j.get("date").toString();
-        String leaving_time = j.get("leaving time").toString();
-        String source = j.get("source").toString();
+        String date = j.get("Date").getAsString();
+        String leaving_time = j.get("Leaving time").getAsString();
+        String source = j.get("Source").getAsString();
 
         for (Driver d: drivers){
-            if (d.to_String().equals(j.get("driver").toString())){
+            if (d.to_String().equals(j.get("Driver").getAsString())){
                 for (Truck t: trucks){
-                    if (t.to_String().equals(j.get("truck").toString())){
+                    if (t.to_String().equals(j.get("Truck").getAsString())){
                         Transport new_transport = new Transport(date, leaving_time,t,d,source, documents);
                         documents = null;
-                        return new_transport.is_Weight_Good();
+                        return new_transport.Is_Over_Weight();
                     }
                 }
             }
@@ -173,14 +185,21 @@ public class DataStructManager {
         return j;
     }
 
-    public static JsonObject choose_driver(){
+    public static JsonObject choose_driver(String truck){
 
         JsonObject j = new JsonObject();
         int count = 1;
         for (Driver d:drivers){
-            if (d.isAvailability()){
-                j.addProperty(String.valueOf(count), d.to_String());
-                count++;
+            if (d.isAvailability() && !d.isHold()){
+                for (Truck a:trucks){
+                    if (a.to_String().equals(truck)){
+                        if (d.getLicense() >= a.getLicence_level()){
+                            j.addProperty(String.valueOf(count), d.to_String());
+                            count++;
+                        }
+                    }
+                }
+
             }
         }
         return j;

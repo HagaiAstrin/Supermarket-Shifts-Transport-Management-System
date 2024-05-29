@@ -2,12 +2,12 @@ package domain;
 
 public class Truck {
     private String licence_number;
-    private char licence_level;
+    private String licence_level;
     private double net_weight;
     private double max_weight;
     private boolean availability;
 
-    public Truck(String id, char licence, double net_weight, double max_weight) {
+    public Truck(String id, String licence, double net_weight, double max_weight) {
         this.licence_number = id;
         this.licence_level = licence;
         this.net_weight = net_weight;
@@ -15,26 +15,25 @@ public class Truck {
         this.availability = true;
     }
 
-    public String getLicence_number() {
-        return licence_number;
-    }
-
-    public char getLicence_level() {
-        return licence_level;
-    }
-
     public double getNet_weight() {
         return net_weight;
     }
-
     public double getMax_weight() {
         return max_weight;
     }
+    public int getLicence_level() {
+        int level = 0;
+        switch (licence_level){
+            case "A" -> level = 1;
+            case "B" -> level = 2;
+            case "C" -> level = 3;
+        }
 
+        return level;
+    }
     public boolean isAvailability() {
         return availability;
     }
-
     public void setAvailability(boolean availability) {
         this.availability = availability;
     }

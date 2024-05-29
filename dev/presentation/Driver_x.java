@@ -12,64 +12,68 @@ public class Driver_x {
 
         JsonObject new_Json = new JsonObject();
 
-        System.out.println("Enter name:");
+        System.out.println("\nEnter your name:");
 
         Scanner reader = new Scanner(System.in);
         String name = reader.next();
 
-        System.out.println("Enter password:");
+        System.out.println("Enter your password:");
         String password = reader.next();
 
-        new_Json.addProperty("name", name);
-        new_Json.addProperty("password", password);
+        new_Json.addProperty("Name", name);
+        new_Json.addProperty("Password", password);
 
         String driver_name = controller.Driver_controller.check_driver(new_Json);
 
         while (driver_name == null) {
-            System.out.println("The name or password are wrong, try again..");
+            System.out.println("\nThe name or password are wrong, try again..\n");
             System.out.println("Enter name:");
             name = reader.next();
 
             System.out.println("Enter password:");
             password = reader.next();
 
-            new_Json.addProperty("name", name);
-            new_Json.addProperty("password", password);
+            new_Json.addProperty("Name", name);
+            new_Json.addProperty("Password", password);
 
             driver_name = controller.Driver_controller.check_driver(new_Json);
         }
 
-        System.out.println("Hello " + driver_name + "! What do you want to do?");
-        System.out.println("""
-                Report on leaving - '1'.
-                Report on back - '2'.""");
-        String answer = reader.next();
+        String a = "yes";
+        while (a.equals("yes")) {
+            System.out.println("\nHello " + driver_name + "! What do you want to do?\n");
+            System.out.println("Press '1' to - Report on leaving");
+            System.out.println("Press '2' to - Report on back");
 
-        while (!answer.equals("1") && !answer.equals("2")) {
-            System.out.println("Wrong input, try again..");
-            System.out.println("Hello " + driver_name + "! What do you want to do?");
-            System.out.println("""
-                Report on leaving - '1'.
-                Report on back - '2'.""");
+            String answer = reader.next();
 
-            answer = reader.next();
+            while (!answer.equals("1") && !answer.equals("2")) {
+                System.out.println("\nWrong input, try again..\n");
+                System.out.println("Hello " + driver_name + "! What do you want to do?\n");
+                System.out.println("Press '1' to - Report on leaving");
+                System.out.println("Press '2' to - Report on back");
 
-        }
-        switch (answer) {
-            case "1" -> leaving(new_Json);
-            case "2" -> back(new_Json);
+                answer = reader.next();
+
+            }
+            switch (answer) {
+                case "1" -> leaving(new_Json);
+                case "2" -> back(new_Json);
+            }
+            System.out.println("\nDo you want to do something else?");
+            System.out.println("\npress 'yes' to continue in the system");
+            a = reader.next();
         }
     }
 
     public static void leaving (JsonObject j){
-        System.out.println("Have a good trip!");
-        Driver_controller.update_leaving(j);
-
+        String a = Driver_controller.update_leaving(j);
+        System.out.println(a);
     }
 
     public static void back (JsonObject j){
-        System.out.println("Welcome back!");
-        Driver_controller.update_back(j);
+        String a = Driver_controller.update_back(j);
+        System.out.println(a);
     }
 }
 

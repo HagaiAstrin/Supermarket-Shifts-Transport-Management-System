@@ -18,15 +18,15 @@ public class Add_Driver {
         String answer = "yes";
 
         while (answer.equals("yes")){
-            System.out.println("Enter the name of the driver:");
+            System.out.println("\nEnter the name of the driver:");
             String name = reader.next();
 
-            System.out.println("Enter the license leve of the driver: 'A', 'B' OR 'C'");
+            System.out.println("Enter the license leve of the driver: 'A', 'B', 'C'");
             String license = reader.next();
 
             while (!license.equals("A") && !license.equals("B") && !license.equals("C")){
-                System.out.println("Wrong input! try again..");
-                System.out.println("Enter the license leve of the driver: 'A', 'B' OR 'C'");
+                System.out.println("\nWrong input! try again..");
+                System.out.println("Enter the license leve of the driver: 'A', 'B', 'C'");
                 license = reader.next();
             }
 
@@ -34,7 +34,7 @@ public class Add_Driver {
             String password = reader.next();
 
             while (password.length() != 5){
-                System.out.println("Wrong input! The password should hava a 5 digit. try again..");
+                System.out.println("\nWrong input! The password should hava a 5 digit. try again..");
                 System.out.println("Enter password of 5 digit:");
                 password = reader.next();
             }
@@ -45,7 +45,7 @@ public class Add_Driver {
 
             Transportation_manager_controller.add_driver(new_json);
 
-            System.out.println("Added driver successful!");
+            System.out.println("Driver added successfully!");
 
             System.out.println("Would you like to add another driver? Enter 'yes' or 'no'.");
             answer = reader.next();
