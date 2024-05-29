@@ -116,7 +116,7 @@ public class Create_Transportation {
 
     public static String choose_driver(String truck){
 
-        System.out.println("Please choose an Driver:");
+        System.out.println("Please choose a Driver:");
 
         JsonObject new_drivers = Transportation_manager_controller.choose_driver(truck);
 
@@ -161,13 +161,31 @@ public class Create_Transportation {
         System.out.println("Please enter Item:");
 
         System.out.println("Name of the item:");
-        j.addProperty("Name", reader.next());
+        String Name = reader.next();
 
-        System.out.println("Weight of the item:");
-        j.addProperty("Weight", reader.next());
+        while (true) {
+            System.out.println("Weight of the item:");
+            String Weight = reader.next();
+            try {
+                Double.parseDouble(Weight);
+                break;
+            }
+            catch (Exception e) {
+                System.out.println("Wrong input! try again..");
+            }
+        }
 
-        System.out.println("Amount of the items");
-        j.addProperty("Amount", reader.next());
+        while (true) {
+            System.out.println("Amount of the items");
+            String Amount = reader.next();
+            try {
+                Integer.parseInt(Amount);
+                break;
+            }
+            catch (Exception e) {
+                System.out.println("Wrong input! try again..");
+            }
+        }
 
         Transportation_manager_controller.create_items_list(j);
     }
@@ -211,6 +229,6 @@ public class Create_Transportation {
                 System.out.println("Wrong input! try again..");
             }
         }
-        return j.get(answer).toString();
+        return j.get(answer).getAsString();
     }
 }

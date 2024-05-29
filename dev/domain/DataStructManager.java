@@ -83,6 +83,7 @@ public class DataStructManager {
                 if (driver.getUsing_truck() != null && driver.isHold()){
                     driver.setAvailability(false);
                     driver.getUsing_truck().setAvailability(false);
+                    driver.setHold(false);
                     return ("Have a good trip!");
                 }
             }
@@ -191,7 +192,7 @@ public class DataStructManager {
         JsonObject j = new JsonObject();
         int count = 1;
         for (Truck t:trucks){
-            if (t.to_String().equals(truck)){
+            if (truck.equals(t.to_String())){
                 for (Driver d:drivers){
                     if (d.isAvailability() && !d.isHold()){
                         if (d.getLicense() >= t.getLicence_level()){
@@ -231,5 +232,4 @@ public class DataStructManager {
         }
         return j;
     }
-
 }

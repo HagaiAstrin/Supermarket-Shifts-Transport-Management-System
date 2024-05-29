@@ -2,7 +2,6 @@ package presentation;
 
 import com.google.gson.JsonObject;
 import controller.Transportation_manager_controller;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 

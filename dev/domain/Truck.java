@@ -22,14 +22,18 @@ public class Truck {
         return max_weight;
     }
     public int getLicence_level() {
-        int level = 0;
         switch (licence_level){
-            case "A" -> level = 1;
-            case "B" -> level = 2;
-            case "C" -> level = 3;
+            case "A" -> {
+                return  1;
+            }
+            case "B" -> {
+                return  2;
+            }
+            case "C" -> {
+                return  3;
+            }
         }
-
-        return level;
+        return 0;
     }
     public boolean isAvailability() {
         return availability;
