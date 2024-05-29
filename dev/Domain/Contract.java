@@ -1,34 +1,26 @@
 package Domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Contract {
-    Date startDate;
-    String workType;
-    int globalSalary;
+    LocalDate startDate;
+    int salary;
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public String getWorkType() {
-        return workType;
+    public int getSalary() {
+        return salary;
     }
 
-    public void setWorkType(String workType) {
-        this.workType = workType;
-    }
-
-    public int getGlobalSalary() {
-        return globalSalary;
-    }
-
-    public void setGlobalSalary(int globalSalary) {
-        this.globalSalary = globalSalary;
+    public void setGlobalSalary(int salary) {
+        this.salary = salary;
     }
 
     public int getHourlySalary() {
@@ -50,11 +42,9 @@ public class Contract {
     int hourlySalary;
     int restDays;
 
-    public Contract(Date startDate, String workType, int globalSalary, int hourlySalary, int restDays) {
+    public Contract(LocalDate startDate, int salary, int restDays) {
         this.startDate = startDate;
-        this.workType = workType;
-        this.globalSalary = globalSalary;
-        this.hourlySalary = hourlySalary;
+        this.salary = salary;
         this.restDays = restDays;
     }
 }

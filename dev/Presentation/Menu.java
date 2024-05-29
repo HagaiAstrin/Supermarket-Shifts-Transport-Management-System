@@ -2,8 +2,13 @@ package Presentation;
 
 import Domain.Employee;
 import Controller.*;
+
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -15,41 +20,68 @@ public class Menu {
     /**
      * Adding employee to the database.
      */
-    public static void AddEmployee() {
+    public static void AddEmployee() throws IOException {
+        JsonObject json = new JsonObject();
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Employee ID: ");
         String id = scanner.nextLine();
+        json.addProperty("id", id);
 
         System.out.print("Enter Employee Name: ");
         String name = scanner.nextLine();
+        json.addProperty("name", name);
 
         System.out.print("Enter Bank ID: ");
         String bankID = scanner.nextLine();
+        json.addProperty("bankID", bankID);
 
         System.out.print("Enter Salary: ");
         int salary = scanner.nextInt();
         scanner.nextLine();  // Consume newline
+        json.addProperty("salary", salary);
 
         System.out.print("Enter Rest Days: ");
         int restDays = scanner.nextInt();
         scanner.nextLine();  // Consume newline
+        json.addProperty("restDays", restDays);
 
-        System.out.print("Enter Start Date (yyyy-MM-dd): ");
-        String startDateStr = scanner.nextLine();
-        Date startDate = null;
-        try {
-            startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startDateStr);
-        } catch (ParseException e) {
-            System.out.println("Invalid date format. Please use yyyy-MM-dd.");
-        }
+        scanner = new Scanner(System.in);
+        System.out.println("Enter a date (dd/MM/yyyy): ");
+        String dateString = scanner.nextLine(); // Read the input from the user
+        json.addProperty("date", dateString);
 
-        System.out.print("Enter Job Type (e.g., CASHIER, SHIFT_MANAGER, STOCK_KEEPER): ");
+        System.out.println("Enter Job Type (e.g., CASHIER, SHIFT_MANAGER, STOCK_KEEPER): ");
         String jobType = scanner.nextLine();
 
-        Gson gson = new Gson();
-        Employee e = new Employee(id, name, bankID, salary, restDays, startDate, jobType);
 
-        System.out.println(AdminController.AddEmployee(gson.toJsonTree(e).getAsJsonObject()));
+        // Define the date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        LocalDate date = null;
+        try {
+            // Parse the string to LocalDate
+            date = LocalDate.parse(dateString, formatter);
+
+            //System.out.println("Parsed date: " + date);
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format: " + e.getMessage());
+            return;
+        }
+
+
+        Gson gson = new Gson();
+        // TODO: Just Send a JsonObject!!!!!!!!!!!!!!!!!
+        // Delete this constructor. It should not be in the presentation layer.
+        JsonObject e_Json = Sender.EmployeeToJson(id, name, bankID, salary, restDays, date, jobType);
+        //Employee e = new Employee(id, name, bankID, salary, restDays, date, jobType);
+
+        try {
+            AdminController.AddEmployee(e_Json);
+            System.out.println("Employee added successfully.");
+        } catch (IOException ex) {
+            System.err.println("Failed to add employee: " + ex.getMessage());
+        }
     }
 
     /**

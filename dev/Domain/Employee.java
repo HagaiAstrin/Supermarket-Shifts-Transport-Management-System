@@ -1,4 +1,7 @@
 package Domain;
+import com.google.gson.JsonObject;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -59,12 +62,12 @@ public class Employee {
         return contract;
     }
 
-    public Employee(String id, String name, String bankID, int salary, int restDays, Date startDate, String workType) {
+    public Employee(String id, String name, String bankID, int salary, int restDays, LocalDate startDate, String workType) {
         this.jobType = JobTypeEnum.valueOf(workType.toUpperCase().replaceAll(" ", "_"));
         this.id = id;
         this.name = name;
         this.bankID = bankID;
-        this.contract = new Contract(startDate, workType, salary, salary, restDays);
+        this.contract = new Contract(startDate, salary, restDays);
     }
 
     public String toString() {
@@ -77,6 +80,30 @@ public class Employee {
 
     public void setRestDays(int restDays) {
         contract.setRestDays(restDays);
+    }
+
+    public JsonObject toJson() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("id", id);
+        jsonObject.addProperty("name", name);
+        jsonObject.addProperty("jobType", jobType.toString());
+        jsonObject.addProperty("bankID", bankID);
+        // TODO : Check real toString() representation
+        jsonObject.addProperty("restDays", contract.getRestDays());
+        jsonObject.addProperty("salary", contract.getSalary());
+        jsonObject.addProperty("startDate", contract.getStartDate().toString());
+        // Add other fields as necessary
+        return jsonObject;
+    }
+
+    public static Employee JsonToEmployee(JsonObject j){
+        return new Employee(j.get("id").getAsString(),
+                j.get("name").getAsString(),
+                j.get("bankID").getAsString(),
+                Integer.parseInt(j.get("salary").getAsString()),
+                Integer.parseInt(j.get("restDays").getAsString()),
+                IO_Data.StringToDate(j.get("startDate").getAsString()),
+                j.get("jobType").getAsString());
     }
 }
 

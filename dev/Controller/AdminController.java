@@ -3,6 +3,7 @@ import com.google.gson.Gson;
 import Domain.*;
 import com.google.gson.JsonObject;
 
+import java.io.IOException;
 import java.util.List;
 
 public class AdminController {
@@ -12,12 +13,14 @@ public class AdminController {
      * @return List of Json objects containing raw data about employees.
      */
     public static List<JsonObject> PrintEmployees(){
-        return IO_Data.ImportEmployees();
+        return IO_Data.PrintEmployees();
     }
-
-    public static String AddEmployee(JsonObject json){
-        return IO_Data.AddEmployee(json);
-        //System.out.println(json);
+    public static void ImportEmployees(){
+        IO_Data.ImportEmployees();
+    }
+    public static void AddEmployee(JsonObject json) throws IOException {
+        IO_Data.addEmployeeToCSV(json);
+        IO_Data.addEmployeeToList(json);
     }
 
     public String RemoveEmployee(String id){

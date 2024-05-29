@@ -3,11 +3,16 @@ package Domain;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+
+import java.util.NoSuchElementException;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -24,8 +29,7 @@ public class IO_Data {
      * Import all employees data.
      * @return List of employees in Json format.
      */
-    public static List<JsonObject> ImportEmployees() {
-        List<JsonObject> employees = new ArrayList<>();
+    public static void ImportEmployees() {
         String line;
         String csvSplitBy = ",";
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -40,24 +44,40 @@ public class IO_Data {
                     String id = fields[0];
                     String jobType = fields[1];
                     String name = fields[2];
-                    Date startDate = dateFormat.parse(fields[3]);
-                    String bankID = fields[4];
+                    String bankID = fields[3];
+                    String startDate = fields[4];
                     int salary = Integer.parseInt(fields[5]);
                     int restDays = Integer.parseInt(fields[6]);
 
-                    Employee employee = new Employee(id,  name, bankID, salary, restDays, startDate, jobType);
-                    if(!flag){
-                        currEmployees.put(Integer.valueOf(employee.getId()), employee);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyy");
+
+                    try {
+                        // Parse the string to LocalDate
+                        LocalDate date = LocalDate.parse(startDate, formatter);
+                        Employee employee = new Employee(id,  name, bankID, salary, restDays, date, jobType);
+                        if(!flag){
+                            currEmployees.put(Integer.valueOf(employee.getId()), employee);
+                        }
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid date format: " + e.getMessage());
                     }
-                    Gson gson = new Gson();
-                    employees.add(gson.toJsonTree(employee).getAsJsonObject());
                 }
             }
-        } catch (IOException | ParseException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         flag = true;
+
+    }
+
+    public static List<JsonObject> PrintEmployees() {
+        List<JsonObject> employees = new ArrayList<>();
+
+
+        for(int i=0; i < currEmployees.size(); i++){
+            employees.add(currEmployees.get(i).toJson());
+        }
         return employees;
     }
 
@@ -69,14 +89,6 @@ public class IO_Data {
     // TODO: Append to database.
     // TODO: add the employee to the .csv
     // TODO: add the employee to the List in IO_Data.
-    public static String AddEmployee(JsonObject json){
-        if(SearchEmployee(String.valueOf(json.get("id"))) == -1){
-            return "Can't add employee with the same ID as " + json.get("id").getAsString() + ".\n";
-        }
-
-        System.out.println(json);
-        return "Employee " + json.get("id").getAsString() + " has been added!\n";
-    }
 
     /**
      * Add an Employee to the database.
@@ -150,15 +162,47 @@ public class IO_Data {
         return new Gson().toJsonTree(employee).getAsJsonObject();
     }
 
-//    public static String[][] readEmployeeCSVPreferences(String path){
-//        List<String[]> rows = new ArrayList<>();
-//        try (BufferedReader br = new BufferedReader(new FileReader(path))){
-//
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return {{"""
-//x"""}};
-//    }
+    public static void addEmployeeToCSV(JsonObject employeeJson) throws IOException {
+        try (FileWriter writer = new FileWriter(Constants.PATH_EMPLOYEES, true)) {
+            writer.append(employeeJsonToCSVString(employeeJson));
+            writer.append("\n");
+        }
+        catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void addEmployeeToList(JsonObject e) {
+        // TODO: CHECK IF WORKS PROPERLY!
+        // Date does not work! Attribute is null.
+        currEmployees.put(Integer.parseInt(e.get("id").getAsString()),Employee.JsonToEmployee(e));
+    }
+
+    public static LocalDate StringToDate(String dateStr){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        try {
+            // Parse the string to LocalDate
+            LocalDate date = LocalDate.parse(dateStr, formatter);
+            return date;
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format: " + e.getMessage());
+        }
+        return null;
+    }
+    private static String employeeJsonToCSVString(JsonObject employeeJson) {
+        StringBuilder csvString = new StringBuilder();
+        csvString.append(employeeJson.get("id").getAsString()).append(",");
+        csvString.append(employeeJson.get("jobType").getAsString()).append(",");
+        csvString.append(employeeJson.get("name").getAsString()).append(",");
+        csvString.append(employeeJson.get("bankID").getAsString()).append(",");
+
+
+        //JsonObject contractJson = employeeJson.getAsJsonObject("contract");
+        csvString.append(employeeJson.get("startDate").getAsString()).append(",");
+        csvString.append(employeeJson.get("salary").getAsString()).append(",");
+        csvString.append(employeeJson.get("restDays").getAsString()).append(",");
+        // Add other fields as necessary
+        return csvString.toString();
+    }
 }

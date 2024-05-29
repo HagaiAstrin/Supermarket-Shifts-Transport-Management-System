@@ -5,6 +5,7 @@ import Controller.*;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -18,16 +19,16 @@ public class Program {
 
     private Scanner scanner = new Scanner(System.in); // Use a single scanner instance
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Program program = new Program();
         program.Menu();
     }
 
-    public void Menu() {
+    public void Menu() throws IOException {
         login();
     }
 
-    private void login() {
+    private void login() throws IOException {
         // Admin or User
         String UserKind;
         System.out.print("Hey there, if you are admin press 1, else press 2: ");
@@ -75,22 +76,24 @@ public class Program {
         return new String[]{userName, password, id};
     }
 
-    private void AdminMenu(){
+    private void AdminMenu() throws IOException {
         while (true) {
             System.out.println("\nAdmin Menu:");
-            System.out.println("1. Load all employees data");
+            System.out.println("1. Load employees data");
             System.out.println("2. Add new employee");
             System.out.println("3. Remove employee");
             System.out.println("4. Update employee details");
             System.out.println("5. Logout");
+            System.out.println("6. Statistics");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
 
+            // TODO: Create a class for admin menu and user menu.
             switch (choice) {
                 case 1:
-                    // Call method to view all employees
-                    System.out.println(AdminController.PrintEmployees());
+                    // Call method to view all employee
+                    AdminController.ImportEmployees();
                     break;
                 case 2:
                     // Call method to add new employee
@@ -107,6 +110,10 @@ public class Program {
                 case 5:
                     // TODO: Implement LOGOUT
                     SystemController.Logout();
+                    return;
+                case 6:
+                    Printer.PrintAllEmployees(AdminController.PrintEmployees());
+                    break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
