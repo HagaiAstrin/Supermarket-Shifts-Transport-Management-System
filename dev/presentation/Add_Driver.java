@@ -39,9 +39,9 @@ public class Add_Driver {
                 password = reader.next();
             }
 
-            new_json.addProperty("name",name);
-            new_json.addProperty("licence",license);
-            new_json.addProperty("password",password);
+            new_json.addProperty("Name",name);
+            new_json.addProperty("Licence",license);
+            new_json.addProperty("Password",password);
 
             Transportation_manager_controller.add_driver(new_json);
 

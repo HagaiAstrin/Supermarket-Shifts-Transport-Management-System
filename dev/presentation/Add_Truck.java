@@ -64,10 +64,10 @@ public class Add_Truck {
                 }
             }
 
-            new_json.addProperty("licence number", licence_number);
-            new_json.addProperty("licence level", licence_level);
-            new_json.addProperty("net weight", net_weight);
-            new_json.addProperty("max weight", max_weight);
+            new_json.addProperty("Licence number", licence_number);
+            new_json.addProperty("Licence level", licence_level);
+            new_json.addProperty("Net weight", net_weight);
+            new_json.addProperty("Max weight", max_weight);
 
             Transportation_manager_controller.add_truck(new_json);
 

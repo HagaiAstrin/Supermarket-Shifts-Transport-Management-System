@@ -20,13 +20,13 @@ public class Create_Transportation {
         while (answer.equals("yes")){
 
             System.out.println("\nPlease enter the date of the transportation:");
-            String date = reader.next();
+            new_json.addProperty("Date", reader.next());
 
             System.out.println("\nPlease enter the leaving time of the transportation:");
-            String l_time = reader.next();
+            new_json.addProperty("Leaving time", reader.next());
 
             System.out.println("\nPlease enter the source place of the transportation:");
-            String source = reader.next();
+            new_json.addProperty("Source", reader.next());
 
             String truck = choose_truck();
 
@@ -44,11 +44,8 @@ public class Create_Transportation {
                 return;
             }
 
-            new_json.addProperty("Date", date);
-            new_json.addProperty("Leaving time", l_time);
             new_json.addProperty("Truck", truck);
             new_json.addProperty("Driver", driver);
-            new_json.addProperty("Source", source);
 
             String area = choose_area();
 

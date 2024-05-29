@@ -189,17 +189,17 @@ public class DataStructManager {
 
         JsonObject j = new JsonObject();
         int count = 1;
-        for (Driver d:drivers){
-            if (d.isAvailability() && !d.isHold()){
-                for (Truck a:trucks){
-                    if (a.to_String().equals(truck)){
+        for (Truck a:trucks){
+            if (a.to_String().equals(truck)){
+                for (Driver d:drivers){
+                    if (d.isAvailability() && !d.isHold()){
                         if (d.getLicense() >= a.getLicence_level()){
                             j.addProperty(String.valueOf(count), d.to_String());
                             count++;
                         }
                     }
                 }
-
+                break;
             }
         }
         return j;
