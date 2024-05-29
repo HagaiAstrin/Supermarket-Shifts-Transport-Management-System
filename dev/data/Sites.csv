@@ -1,36 +1,28 @@
-Name, Address, Phone Number, Contact, Shipping Area, Type
-
+Name,Address,Phone number,Contact,Shipping area,Type
 Tel - Aviv,"Tel-Aviv, 41",03-1111111,Dani,Center,Store
 Hulon,"Hulon, 21",03-2222222,Yossef,Center,Store
 Hertseliya,"Hertseliya, 40",03-3333333,Avi,Center,Store
-
 Tnuva - Center,"Tel-Aviv, 32",03-2938393,Pinhas,Center,Supplier
 Berman - Center,"Rishon Le Zion, 87",03-5644456,Yossi,Center,Supplier
 Ossem - Center,"Bni-Brak, 21",03-8894562,Omer,Center,Supplier
 Pri Hasade - Center,"Raanna, 32",03-7845112,Yoni,Center,Supplier
-
 Beer-Sheva,"Beer-Sheva, 11",08-1111111,Tsahi,South,Store
 Ofackim,"Ofackim, 67",08-2222222,Asaf,South,Store
 Kiryat-Gat,"Kiryat-Gat, 88",08-3333333,Idan,South,Store
-
 Tnuva - South,"Beer-Sheva, 32",08-2938393,Moshe,South,Supplier
 Berman - South,"Tel-Aviv, 32",08-5644456,Avraham,South,Supplier
 Ossem - South,"Tel-Aviv, 32",08-8894562,Hagai,South,Supplier
 Pri Hasade - South,"Tel-Aviv, 32",08-7845112,Yoni,South,Supplier
-
 Haiffa,Haiffa,04-1111111,Dvir,North,Store
 Tveriya,Tveriya,04-2222222,Dudu,North,Store
 Kiriyat-Haiim,Kiriyat-Haiim,04-3333333,Yithhak,North,Store
-
 Tnuva - North,"Haiffa, 32",04-2938393,Yossi,North,Supplier
 Berman - North,"Tel-Aviv, 32",04-5644456,Asi,North,Supplier
 Ossem - North,"Tel-Aviv, 32",04-8894562,Omer,North,Supplier
 Pri Hasade - North,"Tel-Aviv, 32",04-7845112,Yoni,North,Supplier
-
 Jerusalem,"Jerusalem, 44",02-1111111,Rotem,East,Store
 Mevaseret-Zion,"Mevaseret-Zion, 10",02-2222222,Gadi,East,Store
 Maale-Edumim,"Maale-Edumim,55",02-3333333,Yoram,East,Store
-
 Tnuva - East,"Jerusalem, 32",02-2938393,Fdida,East,Supplier
 Berman - East,"Tel-Aviv, 32",02-5644456,,East,Supplier
 Ossem - East,"Tel-Aviv, 32",02-8894562,Omer,East,Supplier

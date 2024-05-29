@@ -1,10 +1,16 @@
 package presentation;
 
+import com.google.gson.JsonObject;
+import controller.Transportation_manager_controller;
+
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
+        CSV_reader.reader("dev/data/Drivers.csv", 1);
+        CSV_reader.reader( "dev/data/Sites.csv", 2);
+        CSV_reader.reader( "dev/data/Trucks.csv", 3);
 
         while (true) {
 
