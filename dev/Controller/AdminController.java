@@ -42,4 +42,8 @@ public class AdminController {
     public static void UpdateEmployee(JsonObject json){
 
     }
+    public static void Shifts(){
+        IO_Data.ImportPreferences();
+        WeeklyShift damn = new WeeklyShift(1);
+    }
 }

@@ -14,9 +14,11 @@ import com.google.gson.JsonObject;
 
 
 public class IO_Data {
-    static Map<Integer, Employee> currEmployees = new HashMap<>();
-//    static List<Employee> currEmployees = new ArrayList<>();
+    protected static Map<Integer, Employee> currEmployees = new HashMap<>();
+    protected static Map<Integer, String[][]> WeekPreferences = new HashMap<>();
     static boolean flag = false;
+    static int amount_days = 5;
+    static int amount_shifts = 2;
     public static boolean isAdmin = false; // for user menu
     public static String employeeID; // for user interactions with his data
     /**
@@ -62,7 +64,45 @@ public class IO_Data {
         }
 
         flag = true;
+    }
+    public static void ImportPreferences(){
+        for (Integer id : currEmployees.keySet()){
+            if (!WeekPreferences.containsKey(id)){
+                String[][] preferences = ImportEmployeePreferences(id);
+                WeekPreferences.put(id, preferences);
+            }
+        }
+    }
+    public static String[][] ImportEmployeePreferences(Integer id) {
+        //    static List<Employee> currEmployees = new ArrayList<>();
 
+        String[][] preference = new String[amount_shifts][amount_days];
+        String line;
+        String csvSplitBy = ",";
+        String empSpecificPath = Constants.PATH_DATA_Preferences + id.toString() + ".csv";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(empSpecificPath))) {
+            br.readLine(); // Skip the header line
+
+            int rowInt = -1;
+           while ((line = br.readLine()) != null && rowInt<2){
+              rowInt++;
+                // Use comma as separator
+               String[] fields = line.split(csvSplitBy);
+
+              if (fields.length == 5) { // Assuming the CSV has exactly 5 columns
+                  // Create a 2D array to store the fields
+
+                    for (int i = 0; i < 5; i++) {
+                     preference[rowInt][i] = fields[i];
+                  }
+             }
+            }
+        } catch (IOException e) {
+          e.printStackTrace();
+          System.out.println(id);
+     }
+        return preference;
     }
 
     public static List<JsonObject> PrintEmployees() {
