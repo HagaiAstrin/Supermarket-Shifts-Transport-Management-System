@@ -1,5 +1,6 @@
 package Presentation;
 import Domain.Employee;
+import Domain.IO_Data;
 import com.google.gson.Gson;
 import Controller.*;
 import com.google.gson.JsonElement;
@@ -10,8 +11,6 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Program {
-    private AdminController ac;
-    private EmployeeController ec;
 
     public Program(){
 
@@ -49,6 +48,7 @@ public class Program {
                 AdminMenu();
                 break;
             } else if (UserKind.equals("2") && user_checker(UsernamePassword)) {
+                IO_Data.SetEmployeeID(UsernamePassword[2]);
                 UserMenu();
                 break;
             } else {
@@ -125,6 +125,7 @@ public class Program {
 
     //TODO: Get ID from successful user login, insert it into the employee controller.
     private void UserMenu(){
+        AdminController.ImportEmployees();
         while (true) {
             System.out.println("\nEmployee Menu:");
             System.out.println("1. View personal details");
@@ -138,9 +139,9 @@ public class Program {
             switch (choice) {
                 case 1:
                     // Call method to view personal details
-                    Employee e = SystemController.ConvertFronJsonToEmployee(
-                            EmployeeController.ViewPersonalData());
-                    System.out.println(e);
+                    JsonObject j =  EmployeeController.ViewPersonalData();
+
+                    System.out.println(j);
                     break;
                 case 2:
                     // Call method to view salary
