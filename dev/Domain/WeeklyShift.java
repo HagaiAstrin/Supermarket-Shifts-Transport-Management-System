@@ -10,6 +10,6 @@ public class WeeklyShift {
 
     public WeeklyShift(int weekID, Map<JobTypeEnum, JobWeeklyShift> currEmployees) {
         this.weekID = weekID;
-        this.currEmployees = currEmployees;
+        //this.currEmployees = currEmployees;
     }
 }

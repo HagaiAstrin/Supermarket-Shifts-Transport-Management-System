@@ -162,7 +162,7 @@ public class Menu {
                 case 6:
                     System.out.print("Enter new Job Type (e.g., CASHIER, SHIFT_MANAGER, STOCK_KEEPER): ");
                     String jobType = scanner.nextLine();
-                    employee.setJobType(JobTypeEnum.valueOf(jobType));
+                    employee.addJobType(JobTypeEnum.valueOf(jobType));
                     System.out.println("Job Type updated.");
                     break;
                 case 7:

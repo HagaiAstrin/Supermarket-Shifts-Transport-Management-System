@@ -2,6 +2,7 @@ package Domain;
 import com.google.gson.JsonObject;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.Map;
 public class Employee {
     String id;
     String name;
-    JobTypeEnum[] jobType;
+    ArrayList<JobTypeEnum> jobType;
     String bankID;
     Map<Integer, List<Shift>> givenShifts;
     Contract contract;
@@ -22,7 +23,7 @@ public class Employee {
         return name;
     }
 
-    public JobTypeEnum getJobType() {
+    public ArrayList<JobTypeEnum> getJobType() {
         return jobType;
     }
 
@@ -34,8 +35,8 @@ public class Employee {
         this.name = name;
     }
 
-    public void setJobType(JobTypeEnum jobType) {
-        this.jobType = jobType;
+    public void addJobType(JobTypeEnum jobType) {
+        this.jobType.add(jobType);
     }
 
     public void setBankID(String bankID) {
@@ -63,7 +64,10 @@ public class Employee {
     }
 
     public Employee(String id, String name, String bankID, int salary, int restDays, LocalDate startDate, String workType) {
-        this.jobType = JobTypeEnum.valueOf(workType.toUpperCase().replaceAll(" ", "_"));
+        // TODO: Fine-tune this approach
+        this.jobType = new ArrayList<>();
+        this.jobType.add(JobTypeEnum.valueOf(workType.toUpperCase().replaceAll(" ", "_")));
+        // ------------------------
         this.id = id;
         this.name = name;
         this.bankID = bankID;
