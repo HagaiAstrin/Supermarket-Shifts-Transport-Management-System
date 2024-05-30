@@ -18,12 +18,12 @@ public class Program {
 
     private Scanner scanner = new Scanner(System.in); // Use a single scanner instance
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         Program program = new Program();
         program.Menu();
     }
 
-    public void Menu() throws IOException {
+    public void Menu() throws IOException, InterruptedException {
         login();
     }
 
@@ -38,7 +38,7 @@ public class Program {
         System.out.println("--------------------------------------------------------------------------------------");
     }
 
-    private void login() throws IOException {
+    private void login() throws IOException, InterruptedException {
         logo();
 
 
@@ -46,7 +46,7 @@ public class Program {
         String UserKind;
         System.out.println("Welcome to the \"Super-Lee\" system.");
         System.out.println("Please identify yourself.");
-        System.out.println("Press 1 for Admin login, or 2 for User login: ");
+        System.out.print("Press 1 for Admin login, or 2 for User login: ");
 
         while (true) {
             String WhatKindOfUserLogin = scanner.nextLine();
@@ -92,9 +92,31 @@ public class Program {
         return new String[]{userName, password, id};
     }
 
-    private void AdminMenu() throws IOException {
+    private void ProgressBar(){
+        // Simulate a task and show the progress
+        int totalTasks = 100;
+        ProgressBar progressBar = new ProgressBar(totalTasks, 50);
+
+        for (int i = 0; i < totalTasks; i++) {
+            try {
+                Thread.sleep(100); // Simulate work being done
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            progressBar.update(1);
+        }
+
+        progressBar.finish();
+    }
+
+    private void AdminMenu() throws IOException, InterruptedException {
+        System.out.println("---------------------------------------------");
+        System.out.println("|                 Admin Menu                |");
+        System.out.println("---------------------------------------------");
         while (true) {
-            System.out.println("\nAdmin Menu:");
+            System.out.println("Please choose an option:\n");
+            // TODO: Create a separation between load employees data to all other options.
+            // TODO: Create a class for admin menu and user menu.
             System.out.println("1. Load employees data");
             System.out.println("2. Add new employee");
             System.out.println("3. Remove employee");
@@ -106,10 +128,12 @@ public class Program {
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
 
-            // TODO: Create a class for admin menu and user menu.
             switch (choice) {
                 case 1:
                     // Call method to view all employee
+                    ProgressBar();
+                    System.out.println("Data was loaded successfully.");
+                    Thread.sleep(50);
                     AdminController.ImportEmployees();
                     break;
                 case 2:
@@ -140,11 +164,13 @@ public class Program {
         }
     }
 
-    //TODO: Get ID from successful user login, insert it into the employee controller.
     private void UserMenu(){
         AdminController.ImportEmployees();
+        System.out.println("---------------------------------------------");
+        System.out.println("|                 User Menu                 |");
+        System.out.println("---------------------------------------------");
         while (true) {
-            System.out.println("\nEmployee Menu:");
+            System.out.println("Please choose an option:\n");
             System.out.println("1. View personal details");
             System.out.println("2. Update preferences"); //TODO
             System.out.println("3. I dont know");
