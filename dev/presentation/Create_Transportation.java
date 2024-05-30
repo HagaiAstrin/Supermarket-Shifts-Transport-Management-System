@@ -1,10 +1,8 @@
 package presentation;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import controller.Transportation_manager_controller;
 
-import java.util.Map;
 import java.util.Scanner;
 
 public class Create_Transportation {
@@ -65,6 +63,7 @@ public class Create_Transportation {
                     System.out.println("Press '2' to - Store");
                     site = reader.next();
                 }
+                //TODO Supplier / Store choose
                 switch (site) {
                     case "1" -> {
                         String supplier = choose_supplier(area);
@@ -91,13 +90,24 @@ public class Create_Transportation {
                 a = reader.next();
             }
             boolean result = create_Transportation(new_json);
+
+            //TODO Weight problem Solutions
             while (!result) {
                 JsonObject sol_w;
                 String sol = choose_solution();
                 switch (sol) {
+                    //TODO Change Sites
                     case "1" ->{
+                        sol_w = Transportation_manager_controller.Choose_Site_Target();
+                        System.out.println("which Site you want to replace ? ");
+                        String site_answer = print_to_user(sol_w.size(), sol_w);
+                        for (int i = 1; i < sol_w.size(); i++) {
+                            if (sol_w.get(String.valueOf(i)).getAsString().equals(site_answer)){
 
+                            }
+                        }
                     }
+
                     //TODO Truck change
                     case "2" -> {
                         sol_w = Transportation_manager_controller.choose_good_Truck();
@@ -114,9 +124,10 @@ public class Create_Transportation {
                         new_json.remove("Driver");
                         new_json.addProperty("Driver", d);
                     }
+
                     //TODO Dropped Sites
                     case "3" ->{
-                        sol_w = Transportation_manager_controller.Choose_Drop_Target();
+                        sol_w = Transportation_manager_controller.Choose_Site_Target();
                         JsonObject j = new JsonObject();
                         int j_count = 1;
                         String p = "yes";
@@ -126,7 +137,7 @@ public class Create_Transportation {
                             if(j_count != 1) {
                                 for (int i = 1; i < j_count; i++){
                                     if (j.get(String.valueOf(i)).getAsString().equals(site_answer)) {
-                                        System.out.println("Tou already dropped this site ! ");
+                                        System.out.println("You already dropped this site ! ");
                                         bool = false;
                                         break;
                                     }
@@ -141,7 +152,9 @@ public class Create_Transportation {
                         }
                         Transportation_manager_controller.drop_Documents(j);
                     }
-//                    case "4" ->
+
+                    //TODO Drop Items
+                    case "4" ->{}
 
                 }
                 result = create_Transportation(new_json);
@@ -305,26 +318,5 @@ public class Create_Transportation {
         System.out.println("Please choose a different Truck for the Transport: ");
         return print_to_user(j.size(), j);
     }
-
-    public static JsonObject dropped_Json_string(JsonObject j, String valueToRemove){
-        for (Map.Entry<String, JsonElement> entry : j.entrySet()) {
-            if (entry.getValue().getAsString().equals(valueToRemove)) {
-                String keyToRemove = entry.getKey();
-                j.remove(keyToRemove);
-                break;
-            }
-        }
-        return j;
-    }
-//    public static JsonObject dropped_Json_string(JsonObject j, int count){
-//        for (Map.Entry<String, JsonElement> entry : j.entrySet()) {
-//            if (entry.getValue().getAsString().equals(valueToRemove)) {
-//                String keyToRemove = entry.getKey();
-//                j.remove(keyToRemove);
-//                break;
-//            }
-//        }
-//        return j;
-//}
 
 }
