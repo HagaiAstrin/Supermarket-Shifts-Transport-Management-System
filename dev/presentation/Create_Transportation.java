@@ -98,7 +98,8 @@ public class Create_Transportation {
                     case "1" ->{
 
                     }
-                    case "2" -> { //TODO Truck change
+                    //TODO Truck change
+                    case "2" -> {
                         sol_w = Transportation_manager_controller.choose_good_Truck();
                         if (sol_w.size() == 0)
                             System.out.println("There is no available Trucks for this transportation, " +
@@ -119,7 +120,6 @@ public class Create_Transportation {
                         int j_count = 1;
                         String p = "yes";
                         while (p.equals("yes")){
-                            //int count = 1;
                             String site_answer = print_to_user(sol_w.size(), sol_w);
                             j.addProperty(String.valueOf(j_count++), site_answer);
                             System.out.println("Would you like to drop another site? ");

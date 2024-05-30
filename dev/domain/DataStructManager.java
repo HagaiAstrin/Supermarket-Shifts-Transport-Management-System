@@ -177,9 +177,9 @@ public class DataStructManager {
 
         JsonObject j = new JsonObject();
         int count = 1;
-        for (Truck a:trucks){
-            if (a.isAvailability()){
-                j.addProperty(String.valueOf(count), a.to_String());
+        for (Truck t:trucks){
+            if (t.isAvailability() && !t.isHold()){
+                j.addProperty(String.valueOf(count), t.to_String());
                 count++;
             }
         }

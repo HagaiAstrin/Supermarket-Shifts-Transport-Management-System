@@ -6,6 +6,7 @@ public class Truck {
     private double net_weight;
     private double max_weight;
     private boolean availability;
+    private boolean hold;
 
     public Truck(String id, String licence, double net_weight, double max_weight) {
         this.licence_number = id;
@@ -13,6 +14,7 @@ public class Truck {
         this.net_weight = net_weight;
         this.max_weight = max_weight;
         this.availability = true;
+        this.hold = false;
     }
 
     public double getNet_weight() {
@@ -37,6 +39,12 @@ public class Truck {
     }
     public boolean isAvailability() {
         return availability;
+    }
+    public void setHold(boolean hold) {
+        this.hold = hold;
+    }
+    public boolean isHold() {
+        return hold;
     }
     public void setAvailability(boolean availability) {
         this.availability = availability;
