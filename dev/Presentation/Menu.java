@@ -191,7 +191,7 @@ public class Menu {
                 case 6:
                     return;
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println("Invalid choice. Please try again.       ");
             }
 
             AdminController.RemoveEmployee(id);
