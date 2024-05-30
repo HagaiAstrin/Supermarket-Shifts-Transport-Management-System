@@ -2,10 +2,7 @@ package Domain;
 import com.google.gson.JsonObject;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Employee {
     String id;
@@ -90,7 +87,7 @@ public class Employee {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("id", id);
         jsonObject.addProperty("name", name);
-        jsonObject.addProperty("jobType", jobType.toString());
+        jsonObject.addProperty("jobType", jobType.get(0).toString());
         jsonObject.addProperty("bankID", bankID);
         // TODO : Check real toString() representation
         jsonObject.addProperty("restDays", contract.getRestDays());
