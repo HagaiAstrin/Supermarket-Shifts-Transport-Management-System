@@ -9,7 +9,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import Domain.JobTypeEnum;
@@ -51,8 +53,7 @@ public class Menu {
         String dateString = scanner.nextLine(); // Read the input from the user
         json.addProperty("date", dateString);
 
-        System.out.println("Enter Job Type (e.g., CASHIER, SHIFT_MANAGER, STOCK_KEEPER): ");
-        String jobType = scanner.nextLine();
+        String jobType = GetJobType();
 
 
         // Define the date format
@@ -63,24 +64,38 @@ public class Menu {
             // Parse the string to LocalDate
             date = LocalDate.parse(dateString, formatter);
 
-            //System.out.println("Parsed date: " + date);
         } catch (DateTimeParseException e) {
             System.out.println("Invalid date format: " + e.getMessage());
             return;
         }
 
-
-        Gson gson = new Gson();
-        // TODO: Just Send a JsonObject!!!!!!!!!!!!!!!!!
-        // Delete this constructor. It should not be in the presentation layer.
         JsonObject e_Json = Sender.EmployeeToJson(id, name, bankID, salary, restDays, date, jobType);
-        //Employee e = new Employee(id, name, bankID, salary, restDays, date, jobType);
-
         try {
             AdminController.AddEmployee(e_Json);
             System.out.println("Employee added successfully.");
         } catch (IOException ex) {
             System.err.println("Failed to add employee: " + ex.getMessage());
+        }
+    }
+
+    private static String GetJobType(){
+        Scanner scanner = new Scanner(System.in);
+        JobTypeEnum[] enumArray = JobTypeEnum.values();
+        int size = enumArray.length;
+
+        while(true) {
+            System.out.println("Choose Job Type by number: ");
+            for (int i = 0; i < enumArray.length; i++) {
+                System.out.println((i + 1) + ". " + enumArray[i]);
+            }
+            System.out.println("Press " + (size+1) + " to exit.");
+            int jobType = Integer.parseInt(scanner.nextLine());
+            if(jobType == size+1) {return null;}
+            if (jobType < 0 || jobType > enumArray.length) {
+                System.out.println("Invalid job type.");
+                continue;
+            }
+            return enumArray[jobType-1].toString();
         }
     }
 
@@ -112,9 +127,8 @@ public class Menu {
             System.out.println("2. Update Bank ID");
             System.out.println("3. Update Salary");
             System.out.println("4. Update Rest Days");
-            System.out.println("5. Update Start Date");
-            System.out.println("6. Update Job Type");
-            System.out.println("7. Exit");
+            System.out.println("5. Update Job Type");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
@@ -125,8 +139,6 @@ public class Menu {
                     String name = scanner.nextLine();
                     employee.remove("name");
                     employee.addProperty("name", name);
-
-
                     System.out.println("Name updated.");
                     break;
                 case 2:
@@ -134,8 +146,6 @@ public class Menu {
                     String bankID = scanner.nextLine();
                     employee.remove("bankID");
                     employee.addProperty("bankID", bankID);
-
-
                     System.out.println("Bank ID updated.");
                     break;
                 case 3:
@@ -144,8 +154,6 @@ public class Menu {
                     scanner.nextLine();  // Consume newline
                     employee.remove("salary");
                     employee.addProperty("salary", salary);
-
-
                     System.out.println("Salary updated.");
                     break;
                 case 4:
@@ -154,30 +162,33 @@ public class Menu {
                     scanner.nextLine();  // Consume newline
                     employee.remove("restDays");
                     employee.addProperty("restDays", restDays);
-
-
                     System.out.println("Rest Days updated.");
                     break;
                 case 5:
-                    // TODO: Why would you change the start date of work???
-//                    System.out.print("Enter new Start Date (yyyy-MM-dd): ");
-//                    String startDateStr = scanner.nextLine();
-//                    Date startDate = null;
-//                    try {
-//                        startDate = new SimpleDateFormat("yyyy-MM-dd").parse(startDateStr);
-//                        employee.setStartDate(startDate);
-//                        System.out.println("Start Date updated.");
-//                    } catch (ParseException e) {
-//                        System.out.println("Invalid date format. Please use yyyy-MM-dd.");
-//                    }
+//                    System.out.print("Enter new Job Type (e.g., CASHIER, SHIFT_MANAGER, STOCK_KEEPER): ");
+                    String jobTypeString = employee.get("jobType").getAsString();
+                    String[] jobTypeArray = jobTypeString.split("/");
+
+                    String jobType;
+                    while(true) {
+                        jobType = GetJobType();
+                        if (jobType != null) {
+                            for (int i = 0; i < jobTypeArray.length; i++) {
+                                if (jobType.equals(jobTypeArray[i])) {
+                                    jobType = null;
+                                    break;
+                                }
+                            }
+                            for (int j = 0; j < jobTypeArray.length; j++) {
+                                jobType += "/" + jobTypeArray[j];
+                            }
+                            employee.addProperty("jobType", jobType);
+                            System.out.println("Job Type updated.");
+                        }
+                        else {break;}
+                    }
                     break;
                 case 6:
-//                    System.out.print("Enter new Job Type (e.g., CASHIER, SHIFT_MANAGER, STOCK_KEEPER): ");
-//                    String jobType = scanner.nextLine();
-//                    employee.addJobType(JobTypeEnum.valueOf(jobType));
-//                    System.out.println("Job Type updated.");
-                    break;
-                case 7:
                     return;
                 default:
                     System.out.println("Invalid choice. Please try again.");

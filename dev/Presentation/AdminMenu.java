@@ -28,6 +28,7 @@ public class AdminMenu {
                     Thread.sleep(500);
                     AdminController.ImportEmployees();
                     Menu();
+                    return;
                 case 2:
                     // TODO: Implement LOGOUT
                     SystemController.Logout();

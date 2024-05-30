@@ -54,7 +54,7 @@ public class IO_Data {
                     int salary = Integer.parseInt(fields[5]);
                     int restDays = Integer.parseInt(fields[6]);
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
                     try {
                         // Parse the string to LocalDate
@@ -64,7 +64,7 @@ public class IO_Data {
                             currEmployees.put(Integer.valueOf(employee.getId()), employee);
                         }
                     } catch (DateTimeParseException e) {
-                        System.out.println("Invalid date format: " + e.getMessage());
+                        //System.out.println("Invalid date format: " + e.getMessage());
                     }
                 }
             }
