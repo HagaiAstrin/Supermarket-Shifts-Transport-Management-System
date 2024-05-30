@@ -23,9 +23,14 @@ public class AdminController {
         IO_Data.addEmployeeToList(json);
     }
 
-    public String RemoveEmployee(String id){
-        if(IO_Data.RemoveEmployee(id)){
-            return "Employee " + id + " was removed successfully!\n";
+    public static String RemoveEmployee(String id){
+        try {
+            if (IO_Data.RemoveEmployee(id)) {
+                return "Employee " + id + " was removed successfully!\n";
+            }
+        }
+        catch (IOException ignored) {
+
         }
         return "No employee was found with id: " + id + "\nPlease make sure you imported the employees data.\n";
     }

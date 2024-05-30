@@ -93,11 +93,10 @@ public class Menu {
         String id = scanner.nextLine();
 
         // TODO: Check if id is valid to delete.
-        AdminController ac = new AdminController();
-        System.out.println(ac.RemoveEmployee(id));
+        System.out.println(AdminController.RemoveEmployee(id));
     }
 
-    public static void UpdateEmployeeDetails() {
+    public static void UpdateEmployeeDetails() throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Employee ID: ");
         String id = scanner.nextLine();
@@ -106,7 +105,7 @@ public class Menu {
             System.out.print("Enter Employee ID: ");
             id = scanner.nextLine();
         }
-        Employee employee = ConvertFronJsonToEmployee(AdminController.GetEmployee(id));
+        JsonObject employee = AdminController.GetEmployee(id);
         while (true) {
             System.out.println("\nUpdate Employee Menu:");
             System.out.println("1. Update Name");
@@ -115,6 +114,7 @@ public class Menu {
             System.out.println("4. Update Rest Days");
             System.out.println("5. Update Start Date");
             System.out.println("6. Update Job Type");
+            System.out.println("7. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
@@ -123,27 +123,39 @@ public class Menu {
                 case 1:
                     System.out.print("Enter new Name: ");
                     String name = scanner.nextLine();
-                    employee.setName(name);
+                    employee.remove("name");
+                    employee.addProperty("name", name);
+
+
                     System.out.println("Name updated.");
                     break;
                 case 2:
                     System.out.print("Enter new Bank ID: ");
                     String bankID = scanner.nextLine();
-                    employee.setBankID(bankID);
+                    employee.remove("bankID");
+                    employee.addProperty("bankID", bankID);
+
+
                     System.out.println("Bank ID updated.");
                     break;
                 case 3:
                     System.out.print("Enter new Salary: ");
                     int salary = scanner.nextInt();
                     scanner.nextLine();  // Consume newline
-                    employee.setSalary(salary);
+                    employee.remove("salary");
+                    employee.addProperty("salary", salary);
+
+
                     System.out.println("Salary updated.");
                     break;
                 case 4:
                     System.out.print("Enter new Rest Days: ");
                     int restDays = scanner.nextInt();
                     scanner.nextLine();  // Consume newline
-                    employee.setRestDays(restDays);
+                    employee.remove("restDays");
+                    employee.addProperty("restDays", restDays);
+
+
                     System.out.println("Rest Days updated.");
                     break;
                 case 5:
@@ -160,10 +172,10 @@ public class Menu {
 //                    }
                     break;
                 case 6:
-                    System.out.print("Enter new Job Type (e.g., CASHIER, SHIFT_MANAGER, STOCK_KEEPER): ");
-                    String jobType = scanner.nextLine();
-                    employee.addJobType(JobTypeEnum.valueOf(jobType));
-                    System.out.println("Job Type updated.");
+//                    System.out.print("Enter new Job Type (e.g., CASHIER, SHIFT_MANAGER, STOCK_KEEPER): ");
+//                    String jobType = scanner.nextLine();
+//                    employee.addJobType(JobTypeEnum.valueOf(jobType));
+//                    System.out.println("Job Type updated.");
                     break;
                 case 7:
                     return;
@@ -171,12 +183,13 @@ public class Menu {
                     System.out.println("Invalid choice. Please try again.");
             }
 
-            AdminController.UpdateEmployee(SystemController.ConvertEmployeeToJson(employee));
+            AdminController.RemoveEmployee(id);
+            AdminController.AddEmployee(employee);
+            //AdminController.UpdateEmployee(SystemController.ConvertEmployeeToJson(employee));
         }
     }
 
     private static Employee ConvertFronJsonToEmployee(JsonObject json){
-        Gson gson = new Gson();
-        return gson.fromJson(json, Employee.class);
+        return SystemController.ConvertFronJsonToEmployee(json);
     }
 }

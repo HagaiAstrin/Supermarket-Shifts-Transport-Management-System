@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 
 
 
+
 public class IO_Data {
     protected static Map<Integer, Employee> currEmployees = new HashMap<>();
     protected static Map<Integer, String[][]> WeekPreferences = new HashMap<>();
@@ -45,7 +46,7 @@ public class IO_Data {
                     int salary = Integer.parseInt(fields[5]);
                     int restDays = Integer.parseInt(fields[6]);
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
                     try {
                         // Parse the string to LocalDate
@@ -131,13 +132,43 @@ public class IO_Data {
      * @return a message of the performed action.
      */
     // TODO: Delete from database.
-    public static boolean RemoveEmployee(String id){
+    public static boolean RemoveEmployee(String id) throws IOException {
         int indexToRemove = SearchEmployee(id);
         if(indexToRemove != -1){
-            currEmployees.remove(indexToRemove);
+            currEmployees.remove(Integer.parseInt(id));
+            RemoveEmployeeFromCSV(id);
             return true;
         }
         return false;
+    }
+
+    private static void RemoveEmployeeFromCSV(String id) throws IOException {
+        List<String> lines = new ArrayList<>();
+        String header = null;
+
+        // Read the CSV file
+        try (BufferedReader br = new BufferedReader(new FileReader(Constants.PATH_EMPLOYEES))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (header == null) {
+                    header = line; // Save the header
+                    lines.add(header);
+                    continue;
+                }
+                String[] values = line.split(",");
+                if (!values[0].equals(id)) { // Assuming ID is the first column
+                    lines.add(line);
+                }
+            }
+        }
+
+        // Write the updated data back to the CSV file
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Constants.PATH_EMPLOYEES))) {
+            for (String line : lines) {
+                bw.write(line);
+                bw.newLine();
+            }
+        }
     }
 
     /**
@@ -147,10 +178,13 @@ public class IO_Data {
      */
     public static int SearchEmployee(String id){
         if(!flag) { return -1; }
-        for(int i = 0; i < currEmployees.size(); i++){
-            if(currEmployees.get(i).getId().equals(id)){
-                return i;
+        int counter = 0;
+        Collection<Employee> employees = currEmployees.values();
+        for(Employee employee : employees){
+            if(employee.getId().equals(id)){
+                return counter;
             }
+            counter++;
         }
         return -1;
     }
@@ -182,9 +216,10 @@ public class IO_Data {
      * @return Employee as JSON, if not exists - null
      */
     public static JsonObject GetEmployee(String id){
-        for(int i = 0; i < currEmployees.size(); i++){
-            if(currEmployees.get(i).getId().equals(id)){
-                return ConvertEmployeeToJson(currEmployees.get(i));
+        Collection<Employee> employees = currEmployees.values();
+        for(Employee employee : employees){
+            if(employee.getId().equals(id)){
+                return ConvertEmployeeToJson(employee);
             }
         }
         return null;
@@ -194,7 +229,8 @@ public class IO_Data {
      *  Convert Employee to JSON format.
      */
     private static JsonObject ConvertEmployeeToJson(Employee employee){
-        return new Gson().toJsonTree(employee).getAsJsonObject();
+        return employee.toJson();
+        //return new Gson().toJsonTree(employee).getAsJsonObject();
     }
 
     public static void addEmployeeToCSV(JsonObject employeeJson) throws IOException {
