@@ -86,6 +86,7 @@ public class DataStructManager {
                 if (driver.getUsing_truck() != null && driver.isHold()){
                     driver.setAvailability(false);
                     driver.getUsing_truck().setAvailability(false);
+                    driver.getUsing_truck().setHold(false);
                     driver.setHold(false);
                     return ("Have a good trip!");
                 }
@@ -162,6 +163,8 @@ public class DataStructManager {
                         if (result) {
                             documents.clear();
                             d.setHold(true);
+                            t.setHold(true);
+                            d.setUsing_truck(t);
                             transports.add(new_transport);
                             return true;
                         }

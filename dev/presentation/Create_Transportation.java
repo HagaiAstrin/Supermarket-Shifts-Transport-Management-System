@@ -92,7 +92,7 @@ public class Create_Transportation {
             }
             boolean result = create_Transportation(new_json);
             while (!result) {
-                JsonObject sol_w = new JsonObject();
+                JsonObject sol_w;
                 String sol = choose_solution();
                 switch (sol) {
                     case "1" ->{
@@ -114,6 +114,7 @@ public class Create_Transportation {
                         new_json.remove("Driver");
                         new_json.addProperty("Driver", d);
                     }
+                    //TODO Dropped Sites
                     case "3" ->{
                         sol_w = Transportation_manager_controller.Choose_Drop_Target();
                         JsonObject j = new JsonObject();
@@ -121,11 +122,22 @@ public class Create_Transportation {
                         String p = "yes";
                         while (p.equals("yes")){
                             String site_answer = print_to_user(sol_w.size(), sol_w);
-                            j.addProperty(String.valueOf(j_count++), site_answer);
-                            System.out.println("Would you like to drop another site? ");
-                            System.out.println("Enter 'yes' or 'no':");
-                            p = reader.next();
-                            sol_w = dropped_Json_string(sol_w, site_answer);
+                            boolean bool = true;
+                            if(j_count != 1) {
+                                for (int i = 1; i < j_count; i++){
+                                    if (j.get(String.valueOf(i)).getAsString().equals(site_answer)) {
+                                        System.out.println("Tou already dropped this site ! ");
+                                        bool = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            if(bool) {
+                                j.addProperty(String.valueOf(j_count++), site_answer);
+                                System.out.println("\nWould you like to drop another site? ");
+                                System.out.println("Enter 'yes' or 'no':");
+                                p = reader.next();
+                            }
                         }
                         Transportation_manager_controller.drop_Documents(j);
                     }
