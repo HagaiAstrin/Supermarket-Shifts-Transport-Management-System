@@ -237,6 +237,7 @@ public class DataStructManager {
             for(Document d : documents){
                 if(d.to_string().equals(j.get(String.valueOf(i)).getAsString())){
                     documents.remove(d);
+                    break;
                 }
             }
         }

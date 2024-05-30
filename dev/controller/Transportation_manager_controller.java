@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import domain.Change_Sites;
 import domain.Change_Truck;
 import domain.DataStructManager;
+import domain.Drop_Sites;
 import presentation.Create_Transportation;
 
 import java.util.ArrayList;
@@ -46,9 +47,9 @@ public class Transportation_manager_controller {
     }
     public static JsonObject choose_good_Truck(){return Change_Truck.getLst_tr();}
     public static JsonObject Choose_Drop_Target(){
-        return Change_Sites.Choose_Drop_Target();
+        return Drop_Sites.Choose_Drop_Target();
     }
-    public static void drop_Documents(JsonObject j){}
+    public static void drop_Documents(JsonObject j){DataStructManager.drop_documents(j);}
 
 //    public static String change_Truck(JsonObject j){return }
 //    public static String change_Truck(JsonObject j){return }

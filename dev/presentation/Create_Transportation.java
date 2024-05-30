@@ -98,7 +98,7 @@ public class Create_Transportation {
                     case "1" ->{
 
                     }
-                    case "2" -> {
+                    case "2" -> { //TODO Truck change
                         sol_w = Transportation_manager_controller.choose_good_Truck();
                         if (sol_w.size() == 0)
                             System.out.println("There is no available Trucks for this transportation, " +
@@ -116,15 +116,16 @@ public class Create_Transportation {
                     case "3" ->{
                         sol_w = Transportation_manager_controller.Choose_Drop_Target();
                         JsonObject j = new JsonObject();
-                        int count = 1;
+                        int j_count = 1;
                         String p = "yes";
                         while (p.equals("yes")){
+                            //int count = 1;
                             String site_answer = print_to_user(sol_w.size(), sol_w);
-                            j.addProperty(String.valueOf(count++), site_answer);
+                            j.addProperty(String.valueOf(j_count++), site_answer);
                             System.out.println("Would you like to drop another site? ");
                             System.out.println("Enter 'yes' or 'no':");
                             p = reader.next();
-                            dropped_Json_string(sol_w, site_answer);
+                            sol_w = dropped_Json_string(sol_w, site_answer);
                         }
                         Transportation_manager_controller.drop_Documents(j);
                     }
@@ -245,23 +246,17 @@ public class Create_Transportation {
     public static String choose_solution(){
 
         Scanner reader = new Scanner(System.in);
+        StringBuilder new_string = new StringBuilder();
+        new_string.append("\nThere is OverWeight, Please choose from the options bellow:\n");
+        new_string.append("Press '1' to - Change Sites.\n");
+        new_string.append("Press '2' to - Change Truck.\n");
+        new_string.append("Press '3' to - Drop Sites.\n");
+        new_string.append("Press '4' to - Drop Items.\n");
 
-        System.out.println("There is OverWeight, Please choose from the options bellow:\n");
-        System.out.println("Press '1' to - Change Sites.");
-        System.out.println("Press '2' to - Change Truck.");
-        System.out.println("Press '3' to - Drop Sites.");
-        System.out.println("Press '4' to - Drop Items.\n");
-
-        String s = reader.next();
+        String s = "0";
 
         while (!s.equals("1") && !s.equals("2") && !s.equals("3") && !s.equals("4")){
-            System.out.println("Wrong input! try again..\n");
-            System.out.println("There is OverWeight, Please choose from the options bellow:\n");
-            System.out.println("Press '1' to - Change Sites.");
-            System.out.println("Press '2' to - Change Truck.");
-            System.out.println("Press '3' to - Drop Sites.");
-            System.out.println("Press '4' to - Drop Items.\n");
-
+            System.out.println(new_string);
             s = reader.next();
         }
         return s;
@@ -309,5 +304,15 @@ public class Create_Transportation {
         }
         return j;
     }
+//    public static JsonObject dropped_Json_string(JsonObject j, int count){
+//        for (Map.Entry<String, JsonElement> entry : j.entrySet()) {
+//            if (entry.getValue().getAsString().equals(valueToRemove)) {
+//                String keyToRemove = entry.getKey();
+//                j.remove(keyToRemove);
+//                break;
+//            }
+//        }
+//        return j;
+//}
 
 }
