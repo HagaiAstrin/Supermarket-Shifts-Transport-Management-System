@@ -27,10 +27,26 @@ public class Program {
         login();
     }
 
+    private static void logo(){
+        System.out.println("     _______. __    __  .______    _______ .______          __       _______  _______ ");
+        System.out.println("    /       ||  |  |  | |   _  \\  |   ____||   _  \\        |  |     |   ____||   ____|");
+        System.out.println("   |   (----`|  |  |  | |  |_)  | |  |__   |  |_)  |       |  |     |  |__   |  |__   ");
+        System.out.println("    \\   \\    |  |  |  | |   ___/  |   __|  |      /        |  |     |   __|  |   __|  ");
+        System.out.println(".----)   |   |  `--'  | |  |      |  |____ |  |\\  \\----.   |  `----.|  |____ |  |____ ");
+        System.out.println("|_______/     \\______/  | _|      |_______|| _| `._____|   |_______||_______||_______|");
+        System.out.println("                                                                                      ");
+        System.out.println("--------------------------------------------------------------------------------------");
+    }
+
     private void login() throws IOException {
+        logo();
+
+
         // Admin or User
         String UserKind;
-        System.out.print("Hey there, if you are admin press 1, else press 2: ");
+        System.out.println("Welcome to the \"Super-Lee\" system.");
+        System.out.println("Please identify yourself.");
+        System.out.println("Press 1 for Admin login, or 2 for User login: ");
 
         while (true) {
             String WhatKindOfUserLogin = scanner.nextLine();
@@ -39,7 +55,7 @@ public class Program {
                 break;
             }
             // If the user didn't press 1 or 2
-            System.out.print("Try selecting again: ");
+            System.out.println("Wrong input, please try again: ");
         }
 
         String[] UsernamePassword = UserPassInput();
