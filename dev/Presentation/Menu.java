@@ -193,12 +193,7 @@ public class Menu {
         return SystemController.ConvertFronJsonToEmployee(json);
     }
 
-    public void ShiftMenu() throws IOException{
-        System.out.println("You Entered the Shift Menu\nSelect the next Stage");
-        System.out.println("1: Print the scheduled shift for the next week you entered\n");
-        System.out.println("2: Add shifts");
-        System.out.println("3: Delete Shifts");
-        System.out.println("4: Finish(Save & Print Shifts)");
+    public static void PrintEmpPref(){
 
     }
 }

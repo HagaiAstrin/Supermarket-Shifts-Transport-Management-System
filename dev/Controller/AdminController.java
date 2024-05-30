@@ -49,6 +49,7 @@ public class AdminController {
     }
     public static void Shifts(){
         IO_Data.ImportPreferences();
-        WeeklyShift damn = new WeeklyShift(1);
+        WeeklyShift damn = new WeeklyShift(1); //TODO change to json
+
     }
 }

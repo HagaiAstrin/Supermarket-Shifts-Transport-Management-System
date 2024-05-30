@@ -156,14 +156,34 @@ public class Program {
                     Printer.PrintAllEmployees(AdminController.PrintEmployees());
                     break;
                 case 7:
-                    new Menu().ShiftMenu();
-                    AdminController.Shifts();
+                    ShiftInteraction();
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
         }
     }
 
+    private void ShiftInteraction() throws IOException {
+
+        while (true){
+
+            System.out.println("You Entered the Shift Menu\nSelect the next Stage");
+            System.out.println("1: Print the scheduled shift for the next week you entered\n");
+            System.out.println("2: Add shifts");
+            System.out.println("3: Delete Shifts");
+            System.out.println("4: Finish(Save & Print Shifts)");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+
+            }
+        }
+    }
+
+    //TODO: Get ID from successful user login, insert it into the employee controller.
     private void UserMenu(){
         AdminController.ImportEmployees();
         System.out.println("---------------------------------------------");
