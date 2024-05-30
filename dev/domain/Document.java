@@ -7,12 +7,14 @@ public class Document {
     private static int count = 1;
     private int id;
     private Site target;
-    private Map<Item, Integer> item_map = new HashMap<>();
+    private Map<Item, Integer> item_map;
+    private double doc_weight;
 
     public Document(Site target, Map<Item, Integer> items) {
         this.id = count++;
         this.target = target;
         this.item_map = items;
+        this.doc_weight = cul_weight();
     }
 
     public Site getTarget() {
@@ -27,5 +29,13 @@ public class Document {
             count+=(t.getWeight() * counter_item);
         }
         return count;
+    }
+
+    public double getDoc_weight() {
+        return doc_weight;
+    }
+
+    public String to_string(){
+        return ( "ID: " + id + ", Target: " + target.getName() + ", Total weight: " + this.doc_weight + ".");
     }
 }

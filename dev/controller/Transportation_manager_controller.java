@@ -1,6 +1,8 @@
 package controller;
 
 import com.google.gson.JsonObject;
+import domain.Change_Sites;
+import domain.Change_Truck;
 import domain.DataStructManager;
 import presentation.Create_Transportation;
 
@@ -23,7 +25,7 @@ public class Transportation_manager_controller {
     public static void create_document(JsonObject j){
        DataStructManager.create_document(j);
     }
-    public static String create_transport(JsonObject j, ArrayList<String> a){return DataStructManager.create_transportation(j, a);}
+    public static boolean create_transport(JsonObject j){return DataStructManager.create_transportation(j);}
     public static JsonObject choose_truck(){
         return DataStructManager.choose_truck();
     }
@@ -42,4 +44,13 @@ public class Transportation_manager_controller {
     public static String choose_result(){
         return Create_Transportation.choose_solution();
     }
+    public static JsonObject choose_good_Truck(){return Change_Truck.getLst_tr();}
+    public static JsonObject Choose_Drop_Target(){
+        return Change_Sites.Choose_Drop_Target();
+    }
+    public static void drop_Documents(JsonObject j){}
+
+//    public static String change_Truck(JsonObject j){return }
+//    public static String change_Truck(JsonObject j){return }
+//    public static String change_Truck(JsonObject j){return }
 }

@@ -1,7 +1,7 @@
 package domain;
 
+import com.google.gson.JsonObject;
+
 public interface ITruck_Solution {
-    public static Transport Solution(Transport tran) {
-        return null;
-    }
+    public JsonObject Solution(JsonObject j);
 }

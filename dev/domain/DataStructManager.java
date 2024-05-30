@@ -1,5 +1,6 @@
 package domain;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import controller.Transportation_manager_controller;
 
@@ -15,8 +16,7 @@ public class DataStructManager {
     public static ArrayList<Document> documents = new ArrayList<>();
     public static Map<Item, Integer> items = new HashMap<>();
     public static Map<Item, Integer> all_items = new HashMap<>();
-
-
+    public static double current_max_transport;
 
 
     public static void add_Shipping_area(String Shipping_area){
@@ -136,29 +136,17 @@ public class DataStructManager {
         String type = j.get("Type").getAsString();
         String area = j.get("Area").getAsString();
 
-        switch (type){
-            case "Store" -> {
-                for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Store").entrySet()){
-                    if (iter.getValue().to_string().equals(site)){
-                        Document d = new Document(iter.getValue(), items);
-                        items = null;
-                        documents.add(d);
-                    }
-                }
-            }
-            case "Supplier" ->{
-                for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Supplier").entrySet()){
-                    if (iter.getValue().to_string().equals(site)){
-                        Document d = new Document(iter.getValue(), items);
-                        items = null;
-                        documents.add(d);
-                    }
-                }
+        for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get(type).entrySet()){
+            if (iter.getValue().to_string().equals(site)){
+                Map<Item, Integer> new_map = items;
+                Document d = new Document(iter.getValue(), new_map);
+                items.clear();
+                documents.add(d);
             }
         }
     }
 
-    public static String create_transportation(JsonObject j, ArrayList<String> a){
+    public static boolean create_transportation(JsonObject j){
 
         String date = j.get("Date").getAsString();
         String leaving_time = j.get("Leaving time").getAsString();
@@ -168,30 +156,21 @@ public class DataStructManager {
             if (d.to_String().equals(j.get("Driver").getAsString())){
                 for (Truck t: trucks){
                     if (t.to_String().equals(j.get("Truck").getAsString())){
-                        d.setHold(true);
                         Transport new_transport = new Transport(date, leaving_time, t, d, source, documents);
-                        documents = null;
-
                         boolean result = new_transport.Is_Over_Weight();
+                        current_max_transport = new_transport.get_transport_Max_weight();
                         if (result) {
+                            documents.clear();
+                            d.setHold(true);
                             transports.add(new_transport);
-                            return ("Transportation added successfully!");
-                        } else {
-                            String s = Transportation_manager_controller.choose_result();
-                            switch (s){
-                                case "1" -> new_transport = Change_Sites.Solution(new_transport);
-                                case "2" -> new_transport =
-                                case "3" -> new_transport =
-                                case "4" -> new_transport =
-
-                            }
-
+                            return true;
                         }
+                        return false;
                     }
                 }
             }
         }
-        return ("Done!");
+        return false;
     }
 
     public static JsonObject choose_truck(){
@@ -251,5 +230,15 @@ public class DataStructManager {
             j.addProperty(String.valueOf(count++), iter.getValue().to_string());
         }
         return j;
+    }
+
+    public static void drop_documents(JsonObject j){
+        for(int i = 1; i <= j.size(); i++){
+            for(Document d : documents){
+                if(d.to_string().equals(j.get(String.valueOf(i)).getAsString())){
+                    documents.remove(d);
+                }
+            }
+        }
     }
 }

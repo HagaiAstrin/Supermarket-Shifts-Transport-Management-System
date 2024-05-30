@@ -1,10 +1,10 @@
 package presentation;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.internal.sql.SqlTypesSupport;
 import controller.Transportation_manager_controller;
 
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Create_Transportation {
@@ -14,11 +14,10 @@ public class Create_Transportation {
 
         Scanner reader = new Scanner(System.in);
 
-        ArrayList<String> targets = new ArrayList<>();
 
         String answer = "yes";
 
-        while (answer.equals("yes")){
+        while (answer.equals("yes")) {
 
             System.out.println("\nPlease enter the date of the transportation:");
             new_json.addProperty("Date", reader.next());
@@ -52,7 +51,7 @@ public class Create_Transportation {
 
             String a = "yes";
 
-            while (a.equals("yes")){
+            while (a.equals("yes")) {
                 System.out.println("Please choose Supplier or Store:\n");
                 System.out.println("Press '1' to - Supplier");
                 System.out.println("Press '2' to - Store");
@@ -69,20 +68,18 @@ public class Create_Transportation {
                 switch (site) {
                     case "1" -> {
                         String supplier = choose_supplier(area);
-                        targets.add(supplier);
                         String b = "yes";
-                        while (b.equals("yes")){
+                        while (b.equals("yes")) {
                             add_items();
                             System.out.println("Do you want to add another item?");
                             b = reader.next();
                         }
                         create_document(supplier, "Supplier", area);
                     }
-                    case "2" ->{
+                    case "2" -> {
                         String store = choose_store(area);
-                        targets.add(store);
                         String b = "yes";
-                        while (b.equals("yes")){
+                        while (b.equals("yes")) {
                             add_items();
                             System.out.println("Do you want to add item?");
                             b = reader.next();
@@ -90,18 +87,58 @@ public class Create_Transportation {
                         create_document(store, "Store", area);
                     }
                 }
-                System.out.println("Do you want to add site?\nEnter 'yes' or 'no'.");
+                System.out.println("Do you want to add anther site?\nEnter 'yes' or 'no'.");
                 a = reader.next();
             }
-            String result = create_Transportation(new_json, targets);
+            boolean result = create_Transportation(new_json);
+            while (!result) {
+                JsonObject sol_w = new JsonObject();
+                String sol = choose_solution();
+                switch (sol) {
+                    case "1" ->{
 
+                    }
+                    case "2" -> {
+                        sol_w = Transportation_manager_controller.choose_good_Truck();
+                        if (sol_w.size() == 0)
+                            System.out.println("There is no available Trucks for this transportation, " +
+                                    "please choose other solution");
+                        String s = change_Truck_print(sol_w);
+                        new_json.remove("Truck");
+                        new_json.addProperty("Truck", s);
+                        String d = choose_driver(s);
 
-//            add false
+                        if (d == null) System.out.println("There is no available Trucks for this transportation, " +
+                                "please choose other solution");
+                        new_json.remove("Driver");
+                        new_json.addProperty("Driver", d);
+                    }
+                    case "3" ->{
+                        sol_w = Transportation_manager_controller.Choose_Drop_Target();
+                        JsonObject j = new JsonObject();
+                        int count = 1;
+                        String p = "yes";
+                        while (p.equals("yes")){
+                            String site_answer = print_to_user(sol_w.size(), sol_w);
+                            j.addProperty(String.valueOf(count++), site_answer);
+                            System.out.println("Would you like to drop another site? ");
+                            System.out.println("Enter 'yes' or 'no':");
+                            p = reader.next();
+                            dropped_Json_string(sol_w, site_answer);
+                        }
+                        Transportation_manager_controller.drop_Documents(j);
+                    }
+//                    case "4" ->
 
-            System.out.println("Would you like to add a site for the transportation? ");
-            System.out.println("Enter 'yes' or 'no': ");
+                }
+                result = create_Transportation(new_json);
+            }
+            System.out.println("Transportation added successfully!\n");
+            System.out.println("Would you like to make a new Transportation?\n");
+            System.out.println("Enter 'yes' or 'no':");
             answer = reader.next();
         }
+
     }
 
     public static String choose_truck(){
@@ -202,8 +239,8 @@ public class Create_Transportation {
 
         Transportation_manager_controller.create_document(j);
     }
-    public static String create_Transportation(JsonObject j, ArrayList<String> a){
-        return Transportation_manager_controller.create_transport(j, a);
+    public static boolean create_Transportation(JsonObject j){
+        return Transportation_manager_controller.create_transport(j);
     }
     public static String choose_solution(){
 
@@ -256,4 +293,21 @@ public class Create_Transportation {
         }
         return j.get(answer).getAsString();
     }
+
+    public static String change_Truck_print(JsonObject j){
+        System.out.println("Please choose a different Truck for the Transport: ");
+        return print_to_user(j.size(), j);
+    }
+
+    public static JsonObject dropped_Json_string(JsonObject j, String valueToRemove){
+        for (Map.Entry<String, JsonElement> entry : j.entrySet()) {
+            if (entry.getValue().getAsString().equals(valueToRemove)) {
+                String keyToRemove = entry.getKey();
+                j.remove(keyToRemove);
+                break;
+            }
+        }
+        return j;
+    }
+
 }
