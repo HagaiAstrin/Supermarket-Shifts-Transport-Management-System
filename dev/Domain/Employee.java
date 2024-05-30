@@ -9,7 +9,7 @@ import java.util.Map;
 public class Employee {
     String id;
     String name;
-    JobTypeEnum jobType;
+    JobTypeEnum[] jobType;
     String bankID;
     Map<Integer, List<Shift>> givenShifts;
     Contract contract;

@@ -5,16 +5,11 @@ import java.util.Map;
 
 public class WeeklyShift {
     int weekID;
-    ShiftType[] morningShifts = new ShiftType[5];
-    ShiftType[] nightShifts = new ShiftType[5];
-    static Map<JobTypeEnum, JobWeeklyShift> currEmployees = new HashMap<>();
+    Map<String, JobTypeEnum> currEmployees = new HashMap<>();
+    JobWeeklyShift[] currWeeklyShift;
 
-
-    public WeeklyShift() {
-        for (int i = 0; i < morningShifts.length; i++) {
-            morningShifts[i] = null;
-            nightShifts[i] = null;
-        }
-        weekID = 0; // TODO - read from a file
+    public WeeklyShift(int weekID, Map<JobTypeEnum, JobWeeklyShift> currEmployees) {
+        this.weekID = weekID;
+        this.currEmployees = currEmployees;
     }
 }
