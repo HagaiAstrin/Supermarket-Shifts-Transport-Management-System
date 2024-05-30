@@ -1,6 +1,7 @@
 package domain;
 
 import com.google.gson.JsonObject;
+import controller.Transportation_manager_controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,8 @@ public class DataStructManager {
     public static ArrayList<Transport> transports = new ArrayList<>();
     public static ArrayList<Document> documents = new ArrayList<>();
     public static Map<Item, Integer> items = new HashMap<>();
+    public static Map<Item, Integer> all_items = new HashMap<>();
+
 
 
 
@@ -123,6 +126,8 @@ public class DataStructManager {
         Item new_item = new Item(name, weight);
 
         items.put(new_item, amount);
+        all_items.put(new_item, amount);
+
     }
 
     public static void create_document(JsonObject j){
@@ -153,7 +158,7 @@ public class DataStructManager {
         }
     }
 
-    public static boolean create_transportation(JsonObject j, ArrayList<String> a){
+    public static String create_transportation(JsonObject j, ArrayList<String> a){
 
         String date = j.get("Date").getAsString();
         String leaving_time = j.get("Leaving time").getAsString();
@@ -166,12 +171,27 @@ public class DataStructManager {
                         d.setHold(true);
                         Transport new_transport = new Transport(date, leaving_time, t, d, source, documents);
                         documents = null;
-                        return new_transport.Is_Over_Weight();
+
+                        boolean result = new_transport.Is_Over_Weight();
+                        if (result) {
+                            transports.add(new_transport);
+                            return ("Transportation added successfully!");
+                        } else {
+                            String s = Transportation_manager_controller.choose_result();
+                            switch (s){
+                                case "1" -> new_transport = Change_Sites.Solution(new_transport);
+                                case "2" -> new_transport =
+                                case "3" -> new_transport =
+                                case "4" -> new_transport =
+
+                            }
+
+                        }
                     }
                 }
             }
         }
-        return false;
+        return ("Done!");
     }
 
     public static JsonObject choose_truck(){

@@ -1,6 +1,7 @@
 package presentation;
 
 import com.google.gson.JsonObject;
+import com.google.gson.internal.sql.SqlTypesSupport;
 import controller.Transportation_manager_controller;
 
 import java.util.ArrayList;
@@ -92,7 +93,8 @@ public class Create_Transportation {
                 System.out.println("Do you want to add site?\nEnter 'yes' or 'no'.");
                 a = reader.next();
             }
-            boolean result = create_Transportation(new_json, targets);
+            String result = create_Transportation(new_json, targets);
+
 
 //            add false
 
@@ -161,13 +163,14 @@ public class Create_Transportation {
         System.out.println("Please enter Item:");
 
         System.out.println("Name of the item:");
-        String Name = reader.next();
+        j.addProperty("Name", reader.next());
 
         while (true) {
             System.out.println("Weight of the item:");
             String Weight = reader.next();
             try {
                 Double.parseDouble(Weight);
+                j.addProperty("Weight", Weight);
                 break;
             }
             catch (Exception e) {
@@ -180,6 +183,7 @@ public class Create_Transportation {
             String Amount = reader.next();
             try {
                 Integer.parseInt(Amount);
+                j.addProperty("Amount", Amount);
                 break;
             }
             catch (Exception e) {
@@ -198,11 +202,32 @@ public class Create_Transportation {
 
         Transportation_manager_controller.create_document(j);
     }
-    public static boolean create_Transportation(JsonObject j, ArrayList<String> a){
+    public static String create_Transportation(JsonObject j, ArrayList<String> a){
         return Transportation_manager_controller.create_transport(j, a);
     }
-    public static void make_solution(){
+    public static String choose_solution(){
 
+        Scanner reader = new Scanner(System.in);
+
+        System.out.println("There is OverWeight, Please choose from the options bellow:\n");
+        System.out.println("Press '1' to - Change Sites.");
+        System.out.println("Press '2' to - Change Truck.");
+        System.out.println("Press '3' to - Drop Sites.");
+        System.out.println("Press '4' to - Drop Items.\n");
+
+        String s = reader.next();
+
+        while (!s.equals("1") && !s.equals("2") && !s.equals("3") && !s.equals("4")){
+            System.out.println("Wrong input! try again..\n");
+            System.out.println("There is OverWeight, Please choose from the options bellow:\n");
+            System.out.println("Press '1' to - Change Sites.");
+            System.out.println("Press '2' to - Change Truck.");
+            System.out.println("Press '3' to - Drop Sites.");
+            System.out.println("Press '4' to - Drop Items.\n");
+
+            s = reader.next();
+        }
+        return s;
     }
 
     public static String print_to_user (int size, JsonObject j){

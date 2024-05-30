@@ -2,6 +2,7 @@ package controller;
 
 import com.google.gson.JsonObject;
 import domain.DataStructManager;
+import presentation.Create_Transportation;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class Transportation_manager_controller {
     public static void create_document(JsonObject j){
        DataStructManager.create_document(j);
     }
-    public static boolean create_transport(JsonObject j, ArrayList<String> a){return DataStructManager.create_transportation(j, a);}
+    public static String create_transport(JsonObject j, ArrayList<String> a){return DataStructManager.create_transportation(j, a);}
     public static JsonObject choose_truck(){
         return DataStructManager.choose_truck();
     }
@@ -37,5 +38,8 @@ public class Transportation_manager_controller {
     }
     public static JsonObject choose_store(String a){
         return DataStructManager.choose_store(a);
+    }
+    public static String choose_result(){
+        return Create_Transportation.choose_solution();
     }
 }

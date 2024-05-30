@@ -1,5 +1,7 @@
 package domain;
 
 public interface ITruck_Solution {
-    public void Solution(Transport tran);
+    public static Transport Solution(Transport tran) {
+        return null;
+    }
 }
