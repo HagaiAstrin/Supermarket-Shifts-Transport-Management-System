@@ -60,11 +60,10 @@ public class Employee {
         return contract;
     }
 
-    public Employee(String id, String name, String bankID, int salary, int restDays, LocalDate startDate, String workType) {
+    public Employee(String id, String name, String bankID, int salary, int restDays, LocalDate startDate,  ArrayList<JobTypeEnum> jobTypes) {
         // TODO: Fine-tune this approach
         this.jobType = new ArrayList<>();
-        this.jobType.add(JobTypeEnum.valueOf(workType.toUpperCase().replaceAll(" ", "_")));
-        // ------------------------
+        this.jobType = jobTypes;// ------------------------
         this.id = id;
         this.name = name;
         this.bankID = bankID;
@@ -87,24 +86,45 @@ public class Employee {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("id", id);
         jsonObject.addProperty("name", name);
-        jsonObject.addProperty("jobType", jobType.get(0).toString());
+
+        // Join job types into a single string separated by '/'
+        String jobTypeString = String.join("/",
+                jobType.stream()
+                        .map(JobTypeEnum::toString)
+                        .toArray(String[]::new)
+        );
+        jsonObject.addProperty("jobType", jobTypeString);
         jsonObject.addProperty("bankID", bankID);
-        // TODO : Check real toString() representation
         jsonObject.addProperty("restDays", contract.getRestDays());
         jsonObject.addProperty("salary", contract.getSalary());
         jsonObject.addProperty("startDate", contract.getStartDate().toString());
         // Add other fields as necessary
         return jsonObject;
+
     }
 
-    public static Employee JsonToEmployee(JsonObject j){
-        return new Employee(j.get("id").getAsString(),
+    public static Employee JsonToEmployee(JsonObject j) {
+        // Parse job types from JSON
+        String jobTypeString = j.get("jobType").getAsString();
+        String[] jobTypeArray = jobTypeString.split("/");
+        ArrayList<JobTypeEnum> jobTypes = new ArrayList<>();
+        for (String jobType : jobTypeArray) {
+            try {
+                jobTypes.add(JobTypeEnum.valueOf(jobType.trim().toUpperCase().replace(" ", "_")));
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid job type in JSON: " + jobType);
+            }
+        }
+
+        return new Employee(
+                j.get("id").getAsString(),
                 j.get("name").getAsString(),
                 j.get("bankID").getAsString(),
                 Integer.parseInt(j.get("salary").getAsString()),
                 Integer.parseInt(j.get("restDays").getAsString()),
                 IO_Data.StringToDate(j.get("startDate").getAsString()),
-                j.get("jobType").getAsString());
+                jobTypes
+        );
     }
 }
 

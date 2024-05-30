@@ -39,7 +39,15 @@ public class IO_Data {
 
                 if (fields.length == 7) { // Assuming the CSV has exactly 7 columns
                     String id = fields[0];
-                    String jobType = fields[1];
+                    String[] jobTypeArray = fields[1].split("/");
+                    ArrayList<JobTypeEnum> jobTypes = new ArrayList<>();
+                    for (String jobType : jobTypeArray) {
+                        try {
+                            jobTypes.add(JobTypeEnum.valueOf(jobType.trim().toUpperCase().replace(" ", "_")));
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Invalid job type: " + jobType);
+                        }
+                    }
                     String name = fields[2];
                     String bankID = fields[3];
                     String startDate = fields[4];
@@ -51,7 +59,7 @@ public class IO_Data {
                     try {
                         // Parse the string to LocalDate
                         LocalDate date = LocalDate.parse(startDate, formatter);
-                        Employee employee = new Employee(id,  name, bankID, salary, restDays, date, jobType);
+                        Employee employee = new Employee(id,  name, bankID, salary, restDays, date, jobTypes);
                         if(!flag){
                             currEmployees.put(Integer.valueOf(employee.getId()), employee);
                         }
@@ -223,6 +231,10 @@ public class IO_Data {
             }
         }
         return null;
+    }
+
+    public static void SetEmployeeID(String id){
+        employeeID = id;
     }
 
     /**

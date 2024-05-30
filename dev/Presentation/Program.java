@@ -1,5 +1,6 @@
 package Presentation;
 import Domain.Employee;
+import Domain.IO_Data;
 import com.google.gson.Gson;
 import Controller.*;
 import com.google.gson.JsonElement;
@@ -10,8 +11,6 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Program {
-    private AdminController ac;
-    private EmployeeController ec;
 
     public Program(){
 
@@ -28,10 +27,26 @@ public class Program {
         login();
     }
 
+    private static void logo(){
+        System.out.println("     _______. __    __  .______    _______ .______          __       _______  _______ ");
+        System.out.println("    /       ||  |  |  | |   _  \\  |   ____||   _  \\        |  |     |   ____||   ____|");
+        System.out.println("   |   (----`|  |  |  | |  |_)  | |  |__   |  |_)  |       |  |     |  |__   |  |__   ");
+        System.out.println("    \\   \\    |  |  |  | |   ___/  |   __|  |      /        |  |     |   __|  |   __|  ");
+        System.out.println(".----)   |   |  `--'  | |  |      |  |____ |  |\\  \\----.   |  `----.|  |____ |  |____ ");
+        System.out.println("|_______/     \\______/  | _|      |_______|| _| `._____|   |_______||_______||_______|");
+        System.out.println("                                                                                      ");
+        System.out.println("--------------------------------------------------------------------------------------");
+    }
+
     private void login() throws IOException {
+        logo();
+
+
         // Admin or User
         String UserKind;
-        System.out.print("Hey there, if you are admin press 1, else press 2: ");
+        System.out.println("Welcome to the \"Super-Lee\" system.");
+        System.out.println("Please identify yourself.");
+        System.out.println("Press 1 for Admin login, or 2 for User login: ");
 
         while (true) {
             String WhatKindOfUserLogin = scanner.nextLine();
@@ -40,7 +55,7 @@ public class Program {
                 break;
             }
             // If the user didn't press 1 or 2
-            System.out.print("Try selecting again: ");
+            System.out.println("Wrong input, please try again: ");
         }
 
         String[] UsernamePassword = UserPassInput();
@@ -49,6 +64,7 @@ public class Program {
                 AdminMenu();
                 break;
             } else if (UserKind.equals("2") && user_checker(UsernamePassword)) {
+                IO_Data.SetEmployeeID(UsernamePassword[2]);
                 UserMenu();
                 break;
             } else {
@@ -145,6 +161,7 @@ public class Program {
 
     //TODO: Get ID from successful user login, insert it into the employee controller.
     private void UserMenu(){
+        AdminController.ImportEmployees();
         while (true) {
             System.out.println("\nEmployee Menu:");
             System.out.println("1. View personal details");
@@ -158,9 +175,9 @@ public class Program {
             switch (choice) {
                 case 1:
                     // Call method to view personal details
-                    Employee e = SystemController.ConvertFronJsonToEmployee(
-                            EmployeeController.ViewPersonalData());
-                    System.out.println(e);
+                    JsonObject j =  EmployeeController.ViewPersonalData();
+
+                    System.out.println(j);
                     break;
                 case 2:
                     // Call method to view salary
