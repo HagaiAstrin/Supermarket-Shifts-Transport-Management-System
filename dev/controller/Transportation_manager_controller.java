@@ -47,6 +47,9 @@ public class Transportation_manager_controller {
         return Drop_Sites.Choose_Drop_Target();
     }
     public static void drop_Documents(JsonObject j){DataStructManager.drop_documents(j);}
+    public static void replace_Documents(String s){DataStructManager.replace_documents(s);}
+
+
 
 //    public static String change_Truck(JsonObject j){return }
 //    public static String change_Truck(JsonObject j){return }

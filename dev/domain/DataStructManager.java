@@ -1,8 +1,6 @@
 package domain;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import controller.Transportation_manager_controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +23,6 @@ public class DataStructManager {
         map.put("Supplier",new HashMap<>());
         manager_Map.put(Shipping_area, map);
     }
-
     public static void add_Site(JsonObject j) {
 
         String name = j.get("Name").getAsString();
@@ -78,7 +75,6 @@ public class DataStructManager {
         }
         return ("\nYou are not exist in the system!\n");
     }
-
     public static String update_leaving_driver(JsonObject j){
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get
@@ -95,7 +91,6 @@ public class DataStructManager {
         }
         return ("You are not exist in the system!");
     }
-
     public static void add_driver(JsonObject j){
 
         String name = j.get("Name").getAsString();
@@ -130,7 +125,6 @@ public class DataStructManager {
         all_items.put(new_item, amount);
 
     }
-
     public static void create_document(JsonObject j){
 
         String site = j.get("Site").getAsString();
@@ -146,7 +140,6 @@ public class DataStructManager {
             }
         }
     }
-
     public static boolean create_transportation(JsonObject j){
 
         String date = j.get("Date").getAsString();
@@ -175,7 +168,6 @@ public class DataStructManager {
         }
         return false;
     }
-
     public static JsonObject choose_truck(){
 
         JsonObject j = new JsonObject();
@@ -188,7 +180,6 @@ public class DataStructManager {
         }
         return j;
     }
-
     public static JsonObject choose_driver(String truck){
 
         JsonObject j = new JsonObject();
@@ -208,7 +199,6 @@ public class DataStructManager {
         }
         return j;
     }
-
     public static JsonObject choose_area(){
         JsonObject j = new JsonObject();
         int count = 1;
@@ -225,7 +215,6 @@ public class DataStructManager {
         }
         return j;
     }
-
     public static JsonObject choose_store(String area){
         JsonObject j = new JsonObject();
         int count = 1;
@@ -234,7 +223,6 @@ public class DataStructManager {
         }
         return j;
     }
-
     public static void drop_documents(JsonObject j){
         for(int i = 1; i <= j.size(); i++){
             for(Document d : documents){
@@ -243,6 +231,18 @@ public class DataStructManager {
                     break;
                 }
             }
+        }
+    }
+    public static void replace_documents(String a){
+        int count = 0;
+        for(Document d : documents){
+            if(d.to_string().equals(a)){
+                documents.remove(d);
+                Document doc = documents.remove(documents.size() - 1);
+                documents.add(count, doc);
+                break;
+            }
+            count++;
         }
     }
 }

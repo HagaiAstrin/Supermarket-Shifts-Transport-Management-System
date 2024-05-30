@@ -6,9 +6,8 @@ import controller.Transportation_manager_controller;
 import java.util.Scanner;
 
 public class Create_Transportation {
+    private static JsonObject new_json = new JsonObject();
     public static void create_Transport() {
-
-        JsonObject new_json = new JsonObject();
 
         Scanner reader = new Scanner(System.in);
 
@@ -50,42 +49,9 @@ public class Create_Transportation {
             String a = "yes";
 
             while (a.equals("yes")) {
-                System.out.println("Please choose Supplier or Store:\n");
-                System.out.println("Press '1' to - Supplier");
-                System.out.println("Press '2' to - Store");
 
+                choose_site(area);
 
-                String site = reader.next();
-                while (!site.equals("1") && !site.equals("2")) {
-                    System.out.println("\nWrong input!, try again..");
-                    System.out.println("Please choose Supplier or Store:\n");
-                    System.out.println("Press '1' to - Supplier");
-                    System.out.println("Press '2' to - Store");
-                    site = reader.next();
-                }
-                //TODO Supplier / Store choose
-                switch (site) {
-                    case "1" -> {
-                        String supplier = choose_supplier(area);
-                        String b = "yes";
-                        while (b.equals("yes")) {
-                            add_items();
-                            System.out.println("Do you want to add another item?");
-                            b = reader.next();
-                        }
-                        create_document(supplier, "Supplier", area);
-                    }
-                    case "2" -> {
-                        String store = choose_store(area);
-                        String b = "yes";
-                        while (b.equals("yes")) {
-                            add_items();
-                            System.out.println("Do you want to add item?");
-                            b = reader.next();
-                        }
-                        create_document(store, "Store", area);
-                    }
-                }
                 System.out.println("Do you want to add anther site?\nEnter 'yes' or 'no'.");
                 a = reader.next();
             }
@@ -93,65 +59,12 @@ public class Create_Transportation {
 
             //TODO Weight problem Solutions
             while (!result) {
-                JsonObject sol_w;
                 String sol = choose_solution();
                 switch (sol) {
-                    //TODO Change Sites
-                    case "1" ->{
-                        sol_w = Transportation_manager_controller.Choose_Site_Target();
-                        System.out.println("which Site you want to replace ? ");
-                        String site_answer = print_to_user(sol_w.size(), sol_w);
-                        for (int i = 1; i < sol_w.size(); i++) {
-                            if (sol_w.get(String.valueOf(i)).getAsString().equals(site_answer)){
 
-                            }
-                        }
-                    }
-
-                    //TODO Truck change
-                    case "2" -> {
-                        sol_w = Transportation_manager_controller.choose_good_Truck();
-                        if (sol_w.size() == 0)
-                            System.out.println("There is no available Trucks for this transportation, " +
-                                    "please choose other solution");
-                        String s = change_Truck_print(sol_w);
-                        new_json.remove("Truck");
-                        new_json.addProperty("Truck", s);
-                        String d = choose_driver(s);
-
-                        if (d == null) System.out.println("There is no available Trucks for this transportation, " +
-                                "please choose other solution");
-                        new_json.remove("Driver");
-                        new_json.addProperty("Driver", d);
-                    }
-
-                    //TODO Dropped Sites
-                    case "3" ->{
-                        sol_w = Transportation_manager_controller.Choose_Site_Target();
-                        JsonObject j = new JsonObject();
-                        int j_count = 1;
-                        String p = "yes";
-                        while (p.equals("yes")){
-                            String site_answer = print_to_user(sol_w.size(), sol_w);
-                            boolean bool = true;
-                            if(j_count != 1) {
-                                for (int i = 1; i < j_count; i++){
-                                    if (j.get(String.valueOf(i)).getAsString().equals(site_answer)) {
-                                        System.out.println("You already dropped this site ! ");
-                                        bool = false;
-                                        break;
-                                    }
-                                }
-                            }
-                            if(bool) {
-                                j.addProperty(String.valueOf(j_count++), site_answer);
-                                System.out.println("\nWould you like to drop another site? ");
-                                System.out.println("Enter 'yes' or 'no':");
-                                p = reader.next();
-                            }
-                        }
-                        Transportation_manager_controller.drop_Documents(j);
-                    }
+                    case "1" -> Change_Sites(area);
+                    case "2" -> Change_Truck();
+                    case "3" -> Drop_sites();
 
                     //TODO Drop Items
                     case "4" ->{}
@@ -178,7 +91,6 @@ public class Create_Transportation {
 
         return print_to_user(new_trucks.size(), new_trucks);
     }
-
     public static String choose_driver(String truck){
 
         System.out.println("Please choose a Driver:");
@@ -190,7 +102,6 @@ public class Create_Transportation {
 
         return print_to_user(new_drivers.size(), new_drivers);
     }
-
     public static String choose_area(){
 
         System.out.println("Please choose an Shipping area:");
@@ -199,7 +110,6 @@ public class Create_Transportation {
 
         return print_to_user(new_areas.size(), new_areas);
     }
-
     public static String choose_supplier(String area){
 
         System.out.println("Please choose an Supplier:");
@@ -208,7 +118,6 @@ public class Create_Transportation {
 
         return print_to_user(new_suppliers.size(), new_suppliers);
     }
-
     public static String choose_store(String area){
 
         System.out.println("Please choose an Store:");
@@ -217,7 +126,64 @@ public class Create_Transportation {
 
         return print_to_user(new_stores.size(), new_stores);
     }
+    public static void choose_site(String area){
+        Scanner reader = new Scanner(System.in);
 
+        System.out.println("Please choose Supplier or Store:\n");
+        System.out.println("Press '1' to - Supplier");
+        System.out.println("Press '2' to - Store");
+
+
+        String site = reader.next();
+        while (!site.equals("1") && !site.equals("2")) {
+            System.out.println("\nWrong input!, try again..");
+            System.out.println("Please choose Supplier or Store:\n");
+            System.out.println("Press '1' to - Supplier");
+            System.out.println("Press '2' to - Store");
+            site = reader.next();
+        }
+        //TODO Supplier / Store choose
+        switch (site) {
+            case "1" -> {
+                String supplier = choose_supplier(area);
+                String b = "yes";
+                while (b.equals("yes")) {
+                    add_items();
+                    System.out.println("Do you want to add another item?");
+                    b = reader.next();
+                }
+                create_document(supplier, "Supplier", area);
+            }
+            case "2" -> {
+                String store = choose_store(area);
+                String b = "yes";
+                while (b.equals("yes")) {
+                    add_items();
+                    System.out.println("Do you want to add item?");
+                    b = reader.next();
+                }
+                create_document(store, "Store", area);
+            }
+        }
+    }
+    public static String choose_solution(){
+
+        Scanner reader = new Scanner(System.in);
+        StringBuilder new_string = new StringBuilder();
+        new_string.append("\nThere is OverWeight, Please choose from the options bellow:\n");
+        new_string.append("Press '1' to - Change Sites.\n");
+        new_string.append("Press '2' to - Change Truck.\n");
+        new_string.append("Press '3' to - Drop Sites.\n");
+        new_string.append("Press '4' to - Drop Items.\n");
+
+        String s = "0";
+
+        while (!s.equals("1") && !s.equals("2") && !s.equals("3") && !s.equals("4")){
+            System.out.println(new_string);
+            s = reader.next();
+        }
+        return s;
+    }
     public static void add_items(){
         JsonObject j = new JsonObject();
 
@@ -268,25 +234,6 @@ public class Create_Transportation {
     public static boolean create_Transportation(JsonObject j){
         return Transportation_manager_controller.create_transport(j);
     }
-    public static String choose_solution(){
-
-        Scanner reader = new Scanner(System.in);
-        StringBuilder new_string = new StringBuilder();
-        new_string.append("\nThere is OverWeight, Please choose from the options bellow:\n");
-        new_string.append("Press '1' to - Change Sites.\n");
-        new_string.append("Press '2' to - Change Truck.\n");
-        new_string.append("Press '3' to - Drop Sites.\n");
-        new_string.append("Press '4' to - Drop Items.\n");
-
-        String s = "0";
-
-        while (!s.equals("1") && !s.equals("2") && !s.equals("3") && !s.equals("4")){
-            System.out.println(new_string);
-            s = reader.next();
-        }
-        return s;
-    }
-
     public static String print_to_user (int size, JsonObject j){
 
         Scanner reader = new Scanner(System.in);
@@ -313,10 +260,61 @@ public class Create_Transportation {
         }
         return j.get(answer).getAsString();
     }
+    public static void Drop_sites (){
 
+        Scanner reader = new Scanner(System.in);
+
+        JsonObject sol_w = Transportation_manager_controller.Choose_Site_Target();
+        JsonObject j = new JsonObject();
+        int j_count = 1;
+        String p = "yes";
+        while (p.equals("yes")){
+            String site_answer = print_to_user(sol_w.size(), sol_w);
+            boolean bool = true;
+            if(j_count != 1) {
+                for (int i = 1; i < j_count; i++){
+                    if (j.get(String.valueOf(i)).getAsString().equals(site_answer)) {
+                        System.out.println("You already dropped this site ! ");
+                        bool = false;
+                        break;
+                    }
+                }
+            }
+            if(bool) {
+                j.addProperty(String.valueOf(j_count++), site_answer);
+                System.out.println("\nWould you like to drop another site? ");
+                System.out.println("Enter 'yes' or 'no':");
+                p = reader.next();
+            }
+        }
+        Transportation_manager_controller.drop_Documents(j);
+    }
     public static String change_Truck_print(JsonObject j){
         System.out.println("Please choose a different Truck for the Transport: ");
         return print_to_user(j.size(), j);
+    }
+    public static void Change_Sites(String area){
+        JsonObject s = Transportation_manager_controller.Choose_Site_Target();
+        System.out.println("which Site you want to replace ? ");
+        String site_answer = print_to_user(s.size(), s);
+        choose_site(area);
+        Transportation_manager_controller.replace_Documents(site_answer);
+    }
+    public static void Change_Truck (){
+
+        JsonObject sol_w = Transportation_manager_controller.choose_good_Truck();
+        if (sol_w.size() == 0)
+            System.out.println("There is no available Trucks for this transportation, " +
+                    "please choose other solution");
+        String s = change_Truck_print(sol_w);
+        new_json.remove("Truck");
+        new_json.addProperty("Truck", s);
+        String d = choose_driver(s);
+
+        if (d == null) System.out.println("There is no available Trucks for this transportation, " +
+                "please choose other solution");
+        new_json.remove("Driver");
+        new_json.addProperty("Driver", d);
     }
 
 }
