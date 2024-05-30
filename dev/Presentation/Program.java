@@ -85,6 +85,7 @@ public class Program {
             System.out.println("4. Update employee details");
             System.out.println("5. Logout");
             System.out.println("6. Statistics");
+            System.out.println("7. asaf");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
@@ -114,6 +115,8 @@ public class Program {
                 case 6:
                     Printer.PrintAllEmployees(AdminController.PrintEmployees());
                     break;
+                case 7:
+                    AdminController.Shifts();
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
