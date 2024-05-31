@@ -133,7 +133,7 @@ public class DataStructManager {
 
         for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get(type).entrySet()){
             if (iter.getValue().to_string().equals(site)){
-                Map<Item, Integer> new_map = items;
+                Map<Item, Integer> new_map = new HashMap<>(items);
                 Document d = new Document(iter.getValue(), new_map);
                 items.clear();
                 documents.add(d);
@@ -245,4 +245,5 @@ public class DataStructManager {
             count++;
         }
     }
+
 }

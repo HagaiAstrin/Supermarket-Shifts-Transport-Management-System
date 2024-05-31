@@ -3,6 +3,7 @@ package controller;
 import com.google.gson.JsonObject;
 import domain.Change_Truck;
 import domain.DataStructManager;
+import domain.Drop_Items;
 import domain.Drop_Sites;
 import presentation.Create_Transportation;
 
@@ -49,7 +50,9 @@ public class Transportation_manager_controller {
     public static void drop_Documents(JsonObject j){DataStructManager.drop_documents(j);}
     public static void replace_Documents(String s){DataStructManager.replace_documents(s);}
 
-
+    public static JsonObject drop_Items(String a){
+        return Drop_Items.getItem_Json(a);
+    }
 
 //    public static String change_Truck(JsonObject j){return }
 //    public static String change_Truck(JsonObject j){return }

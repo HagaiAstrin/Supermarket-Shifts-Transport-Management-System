@@ -67,7 +67,7 @@ public class Create_Transportation {
                     case "3" -> Drop_sites();
 
                     //TODO Drop Items
-                    case "4" ->{}
+                    case "4" ->{Drop_Items();}
 
                 }
                 result = create_Transportation(new_json);
@@ -142,6 +142,7 @@ public class Create_Transportation {
             System.out.println("Press '2' to - Store");
             site = reader.next();
         }
+
         //TODO Supplier / Store choose
         switch (site) {
             case "1" -> {
@@ -269,6 +270,7 @@ public class Create_Transportation {
         int j_count = 1;
         String p = "yes";
         while (p.equals("yes")){
+            System.out.println("\nWhich Site do you want to dropped ? ");
             String site_answer = print_to_user(sol_w.size(), sol_w);
             boolean bool = true;
             if(j_count != 1) {
@@ -317,4 +319,20 @@ public class Create_Transportation {
         new_json.addProperty("Driver", d);
     }
 
+    public static void Drop_Items(){
+        Scanner reader = new Scanner(System.in);
+
+        JsonObject sol_w = Transportation_manager_controller.Choose_Site_Target();
+        JsonObject j;
+        int j_count = 1;
+        String p = "yes";
+        while (p.equals("yes")) {
+            System.out.println("\nWhich Site do you want to dropped Items from ? ");
+            String site_answer = print_to_user(sol_w.size(), sol_w);
+            j = Transportation_manager_controller.drop_Items(site_answer);
+            String item_answer = print_to_user(j.size(), j);
+
+            //TODO dropped the items
+        }
+    }
 }

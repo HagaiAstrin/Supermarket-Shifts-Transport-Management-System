@@ -22,4 +22,8 @@ public class Item {
     public double getWeight() {
         return weight;
     }
+
+    public String to_string(){
+        return "Name : "+name+", Weight : "+weight;
+    }
 }

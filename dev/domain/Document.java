@@ -13,7 +13,7 @@ public class Document {
     public Document(Site target, Map<Item, Integer> items) {
         this.id = count++;
         this.target = target;
-        this.item_map = items;
+        this.item_map = new HashMap<>(items);
         this.doc_weight = cul_weight();
     }
 
@@ -35,7 +35,15 @@ public class Document {
         return doc_weight;
     }
 
+    public Map<Item, Integer> getItem_map() {
+        return item_map;
+    }
+
     public String to_string(){
         return ( "ID: " + id + ", Target: " + target.getName() + ", Total weight: " + this.doc_weight + ".");
+    }
+
+    public String item_String(Item t){
+        return ( t.to_string() + ", Count : "+ item_map.get(t) +", Total weight : "+item_map.get(t)*t.getWeight());
     }
 }
