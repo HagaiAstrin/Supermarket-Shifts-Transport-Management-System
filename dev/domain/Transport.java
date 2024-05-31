@@ -1,6 +1,8 @@
 package domain;
 import java.util.ArrayList;
 public class Transport {
+    private static int count = 1;
+    private int id;
     private String date;
     private String leaving_time;
     private Truck truck;
@@ -16,6 +18,7 @@ public class Transport {
         this.driver = driver;
         this.targets = t;
         this.source = source;
+        this.id = count++;
     }
 
 
@@ -66,7 +69,7 @@ public class Transport {
 
     public String to_String_tran(){
         StringBuilder new_s = new StringBuilder();
-        String s = "Date : "+this.date+"\nNumber of Truck : "+this.truck.getLicence_number()+"\n";
+        String s = "Transport number : "+this.id+"\nDate : "+this.date+"\nNumber of Truck : "+this.truck.getLicence_number()+"\n";
         new_s.append(s);
         s = "Leaving time : "+this.leaving_time+"\nDriver name : "+this.driver.getName()+"\n";
         new_s.append(s);

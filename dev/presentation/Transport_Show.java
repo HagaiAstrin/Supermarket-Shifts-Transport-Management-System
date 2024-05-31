@@ -11,7 +11,12 @@ public class Transport_Show {
             System.out.println("No transport has taken place ! \n");
         }
         else {
+            int x = 1;
             for (String key : j.keySet()) {
+                if(x != 1) {
+                    System.out.println("--------------------------------");
+                }
+                x++;
                 JsonElement element = j.get(key);
                 String s = element.getAsString();
                 System.out.println(s);

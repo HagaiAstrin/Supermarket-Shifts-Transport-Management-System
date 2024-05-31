@@ -132,18 +132,16 @@ public class Create_Transportation {
 
     public static void choose_site(String area) {
         Scanner reader = new Scanner(System.in);
-
-        System.out.println("Please choose Supplier or Store:\n");
-        System.out.println("Press '1' to - Supplier");
-        System.out.println("Press '2' to - Store");
-
+        StringBuilder str_Sup_Sto = new StringBuilder();
+        str_Sup_Sto.append("Please choose Supplier or Store:\n");
+        str_Sup_Sto.append("Press '1' to - Supplier\n");
+        str_Sup_Sto.append("Press '2' to - Store\n");
+        System.out.println(str_Sup_Sto);
 
         String site = reader.next();
         while (!site.equals("1") && !site.equals("2")) {
-            System.out.println("\nWrong input!, try again..");
-            System.out.println("Please choose Supplier or Store:\n");
-            System.out.println("Press '1' to - Supplier");
-            System.out.println("Press '2' to - Store");
+            System.out.println("\nWrong input!, try again..\n");
+            System.out.println(str_Sup_Sto);
             site = reader.next();
         }
 
