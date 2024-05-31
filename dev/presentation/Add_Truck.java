@@ -19,27 +19,27 @@ public class Add_Truck {
         while (answer.equals("yes")){
 
             System.out.println("\nEnter licence_number of 8 digits:");
-            String licence_number = reader.next();
+            String licence_number = reader.nextLine();
 
             while (licence_number.length() != 8){
                 System.out.println("\nWrong input! The licence_number should hava a 8 digit. try again..");
                 System.out.println("Enter licence_number of 8 digits:");
-                licence_number = reader.next();
+                licence_number = reader.nextLine();
             }
 
             System.out.println("Enter the license leve of the Truck: 'A', 'B', 'C'");
-            String licence_level = reader.next();
+            String licence_level = reader.nextLine();
 
             while (!licence_level.equals("A") && !licence_level.equals("B") && !licence_level.equals("C")){
                 System.out.println("\nWrong input! try again..");
                 System.out.println("Enter the license leve of the driver: 'A', 'B' OR 'C'");
-                licence_level = reader.next();
+                licence_level = reader.nextLine();
             }
 
             String net_weight = null;
             while (net_weight == null){
                 System.out.println("Please enter net weight:");
-                net_weight = reader.next();
+                net_weight = reader.nextLine();
 
                 try {
                     Double.parseDouble(net_weight);
@@ -53,7 +53,7 @@ public class Add_Truck {
             String max_weight = null;
             while (max_weight == null){
                 System.out.println("\nPlease enter max weight:");
-                max_weight = reader.next();
+                max_weight = reader.nextLine();
 
                 try {
                     Double.parseDouble(max_weight);
@@ -74,7 +74,7 @@ public class Add_Truck {
             System.out.println("Truck added successfully!");
 
             System.out.println("Would you like to add another truck? Enter 'yes' or 'no'");
-            answer = reader.next();
+            answer = reader.nextLine();
         }
     }
 }

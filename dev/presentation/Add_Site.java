@@ -20,25 +20,25 @@ public class Add_Site {
         while (a.equals("yes")) {
 
             System.out.println("Enter name:");
-            new_json.addProperty("Name", reader.next());
+            new_json.addProperty("Name", reader.nextLine());
 
             System.out.println("Enter address:");
-            new_json.addProperty("Address", reader.next());
+            new_json.addProperty("Address", reader.nextLine());
 
             System.out.println("Enter phone number:");
-            new_json.addProperty("Phone number", reader.next());
+            new_json.addProperty("Phone number", reader.nextLine());
 
             System.out.println("Enter contact:");
-            new_json.addProperty("Contact", reader.next());
+            new_json.addProperty("Contact", reader.nextLine());
 
             System.out.println("Enter Shipping area:");
-            new_json.addProperty("Shipping area", reader.next());
+            new_json.addProperty("Shipping area", reader.nextLine());
 
             Transportation_manager_controller.add_site(new_json);
 
             System.out.println("\n" + Type + "added successfully!\n");
             System.out.println("Would you like to add another " + Type + "? Press 'yes' or 'no'.");
-            a = reader.next();
+            a = reader.nextLine();
         }
     }
 }

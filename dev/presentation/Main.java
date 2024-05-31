@@ -19,14 +19,14 @@ public class Main {
             menu.append("press '9' to exit.\n");
             System.out.println(menu);
 
-            String type = reader.next();
+            String type = reader.nextLine();
 
             while (!type.equals("1") && !type.equals("2") && !type.equals("9")) {
 
                 System.out.println("\nWrong input! please try again..");
                 System.out.println(menu);
 
-                type = reader.next();
+                type = reader.nextLine();
             }
             switch (type) {
                 case "1" -> Transportation_manager.transportation_manager();

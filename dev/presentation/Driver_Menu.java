@@ -12,13 +12,13 @@ public class Driver_Menu {
 
         JsonObject new_Json = new JsonObject();
 
-        System.out.println("\nEnter your name:");
-
         Scanner reader = new Scanner(System.in);
-        String name = reader.next();
+
+        System.out.println("\nEnter your name:");
+        String name = reader.nextLine();
 
         System.out.println("Enter your password:");
-        String password = reader.next();
+        String password = reader.nextLine();
 
         new_Json.addProperty("Name", name);
         new_Json.addProperty("Password", password);
@@ -28,10 +28,10 @@ public class Driver_Menu {
         while (driver_name == null) {
             System.out.println("\nThe name or password are wrong, try again..\n");
             System.out.println("Enter name:");
-            name = reader.next();
+            name = reader.nextLine();
 
             System.out.println("Enter password:");
-            password = reader.next();
+            password = reader.nextLine();
 
             new_Json.addProperty("Name", name);
             new_Json.addProperty("Password", password);
@@ -48,13 +48,13 @@ public class Driver_Menu {
             new_s.append("Press '2' to - Report on back\n");
 
             System.out.println(new_s);
-            String answer = reader.next();
+            String answer = reader.nextLine();
 
             while (!answer.equals("1") && !answer.equals("2")) {
                 System.out.println("\nWrong input, try again..\n");
                 System.out.println(new_s);
 
-                answer = reader.next();
+                answer = reader.nextLine();
 
             }
             switch (answer) {
@@ -63,7 +63,7 @@ public class Driver_Menu {
             }
             System.out.println("\nDo you want to do something else?");
             System.out.println("\nPress 'yes' to continue in the system");
-            a = reader.next();
+            a = reader.nextLine();
         }
     }
 

@@ -18,13 +18,13 @@ public class Create_Transportation {
         while (answer.equals("yes")) {
 
             System.out.println("\nPlease enter the date of the transportation:");
-            new_json.addProperty("Date", reader.next());
+            new_json.addProperty("Date", reader.nextLine());
 
             System.out.println("\nPlease enter the leaving time of the transportation:");
-            new_json.addProperty("Leaving time", reader.next());
+            new_json.addProperty("Leaving time", reader.nextLine());
 
             System.out.println("\nPlease enter the address of the source place of the transportation:");
-            new_json.addProperty("Source", reader.next());
+            new_json.addProperty("Source", reader.nextLine());
 
             String truck = choose_truck();
 
@@ -54,7 +54,7 @@ public class Create_Transportation {
                 choose_site(area);
 
                 System.out.println("Do you want to add anther site?\nEnter 'yes' or 'no'.");
-                a = reader.next();
+                a = reader.nextLine();
             }
             boolean result = create_Transportation(new_json);
 
@@ -64,7 +64,10 @@ public class Create_Transportation {
                 switch (sol) {
 
                     case "1" -> Change_Sites(area);
-                    case "2" -> Change_Truck();
+                    case "2" -> {
+                        if (!Change_Truck())
+                            continue;
+                    }
                     case "3" -> Drop_sites();
                     case "4" -> Drop_Items();
 
@@ -74,7 +77,7 @@ public class Create_Transportation {
             System.out.println("\nTransportation added successfully!\n");
             System.out.println("Would you like to make a new Transportation?\n");
             System.out.println("Enter 'yes' or 'no':");
-            answer = reader.next();
+            answer = reader.nextLine();
         }
 
     }
@@ -90,7 +93,6 @@ public class Create_Transportation {
 
         return print_to_user(new_trucks.size(), new_trucks);
     }
-
     public static String choose_driver(String truck) {
 
         System.out.println("Please choose a Driver:");
@@ -102,7 +104,6 @@ public class Create_Transportation {
 
         return print_to_user(new_drivers.size(), new_drivers);
     }
-
     public static String choose_area() {
 
         System.out.println("Please choose an Shipping area:");
@@ -111,7 +112,6 @@ public class Create_Transportation {
 
         return print_to_user(new_areas.size(), new_areas);
     }
-
     public static String choose_supplier(String area) {
 
         System.out.println("Please choose an Supplier:");
@@ -120,7 +120,6 @@ public class Create_Transportation {
 
         return print_to_user(new_suppliers.size(), new_suppliers);
     }
-
     public static String choose_store(String area) {
 
         System.out.println("Please choose an Store:");
@@ -129,7 +128,6 @@ public class Create_Transportation {
 
         return print_to_user(new_stores.size(), new_stores);
     }
-
     public static void choose_site(String area) {
         Scanner reader = new Scanner(System.in);
         StringBuilder str_Sup_Sto = new StringBuilder();
@@ -169,7 +167,6 @@ public class Create_Transportation {
             }
         }
     }
-
     public static String choose_solution() {
 
         Scanner reader = new Scanner(System.in);
@@ -188,7 +185,6 @@ public class Create_Transportation {
         }
         return s;
     }
-
     public static void add_items() {
         JsonObject j = new JsonObject();
 
@@ -225,7 +221,6 @@ public class Create_Transportation {
 
         Transportation_manager_controller.create_items_list(j);
     }
-
     public static void create_document(String site, String type, String area) {
         JsonObject j = new JsonObject();
 
@@ -235,11 +230,9 @@ public class Create_Transportation {
 
         Transportation_manager_controller.create_document(j);
     }
-
     public static boolean create_Transportation(JsonObject j) {
         return Transportation_manager_controller.create_transport(j);
     }
-
     public static String print_to_user(int size, JsonObject j) {
 
         Scanner reader = new Scanner(System.in);
@@ -265,7 +258,6 @@ public class Create_Transportation {
         }
         return j.get(answer).getAsString();
     }
-
     public static void Drop_sites() {
 
         Scanner reader = new Scanner(System.in);
@@ -284,12 +276,10 @@ public class Create_Transportation {
         }
         Transportation_manager_controller.drop_Documents(j);
     }
-
     public static String change_Truck_print(JsonObject j) {
         System.out.println("Please choose a different Truck for the Transport: ");
         return print_to_user(j.size(), j);
     }
-
     public static void Change_Sites(String area) {
         JsonObject s = Transportation_manager_controller.Choose_Site_Target();
         System.out.println("which Site you want to replace ? ");
@@ -297,29 +287,32 @@ public class Create_Transportation {
         choose_site(area);
         Transportation_manager_controller.replace_Documents(site_answer);
     }
-
-    public static void Change_Truck() {
+    public static boolean Change_Truck() {
 
         JsonObject sol_w = Transportation_manager_controller.choose_good_Truck();
-        if (sol_w.size() == 0)
-            System.out.println("There is no available Trucks for this transportation, " +
-                    "please choose other solution");
+        if (sol_w.size() == 0) {
+            System.out.println("There is no available Trucks for this transportation, ");
+            System.out.println("please choose other solution");
+            return false;
+        }
         String s = change_Truck_print(sol_w);
         new_json.remove("Truck");
         new_json.addProperty("Truck", s);
         String d = choose_driver(s);
 
-        if (d == null) System.out.println("There is no available Trucks for this transportation, " +
-                "please choose other solution");
+        if (d == null){
+            System.out.println("There is no available Drivers for this transportation!\n");
+            System.out.println("please choose other solution!");
+            return false;
+        }
         new_json.remove("Driver");
         new_json.addProperty("Driver", d);
+        return true;
     }
-
     public static void Drop_Items() {
         Scanner reader = new Scanner(System.in);
 
         JsonObject j_item;
-        JsonObject j_site = new JsonObject();
         String p = "yes";
         while (p.equals("yes")) {
             JsonObject sol_w = Transportation_manager_controller.Choose_Site_Target();

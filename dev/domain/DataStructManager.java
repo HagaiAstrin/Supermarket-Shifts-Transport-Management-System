@@ -246,7 +246,6 @@ public class DataStructManager {
             count++;
         }
     }
-
     public static void drop_Items(String a){
         boolean bool = false;
         for(Document d : documents) {
@@ -262,7 +261,6 @@ public class DataStructManager {
             if(bool) break;
         }
     }
-
     public static void drop_Site(String a){
         for(Document d : documents){
             if(d.to_string().equals(a)){
@@ -274,7 +272,6 @@ public class DataStructManager {
             }
         }
     }
-
     public static JsonObject all_transport(){
         if(transports.isEmpty()) return null;
         JsonObject j = new JsonObject();

@@ -32,7 +32,7 @@ public class Create_Document {
             Transportation_manager_controller.create_document(new_json_document);
 
             System.out.println("Would you like to add products?\nPlease enter 'yes' or 'no'.");
-            a = reader.next();
+            a = reader.nextLine();
         }
     }
 }

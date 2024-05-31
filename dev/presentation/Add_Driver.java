@@ -17,24 +17,24 @@ public class Add_Driver {
 
         while (answer.equals("yes")){
             System.out.println("\nEnter the name of the driver:");
-            String name = reader.next();
+            String name = reader.nextLine();
 
             System.out.println("Enter the license leve of the driver: 'A', 'B', 'C'");
-            String license = reader.next();
+            String license = reader.nextLine();
 
             while (!license.equals("A") && !license.equals("B") && !license.equals("C")){
                 System.out.println("\nWrong input! try again..");
                 System.out.println("Enter the license leve of the driver: 'A', 'B', 'C'");
-                license = reader.next();
+                license = reader.nextLine();
             }
 
             System.out.println("Enter password of 5 digit:");
-            String password = reader.next();
+            String password = reader.nextLine();
 
             while (password.length() != 5){
                 System.out.println("\nWrong input! The password should hava a 5 digit. try again..");
                 System.out.println("Enter password of 5 digit:");
-                password = reader.next();
+                password = reader.nextLine();
             }
 
             new_json.addProperty("Name",name);
@@ -46,7 +46,7 @@ public class Add_Driver {
             System.out.println("Driver added successfully!");
 
             System.out.println("Would you like to add another driver? Enter 'yes' or 'no'.");
-            answer = reader.next();
+            answer = reader.nextLine();
         }
     }
 }

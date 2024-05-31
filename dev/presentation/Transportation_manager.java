@@ -10,12 +10,12 @@ public class Transportation_manager {
   //TODO adding the password to the manager
 
 //        System.out.println("Enter password:");
-//        String password = reader.next();
+//        String password = reader.nextLine();
 //
 //        while (!password.equals("123456789")) {
 //            System.out.println("Wrong password, try again..\n");
 //            System.out.println("Enter password:");
-//            password = reader.next();
+//            password = reader.nextLine();
 //        }
 
 
@@ -33,7 +33,7 @@ public class Transportation_manager {
 
             System.out.println(manager_menu);
 
-            String answer = reader.next();
+            String answer = reader.nextLine();
 
             while (!answer.equals("1") && !answer.equals("2") && !answer.equals("3") &&
                     !answer.equals("4") && !answer.equals("5") && !answer.equals("6") && !answer.equals("9")) {
@@ -41,7 +41,7 @@ public class Transportation_manager {
                 System.out.println("\nWrong input! please write your ans ware again..\n");
                 System.out.println(manager_menu);
 
-                answer = reader.next();
+                answer = reader.nextLine();
             }
 
             if (answer.equals("9"))
