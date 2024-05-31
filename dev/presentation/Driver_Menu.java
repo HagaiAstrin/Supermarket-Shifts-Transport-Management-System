@@ -6,7 +6,7 @@ import controller.Driver_controller;
 
 import java.util.Scanner;
 
-public class Driver_x {
+public class Driver_Menu {
 
     public static void driver_x() {
 
@@ -41,17 +41,18 @@ public class Driver_x {
 
         String a = "yes";
         while (a.equals("yes")) {
-            System.out.println("\nHello " + driver_name + "! What do you want to do?\n");
-            System.out.println("Press '1' to - Report on leaving");
-            System.out.println("Press '2' to - Report on back");
+            StringBuilder new_s = new StringBuilder();
+            String s = "\nHello " + driver_name + "! What do you want to do?\n";
+            new_s.append(s);
+            new_s.append("Press '1' to - Report on leaving\n");
+            new_s.append("Press '2' to - Report on back\n");
 
+            System.out.println(new_s);
             String answer = reader.next();
 
             while (!answer.equals("1") && !answer.equals("2")) {
                 System.out.println("\nWrong input, try again..\n");
-                System.out.println("Hello " + driver_name + "! What do you want to do?\n");
-                System.out.println("Press '1' to - Report on leaving");
-                System.out.println("Press '2' to - Report on back");
+                System.out.println(new_s);
 
                 answer = reader.next();
 
@@ -61,7 +62,7 @@ public class Driver_x {
                 case "2" -> back(new_Json);
             }
             System.out.println("\nDo you want to do something else?");
-            System.out.println("\npress 'yes' to continue in the system");
+            System.out.println("\nPress 'yes' to continue in the system");
             a = reader.next();
         }
     }

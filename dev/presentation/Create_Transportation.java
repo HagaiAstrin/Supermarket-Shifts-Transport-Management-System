@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Create_Transportation {
     private static JsonObject new_json = new JsonObject();
+
     public static void create_Transport() {
 
         Scanner reader = new Scanner(System.in);
@@ -22,7 +23,7 @@ public class Create_Transportation {
             System.out.println("\nPlease enter the leaving time of the transportation:");
             new_json.addProperty("Leaving time", reader.next());
 
-            System.out.println("\nPlease enter the source place of the transportation:");
+            System.out.println("\nPlease enter the address of the source place of the transportation:");
             new_json.addProperty("Source", reader.next());
 
             String truck = choose_truck();
@@ -65,14 +66,12 @@ public class Create_Transportation {
                     case "1" -> Change_Sites(area);
                     case "2" -> Change_Truck();
                     case "3" -> Drop_sites();
-
-                    //TODO Drop Items
-                    case "4" ->{Drop_Items();}
+                    case "4" -> Drop_Items();
 
                 }
                 result = create_Transportation(new_json);
             }
-            System.out.println("Transportation added successfully!\n");
+            System.out.println("\nTransportation added successfully!\n");
             System.out.println("Would you like to make a new Transportation?\n");
             System.out.println("Enter 'yes' or 'no':");
             answer = reader.next();
@@ -80,7 +79,7 @@ public class Create_Transportation {
 
     }
 
-    public static String choose_truck(){
+    public static String choose_truck() {
 
         System.out.println("Please choose an Truck:");
 
@@ -91,7 +90,8 @@ public class Create_Transportation {
 
         return print_to_user(new_trucks.size(), new_trucks);
     }
-    public static String choose_driver(String truck){
+
+    public static String choose_driver(String truck) {
 
         System.out.println("Please choose a Driver:");
 
@@ -102,7 +102,8 @@ public class Create_Transportation {
 
         return print_to_user(new_drivers.size(), new_drivers);
     }
-    public static String choose_area(){
+
+    public static String choose_area() {
 
         System.out.println("Please choose an Shipping area:");
 
@@ -110,7 +111,8 @@ public class Create_Transportation {
 
         return print_to_user(new_areas.size(), new_areas);
     }
-    public static String choose_supplier(String area){
+
+    public static String choose_supplier(String area) {
 
         System.out.println("Please choose an Supplier:");
 
@@ -118,7 +120,8 @@ public class Create_Transportation {
 
         return print_to_user(new_suppliers.size(), new_suppliers);
     }
-    public static String choose_store(String area){
+
+    public static String choose_store(String area) {
 
         System.out.println("Please choose an Store:");
 
@@ -126,7 +129,8 @@ public class Create_Transportation {
 
         return print_to_user(new_stores.size(), new_stores);
     }
-    public static void choose_site(String area){
+
+    public static void choose_site(String area) {
         Scanner reader = new Scanner(System.in);
 
         System.out.println("Please choose Supplier or Store:\n");
@@ -167,7 +171,8 @@ public class Create_Transportation {
             }
         }
     }
-    public static String choose_solution(){
+
+    public static String choose_solution() {
 
         Scanner reader = new Scanner(System.in);
         StringBuilder new_string = new StringBuilder();
@@ -179,13 +184,14 @@ public class Create_Transportation {
 
         String s = "0";
 
-        while (!s.equals("1") && !s.equals("2") && !s.equals("3") && !s.equals("4")){
+        while (!s.equals("1") && !s.equals("2") && !s.equals("3") && !s.equals("4")) {
             System.out.println(new_string);
             s = reader.next();
         }
         return s;
     }
-    public static void add_items(){
+
+    public static void add_items() {
         JsonObject j = new JsonObject();
 
         Scanner reader = new Scanner(System.in);
@@ -202,8 +208,7 @@ public class Create_Transportation {
                 Double.parseDouble(Weight);
                 j.addProperty("Weight", Weight);
                 break;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Wrong input! try again..");
             }
         }
@@ -215,15 +220,15 @@ public class Create_Transportation {
                 Integer.parseInt(Amount);
                 j.addProperty("Amount", Amount);
                 break;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Wrong input! try again..");
             }
         }
 
         Transportation_manager_controller.create_items_list(j);
     }
-    public static void create_document(String site, String type, String area){
+
+    public static void create_document(String site, String type, String area) {
         JsonObject j = new JsonObject();
 
         j.addProperty("Site", site);
@@ -232,10 +237,12 @@ public class Create_Transportation {
 
         Transportation_manager_controller.create_document(j);
     }
-    public static boolean create_Transportation(JsonObject j){
+
+    public static boolean create_Transportation(JsonObject j) {
         return Transportation_manager_controller.create_transport(j);
     }
-    public static String print_to_user (int size, JsonObject j){
+
+    public static String print_to_user(int size, JsonObject j) {
 
         Scanner reader = new Scanner(System.in);
 
@@ -254,55 +261,46 @@ public class Create_Transportation {
                     throw new Exception();
                 }
                 break;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Wrong input! try again..");
             }
         }
         return j.get(answer).getAsString();
     }
-    public static void Drop_sites (){
+
+    public static void Drop_sites() {
 
         Scanner reader = new Scanner(System.in);
 
-        JsonObject sol_w = Transportation_manager_controller.Choose_Site_Target();
         JsonObject j = new JsonObject();
-        int j_count = 1;
         String p = "yes";
-        while (p.equals("yes")){
+        while (p.equals("yes")) {
+            JsonObject sol_w = Transportation_manager_controller.Choose_Site_Target();
             System.out.println("\nWhich Site do you want to dropped ? ");
             String site_answer = print_to_user(sol_w.size(), sol_w);
-            boolean bool = true;
-            if(j_count != 1) {
-                for (int i = 1; i < j_count; i++){
-                    if (j.get(String.valueOf(i)).getAsString().equals(site_answer)) {
-                        System.out.println("You already dropped this site ! ");
-                        bool = false;
-                        break;
-                    }
-                }
-            }
-            if(bool) {
-                j.addProperty(String.valueOf(j_count++), site_answer);
-                System.out.println("\nWould you like to drop another site? ");
-                System.out.println("Enter 'yes' or 'no':");
-                p = reader.next();
-            }
+            Transportation_manager_controller.drop_Site(site_answer);
+            System.out.println("\nWould you like to drop another site? ");
+            System.out.println("Enter 'yes' or 'no':");
+            p = reader.next();
+
         }
         Transportation_manager_controller.drop_Documents(j);
     }
-    public static String change_Truck_print(JsonObject j){
+
+    public static String change_Truck_print(JsonObject j) {
         System.out.println("Please choose a different Truck for the Transport: ");
         return print_to_user(j.size(), j);
     }
-    public static void Change_Sites(String area){
+
+    public static void Change_Sites(String area) {
         JsonObject s = Transportation_manager_controller.Choose_Site_Target();
         System.out.println("which Site you want to replace ? ");
         String site_answer = print_to_user(s.size(), s);
         choose_site(area);
         Transportation_manager_controller.replace_Documents(site_answer);
     }
-    public static void Change_Truck (){
+
+    public static void Change_Truck() {
 
         JsonObject sol_w = Transportation_manager_controller.choose_good_Truck();
         if (sol_w.size() == 0)
@@ -319,20 +317,24 @@ public class Create_Transportation {
         new_json.addProperty("Driver", d);
     }
 
-    public static void Drop_Items(){
+    public static void Drop_Items() {
         Scanner reader = new Scanner(System.in);
 
-        JsonObject sol_w = Transportation_manager_controller.Choose_Site_Target();
-        JsonObject j;
-        int j_count = 1;
+        JsonObject j_item;
+        JsonObject j_site = new JsonObject();
         String p = "yes";
         while (p.equals("yes")) {
+            JsonObject sol_w = Transportation_manager_controller.Choose_Site_Target();
             System.out.println("\nWhich Site do you want to dropped Items from ? ");
             String site_answer = print_to_user(sol_w.size(), sol_w);
-            j = Transportation_manager_controller.drop_Items(site_answer);
-            String item_answer = print_to_user(j.size(), j);
+            j_item = Transportation_manager_controller.get_Items_Json(site_answer);
+            String item_answer = print_to_user(j_item.size(), j_item);
 
-            //TODO dropped the items
+            Transportation_manager_controller.drop_Items(item_answer);
+
+            System.out.println("\nWould you like to drop another Item? ");
+            System.out.println("Enter 'yes' or 'no':");
+            p = reader.next();
         }
     }
 }

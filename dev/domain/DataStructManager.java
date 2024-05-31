@@ -2,6 +2,7 @@ package domain;
 
 import com.google.gson.JsonObject;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -246,4 +247,41 @@ public class DataStructManager {
         }
     }
 
+    public static void drop_Items(String a){
+        boolean bool = false;
+        for(Document d : documents) {
+            for (Map.Entry<Item, Integer> entry : d.getItem_map().entrySet()) {
+                if (d.item_String(entry.getKey()).equals(a)) {
+                    d.drop_Item(entry.getKey());
+                    if(d.getItem_map().isEmpty()) documents.remove(d);
+                    all_items.remove(entry.getKey());
+                    bool = true;
+                    break;
+                }
+            }
+            if(bool) break;
+        }
+    }
+
+    public static void drop_Site(String a){
+        for(Document d : documents){
+            if(d.to_string().equals(a)){
+                for(Map.Entry<Item, Integer> entry : d.getItem_map().entrySet()){
+                    items.remove(entry.getKey());
+                }
+                documents.remove(d);
+                break;
+            }
+        }
+    }
+
+    public static JsonObject all_transport(){
+        if(transports.isEmpty()) return null;
+        JsonObject j = new JsonObject();
+        int count = 1;
+        for(Transport tran : transports){
+            j.addProperty(String.valueOf(count++), tran.to_String_tran());
+        }
+        return j;
+    }
 }

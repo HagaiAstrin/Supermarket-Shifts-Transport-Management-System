@@ -35,6 +35,11 @@ public class Document {
         return doc_weight;
     }
 
+    public void drop_Item(Item t){
+        item_map.remove(t);
+        this.doc_weight = cul_weight();
+
+    }
     public Map<Item, Integer> getItem_map() {
         return item_map;
     }

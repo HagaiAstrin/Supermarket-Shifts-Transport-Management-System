@@ -30,7 +30,7 @@ public class Main {
             }
             switch (type) {
                 case "1" -> Transportation_manager.transportation_manager();
-                case "2" -> Driver_x.driver_x();
+                case "2" -> Driver_Menu.driver_x();
                 case "9" -> {
                     return;
                 }

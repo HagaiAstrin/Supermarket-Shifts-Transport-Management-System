@@ -18,23 +18,6 @@ public class Transport {
         this.source = source;
     }
 
-    public void add_target(Document dc) {
-//        double weight = dc.cul_weight();
-//        if(dc.getTarget() instanceof Store)
-//            this.cur_weight-=weight;
-//        else
-//            this.cur_weight+=weight;
-        targets.add(dc);
-    }
-
-    public void del_target(Document dc) {
-//        double weight = dc.cul_weight();
-//        if(dc.getTarget() instanceof Store)
-//            this.cur_weight+=weight;
-//        else
-//            this.cur_weight-=weight;
-        targets.remove(dc);
-    }
 
     public boolean Is_Over_Weight() {
         boolean bool = true;
@@ -79,5 +62,24 @@ public class Transport {
 
     public void remove_document(Document d) {
         targets.remove(d);
+    }
+
+    public String to_String_tran(){
+        StringBuilder new_s = new StringBuilder();
+        String s = "Date : "+this.date+"\nNumber of Truck : "+this.truck.getLicence_number()+"\n";
+        new_s.append(s);
+        s = "Leaving time : "+this.leaving_time+"\nDriver name : "+this.driver.getName()+"\n";
+        new_s.append(s);
+        s = "Address of the Source: "+this.source;
+        new_s.append(s);
+        new_s.append("\nTargets : \n");
+        int count = 1;
+        for(Document d : targets){
+            Site site = d.getTarget();
+            s = "    "+count++ +". Name : "+site.getName()+"\n       Address : "+site.getAddress()+"\n       " +
+                    "Contact name : "+site.getContact()+"\n       Phone : "+site.getPhone();
+            new_s.append(s);
+        }
+        return new_s.toString();
     }
 }

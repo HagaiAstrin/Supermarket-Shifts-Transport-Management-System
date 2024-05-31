@@ -23,6 +23,19 @@ public class Site {
     public String getType() {
         return type;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
     public String to_string(){
         return ("Address: " + address + ", Name: " + name + ", Shipping area: " + shipping_area);
     }

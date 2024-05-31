@@ -28,14 +28,16 @@ public class Transportation_manager {
             manager_menu.append("'3' - Add Store.\n");
             manager_menu.append("'4' - Add Supplier.\n");
             manager_menu.append("'5' - Make Transportation.\n");
+            manager_menu.append("'6' - Show all Transport.\n");
             manager_menu.append("'9' - Exit to the Main menu.\n");
 
             System.out.println(manager_menu);
 
             String answer = reader.next();
 
-            while (!answer.equals("1") && !answer.equals("2") && !answer.equals("3") && !answer.equals("4")
-                                                              && !answer.equals("5") && !answer.equals("9")) {
+            while (!answer.equals("1") && !answer.equals("2") && !answer.equals("3") &&
+                    !answer.equals("4") && !answer.equals("5") && !answer.equals("6") && !answer.equals("9")) {
+
                 System.out.println("\nWrong input! please write your ans ware again..\n");
                 System.out.println(manager_menu);
 
@@ -51,6 +53,7 @@ public class Transportation_manager {
                 case "3" -> add_store();
                 case "4" -> add_supplier();
                 case "5" -> make_transportation();
+                case "6" -> show_all_Transport();
             }
         }
     }
@@ -69,6 +72,9 @@ public class Transportation_manager {
     }
     public static void make_transportation(){
         Create_Transportation.create_Transport();
+    }
+    public static void show_all_Transport(){
+        Transport_Show.show_all_Transportation();
     }
 }
 

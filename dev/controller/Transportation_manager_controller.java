@@ -48,13 +48,14 @@ public class Transportation_manager_controller {
         return Drop_Sites.Choose_Drop_Target();
     }
     public static void drop_Documents(JsonObject j){DataStructManager.drop_documents(j);}
+
+    public static void drop_Site(String a){DataStructManager.drop_Site(a);}
     public static void replace_Documents(String s){DataStructManager.replace_documents(s);}
 
-    public static JsonObject drop_Items(String a){
+    public static JsonObject get_Items_Json(String a){
         return Drop_Items.getItem_Json(a);
     }
+    public static void drop_Items(String a){DataStructManager.drop_Items(a);}
 
-//    public static String change_Truck(JsonObject j){return }
-//    public static String change_Truck(JsonObject j){return }
-//    public static String change_Truck(JsonObject j){return }
+    public static JsonObject show_all_Transport(){return DataStructManager.all_transport();}
 }

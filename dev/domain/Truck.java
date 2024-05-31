@@ -37,6 +37,11 @@ public class Truck {
         }
         return 0;
     }
+
+    public String getLicence_number() {
+        return licence_number;
+    }
+
     public boolean isAvailability() {
         return availability;
     }
