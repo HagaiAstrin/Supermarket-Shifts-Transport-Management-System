@@ -16,7 +16,7 @@ public class Transport {
         this.leaving_time = leaving_time;
         this.truck = truck;
         this.driver = driver;
-        this.targets = t;
+        this.targets = new ArrayList<>(t);
         this.source = source;
         this.id = count++;
     }
@@ -75,12 +75,23 @@ public class Transport {
         new_s.append(s);
         s = "Address of the Source: "+this.source;
         new_s.append(s);
+        s = "\nMax weight of the truck during the drive : "+max_weight;
+        new_s.append(s);
         new_s.append("\nTargets : \n");
         int count = 1;
         for(Document d : targets){
             Site site = d.getTarget();
-            s = "    "+count++ +". Name : "+site.getName()+"\n       Address : "+site.getAddress()+"\n       " +
-                    "Contact name : "+site.getContact()+"\n       Phone : "+site.getPhone();
+            if(site.getType().equals("Store")){
+                s = "        "+count++ +". Dropped products at Store : "+site.getName()+"\n";
+                new_s.append(s);
+            }
+            else{
+                s = "        "+count++ +". Collect products at Supplier : "+site.getName()+"\n";
+                new_s.append(s);
+            }
+            s = "           Address : "+site.getAddress()+"\n           " +
+                    "Contact name : "+site.getContact()+"\n           Phone : "+site.getPhone()+"\n"+
+                    "           Shipping weight : "+d.getDoc_weight()+"\n\n";
             new_s.append(s);
         }
         return new_s.toString();

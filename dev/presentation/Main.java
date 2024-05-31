@@ -16,7 +16,7 @@ public class Main {
             menu.append("\nHello! Welcome to Super-Li Transportation system!\n");
             menu.append("press '1' if you are the Manager.\n");
             menu.append("press '2' if you are a Driver.\n");
-            menu.append("press '9' to exit.\n");
+            menu.append("press '9' to exit.");
             System.out.println(menu);
 
             String type = reader.nextLine();

@@ -19,7 +19,7 @@ public class Add_Driver {
             System.out.println("\nEnter the name of the driver:");
             String name = reader.nextLine();
 
-            System.out.println("Enter the license leve of the driver: 'A', 'B', 'C'");
+            System.out.println("\nEnter the license leve of the driver: 'A', 'B', 'C'");
             String license = reader.nextLine();
 
             while (!license.equals("A") && !license.equals("B") && !license.equals("C")){
@@ -28,7 +28,7 @@ public class Add_Driver {
                 license = reader.nextLine();
             }
 
-            System.out.println("Enter password of 5 digit:");
+            System.out.println("\nEnter password of 5 digit:");
             String password = reader.nextLine();
 
             while (password.length() != 5){
@@ -43,7 +43,7 @@ public class Add_Driver {
 
             Transportation_manager_controller.add_driver(new_json);
 
-            System.out.println("Driver added successfully!");
+            System.out.println("\nDriver added successfully!");
 
             System.out.println("Would you like to add another driver? Enter 'yes' or 'no'.");
             answer = reader.nextLine();

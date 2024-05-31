@@ -21,7 +21,7 @@ public class Transportation_manager {
 
         while (true) {
             StringBuilder manager_menu = new StringBuilder();
-            manager_menu.append("Hello Transportation Manager! What do you want to do?\n");
+            manager_menu.append("\nHello Transportation Manager! What do you want to do?\n");
             manager_menu.append("Choose from the options bellow:\n");
             manager_menu.append("'1' - Add Driver.\n");
             manager_menu.append("'2' - Add Truck.\n");
@@ -29,7 +29,7 @@ public class Transportation_manager {
             manager_menu.append("'4' - Add Supplier.\n");
             manager_menu.append("'5' - Make Transportation.\n");
             manager_menu.append("'6' - Show all Transport.\n");
-            manager_menu.append("'9' - Exit to the Main menu.\n");
+            manager_menu.append("'9' - Exit to the Main menu.");
 
             System.out.println(manager_menu);
 

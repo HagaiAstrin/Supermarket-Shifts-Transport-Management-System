@@ -155,6 +155,7 @@ public class DataStructManager {
                         boolean result = new_transport.Is_Over_Weight();
                         current_max_transport = new_transport.get_transport_Max_weight();
                         if (result) {
+                            //new_transport.add_document(documents);
                             documents.clear();
                             d.setHold(true);
                             t.setHold(true);

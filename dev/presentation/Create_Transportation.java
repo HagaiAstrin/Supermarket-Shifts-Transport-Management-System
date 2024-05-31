@@ -53,7 +53,7 @@ public class Create_Transportation {
 
                 choose_site(area);
 
-                System.out.println("Do you want to add anther site?\nEnter 'yes' or 'no'.");
+                System.out.println("\nDo you want to add another site?\nEnter 'yes' or 'no'.");
                 a = reader.nextLine();
             }
             boolean result = create_Transportation(new_json);
@@ -75,7 +75,7 @@ public class Create_Transportation {
                 result = create_Transportation(new_json);
             }
             System.out.println("\nTransportation added successfully!\n");
-            System.out.println("Would you like to make a new Transportation?\n");
+            System.out.println("Would you like to make a new Transportation?");
             System.out.println("Enter 'yes' or 'no':");
             answer = reader.nextLine();
         }
@@ -84,7 +84,7 @@ public class Create_Transportation {
 
     public static String choose_truck() {
 
-        System.out.println("Please choose an Truck:");
+        System.out.println("\nPlease choose an Truck:");
 
         JsonObject new_trucks = Transportation_manager_controller.choose_truck();
 
@@ -95,7 +95,7 @@ public class Create_Transportation {
     }
     public static String choose_driver(String truck) {
 
-        System.out.println("Please choose a Driver:");
+        System.out.println("\nPlease choose a Driver:");
 
         JsonObject new_drivers = Transportation_manager_controller.choose_driver(truck);
 
@@ -106,7 +106,7 @@ public class Create_Transportation {
     }
     public static String choose_area() {
 
-        System.out.println("Please choose an Shipping area:");
+        System.out.println("\nPlease choose a Shipping area:");
 
         JsonObject new_areas = Transportation_manager_controller.choose_area();
 
@@ -114,7 +114,7 @@ public class Create_Transportation {
     }
     public static String choose_supplier(String area) {
 
-        System.out.println("Please choose an Supplier:");
+        System.out.println("\nPlease choose a Supplier:");
 
         JsonObject new_suppliers = Transportation_manager_controller.choose_supplier(area);
 
@@ -122,7 +122,7 @@ public class Create_Transportation {
     }
     public static String choose_store(String area) {
 
-        System.out.println("Please choose an Store:");
+        System.out.println("\nPlease choose a Store:");
 
         JsonObject new_stores = Transportation_manager_controller.choose_store(area);
 
@@ -131,9 +131,9 @@ public class Create_Transportation {
     public static void choose_site(String area) {
         Scanner reader = new Scanner(System.in);
         StringBuilder str_Sup_Sto = new StringBuilder();
-        str_Sup_Sto.append("Please choose Supplier or Store:\n");
-        str_Sup_Sto.append("Press '1' to - Supplier\n");
-        str_Sup_Sto.append("Press '2' to - Store\n");
+        str_Sup_Sto.append("\nPlease choose Supplier or Store:");
+        str_Sup_Sto.append("\nPress '1' to - Supplier");
+        str_Sup_Sto.append("\nPress '2' to - Store");
         System.out.println(str_Sup_Sto);
 
         String site = reader.next();
@@ -150,7 +150,7 @@ public class Create_Transportation {
                 String b = "yes";
                 while (b.equals("yes")) {
                     add_items();
-                    System.out.println("Do you want to add another item?");
+                    System.out.println("\nDo you want to add another item?");
                     b = reader.next();
                 }
                 create_document(supplier, "Supplier", area);
@@ -160,7 +160,7 @@ public class Create_Transportation {
                 String b = "yes";
                 while (b.equals("yes")) {
                     add_items();
-                    System.out.println("Do you want to add item?");
+                    System.out.println("\nDo you want to another add item?");
                     b = reader.next();
                 }
                 create_document(store, "Store", area);
@@ -190,32 +190,32 @@ public class Create_Transportation {
 
         Scanner reader = new Scanner(System.in);
 
-        System.out.println("Please enter Item:");
+        System.out.println("\nPlease enter Item:");
 
         System.out.println("Name of the item:");
         j.addProperty("Name", reader.next());
 
         while (true) {
-            System.out.println("Weight of the item:");
+            System.out.println("\nWeight of the item:");
             String Weight = reader.next();
             try {
                 Double.parseDouble(Weight);
                 j.addProperty("Weight", Weight);
                 break;
             } catch (Exception e) {
-                System.out.println("Wrong input! try again..");
+                System.out.println("\nWrong input! try again..");
             }
         }
 
         while (true) {
-            System.out.println("Amount of the items");
+            System.out.println("\nAmount of the items");
             String Amount = reader.next();
             try {
                 Integer.parseInt(Amount);
                 j.addProperty("Amount", Amount);
                 break;
             } catch (Exception e) {
-                System.out.println("Wrong input! try again..");
+                System.out.println("\nWrong input! try again..");
             }
         }
 
@@ -253,7 +253,7 @@ public class Create_Transportation {
                 }
                 break;
             } catch (Exception e) {
-                System.out.println("Wrong input! try again..");
+                System.out.println("\nWrong input! try again..");
             }
         }
         return j.get(answer).getAsString();

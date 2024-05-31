@@ -27,7 +27,7 @@ public class Add_Truck {
                 licence_number = reader.nextLine();
             }
 
-            System.out.println("Enter the license leve of the Truck: 'A', 'B', 'C'");
+            System.out.println("\nEnter the license leve of the Truck: 'A', 'B', 'C'");
             String licence_level = reader.nextLine();
 
             while (!licence_level.equals("A") && !licence_level.equals("B") && !licence_level.equals("C")){
@@ -38,7 +38,7 @@ public class Add_Truck {
 
             String net_weight = null;
             while (net_weight == null){
-                System.out.println("Please enter net weight:");
+                System.out.println("\nPlease enter net weight:");
                 net_weight = reader.nextLine();
 
                 try {
@@ -71,7 +71,7 @@ public class Add_Truck {
 
             Transportation_manager_controller.add_truck(new_json);
 
-            System.out.println("Truck added successfully!");
+            System.out.println("\nTruck added successfully!");
 
             System.out.println("Would you like to add another truck? Enter 'yes' or 'no'");
             answer = reader.nextLine();
