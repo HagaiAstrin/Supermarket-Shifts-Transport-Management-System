@@ -2,8 +2,13 @@ package Presentation;
 
 import Controller.AdminController;
 import Controller.SystemController;
+import Domain.JobTypeEnum;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AdminMenu {
@@ -103,25 +108,143 @@ public class AdminMenu {
 
         progressBar.finish();
     }
-
+    //----------------------------------------------------------Asaf
     private static void ShiftInteraction() throws IOException {
 
         while (true){
 
-            System.out.println("You Entered the Shift Menu\nSelect the next Stage");
-            System.out.println("1: Print the scheduled shift for the next week you entered\n");
-            System.out.println("2: Add shifts");
-            System.out.println("3: Delete Shifts");
-            System.out.println("4: Finish(Save & Print Shifts)");
+            System.out.println("\nYou Entered the Shift Menu\nSelect the next Stage");
+            System.out.println("1: Print scheduled week for all Job types");
+            System.out.println("2: Print scheduled week for specific job type");
+            System.out.println("3: Add shifts");
+            System.out.println("4: Delete Shifts");
+            System.out.println("5: Exit & Dont save");
+            System.out.println("6: Finish(Save & Print Shifts)\n");
 
             int choice = scanner.nextInt();
             scanner.nextLine();
 
             switch (choice) {
                 case 1:
+                    System.out.println(AdminController.printAllTypeWeek());
+                    break;
+
+                case 2:
+                    int job = IOJobShiftMenu();
+                    String jobWeek = AdminController.printTypeWeek(job);
+                    System.out.println(jobWeek);
+                    break;
+
+                case 3:
+                    AddShiftMenu();
+                    break;
+
+                case 4:
+                    DeleteShiftMenu();
+                    break;
+                case 5:
+                    return;
+                case 6:
+                    // TODO
+                    // save Employee Presences
+                    // save Current State
+                    // ask if he is finish and want also to save the week
 
             }
         }
     }
+
+    private static void AddShiftMenu() throws IOException {
+
+        //Getting User Input
+        List<Integer> iOShiftMenu = iOShiftMenu(); // Getting the day and the shift
+        int job = IOJobShiftMenu(); // Getting what kind of Job
+        int day = iOShiftMenu.getFirst();
+        int shift = iOShiftMenu.get(1);
+
+        List<JsonObject> ja = AdminController.getEmployeeToShift(job, day, shift);
+        Printer.PrintAllEmployees(ja);
+
+        System.out.println("Could you please provide the ID of the employee you would like to assign to this shift?\n");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        AdminController.SetShift(job, day, shift, id);
+
+        System.out.println(id + " was successfully added");
+
+
+
+    }
+
+    private static void DeleteShiftMenu() throws IOException{
+        System.out.println("Enter ID you want to remove from shift");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        List<Integer> dayAndShift = iOShiftMenu();
+        int day = dayAndShift.getFirst();
+        int shift = dayAndShift.get(1);
+        int job = IOJobShiftMenu();
+
+        String processOutput = AdminController.removeShift(id,day, shift, job);
+        System.out.println(processOutput);
+
+
+
+
+    }
+
+    private static Integer IOJobShiftMenu() throws IOException{
+
+        System.out.println("\nSelect the job you want to add a shift for");
+        System.out.println("0: SHIFT_MANAGER");
+        System.out.println("1: CASHIER");
+        System.out.println("2: STOCK_KEEPER");
+        System.out.println("3: Go back");
+
+        int job = scanner.nextInt();
+        scanner.nextLine();
+
+        if (job < 0 || job > 3) {
+            //throw error TODO
+        }
+
+        return job;
+    }
+
+    private static List<Integer> iOShiftMenu() throws IOException{
+        List <Integer> userInput = new ArrayList<>();
+
+        System.out.println("What day you want to be added");
+        System.out.println("0: Sunday");
+        System.out.println("1: Monday");
+        System.out.println("2: Tuesday");
+        System.out.println("3: Wednesday");
+        System.out.println("4: Thursday");
+
+        int day = scanner.nextInt();
+        scanner.nextLine();
+
+        userInput.add(day);
+
+        if (day < 0 || day > 4) {
+            //TODO - Done it back down
+        }
+
+        System.out.println("What Shift you want to add?");
+        System.out.println("0: Morning");
+        System.out.println("1: Evening");
+
+        int shift = scanner.nextInt();
+        scanner.nextLine();
+
+        userInput.add(shift);
+
+        if (shift > 1 || shift < 0) {
+            //TODO - Done it back down
+        }
+        return userInput;
+    }
+
 }
 

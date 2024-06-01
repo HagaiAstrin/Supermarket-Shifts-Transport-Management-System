@@ -1,9 +1,10 @@
 package Controller;
-import com.google.gson.Gson;
 import Domain.*;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 public class AdminController {
@@ -17,6 +18,7 @@ public class AdminController {
     }
     public static void ImportEmployees(){
         IO_Data.ImportEmployees();
+        IO_Data.startWeek();
     }
     public static void AddEmployee(JsonObject json) throws IOException {
         IO_Data.addEmployeeToCSV(json);
@@ -47,9 +49,22 @@ public class AdminController {
     public static void UpdateEmployee(JsonObject json){
 
     }
-    public static void Shifts(){
-        IO_Data.ImportPreferences();
-        WeeklyShift damn = new WeeklyShift(1); //TODO change to json
+    public static String printAllTypeWeek(){
+        return WeeklyShift.iterAllJobWeeklyShift();
+    }
 
+    public static String printTypeWeek(int job){
+        return WeeklyShift.getJobWeeklyShift(job);
+    }
+
+    public static void SetShift(int job, int day, int shift, int id){
+        IO_Data.setEmployeeHowCanWork(job, day, shift, id);
+    }
+
+    public static String removeShift(int id, int day, int shift, int job){
+        return IO_Data.removeFromShiftIO(id, day, shift, job);
+    }
+    public static List<JsonObject> getEmployeeToShift(int job, int day, int shift){
+        return IO_Data.getEmployeeHowCanWork(job,day,shift);
     }
 }

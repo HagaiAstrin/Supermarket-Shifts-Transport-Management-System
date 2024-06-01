@@ -1,15 +1,20 @@
 package Domain;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class JobWeeklyShift {
     private final JobTypeEnum JobName;
-    private final Employee[][] WeeklyShifts;
-    private ArrayList<Employee> PotentialEmployee;
+    private ArrayList<Employee>[][] WeeklyShifts;
+    protected ArrayList<Employee> PotentialEmployee;
+
 
     public JobWeeklyShift(JobTypeEnum jobName) {
         this.JobName = jobName;
-        this.WeeklyShifts = new Employee[IO_Data.amount_days][IO_Data.amount_shifts]; // Initializes a 5x2 array with nulls
+        this.WeeklyShifts = new ArrayList[IO_Data.amount_days][IO_Data.amount_shifts]; // Initializes a 5x2 array with nulls
         this.PotentialEmployee = new ArrayList<>();
 
         for (Integer id : IO_Data.currEmployees.keySet()) {
@@ -23,7 +28,75 @@ public class JobWeeklyShift {
             }
         }
     }
+    protected StringBuilder getWorkingShiftString(int day, int shift){
+        StringBuilder output = new StringBuilder();
+        ArrayList<Employee> emArray = WeeklyShifts[day][shift]; // TODO: NEED TO CHECK?
+        if (emArray == null){
+            output.append("No Employee\n");
+            return output;
+        }
 
+        for (Employee e : emArray){
+            output.append(e.getName()).append("(id: ").append(e.getId()).append("\n");
+        }
+        return output;
+    }
+
+    protected List<JsonObject> getEmployeeArray(int day, int shift) {
+        List<JsonObject> ja = new ArrayList<>();
+        for (Employee e : PotentialEmployee){
+            if (e.WeekPreferences[day][shift].equals("1")){
+                ja.add(e.toJson());
+            }
+        }
+        return ja;
+    }
+
+    public JsonObject toJsonWeek() {
+        JsonObject jsonObject = new JsonObject();
+        int maxLen = getMaxLen();
+        StringBuilder output = new StringBuilder();
+        String[] daysOfWeek = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+        // Print days of the week as header
+        for (String day : daysOfWeek) {
+            output.append(String.format("%-" + maxLen + "s", day));
+        }
+        output.append("\n");
+
+        // Iterate over shifts and build the table
+        for (List<Employee>[] dailyShifts : WeeklyShifts) {
+            StringBuilder shiftRow = new StringBuilder();
+            for (List<Employee> shift : dailyShifts) {
+                StringBuilder shiftCell = new StringBuilder();
+                for (Employee employees : shift) {
+//                    for (Employee employee : employees) {
+//                        shiftCell.append(employee.getName()).append(" (").append(employee.getJobType()).append("), ");
+//                    }
+                }
+                // Remove last comma and space
+                if (shiftCell.length() > 0) {
+                    shiftCell.setLength(shiftCell.length() - 2);
+                }
+                shiftRow.append(String.format("%-" + maxLen + "s", shiftCell.toString()));
+            }
+            output.append(shiftRow.toString()).append("\n");
+        }
+
+        jsonObject.addProperty("weekSchedule", output.toString());
+        return jsonObject;
+    }
+
+    private int getMaxLen(){
+        int i = 0;
+        for (Employee e : IO_Data.currEmployees.values()){
+            int tempLen = e.getName().length();
+            if (tempLen > i){
+                i = tempLen;
+            }
+        }
+        return i;
+    }
 
     public String getJobName() {
         return JobName.toString();
@@ -33,14 +106,39 @@ public class JobWeeklyShift {
         return JobName;
     }
 
-    public Employee[][] getWeeklyShifts() {
-        return WeeklyShifts;
+
+    public void setWeeklyShifts(int day, int shift, int id){
+        // Validate day and shift
+        if (day >= 0 && day < IO_Data.amount_days && shift >= 0 && shift < IO_Data.amount_shifts) {
+            //Create Array In the slot
+            ArrayList<Employee> specificShift;
+            if (WeeklyShifts[day][shift] == null){
+                specificShift = new ArrayList<>();
+            }
+            else{
+                specificShift = WeeklyShifts[day][shift];
+            }
+            specificShift.add(IO_Data.currEmployees.get(id));
+            WeeklyShifts[day][shift] = specificShift;
+            return;
+        }
+        throw new IllegalArgumentException("Invalid day or shift value: day=" + day + ", shift=" + shift); // TODO
     }
 
-    public void setWeeklyShifts(int day, int shift, Employee emp){
-        if (day > 0 && day < IO_Data.amount_days && shift > 0 && shift < IO_Data.amount_shifts) {
-            WeeklyShifts[day][shift] = emp;
+    protected boolean remove(int day, int shift, int id){
+        if (!(day >= 0 && day < IO_Data.amount_days && shift >= 0 && shift < IO_Data.amount_shifts)){
+            throw new IllegalArgumentException("Invalid day or shift value: day=" + day + ", shift=" + shift); // TODO
         }
-        //TODO raise error
+        ArrayList<Employee> specificShift = WeeklyShifts[day][shift];
+        if (specificShift != null){
+            for (Employee e : specificShift){
+                if (e.getId().equals(id + "")){
+                    specificShift.remove(e);
+                    return true;
+                }
+            }
+        }
+        return false;
+//        throw new IllegalArgumentException("Invalid day or shift value or id: day=" + day + ", shift=" + shift + ", id=" + id); // TODO
     }
 }
