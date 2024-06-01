@@ -11,6 +11,7 @@ public class Employee {
     String bankID;
     Map<Integer, List<Shift>> givenShifts;
     Contract contract;
+    String[][] WeekPreferences;
 
     public String getId() {
         return id;
@@ -68,6 +69,7 @@ public class Employee {
         this.name = name;
         this.bankID = bankID;
         this.contract = new Contract(startDate, salary, restDays);
+        this.WeekPreferences = IO_Data.ImportEmployeePreferences(id);
     }
 
     public String toString() {

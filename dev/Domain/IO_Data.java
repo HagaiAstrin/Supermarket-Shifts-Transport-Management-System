@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 
@@ -16,12 +17,44 @@ import com.google.gson.JsonObject;
 
 public class IO_Data {
     protected static Map<Integer, Employee> currEmployees = new HashMap<>();
-    protected static Map<Integer, String[][]> WeekPreferences = new HashMap<>();
+//    protected static Map<Integer, String[][]> WeekPreferences = new HashMap<>();
     static boolean flag = false;
     static int amount_days = 5;
     static int amount_shifts = 2;
     public static boolean isAdmin = false; // for user menu
     public static String employeeID; // for user interactions with his data
+//    public static WeeklyShift week; // TODO
+
+    public static List<JsonObject> getEmployeeHowCanWork(int job, int day, int shift) {
+            return WeeklyShift.getEmployeeForShift(job, day,shift);
+    }
+
+    public static String removeFromShiftIO(int id, int day, int shift, int job){
+        Employee e = currEmployees.get(id);
+        if (e == null){
+            //TODO RAISE ERROR
+        }
+        if (day >= amount_days || day < 0 || shift >= amount_shifts || amount_shifts < 0){
+            //TODO Raise ERROR WRONG INPUT
+        }
+        assert e != null; // TODO ?
+        if (e.WeekPreferences[day][shift].equals("2")){
+            if (WeeklyShift.removeEmployee(job, day, shift, id)){ //Changed in public calendar
+                e.WeekPreferences[day][shift] = "1"; // save in Employee Personal preferences
+                dayTypeEnum dte = dayTypeEnum.values()[day];
+                ShiftType st = ShiftType.values()[shift];
+                return e.getName() + "(id: " + id + ")" + " was removed from shift and change his preferences to not work on " + dte.toString() + " at " + st.toString() + " shift";
+            }
+        }
+        return e.getName() + "(id: " + id + ")" + " was not shifted in this shift";
+    }
+
+    public static void setEmployeeHowCanWork(int job, int day, int shift, int id){
+        WeeklyShift.setEmployeeHowCanWork(job, day, shift, id);
+    }
+    public static void startWeek(){
+        WeeklyShift.startWeek(1); // todo Start counting Weeks
+    }
     /**
      * Import all employees data.
      * @return List of employees in Json format.
@@ -74,21 +107,21 @@ public class IO_Data {
 
         flag = true;
     }
-    public static void ImportPreferences(){
-        for (Integer id : currEmployees.keySet()){
-            if (!WeekPreferences.containsKey(id)){
-                String[][] preferences = ImportEmployeePreferences(id);
-                WeekPreferences.put(id, preferences);
-            }
-        }
-    }
-    public static String[][] ImportEmployeePreferences(Integer id) {
+//    public static void ImportPreferences(){
+//        for (Integer id : currEmployees.keySet()){
+//            if (!WeekPreferences.containsKey(id)){
+//                String[][] preferences = ImportEmployeePreferences(id.toString());
+//                WeekPreferences.put(id, preferences);
+//            }
+//        }
+//    }
+    public static String[][] ImportEmployeePreferences(String id) {
         //    static List<Employee> currEmployees = new ArrayList<>();
 
         String[][] preference = new String[amount_shifts][amount_days];
         String line;
         String csvSplitBy = ",";
-        String empSpecificPath = Constants.PATH_DATA_Preferences + id.toString() + ".csv";
+        String empSpecificPath = Constants.PATH_DATA_Preferences + id + ".csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(empSpecificPath))) {
             br.readLine(); // Skip the header line
