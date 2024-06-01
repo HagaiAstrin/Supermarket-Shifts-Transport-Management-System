@@ -237,16 +237,7 @@ public class DataStructManager {
         }
         return j;
     }
-    public static void drop_documents(JsonObject j){
-        for(int i = 1; i <= j.size(); i++){
-            for(Document d : documents){
-                if(d.to_string().equals(j.get(String.valueOf(i)).getAsString())){
-                    documents.remove(d);
-                    break;
-                }
-            }
-        }
-    }
+
     public static void replace_documents(String a){
         int count = 0;
         for(Document d : documents){

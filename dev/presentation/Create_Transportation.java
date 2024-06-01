@@ -59,22 +59,30 @@ public class Create_Transportation {
 
 
             //HeadLine Weight Solutions
+            boolean bool = true;
             while (!result) {
                 String sol = choose_solution();
                 switch (sol) {
 
                     case "1" -> Change_Sites(area);
                     case "2" -> {
-                        if (!Change_Truck())
-                            continue;
+                        if (!Change_Truck()) continue;
                     }
-                    case "3" -> Drop_sites();
-                    case "4" -> Drop_Items();
+                    case "3" -> {
+                        bool = Drop_sites();
+                    }
+                    case "4" -> bool = Drop_Items();
 
                 }
+                if(!bool) break;
                 result = create_Transportation(new_json);
             }
-            System.out.println("\nTransportation added successfully!\n");
+            if(bool) {
+                System.out.println("\nTransportation added successfully!\n");
+            }
+            else{
+                System.out.println("\nThe Transportation canceled.\n");
+            }
             System.out.println("Would you like to make a new Transportation?");
             System.out.println("Enter 'yes' or 'no':");
             answer = reader.nextLine();
@@ -268,23 +276,27 @@ public class Create_Transportation {
         }
         return j.get(answer).getAsString();
     }
-    public static void Drop_sites() {
+
+    public static boolean Drop_sites() {
 
         Scanner reader = new Scanner(System.in);
-
-        JsonObject j = new JsonObject();
         String p = "yes";
+        boolean bool = true;
         while (p.equals("yes")) {
             JsonObject sol_w = Transportation_manager_controller.Choose_Site_Target();
             System.out.println("\nWhich Site do you want to dropped ? ");
             String site_answer = print_to_user(sol_w.size(), sol_w);
             Transportation_manager_controller.drop_Site(site_answer);
-            System.out.println("\nWould you like to drop another site? ");
+            if(sol_w.size() - 1 == 0){
+                bool = false;
+                break;
+            }
+            System.out.println("\nWould you like to drop another Site? ");
             System.out.println("Enter 'yes' or 'no':");
             p = reader.next();
-
         }
-        Transportation_manager_controller.drop_Documents(j);
+        if(!bool) System.out.println("\nYou dropped all the Sits from the Transport ! ");
+        return bool;
     }
     public static String change_Truck_print(JsonObject j) {
         System.out.println("\nPlease choose a different Truck for the Transport: ");
@@ -319,24 +331,32 @@ public class Create_Transportation {
         new_json.addProperty("Driver", d);
         return true;
     }
-    public static void Drop_Items() {
+    public static boolean Drop_Items() {
         Scanner reader = new Scanner(System.in);
 
         JsonObject j_item;
         String p = "yes";
+        boolean bool = true;
+        JsonObject sol_w = Transportation_manager_controller.Choose_Site_Target();
         while (p.equals("yes")) {
-            JsonObject sol_w = Transportation_manager_controller.Choose_Site_Target();
             System.out.println("\nWhich Site do you want to dropped Items from ? ");
             String site_answer = print_to_user(sol_w.size(), sol_w);
+            System.out.println("\nWhich Item do you want to dropped ? ");
             j_item = Transportation_manager_controller.get_Items_Json(site_answer);
             String item_answer = print_to_user(j_item.size(), j_item);
 
             Transportation_manager_controller.drop_Items(item_answer);
-
+            sol_w = Transportation_manager_controller.Choose_Site_Target();  //change
+            if(sol_w.size() == 0){
+                bool = false;
+                break;
+            }
             System.out.println("\nWould you like to drop another Item? ");
             System.out.println("Enter 'yes' or 'no':");
             p = reader.next();
         }
+        if(!bool) System.out.println("\nYou dropped all the Items from all the Sites ! ");
+        return bool;
     }
 
 }
