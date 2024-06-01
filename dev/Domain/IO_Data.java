@@ -1,15 +1,11 @@
 package Domain;
 
 import java.io.*;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 
@@ -320,5 +316,40 @@ public class IO_Data {
         csvString.append(employeeJson.get("restDays").getAsString()).append(",");
         // Add other fields as necessary
         return csvString.toString();
+    }
+
+    public static String[][] GetPreferencesFromCSV(){
+        String path = Constants.PATH_DATA_Preferences + IO_Data.employeeID + ".csv";
+        List<String[]> data = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(","); // Split by commas
+                data.add(values);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading CSV file: " + e.getMessage());
+            return null;
+        }
+
+        // Convert the list to a 2D array
+        String[][] dataArray = new String[data.size()][];
+        for (int i = 0; i < data.size(); i++) {
+            dataArray[i] = data.get(i);
+        }
+
+        return dataArray;
+    }
+
+    public static void UpdatePreferencesToCSV(String[][] preferences){
+        String path = Constants.PATH_DATA_Preferences + IO_Data.employeeID + ".csv";
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
+            for (String[] row : preferences) {
+                bw.write(String.join(",", row));
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error writing to CSV file: " + e.getMessage());
+        }
     }
 }

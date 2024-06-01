@@ -2,8 +2,6 @@ package Presentation;
 
 import Controller.AdminController;
 import Controller.SystemController;
-import Domain.JobTypeEnum;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;

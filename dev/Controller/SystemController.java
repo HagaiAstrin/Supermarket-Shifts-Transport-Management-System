@@ -18,13 +18,9 @@ public class SystemController {
 
     }
 
-    // TODO: Save all data into .csv!!!!
     public static void Logout(){
-
-    }
-    public static JsonObject ConvertEmployeeToJson(Employee employee){
-        Gson gson = new Gson();
-        return gson.toJsonTree(employee).getAsJsonObject();
+        System.out.println("Dear user, thank you for using \"Super-Lee\" HR System!");
+        System.out.println("Logged out successfully.");
     }
 
     public static Employee ConvertFronJsonToEmployee(JsonObject json){

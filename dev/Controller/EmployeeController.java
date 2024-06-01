@@ -1,5 +1,4 @@
 package Controller;
-import com.google.gson.Gson;
 import Domain.*;
 import com.google.gson.JsonObject;
 
@@ -12,5 +11,10 @@ public class EmployeeController {
 
     public static void AddEmployee(JsonObject employee) throws IOException {
         IO_Data.addEmployeeToCSV(employee);
+    }
+
+    public static String[][] GetPreferences(){
+        return IO_Data.GetPreferencesFromCSV();
+
     }
 }
