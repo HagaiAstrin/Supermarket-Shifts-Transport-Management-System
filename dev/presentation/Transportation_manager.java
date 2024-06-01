@@ -58,21 +58,44 @@ public class Transportation_manager {
         }
     }
 
+    /**
+     * Adding a Driver from the user
+     */
     public static void add_driver(){
         Add_Driver.add_driver();
     }
+
+    /**
+     * Adding a Truck from the user
+     */
     public static void add_truck(){
         Add_Truck.add_truck();
     }
+
+    /**
+     * Adding a Store from the user
+     */
     public static void add_store(){
         Add_Site.add_site("Store");
     }
+
+    /**
+     * Adding a Supplier from the user
+     */
     public static void add_supplier(){
         Add_Site.add_site("Supplier");
     }
+
+    /**
+     * Making Transport
+     */
     public static void make_transportation(){
         Create_Transportation.create_Transport();
     }
+
+    /**
+     * Showing all Transport
+     */
     public static void show_all_Transport(){
         Transport_Show.show_all_Transportation();
     }

@@ -1,6 +1,7 @@
 package domain;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 
@@ -161,10 +162,6 @@ public class DataStructManager {
         Truck new_truck = new Truck(n, l, net, max);
         trucks.add(new_truck);
 
-//        Gson g = new Gson();
-//        Truck new_truck = g.fromJson(j, Truck.class);
-//        System.out.println(new_truck.to_String());
-//        trucks.add(new_truck);
     }
 
     /**
