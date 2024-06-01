@@ -159,7 +159,7 @@ public class AdminMenu {
         //Getting User Input
         List<Integer> iOShiftMenu = iOShiftMenu(); // Getting the day and the shift
         int job = IOJobShiftMenu(); // Getting what kind of Job
-        int day = iOShiftMenu.getFirst();
+        int day = iOShiftMenu.get(0);
         int shift = iOShiftMenu.get(1);
 
         List<JsonObject> ja = AdminController.getEmployeeToShift(job, day, shift);
@@ -182,7 +182,7 @@ public class AdminMenu {
         scanner.nextLine();
 
         List<Integer> dayAndShift = iOShiftMenu();
-        int day = dayAndShift.getFirst();
+        int day = dayAndShift.get(0);
         int shift = dayAndShift.get(1);
         int job = IOJobShiftMenu();
 
