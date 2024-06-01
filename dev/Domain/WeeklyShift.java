@@ -23,6 +23,24 @@ public class WeeklyShift {
         }
     }
 
+    static public void checkEmployeeForEachJobType(int amount) throws Exception {
+        if (shiftByJob.isEmpty()) {
+            throw new Exception("There is now Weekly Shift");
+        }
+        StringBuilder outputError = new StringBuilder();
+        for (JobTypeEnum JTE : shiftByJob.keySet()) {
+            JobWeeklyShift temp = shiftByJob.get(JTE);
+            try {
+                temp.checkFull(amount);
+            }
+            catch (Exception e) {
+                outputError.append(e.getMessage()).append("\n");
+            }
+        }
+        if (!outputError.isEmpty()) {
+            throw new Exception(outputError.toString());
+        }
+    }
     static public String iterAllJobWeeklyShift(){
         StringBuilder output = new StringBuilder();
         for(int job=0; job < JobTypeEnum.values().length; job++){

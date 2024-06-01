@@ -42,16 +42,15 @@ public class AdminController {
         return IO_Data.GetEmployee(id);
     }
 
-    //TODO: Update employee data in .csv and in list.
-    public static void UpdateEmployee(JsonObject json){
-
-    }
     public static String printAllTypeWeek(){
         return WeeklyShift.iterAllJobWeeklyShift();
     }
 
     public static String printTypeWeek(int job){
         return WeeklyShift.getJobWeeklyShift(job);
+    }
+    public static void checkEmployeeWeekFull(int amount) throws Exception {
+        WeeklyShift.checkEmployeeForEachJobType(amount);
     }
 
     public static void SetShift(int job, int day, int shift, int id){
