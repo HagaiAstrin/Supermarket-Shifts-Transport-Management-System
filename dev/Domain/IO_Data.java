@@ -23,7 +23,6 @@ public class IO_Data {
     static int amount_shifts = 2;
     public static boolean isAdmin = false; // for user menu
     public static String employeeID; // for user interactions with his data
-//    public static WeeklyShift week; // TODO
 
     public static List<JsonObject> getEmployeeHowCanWork(int job, int day, int shift) {
             return WeeklyShift.getEmployeeForShift(job, day,shift);
@@ -32,12 +31,11 @@ public class IO_Data {
     public static String removeFromShiftIO(int id, int day, int shift, int job){
         Employee e = currEmployees.get(id);
         if (e == null){
-            //TODO RAISE ERROR
+            throw new RuntimeException("Employee not found");
         }
         if (day >= amount_days || day < 0 || shift >= amount_shifts || amount_shifts < 0){
-            //TODO Raise ERROR WRONG INPUT
+            throw new RuntimeException("Invalid day or shift");
         }
-        assert e != null; // TODO ?
         if (e.WeekPreferences[day][shift].equals("2")){
             if (WeeklyShift.removeEmployee(job, day, shift, id)){ //Changed in public calendar
                 e.WeekPreferences[day][shift] = "1"; // save in Employee Personal preferences
@@ -50,7 +48,13 @@ public class IO_Data {
     }
 
     public static void setEmployeeHowCanWork(int job, int day, int shift, int id){
-        WeeklyShift.setEmployeeHowCanWork(job, day, shift, id);
+        try {
+            WeeklyShift.setEmployeeHowCanWork(job, day, shift, id);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
     }
     public static void startWeek(){
         WeeklyShift.startWeek(1); // todo Start counting Weeks

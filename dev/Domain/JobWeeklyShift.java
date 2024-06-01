@@ -30,16 +30,27 @@ public class JobWeeklyShift {
     }
     protected StringBuilder getWorkingShiftString(int day, int shift){
         StringBuilder output = new StringBuilder();
-        ArrayList<Employee> emArray = WeeklyShifts[day][shift]; // TODO: NEED TO CHECK?
+        ArrayList<Employee> emArray = WeeklyShifts[day][shift]; // getJobWeeklyShift checks day and shift input
         if (emArray == null){
             output.append("No Employee\n");
             return output;
         }
 
         for (Employee e : emArray){
-            output.append(e.getName()).append("(id: ").append(e.getId()).append("\n");
+            output.append(e.getName()).append("(id: ").append(e.getId()).append(")\n");
         }
         return output;
+    }
+
+    public void checkFull(int amount) throws Exception{
+        for (int day = 0; day < IO_Data.amount_days; day++) {
+            for (int shift = 0; shift < IO_Data.amount_shifts; shift++) {
+                //There are no enough employee in the shift
+                if (WeeklyShifts[day][shift] == null || WeeklyShifts[day][shift].size() != amount) {
+                    throw new Exception("There are no enough employee in " + JobName.toString());  // TODO
+                }
+            }
+        }
     }
 
     protected List<JsonObject> getEmployeeArray(int day, int shift) {
@@ -52,7 +63,7 @@ public class JobWeeklyShift {
         return ja;
     }
 
-    public JsonObject toJsonWeek() {
+    public JsonObject toJsonWeek() { // TODO
         JsonObject jsonObject = new JsonObject();
         int maxLen = getMaxLen();
         StringBuilder output = new StringBuilder();
@@ -75,7 +86,7 @@ public class JobWeeklyShift {
 //                    }
                 }
                 // Remove last comma and space
-                if (shiftCell.length() > 0) {
+                if (!shiftCell.isEmpty()) {
                     shiftCell.setLength(shiftCell.length() - 2);
                 }
                 shiftRow.append(String.format("%-" + maxLen + "s", shiftCell.toString()));
@@ -122,12 +133,12 @@ public class JobWeeklyShift {
             WeeklyShifts[day][shift] = specificShift;
             return;
         }
-        throw new IllegalArgumentException("Invalid day or shift value: day=" + day + ", shift=" + shift); // TODO
+        throw new RuntimeException("Invalid day or shift value: day=" + day + ", shift=" + shift);
     }
 
     protected boolean remove(int day, int shift, int id){
         if (!(day >= 0 && day < IO_Data.amount_days && shift >= 0 && shift < IO_Data.amount_shifts)){
-            throw new IllegalArgumentException("Invalid day or shift value: day=" + day + ", shift=" + shift); // TODO
+            throw new RuntimeException("Invalid day or shift value: day=" + day + ", shift=" + shift);
         }
         ArrayList<Employee> specificShift = WeeklyShifts[day][shift];
         if (specificShift != null){
@@ -139,6 +150,5 @@ public class JobWeeklyShift {
             }
         }
         return false;
-//        throw new IllegalArgumentException("Invalid day or shift value or id: day=" + day + ", shift=" + shift + ", id=" + id); // TODO
     }
 }

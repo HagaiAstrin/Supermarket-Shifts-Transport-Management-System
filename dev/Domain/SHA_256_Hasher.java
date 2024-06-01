@@ -13,7 +13,7 @@ public class SHA_256_Hasher {
         String id = j[2];
 
         // Convert password to SHA-256 hash
-        String hashedPassword = hashPassword(password); // TODO: what will happend if null
+        String hashedPassword = hashPassword(password);
 
 
         // Perform authentication or validation logic using the hashed password
