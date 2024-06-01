@@ -113,6 +113,7 @@ public class Employee {
         for (String jobType : jobTypeArray) {
             try {
                 jobTypes.add(JobTypeEnum.valueOf(jobType.trim().toUpperCase().replace(" ", "_")));
+
             } catch (IllegalArgumentException e) {
                 System.out.println("Invalid job type in JSON: " + jobType);
             }

@@ -1,5 +1,4 @@
 id,JobType,name,bankID,startDate,salary,restDays
-1,Shift Manager/Cashier,John Doe,1234,25/05/2024,50000,10
 2,Cashier,Jane Smith,5678,26/05/2024,60000,8
 3,Cashier,Bob Johnson,9101,27/05/2024,55000,12
 4,Shift Manager,Alice Williams,1121,28/05/2024,62000,15
@@ -20,3 +19,5 @@ id,JobType,name,bankID,startDate,salary,restDays
 123,cashier,123,123,30/12/2013,123,123
 459,cashier,459,459,31/12/1999,459,459
 135,cashier,NewEmp,12340099,31/12/1999,852741,95623
+157,STOCK KEEPER,Asaf Lotz,8865,2004-03-18,200101,10,
+1,GUARD/SHIFT MANAGER/CASHIER,John Doe,1234,2024-05-25,50000,12,
