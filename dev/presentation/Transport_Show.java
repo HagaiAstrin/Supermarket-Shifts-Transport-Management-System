@@ -8,16 +8,13 @@ public class Transport_Show {
     public static void show_all_Transportation(){
         JsonObject j = Transportation_manager_controller.show_all_Transport();
         if(j == null){
-            System.out.println("No transport has taken place ! \n");
+            System.out.println("\nNo has transport left the shipping area ! \n");
         }
         else {
             System.out.println("\n");
-            int x = 1;
+            System.out.println("\nAll the transport that left \n");
             for (String key : j.keySet()) {
-                if(x != 1) {
-                    System.out.println("----------------------------------------------------------------\n");
-                }
-                x++;
+                System.out.println("----------------------------------------------------------------\n");
                 JsonElement element = j.get(key);
                 String s = element.getAsString();
                 System.out.println(s);

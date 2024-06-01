@@ -6,6 +6,12 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+
+
 
 public class DataStructManager {
     public static Map<String, Map<String, Map<String, Site>>> manager_Map = new HashMap<>();
@@ -16,6 +22,7 @@ public class DataStructManager {
     public static Map<Item, Integer> items = new HashMap<>();
     public static Map<Item, Integer> all_items = new HashMap<>();
     public static double current_max_transport;
+    private static int count_good_transport = 1000;
 
 
     public static void add_Shipping_area(String Shipping_area){
@@ -66,29 +73,36 @@ public class DataStructManager {
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get
                     ("Password").getAsString().equals(driver.getPassword())) {
-                if (driver.getUsing_truck() != null && !driver.isAvailability()){
+                if (driver.getTran() != null && !driver.isAvailability()){
                     driver.setAvailability(true);
                     driver.getUsing_truck().setAvailability(true);
+                    driver.setTran(null);
                     return ("\nWelcome back!\n");
                 }
-                return ("\nYou can't report because you are not make Transportation!\n");
+                return ("\nYou can't report back because you didnt made Transportation!\n");
             }
         }
         return ("\nYou are not exist in the system!\n");
     }
+
     public static String update_leaving_driver(JsonObject j){
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get
                     ("Password").getAsString().equals(driver.getPassword())) {
-                if (driver.getUsing_truck() != null && driver.isHold()){
+                if (driver.getTran() == null) {
+                    return ("You didnt assigned to any Transportation!");
+                }
+                else {
                     driver.setAvailability(false);
                     driver.getUsing_truck().setAvailability(false);
                     driver.getUsing_truck().setHold(false);
                     driver.setHold(false);
+                    driver.getTran().setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                    driver.getTran().setLeaving_time(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+                    transports.add(driver.getTran());
                     return ("Have a good trip!");
                 }
             }
-            return ("You can't report because you are not make Transportation!");
         }
         return ("You are not exist in the system!");
     }
@@ -143,24 +157,22 @@ public class DataStructManager {
     }
     public static boolean create_transportation(JsonObject j){
 
-        String date = j.get("Date").getAsString();
-        String leaving_time = j.get("Leaving time").getAsString();
         String source = j.get("Source").getAsString();
 
         for (Driver d: drivers){
             if (d.to_String().equals(j.get("Driver").getAsString())){
                 for (Truck t: trucks){
                     if (t.to_String().equals(j.get("Truck").getAsString())){
-                        Transport new_transport = new Transport(date, leaving_time, t, d, source, documents);
+                        Transport new_transport = new Transport(t, d, source, documents);
                         boolean result = new_transport.Is_Over_Weight();
                         current_max_transport = new_transport.get_transport_Max_weight();
                         if (result) {
-                            //new_transport.add_document(documents);
+                            new_transport.setId(count_good_transport++);
                             documents.clear();
                             d.setHold(true);
                             t.setHold(true);
                             d.setUsing_truck(t);
-                            transports.add(new_transport);
+                            d.setTran(new_transport);
                             return true;
                         }
                         return false;

@@ -45,7 +45,7 @@ public class Driver_Menu {
             String s = "\nHello " + driver_name + "! What do you want to do?\n";
             new_s.append(s);
             new_s.append("Press '1' to - Report on leaving\n");
-            new_s.append("Press '2' to - Report on back\n");
+            new_s.append("Press '2' to - Report on back");
 
             System.out.println(new_s);
             String answer = reader.nextLine();
@@ -62,7 +62,7 @@ public class Driver_Menu {
                 case "2" -> back(new_Json);
             }
             System.out.println("\nDo you want to do something else?");
-            System.out.println("\nPress 'yes' to continue in the system");
+            System.out.println("Press 'yes' to continue in the system");
             a = reader.nextLine();
         }
     }

@@ -1,7 +1,6 @@
 package domain;
 import java.util.ArrayList;
 public class Transport {
-    private static int count = 1;
     private int id;
     private String date;
     private String leaving_time;
@@ -11,14 +10,11 @@ public class Transport {
     private ArrayList<Document> targets;
     private double max_weight;
 
-    public Transport(String date, String leaving_time, Truck truck, Driver driver, String source, ArrayList<Document> t) {
-        this.date = date;
-        this.leaving_time = leaving_time;
+    public Transport(Truck truck, Driver driver, String source, ArrayList<Document> t) {
         this.truck = truck;
         this.driver = driver;
         this.targets = new ArrayList<>(t);
         this.source = source;
-        this.id = count++;
     }
 
 
@@ -42,17 +38,21 @@ public class Transport {
         return bool;
     }
 
-    public void set_Truck(Truck truck) {
-        this.truck = truck;
-    }
 
-    public void set_Driver(Driver dr) {
-        this.driver = dr;
+    public void setId(int id) {
+        this.id = id;
     }
-
 
     public double get_transport_Max_weight() {
         return this.max_weight;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setLeaving_time(String leaving_time) {
+        this.leaving_time = leaving_time;
     }
 
     public Truck getTr() {

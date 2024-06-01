@@ -10,6 +10,8 @@ public class Driver {
     private Truck using_truck;
     private static int num = 10;
 
+    private Transport tran;
+
     public Driver(String name, String license, String password) {
         this.name = name;
         this.worker_num = num++;
@@ -61,6 +63,15 @@ public class Driver {
     public void setUsing_truck(Truck using_truck) {
         this.using_truck = using_truck;
     }
+
+    public void setTran(Transport tran) {
+        this.tran = tran;
+    }
+
+    public Transport getTran() {
+        return tran;
+    }
+
     public String to_String(){
         return ("Worker number: " + worker_num + ", Name:" + name + ", Licence Level: " + license + ".");
     }
