@@ -6,6 +6,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class CSV_reader {
+    /**
+     * Start the program - CSV reader
+     * @param file - the file to read from
+     * @param choose - file type :
+     *               1 : Driver
+     *               2 : Site
+     *               3 : Truck
+     */
         public static void reader(String file, int choose) {
             BufferedReader reader;
             String line;

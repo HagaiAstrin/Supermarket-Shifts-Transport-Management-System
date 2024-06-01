@@ -43,7 +43,7 @@ public class Transportation_manager_controller {
     public static String choose_result(){
         return Create_Transportation.choose_solution();
     }
-    public static JsonObject choose_good_Truck(){return Change_Truck.getLst_tr();}
+    public static JsonObject choose_good_Truck(){return Change_Truck.get_Json_tr();}
     public static JsonObject Choose_Site_Target(){
         return Drop_Sites.Choose_Drop_Target();
     }

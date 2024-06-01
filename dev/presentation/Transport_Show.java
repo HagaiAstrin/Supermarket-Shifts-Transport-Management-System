@@ -5,6 +5,10 @@ import com.google.gson.JsonObject;
 import controller.Transportation_manager_controller;
 
 public class Transport_Show {
+
+    /**
+     * Print to user all the Transport that left the shipping area
+     */
     public static void show_all_Transportation(){
         JsonObject j = Transportation_manager_controller.show_all_Transport();
         if(j == null){

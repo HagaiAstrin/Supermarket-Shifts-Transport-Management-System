@@ -5,6 +5,11 @@ import com.google.gson.JsonObject;
 import java.util.Map;
 
 public class Drop_Items {
+
+    /**
+     * @param a - String argument represent the Site to dropped items from
+     * @return JsonObject of the Items to dropped
+     */
     public static JsonObject getItem_Json(String a){
         JsonObject new_json = new JsonObject();
         int count = 1;

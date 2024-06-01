@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 public class Add_Truck {
 
+    /**
+     * Input from the user for Truck arguments
+     */
     public static void add_truck() {
 
         JsonObject new_json = new JsonObject();

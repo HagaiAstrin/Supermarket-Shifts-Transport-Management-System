@@ -8,6 +8,9 @@ public class Truck {
     private boolean availability;
     private boolean hold;
 
+    /**
+     * Constructor of Truck
+     */
     public Truck(String id, String licence, double net_weight, double max_weight) {
         this.licence_number = id;
         this.licence_level = licence;
@@ -17,12 +20,23 @@ public class Truck {
         this.hold = false;
     }
 
+    /**
+     * Getter net_weight
+     */
     public double getNet_weight() {
         return net_weight;
     }
+
+    /**
+     * Getter max_weight
+     */
     public double getMax_weight() {
         return max_weight;
     }
+
+    /**
+     * Getter licence_level
+     */
     public int getLicence_level() {
         switch (licence_level){
             case "A" -> {
@@ -38,16 +52,26 @@ public class Truck {
         return 0;
     }
 
+    /**
+     * Getter licence_number
+     */
     public String getLicence_number() {
         return licence_number;
     }
 
+    /**
+     * Getter availability
+     */
     public boolean isAvailability() {
         return availability;
     }
     public void setHold(boolean hold) {
         this.hold = hold;
     }
+
+    /**
+     * Getter hold
+     */
     public boolean isHold() {
         return hold;
     }
@@ -55,6 +79,9 @@ public class Truck {
         this.availability = availability;
     }
 
+    /**
+     * @return String represent of the Truck
+     */
     public String to_String(){
         return ("Licence Number: " + licence_number + ", Licence Level: "
                 + licence_level + ", Max weight: " + max_weight + ".");

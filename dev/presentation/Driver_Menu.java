@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 public class Driver_Menu {
 
+    /**
+     * Driver menu in the System
+     */
     public static void driver_x() {
 
         JsonObject new_Json = new JsonObject();
@@ -67,11 +70,19 @@ public class Driver_Menu {
         }
     }
 
+    /**
+     * Update leaving
+     * @param j - JsonObject argument represent the Driver
+     */
     public static void leaving (JsonObject j){
         String a = Driver_controller.update_leaving(j);
         System.out.println(a);
     }
 
+    /**
+     * Update come back
+     * @param j - JsonObject argument represent the Driver
+     */
     public static void back (JsonObject j){
         String a = Driver_controller.update_back(j);
         System.out.println(a);

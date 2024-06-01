@@ -7,6 +7,10 @@ import java.util.Scanner;
 
 public class Add_Site {
 
+    /**
+     * Input from the user for Site arguments
+     * @param Type - String type represent Store / Supplier
+     */
     public static void add_site(String Type){
 
         JsonObject new_json = new JsonObject();

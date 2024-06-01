@@ -3,6 +3,11 @@ package domain;
 import com.google.gson.JsonObject;
 
 public class Drop_Sites {
+
+    /**
+     *
+     * @return JsonObject represent the available Sites to dropped
+     */
     public static JsonObject Choose_Drop_Target(){
         JsonObject j = new JsonObject();
         int count = 1;

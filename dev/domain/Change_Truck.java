@@ -1,10 +1,12 @@
 package domain;
 
 import com.google.gson.JsonObject;
-
 public class Change_Truck {
 
-    public static JsonObject getLst_tr() {
+    /**
+     * @return JsonObject of all trucks that can make the Transport
+     */
+    public static JsonObject get_Json_tr() {
         JsonObject new_json = new JsonObject();
         int count = 1;
         for(Truck tr : DataStructManager.trucks){

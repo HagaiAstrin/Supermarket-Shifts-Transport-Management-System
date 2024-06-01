@@ -7,10 +7,12 @@ import java.util.Scanner;
 
 public class Add_Driver {
 
+    /**
+     * Input from the user for Driver arguments
+     */
     public static void add_driver() {
 
         JsonObject new_json = new JsonObject();
-
         Scanner reader = new Scanner(System.in);
 
         String answer = "yes";
@@ -40,6 +42,7 @@ public class Add_Driver {
             new_json.addProperty("Name",name);
             new_json.addProperty("Licence",license);
             new_json.addProperty("Password",password);
+
 
             Transportation_manager_controller.add_driver(new_json);
 

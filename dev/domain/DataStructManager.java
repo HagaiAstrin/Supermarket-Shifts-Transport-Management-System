@@ -1,5 +1,6 @@
 package domain;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 
@@ -25,12 +26,21 @@ public class DataStructManager {
     private static int count_good_transport = 1000;
 
 
+    /**
+     * Adding new Shipping_area to manager_Map
+     * @param Shipping_area - String argument
+     */
     public static void add_Shipping_area(String Shipping_area){
         Map<String, Map<String, Site>> map = new HashMap<>();
         map.put("Store",new HashMap<>());
         map.put("Supplier",new HashMap<>());
         manager_Map.put(Shipping_area, map);
     }
+
+    /**
+     * Adding new site in specific Shipping_area to manager_Map
+     * @param j - JsonObject argument
+     */
     public static void add_Site(JsonObject j) {
 
         String name = j.get("Name").getAsString();
@@ -61,6 +71,12 @@ public class DataStructManager {
             }
         }
     }
+
+    /**
+     * Checking name and password of the driver
+     * @param j - JsonObject argument
+     * @return String represent of the Driver
+     */
     public static String check_driver(JsonObject j){
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get("Password").getAsString().equals(driver.getPassword())) {
@@ -69,6 +85,11 @@ public class DataStructManager {
         }
         return null;
     }
+
+    /**
+     * Updating that the Driver comes back
+     * @param j - JsonObject argument
+     */
     public static String update_back_driver(JsonObject j){
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get
@@ -85,6 +106,11 @@ public class DataStructManager {
         return ("\nYou are not exist in the system!\n");
     }
 
+
+    /**
+     * Updating that the Driver leaves
+     * @param j - JsonObject argument
+     */
     public static String update_leaving_driver(JsonObject j){
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get
@@ -106,27 +132,45 @@ public class DataStructManager {
         }
         return ("You are not exist in the system!");
     }
+
+
+    /**
+     * Adding Driver to DataStruct
+     * @param j - JsonObject argument
+     */
     public static void add_driver(JsonObject j){
 
         String name = j.get("Name").getAsString();
         String licence = j.get("Licence").getAsString();
         String password = j.get("Password").getAsString();
-
         Driver new_driver = new Driver(name, licence, password);
-
         drivers.add(new_driver);
+
     }
+
+    /**
+     * Adding Truck to DataStruct
+     * @param j - JsonObject argument
+     */
     public static void add_truck(JsonObject j){
 
         String n = j.get("Licence number").getAsString();
         String l = j.get("Licence level").getAsString();
         double net = j.get("Net weight").getAsDouble();
         double max = j.get("Max weight").getAsDouble();
-
         Truck new_truck = new Truck(n, l, net, max);
-
         trucks.add(new_truck);
+
+//        Gson g = new Gson();
+//        Truck new_truck = g.fromJson(j, Truck.class);
+//        System.out.println(new_truck.to_String());
+//        trucks.add(new_truck);
     }
+
+    /**
+     * Create new Item list to order
+     * @param j - JsonObject argument
+     */
     public static void create_items_list(JsonObject j) {
 
         String name = j.get("Name").getAsString();
@@ -140,6 +184,11 @@ public class DataStructManager {
         all_items.put(new_item, amount);
 
     }
+
+    /**
+     * Create new Document
+     * @param j - JsonObject argument
+     */
     public static void create_document(JsonObject j){
 
         String site = j.get("Site").getAsString();
@@ -155,6 +204,12 @@ public class DataStructManager {
             }
         }
     }
+
+    /**
+     * Create Transportation
+     * @param j - JsonObject argument
+     * @return true if the transportation is good to go, false otherwise
+     */
     public static boolean create_transportation(JsonObject j){
 
         String source = j.get("Source").getAsString();
@@ -182,6 +237,11 @@ public class DataStructManager {
         }
         return false;
     }
+
+    /**
+     * Choose a Truck from DataStruct
+     * @return JsonObject represent the truck
+     */
     public static JsonObject choose_truck(){
 
         JsonObject j = new JsonObject();
@@ -194,6 +254,12 @@ public class DataStructManager {
         }
         return j;
     }
+
+    /**
+     * Choose a Driver from DataStruct
+     * @param truck - String argument represent the selected Truck
+     * @return JsonObject of all the drivers who can drive in that Truck
+     */
     public static JsonObject choose_driver(String truck){
 
         JsonObject j = new JsonObject();
@@ -213,6 +279,11 @@ public class DataStructManager {
         }
         return j;
     }
+
+    /**
+     * Choose Area from DataStruct
+     * @return JsonObject of all the area in the DataStruct
+     */
     public static JsonObject choose_area(){
         JsonObject j = new JsonObject();
         int count = 1;
@@ -221,6 +292,12 @@ public class DataStructManager {
         }
         return j;
     }
+
+    /**
+     * Choose Supplier from DataStruct
+     * @param area - the selected Area
+     * @return JsonObject represent the all the Supplier inside the Area
+     */
     public static JsonObject choose_supplier(String area){
         JsonObject j = new JsonObject();
         int count = 1;
@@ -229,6 +306,12 @@ public class DataStructManager {
         }
         return j;
     }
+
+    /**
+     * Choose Store from DataStruct
+     * @param area - the selected Area
+     * @return JsonObject represent the all the Store inside the Area
+     */
     public static JsonObject choose_store(String area){
         JsonObject j = new JsonObject();
         int count = 1;
@@ -237,6 +320,11 @@ public class DataStructManager {
         }
         return j;
     }
+
+    /**
+     * Replace Documents
+     * @param a - String represent of the Document to replace
+     */
 
     public static void replace_documents(String a){
         int count = 0;
@@ -250,6 +338,11 @@ public class DataStructManager {
             count++;
         }
     }
+
+    /**
+     * Dropped Items
+     * @param a - String represent of the Item to dropped
+     */
     public static void drop_Items(String a){
         boolean bool = false;
         for(Document d : documents) {
@@ -265,6 +358,11 @@ public class DataStructManager {
             if(bool) break;
         }
     }
+
+    /**
+     * Dropped Site from Database
+     * @param a - String argument represent the Site to dropped
+     */
     public static void drop_Site(String a){
         for(Document d : documents){
             if(d.to_string().equals(a)){
@@ -276,6 +374,11 @@ public class DataStructManager {
             }
         }
     }
+
+    /**
+     * Transport represent
+     * @return JsonObject represent all the transportation in Database
+     */
     public static JsonObject all_transport(){
         if(transports.isEmpty()) return null;
         JsonObject j = new JsonObject();

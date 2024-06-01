@@ -8,6 +8,9 @@ public class Site {
     private String shipping_area;
     private String type;
 
+    /**
+     * Constructor of Transport
+     */
     public Site(String name, String address, String phone, String contact, String shipping_area, String type) {
         this.type = type;
         this.name = name;
@@ -17,25 +20,44 @@ public class Site {
         this.shipping_area = shipping_area;
     }
 
+    /**
+     * Getter Name
+     */
     public String getName() {
         return name;
     }
+
+    /**
+     * Getter type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Getter address
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Getter phone
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * Getter Contact
+     */
     public String getContact() {
         return contact;
     }
 
+    /**
+     * @return String represent of the Site
+     */
     public String to_string(){
         return ("Address: " + address + ", Name: " + name + ", Shipping area: " + shipping_area);
     }
