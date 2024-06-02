@@ -13,13 +13,18 @@ public class AdminController {
     public static List<JsonObject> PrintEmployees(){
         return IO_Data.PrintEmployees();
     }
+
     public static void ImportEmployees(){
         IO_Data.ImportEmployees();
         IO_Data.startWeek();
     }
+
     public static void AddEmployee(JsonObject json) throws IOException {
         IO_Data.addEmployeeToCSV(json);
         IO_Data.addEmployeeToList(json);
+    }
+    public static String createPreferencesNewEmp(JsonObject json) throws Exception {
+        return IO_Data.createPreferencesCsv(json);
     }
 
     public static String RemoveEmployee(String id){

@@ -3,7 +3,7 @@ package Domain;
 import java.util.List;
 import java.util.Map;
 
-public class Shift {
+public class Shift { // TODO if necessary add to UML
     String ShiftManagerID; // ID of the shift manager
     dayTypeEnum day; // Type of day (e.g., weekday, weekend)
     ShiftType shiftType; // Type of shift (e.g., morning shift, evening shift)

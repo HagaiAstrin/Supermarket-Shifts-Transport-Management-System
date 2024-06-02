@@ -12,11 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 public class WeeklyShift {
-    static int weekID;
-    public static Map<JobTypeEnum, JobWeeklyShift> shiftByJob = new HashMap<>();
+    static Map<JobTypeEnum, JobWeeklyShift> shiftByJob = new HashMap<>();
 
-    public static void startWeek(int id) {
-        weekID = id;
+    public static void startWeek() {
 
         for (JobTypeEnum JTE : JobTypeEnum.values()) {
             if (JTE != null) {
@@ -121,7 +119,7 @@ public class WeeklyShift {
             output.append(e.getName()).append("\n");
         }
         return output.toString();
-    }
+    } //TODO deleteUML
 
     static public JsonObject toJson() {
         JsonObject jsonObject = new JsonObject();
@@ -191,6 +189,7 @@ public class WeeklyShift {
             System.err.println("Error writing to CSV file: " + e.getMessage());
         }
     }
+    // TODO delete UML
 }
 
 

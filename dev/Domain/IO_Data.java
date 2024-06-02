@@ -12,12 +12,12 @@ import com.google.gson.JsonObject;
 
 
 public class IO_Data {
-    public static Map<Integer, Employee> currEmployees = new HashMap<>();
+    protected static Map<Integer, Employee> currEmployees = new HashMap<>();
 //    protected static Map<Integer, String[][]> WeekPreferences = new HashMap<>();
     static boolean flag = false;
     static int amount_days = 5;
     static int amount_shifts = 2;
-    public static boolean isAdmin = false; // for user menu
+    public static boolean isAdmin = false; // for user menu /TODO UML
     public static String employeeID; // for user interactions with his data
     public static String branch = ""; // Where is the branch located.
 
@@ -59,7 +59,7 @@ public class IO_Data {
 
     }
     public static void startWeek(){
-        WeeklyShift.startWeek(1); // todo Start counting Weeks
+        WeeklyShift.startWeek(); // todo Start counting Weeks
     }
     /**
      * Import all employees data.
@@ -291,6 +291,27 @@ public class IO_Data {
         }
         catch (IOException e){
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static String createPreferencesCsv(JsonObject e) throws Exception{
+        String id = String.valueOf(e.get("id"));
+        File file = new File("Data/Preferences/" + id + ".csv");
+        boolean result;
+        try {
+            // Create necessary directories if they do not exist
+            file.getParentFile().mkdirs();
+
+            // Create a new file
+            result = file.createNewFile();
+            if (result) {
+                // Test if successfully created a new file
+                return "File created: " + file.getCanonicalPath(); // Returns the path string
+            } else {
+                throw new Exception("Problem with creating file: " + file.getCanonicalPath());
+            }
+        } catch (Exception ex) {
+            throw new Exception("Problem with creating file: " + file.getCanonicalPath());
         }
     }
 

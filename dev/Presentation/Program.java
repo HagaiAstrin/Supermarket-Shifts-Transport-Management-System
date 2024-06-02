@@ -92,7 +92,7 @@ public class Program {
                 else{ AdminMenu.Menu(); }
                 break;
             } else if (UserKind.equals("2") && user_checker(UsernamePassword)) {
-                IO_Data.SetEmployeeID(UsernamePassword[2]);
+                SystemController.setEmployeeIDIOData(UsernamePassword[2]);
                 if(firstTime){
                     firstTime = false;
                     AdminController.ImportEmployees();
@@ -101,7 +101,7 @@ public class Program {
                 else{ AdminMenu.Menu(); }
                 break;
             } else {
-                System.out.println("Wrong input, please try again: ");
+                System.out.println("Invalid username or password. Try again.");
                 UsernamePassword = UserPassInput();
             }
         }

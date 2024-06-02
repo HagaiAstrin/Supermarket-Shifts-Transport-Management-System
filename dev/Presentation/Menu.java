@@ -1,6 +1,5 @@
 package Presentation;
 
-import Domain.Employee;
 import Controller.*;
 
 
@@ -10,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-import Domain.JobTypeEnum;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -70,15 +69,19 @@ public class Menu {
         JsonObject e_Json = Sender.EmployeeToJson(id, name, bankID, salary, restDays, date, jobType);
         try {
             AdminController.AddEmployee(e_Json);
+            System.out.println(AdminController.createPreferencesNewEmp(e_Json));
             System.out.println("Employee added successfully.");
         } catch (IOException ex) {
             System.err.println("Failed to add employee: " + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println("Failed to add employee: " + e.getMessage());
         }
     }
 
     private static String GetJobType(){
         Scanner scanner = new Scanner(System.in);
-        JobTypeEnum[] enumArray = JobTypeEnum.values();
+        String[] enumArray = SystemController.getEnumArray();
+//        JobTypeEnum[] enumArray = JobTypeEnum.values(); // TODO changed check it
         int size = enumArray.length;
 
         while(true) {
@@ -93,7 +96,7 @@ public class Menu {
                 System.out.println("Invalid job type.");
                 continue;
             }
-            return enumArray[jobType-1].toString();
+            return enumArray[jobType-1];
         }
     }
 
@@ -198,11 +201,4 @@ public class Menu {
         }
     }
 
-    private static Employee ConvertFronJsonToEmployee(JsonObject json){
-        return SystemController.ConvertFronJsonToEmployee(json);
-    }
-
-    public static void PrintEmpPref(){
-
-    }
 }

@@ -5,6 +5,8 @@ import Controller.SystemController;
 import Domain.IO_Data;
 import Domain.JobWeeklyShift;
 import Domain.WeeklyShift;
+
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
