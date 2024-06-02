@@ -101,9 +101,12 @@ public class Solutions {
                 if (d.getTarget().getType().equals("Supplier")){
                     for (Map.Entry<Item, Integer> iter : d.getItem_map().entrySet()){
                         for(Document doc : documents){
-                            for (Map.Entry<Item, Integer> item : doc.getItem_map().entrySet()){
-                                if (item.getKey().to_string().equals(iter.getKey().to_string())){
-                                    doc.getItem_map().remove(item.getKey());
+                            if(doc == d) break;
+                            if(d.getTarget().getType().equals("Store")) {
+                                for (Map.Entry<Item, Integer> item : doc.getItem_map().entrySet()) {
+                                    if (item.getKey().to_string().equals(iter.getKey().to_string())) {
+                                        doc.getItem_map().remove(item.getKey());
+                                    }
                                 }
                             }
                         }
