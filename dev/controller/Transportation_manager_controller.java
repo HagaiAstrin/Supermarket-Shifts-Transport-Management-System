@@ -54,7 +54,8 @@ public class Transportation_manager_controller {
 
 
     //   Solution methods:
-    public static void drop_Site(String a){Solutions.drop_Site(a);}
+    public static void drop_Site(String a){
+        Solutions.drop_Site(a);}
     public static void replace_Documents(String s){Solutions.replace_documents(s);}
     public static JsonObject get_Items_Json(String a){
         return Solutions.get_Item_Json(a);

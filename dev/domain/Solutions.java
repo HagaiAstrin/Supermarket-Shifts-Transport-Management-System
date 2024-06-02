@@ -93,11 +93,14 @@ public class Solutions {
     public static void drop_Site(String a){
         for(Document d : documents){
             if(d.to_string().equals(a)){
+                if (d.getTarget().getType().equals("Supplier")){
+
+                }
                 for(Map.Entry<Item, Integer> entry : d.getItem_map().entrySet()){
                     items.remove(entry.getKey());
                 }
                 documents.remove(d);
-                break;
+
             }
         }
     }

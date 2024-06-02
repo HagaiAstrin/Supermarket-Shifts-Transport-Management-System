@@ -26,7 +26,6 @@ public class Transport {
     }
 
 
-
     /**
      * Getter max_weight
      */
@@ -61,7 +60,7 @@ public class Transport {
             Site new_site = d.getTarget();
             if (new_site.getType().equals("Supplier")) {
                 count += d.getDoc_weight();
-                if(count > max_weight + truck.getNet_weight()){
+                if (count > max_weight + truck.getNet_weight()) {
                     max_weight = count - truck.getNet_weight();
                 }
                 if (count > truck.getMax_weight()) {
@@ -75,41 +74,45 @@ public class Transport {
             return result;
 
         if (count != truck.getNet_weight())
-            return  1;
+            return 1;
 
         return result;
     }
     /**
      * @return String represent of the Transport
      */
-    public String to_String_tran(){
+    public String to_String_tran() {
         StringBuilder new_s = new StringBuilder();
-        String s = "Transport number : "+this.id+"\nDate : "+this.date+"\nNumber of Truck : "+this.truck.getLicence_number()+"\n";
+        String s = "Transport number : " + this.id + "\nDate : " + this.date + "\nNumber of Truck : " + this.truck.getLicence_number() + "\n";
         new_s.append(s);
-        s = "Leaving time : "+this.leaving_time+"\nDriver name : "+this.driver.getName()+"\n";
+        s = "Leaving time : " + this.leaving_time + "\nDriver name : " + this.driver.getName() + "\n";
         new_s.append(s);
-        s = "Address of the Source: "+this.source;
+        s = "Address of the Source: " + this.source;
         new_s.append(s);
-        s = "\nMax weight of the truck during the drive : "+max_weight;
+        s = "\nMax weight of the truck during the drive : " + max_weight;
         new_s.append(s);
         new_s.append("\nTargets : \n");
         int count = 1;
-        for(Document d : targets){
+        for (Document d : targets) {
             Site site = d.getTarget();
-            if(site.getType().equals("Store")){
-                s = "        "+count++ +". Dropped products at Store : "+site.getName()+"\n";
+            if (site.getType().equals("Store")) {
+                s = "        " + count++ + ". Dropped products at Store : " + site.getName() + "\n";
+                new_s.append(s);
+            } else {
+                s = "        " + count++ + ". Collect products at Supplier : " + site.getName() + "\n";
                 new_s.append(s);
             }
-            else{
-                s = "        "+count++ +". Collect products at Supplier : "+site.getName()+"\n";
+            s = "           - Address: " + site.getAddress() + "\n           " +
+                    "- Contact name: " + site.getContact() + "\n           - Phone: " + site.getPhone() + "\n" +
+                    "           - Shipping weight: " + d.getDoc_weight() + "\n";
+
+            new_s.append(s);
+            new_s.append("\n           - Items: \n");
+            for (Map.Entry<Item, Integer> iter : d.getItem_map().entrySet()) {
+                s = "                 Name: " + iter.getKey().getName() + ", Amount: " + iter.getValue() + "\n";
                 new_s.append(s);
             }
-            s = "           Address : "+site.getAddress()+"\n           " +
-                    "Contact name : "+site.getContact()+"\n           Phone : "+site.getPhone()+"\n"+
-                    "           Shipping weight : "+d.getDoc_weight()+"\n\n";
-            for (Map.Entry <Item, Integer> iter: d.getItem_map().entrySet()){
-                System.out.println(iter.getKey().to_string() + ", Amount: " + iter.getValue());
-            }
+            s = "\n\n";
             new_s.append(s);
         }
         return new_s.toString();
