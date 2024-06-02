@@ -26,6 +26,10 @@ public class IO_Data {
         return new ArrayList<>(employeeCollection);
     }
 
+    public static void SetCurrEmployees(Map<Integer, Employee> _currEmployees) {
+        currEmployees = _currEmployees;
+    }
+
     public static List<JsonObject> getEmployeeHowCanWork(int job, int day, int shift) {
             return WeeklyShift.getEmployeeForShift(job, day,shift);
     }
@@ -182,9 +186,18 @@ public class IO_Data {
     public static boolean RemoveEmployee(String id) throws IOException {
         int indexToRemove = SearchEmployee(id);
         if(indexToRemove != -1){
+            deleteCsvFile(id);
             currEmployees.remove(Integer.parseInt(id));
             RemoveEmployeeFromCSV(id);
             return true;
+        }
+        return false;
+    }
+
+    private static boolean deleteCsvFile(String id) {
+        File file = new File(Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + id + ".csv");
+        if (file.exists() && file.isFile()) {
+            return file.delete();
         }
         return false;
     }
@@ -295,9 +308,10 @@ public class IO_Data {
     }
 
     public static String createPreferencesCsv(JsonObject e) throws Exception{
-        String id = String.valueOf(e.get("id"));
-        File file = new File("Data/Preferences/" + id + ".csv");
+        String id = e.get("id").getAsString();
+        File file = new File(Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + id + ".csv");
         boolean result;
+
         try {
             // Create necessary directories if they do not exist
             file.getParentFile().mkdirs();
@@ -305,13 +319,20 @@ public class IO_Data {
             // Create a new file
             result = file.createNewFile();
             if (result) {
-                // Test if successfully created a new file
+                // Write data to the newly created file
+                try (FileWriter writer = new FileWriter(file)) {
+                    // Header
+                    writer.append("Sun,Mon,The,Wen,Thu\n");
+                    // Data rows
+                    writer.append("1,1,1,1,1\n");
+                    writer.append("1,1,1,1,1\n");
+                }
                 return "File created: " + file.getCanonicalPath(); // Returns the path string
             } else {
                 throw new Exception("Problem with creating file: " + file.getCanonicalPath());
             }
-        } catch (Exception ex) {
-            throw new Exception("Problem with creating file: " + file.getCanonicalPath());
+        } catch (IOException ex) {
+            throw new Exception("Problem with creating file: " + file.getCanonicalPath(), ex);
         }
     }
 

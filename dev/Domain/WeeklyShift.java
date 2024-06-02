@@ -24,6 +24,10 @@ public class WeeklyShift {
         }
     }
 
+    public static Map<JobTypeEnum, JobWeeklyShift> GetShiftByJob() {
+        return shiftByJob;
+    }
+
     static public void checkEmployeeForEachJobType(int amount) throws Exception {
         if (shiftByJob.isEmpty()) {
             throw new Exception("There is now Weekly Shift");

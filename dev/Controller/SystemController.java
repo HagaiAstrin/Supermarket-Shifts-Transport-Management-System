@@ -1,9 +1,6 @@
 package Controller;
 
-import Domain.Constants;
-import Domain.Employee;
-import Domain.IO_Data;
-import Domain.SHA_256_Hasher;
+import Domain.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -24,7 +21,7 @@ public class SystemController {
         System.out.println("Logged out successfully.");
     }
 
-    }
+
 
     public static JsonObject ConvertEmployeeToJson(Employee employee){
         Gson gson = new Gson();

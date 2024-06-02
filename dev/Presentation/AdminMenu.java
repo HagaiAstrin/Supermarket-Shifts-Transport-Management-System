@@ -153,7 +153,7 @@ public class AdminMenu {
                     case 1:
                         System.out.println(AdminController.printAllTypeWeek());
                         //WeeklyShift.printWeeklyShifts(jobWeeklyShift.getWeeklyShifts());
-                        WeeklyShift.exportShiftsToCSV(WeeklyShift.shiftByJob);
+                        WeeklyShift.exportShiftsToCSV(WeeklyShift.GetShiftByJob());
                         break;
 
                     case 2:

@@ -37,7 +37,8 @@ public class Test_JobWeekly_Shift {
         Map<Integer, Employee> currEmployees = new HashMap<>();
         currEmployees.put(1, employee1);
         currEmployees.put(2, employee2);
-        IO_Data.currEmployees = currEmployees;
+        //IO_Data.currEmployees = currEmployees;
+        IO_Data.SetCurrEmployees(currEmployees);
     }
 
     @Test

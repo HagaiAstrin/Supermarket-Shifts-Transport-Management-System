@@ -19,7 +19,7 @@ public class Menu {
     /**
      * Adding employee to the database.
      */
-    public static void AddEmployee() throws IOException {
+    public static void AddEmployee() throws Exception {
         JsonObject json = new JsonObject();
 
         Scanner scanner = new Scanner(System.in);
@@ -67,9 +67,11 @@ public class Menu {
         }
 
         JsonObject e_Json = Sender.EmployeeToJson(id, name, bankID, salary, restDays, date, jobType);
+
         try {
+            AdminController.createPreferencesNewEmp(e_Json);
             AdminController.AddEmployee(e_Json);
-            System.out.println(AdminController.createPreferencesNewEmp(e_Json));
+
             System.out.println("Employee added successfully.");
         } catch (IOException ex) {
             System.err.println("Failed to add employee: " + ex.getMessage());
