@@ -50,6 +50,14 @@ public class DataStructManager {
         }
         return null;
     }
+    public static StringBuilder print_driver_doc(JsonObject j){
+        for (Driver driver : drivers) {
+            if (j.get("Name").getAsString().equals(driver.getName()) && j.get("Password").getAsString().equals(driver.getPassword())) {
+                return driver.getList();
+            }
+        }
+        return null;
+    }
     /**
      * Updating that the Driver comes back
      * @param j - JsonObject argument
@@ -62,6 +70,7 @@ public class DataStructManager {
                     driver.setAvailability(true);
                     driver.getUsing_truck().setAvailability(true);
                     driver.setTran(null);
+                    driver.setList(null);
                     return ("\nWelcome back!\n");
                 }
                 return ("\nYou can't report back because you didnt made Transportation!\n");
@@ -228,11 +237,11 @@ public class DataStructManager {
                     if (t.to_String().equals(j.get("Truck").getAsString())){
                         Transport new_transport = new Transport(t, d, source, documents);
                         int result = new_transport.Is_Over_Weight();
-
                         current_max_transport = new_transport.get_transport_Max_weight();
                         if (result == 0) {
                             new_transport.setId(count_good_transport++);
                             all_items.clear();
+                            d.setList(documents);
                             documents.clear();
                             d.setHold(true);
                             t.setHold(true);
@@ -247,7 +256,6 @@ public class DataStructManager {
         }
         return 2;
     }
-
 //    Selection methods:
     /**
      * Choose a Truck from DataStruct

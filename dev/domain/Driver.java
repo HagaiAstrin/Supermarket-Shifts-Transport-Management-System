@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.ArrayList;
+
 public class Driver {
     private String Name;
     private int worker_num;
@@ -10,6 +12,7 @@ public class Driver {
     private Truck using_truck;
     private static int num = 10;
     private Transport tran;
+    private ArrayList<Document> list;
 
     /**
      * Constructor for Driver
@@ -22,6 +25,7 @@ public class Driver {
         this.availability = true;
         this.using_truck = null;
         this.hold = false;
+        this.list = null;
     }
 
     /**
@@ -97,16 +101,25 @@ public class Driver {
     public void setTran(Transport tran) {
         this.tran = tran;
     }
-
-
+    public StringBuilder getList() {
+        StringBuilder new_s = new StringBuilder();
+        int count = 1;
+        for (Document d: list){
+            String s =  count + " - " + d.to_string();
+            new_s.append(s);
+            count ++;
+        }
+        return new_s;
+    }
+    public void setList(ArrayList<Document> list) {
+        this.list = list;
+    }
     /**
      * @return true if the Driver availability for drive
      */
     public boolean isAvailability() {
         return availability;
     }
-
-
     /**
      * @return String representation of the Driver
      */

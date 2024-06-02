@@ -13,4 +13,7 @@ public class Driver_controller {
     public static String update_leaving (JsonObject j){
          return DataStructManager.update_leaving_driver(j);
     }
+    public static StringBuilder Print_document(JsonObject j){
+        return DataStructManager.print_driver_doc(j);
+    }
 }

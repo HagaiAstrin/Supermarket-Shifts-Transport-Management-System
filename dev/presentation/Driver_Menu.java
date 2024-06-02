@@ -41,12 +41,20 @@ public class Driver_Menu {
 
             driver_name = controller.Driver_controller.check_driver(new_Json);
         }
+        StringBuilder d = (Driver_controller.Print_document(new_Json));
+
+        System.out.println(d);
 
         String a = "yes";
         while (a.equals("yes")) {
             StringBuilder new_s = new StringBuilder();
-            String s = "\nHello " + driver_name + "! What do you want to do?\n";
+            String s = "\nHello " + driver_name + "!\n";
             new_s.append(s);
+            if (d != null) {
+                new_s.append("\nYou got a Transportation list!\n");
+                new_s.append(d);
+            }
+            new_s.append("\nWhat do you want to do?\n");
             new_s.append("Press '1' to - Report on leaving\n");
             new_s.append("Press '2' to - Report on back");
 
