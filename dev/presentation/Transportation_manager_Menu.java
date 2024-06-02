@@ -9,14 +9,14 @@ public class Transportation_manager_Menu {
 
   //TODO adding the password to the manager
 
-        System.out.println("Enter password:");
-        String password = reader.nextLine();
-
-        while (!password.equals("123456789")) {
-            System.out.println("Wrong password, try again..\n");
-            System.out.println("Enter password:");
-            password = reader.nextLine();
-        }
+//        System.out.println("Enter password:");
+//        String password = reader.nextLine();
+//
+//        while (!password.equals("123456789")) {
+//            System.out.println("Wrong password, try again..\n");
+//            System.out.println("Enter password:");
+//            password = reader.nextLine();
+//        }
 
         while (true) {
             StringBuilder manager_menu = new StringBuilder();
