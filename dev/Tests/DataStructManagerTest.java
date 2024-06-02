@@ -2,6 +2,7 @@ package Tests;
 
 import com.google.gson.JsonObject;
 import domain.DataStructManager;
+
 import domain.Driver;
 import org.junit.jupiter.api.Test;
 
@@ -12,16 +13,15 @@ class DataStructManagerTest {
     private JsonObject driver_1 = new JsonObject();
     private JsonObject driver_2 = new JsonObject();
     private JsonObject driver_3 = new JsonObject();
+
     private JsonObject truck_1 = new JsonObject();
     private JsonObject truck_2 = new JsonObject();
     private JsonObject truck_3 = new JsonObject();
 
     private JsonObject store_1 = new JsonObject();
-
     private JsonObject store_2 = new JsonObject();
 
     private JsonObject supplier_1 = new JsonObject();
-
     private JsonObject supplier_2 = new JsonObject();
 
     public DataStructManagerTest(){
@@ -145,6 +145,9 @@ class DataStructManagerTest {
         assertTrue(DataStructManager.manager_Map.get("Jerusalem").get("Supplier").containsKey("Coca Cola"));
         assertTrue(DataStructManager.manager_Map.get("Jerusalem").get("Supplier").containsKey("Osem"));
         assertTrue(DataStructManager.manager_Map.get("Jerusalem").get("Supplier").containsKey("Matzot"));
+
+        assertFalse(DataStructManager.manager_Map.get("Jerusalem").get("Store").containsKey("Spry"));
+
 
     }
 

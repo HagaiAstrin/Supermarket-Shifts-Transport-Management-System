@@ -67,6 +67,7 @@ public class Transport {
                     bool = false;
                 }
             } else {
+
                 count -= d.getDoc_weight();
             }
         }
