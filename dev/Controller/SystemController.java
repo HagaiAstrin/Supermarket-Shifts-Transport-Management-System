@@ -1,6 +1,8 @@
 package Controller;
 
-import Domain.*;
+import Domain.Constants;
+import Domain.Employee;
+import Domain.SHA_256_Hasher;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -16,8 +18,10 @@ public class SystemController {
 
     }
 
-    // TODO: Save all data into .csv!!!!
     public static void Logout(){
+        System.out.println("Dear user, thank you for using \"Super-Lee\" HR System!");
+        System.out.println("Logged out successfully.");
+    }
 
     }
 
