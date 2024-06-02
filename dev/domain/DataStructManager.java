@@ -1,5 +1,6 @@
 package domain;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -21,6 +22,21 @@ public class DataStructManager {
     private static int count_good_transport = 1000;
 
 //    Driver's methods:
+
+    /**
+     * Adding Driver to DataStruct
+     * @param j - JsonObject argument
+     */
+    public static void add_driver(JsonObject j){
+
+        String name = j.get("Name").getAsString();
+        String licence = j.get("Licence").getAsString();
+        String password = j.get("Password").getAsString();
+        Driver new_driver = new Driver(name, licence, password);
+        drivers.add(new_driver);
+
+    }
+
     /**
      * Checking name and password of the driver
      * @param j - JsonObject argument
@@ -91,6 +107,7 @@ public class DataStructManager {
         map.put("Supplier",new HashMap<>());
         manager_Map.put(Shipping_area, map);
     }
+
     /**
      * Adding new site in specific Shipping_area to manager_Map
      * @param j - JsonObject argument
@@ -125,19 +142,7 @@ public class DataStructManager {
             }
         }
     }
-    /**
-     * Adding Driver to DataStruct
-     * @param j - JsonObject argument
-     */
-    public static void add_driver(JsonObject j){
 
-        String name = j.get("Name").getAsString();
-        String licence = j.get("Licence").getAsString();
-        String password = j.get("Password").getAsString();
-        Driver new_driver = new Driver(name, licence, password);
-        drivers.add(new_driver);
-
-    }
     /**
      * Adding Truck to DataStruct
      * @param j - JsonObject argument

@@ -1,10 +1,10 @@
 package domain;
 
 public class Driver {
-    private String name;
+    private String Name;
     private int worker_num;
-    private String license;
-    private String password;
+    private String License;
+    private String Password;
     private boolean availability;
     private boolean hold;
     private Truck using_truck;
@@ -15,10 +15,10 @@ public class Driver {
      * Constructor for Driver
      */
     public Driver(String name, String license, String password) {
-        this.name = name;
+        this.Name = name;
         this.worker_num = num++;
-        this.license = license;
-        this.password = password;
+        this.License = license;
+        this.Password = password;
         this.availability = true;
         this.using_truck = null;
         this.hold = false;
@@ -34,13 +34,13 @@ public class Driver {
      * @return the name of the Driver
      */
     public String getName() {
-        return name;
+        return Name;
     }
     /**
      * @return int represent of the Driver License
      */
     public int getLicense() {
-        switch (license){
+        switch (License){
             case "A" -> {
                 return  1;
             }
@@ -57,7 +57,7 @@ public class Driver {
      * @return the password of the Driver
      */
     public String getPassword() {
-        return password;
+        return Password;
     }
     /**
      * @return the using Truck of the Driver
@@ -111,6 +111,6 @@ public class Driver {
      * @return String representation of the Driver
      */
     public String to_String(){
-        return ("Worker number: " + worker_num + ", Name:" + name + ", Licence Level: " + license + ".");
+        return ("Worker number: " + worker_num + ", Name:" + Name + ", Licence Level: " + License + ".");
     }
 }
