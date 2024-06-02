@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import controller.Transportation_manager_controller;
 
-public class Transport_Show {
+public class Show_All_Transportations {
 
     /**
      * Print to user all the Transport that left the shipping area

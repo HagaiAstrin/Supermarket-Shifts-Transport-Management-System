@@ -10,6 +10,7 @@ public class Transport {
     private ArrayList<Document> targets;
     private double max_weight;
 
+
     /**
      * Constructor of Transport
      */
@@ -19,6 +20,35 @@ public class Transport {
         this.targets = new ArrayList<>(t);
         this.source = source;
     }
+
+
+    /**
+     * Getter max_weight
+     */
+    public double get_transport_Max_weight() {
+        return this.max_weight;
+    }
+
+
+    /**
+     * Setter id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+    /**
+     * Setter date
+     */
+    public void setDate(String date) {
+        this.date = date;
+    }
+    /**
+     * Setter leaving_time
+     */
+    public void setLeaving_time(String leaving_time) {
+        this.leaving_time = leaving_time;
+    }
+
 
     /**
      * @return false if the truck in Over weight, true if it f+good to go
@@ -42,35 +72,6 @@ public class Transport {
         }
         return bool;
     }
-
-    /**
-     * Setter id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * Getter max_weight
-     */
-    public double get_transport_Max_weight() {
-        return this.max_weight;
-    }
-
-    /**
-     * Setter date
-     */
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    /**
-     * Setter leaving_time
-     */
-    public void setLeaving_time(String leaving_time) {
-        this.leaving_time = leaving_time;
-    }
-
     /**
      * @return String represent of the Transport
      */

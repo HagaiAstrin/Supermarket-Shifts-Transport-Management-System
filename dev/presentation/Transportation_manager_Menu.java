@@ -2,22 +2,21 @@ package presentation;
 
 import java.util.Scanner;
 
-public class Transportation_manager {
+public class Transportation_manager_Menu {
     public static void transportation_manager() {
 
         Scanner reader = new Scanner(System.in);
 
   //TODO adding the password to the manager
 
-//        System.out.println("Enter password:");
-//        String password = reader.nextLine();
-//
-//        while (!password.equals("123456789")) {
-//            System.out.println("Wrong password, try again..\n");
-//            System.out.println("Enter password:");
-//            password = reader.nextLine();
-//        }
+        System.out.println("Enter password:");
+        String password = reader.nextLine();
 
+        while (!password.equals("123456789")) {
+            System.out.println("Wrong password, try again..\n");
+            System.out.println("Enter password:");
+            password = reader.nextLine();
+        }
 
         while (true) {
             StringBuilder manager_menu = new StringBuilder();
@@ -52,7 +51,7 @@ public class Transportation_manager {
                 case "2" -> add_truck();
                 case "3" -> add_store();
                 case "4" -> add_supplier();
-                case "5" -> make_transportation();
+                case "5" -> Create_transportation();
                 case "6" -> show_all_Transport();
             }
         }
@@ -64,40 +63,35 @@ public class Transportation_manager {
     public static void add_driver(){
         Add_Driver.add_driver();
     }
-
     /**
      * Adding a Truck from the user
      */
     public static void add_truck(){
         Add_Truck.add_truck();
     }
-
     /**
      * Adding a Store from the user
      */
     public static void add_store(){
         Add_Site.add_site("Store");
     }
-
     /**
      * Adding a Supplier from the user
      */
     public static void add_supplier(){
         Add_Site.add_site("Supplier");
     }
-
     /**
      * Making Transport
      */
-    public static void make_transportation(){
+    public static void Create_transportation(){
         Create_Transportation.create_Transport();
     }
-
     /**
      * Showing all Transport
      */
     public static void show_all_Transport(){
-        Transport_Show.show_all_Transportation();
+        Show_All_Transportations.show_all_Transportation();
     }
 }
 
