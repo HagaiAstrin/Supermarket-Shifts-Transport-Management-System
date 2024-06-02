@@ -56,7 +56,13 @@ public class Create_Transportation {
             }
             int result = create_Transportation(new_json);
 
-            //HeadLine Weight Solutions
+            if(result == 1){
+                JsonObject cur_store_j = pick_exist_store();
+                String cur_store = Print_to_user(cur_store_j.size(), cur_store_j);
+            }
+
+
+            //HeadLine Weight Solution
             boolean bool = true;
             while (result == 2) {
                 String sol = choose_solution();
@@ -370,4 +376,7 @@ public class Create_Transportation {
         return j.get(answer).getAsString();
     }
 
+    public static JsonObject pick_exist_store(){    //// adding
+        return Transportation_manager_controller.show_all_Stores();
+    }
 }

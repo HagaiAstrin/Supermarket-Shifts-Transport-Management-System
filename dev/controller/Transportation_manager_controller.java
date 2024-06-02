@@ -64,4 +64,6 @@ public class Transportation_manager_controller {
 
 //    Print method:
     public static JsonObject show_all_Transport(){return DataStructManager.All_transport();}
+
+    public static JsonObject show_all_Stores(){return DataStructManager.All_Stores();}   ////// adding
 }

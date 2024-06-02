@@ -225,7 +225,7 @@ public class DataStructManager {
     /**
      * Create Transportation
      * @param j - JsonObject argument
-     * @return true if the transportation is good to go, false otherwise
+     * @return 0 if the transportation is good to go, 1 if there is still Items in the Truck, 2 if there is Over Weight
      */
     public static int create_transportation(JsonObject j){
 
@@ -366,6 +366,17 @@ public class DataStructManager {
         int count = 1;
         for(Transport tran : transports){
             j.addProperty(String.valueOf(count++), tran.to_String_tran());
+        }
+        return j;
+    }
+
+    public static JsonObject All_Stores(){    ////////////// adding
+        JsonObject j = new JsonObject();
+        int count = 1;
+        for(Document d : documents){
+            if(d.getTarget().getType().equals("Store")){
+                j.addProperty(String.valueOf(count++), d.to_string());
+            }
         }
         return j;
     }
