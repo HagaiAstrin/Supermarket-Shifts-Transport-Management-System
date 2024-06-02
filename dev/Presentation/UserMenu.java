@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class UserMenu {
-    private static final Scanner scanner = new Scanner(System.in); // Use a single scanner instance
+    public static Scanner scanner = new Scanner(System.in); // Use a single scanner instance
 
     public static void Menu(){
         System.out.println("---------------------------------------------");

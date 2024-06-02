@@ -22,7 +22,7 @@ public class SHA_256_Hasher {
         return IO_Data.Authentication(user_name, hashedPassword, id, path);
     }
 
-    private String hashPassword(String password) {
+    public String hashPassword(String password) {
         try {
             // Create MessageDigest instance for SHA-256
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

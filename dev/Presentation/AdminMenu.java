@@ -2,6 +2,9 @@ package Presentation;
 
 import Controller.AdminController;
 import Controller.SystemController;
+import Domain.IO_Data;
+import Domain.JobWeeklyShift;
+import Domain.WeeklyShift;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -11,8 +14,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AdminMenu {
-    private static final Scanner scanner = new Scanner(System.in); // Use a single scanner instance
+    public static Scanner scanner = new Scanner(System.in); // Use a single scanner instance
     static int employeeInShift = 1; // Default
+
 
     public static void FirstMenu() throws InterruptedException, IOException {
         employeeInShift = Config();
@@ -45,7 +49,7 @@ public class AdminMenu {
         }
     }
 
-    private static int Config() {
+    public static int Config() {
         System.out.println("Hello Manager,\nCould you please specify the number of employees needed for each role in a shift?");
         while (true) {
             try {
@@ -98,6 +102,7 @@ public class AdminMenu {
                         break;
                     case 6:
                         ShiftInteraction();
+                        break;
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }
@@ -145,6 +150,8 @@ public class AdminMenu {
                 switch (choice) {
                     case 1:
                         System.out.println(AdminController.printAllTypeWeek());
+                        //WeeklyShift.printWeeklyShifts(jobWeeklyShift.getWeeklyShifts());
+                        WeeklyShift.exportShiftsToCSV(WeeklyShift.shiftByJob);
                         break;
 
                     case 2:
@@ -172,6 +179,7 @@ public class AdminMenu {
                             System.out.println("Finish and try again later");
                             break;
                         } // if it will continue it means the setup is finished
+                        break;
 
                         // TODO
                         // save Employee Presences
@@ -179,7 +187,7 @@ public class AdminMenu {
                         // ask if he is finish and want also to save the week
                     default:
                         System.out.println("Invalid choice. Please try again.");
-
+                        break;
                 }
             }
             catch (Exception e){
@@ -234,7 +242,7 @@ public class AdminMenu {
 
     }
 
-    private static Integer IOJobShiftMenu() throws IOException{
+    public static Integer IOJobShiftMenu() throws IOException{
 
         while (true){
             try {
@@ -255,7 +263,7 @@ public class AdminMenu {
         }
     }
 
-    private static List<Integer> iOShiftMenu() throws IOException{
+    public static List<Integer> iOShiftMenu() throws IOException{
         List <Integer> userInput = new ArrayList<>();
         while (true){
             try {

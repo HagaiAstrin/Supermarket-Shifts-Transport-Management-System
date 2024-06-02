@@ -8,13 +8,17 @@ import java.util.List;
 
 public class JobWeeklyShift {
     private final JobTypeEnum JobName;
-    private ArrayList<Employee>[][] WeeklyShifts;
+    private ArrayList[][] WeeklyShifts;
     protected ArrayList<Employee> PotentialEmployee;
 
 
+    public ArrayList<Employee>[][] getWeeklyShifts() {
+        return this.WeeklyShifts;
+    }
+
     public JobWeeklyShift(JobTypeEnum jobName) {
         this.JobName = jobName;
-        this.WeeklyShifts = new ArrayList[IO_Data.amount_days][IO_Data.amount_shifts]; // Initializes a 5x2 array with nulls
+        WeeklyShifts = new ArrayList[IO_Data.amount_shifts][IO_Data.amount_days]; // Initializes a 5x2 array with nulls
         this.PotentialEmployee = new ArrayList<>();
 
         for (Integer id : IO_Data.currEmployees.keySet()) {
@@ -30,7 +34,7 @@ public class JobWeeklyShift {
     }
     protected StringBuilder getWorkingShiftString(int day, int shift){
         StringBuilder output = new StringBuilder();
-        ArrayList<Employee> emArray = WeeklyShifts[day][shift]; // getJobWeeklyShift checks day and shift input
+        ArrayList<Employee> emArray = WeeklyShifts[shift][day]; // getJobWeeklyShift checks day and shift input
         if (emArray == null){
             output.append("No Employee\n");
             return output;
@@ -46,17 +50,17 @@ public class JobWeeklyShift {
         for (int day = 0; day < IO_Data.amount_days; day++) {
             for (int shift = 0; shift < IO_Data.amount_shifts; shift++) {
                 //There are no enough employee in the shift
-                if (WeeklyShifts[day][shift] == null || WeeklyShifts[day][shift].size() != amount) {
+                if (WeeklyShifts[shift][day] == null || WeeklyShifts[shift][day].size() != amount) {
                     throw new Exception("There are no enough employee in " + JobName.toString());  // TODO
                 }
             }
         }
     }
 
-    protected List<JsonObject> getEmployeeArray(int day, int shift) {
+    public List<JsonObject> getEmployeeArray(int day, int shift) {
         List<JsonObject> ja = new ArrayList<>();
         for (Employee e : PotentialEmployee){
-            if (e.WeekPreferences[day][shift].equals("1")){
+            if (e.WeekPreferences[shift][day].equals("1")){
                 ja.add(e.toJson());
             }
         }
@@ -123,14 +127,14 @@ public class JobWeeklyShift {
         if (day >= 0 && day < IO_Data.amount_days && shift >= 0 && shift < IO_Data.amount_shifts) {
             //Create Array In the slot
             ArrayList<Employee> specificShift;
-            if (WeeklyShifts[day][shift] == null){
+            if (WeeklyShifts[shift][day] == null){
                 specificShift = new ArrayList<>();
             }
             else{
-                specificShift = WeeklyShifts[day][shift];
+                specificShift = WeeklyShifts[shift][day];
             }
             specificShift.add(IO_Data.currEmployees.get(id));
-            WeeklyShifts[day][shift] = specificShift;
+            WeeklyShifts[shift][day] = specificShift;
             return;
         }
         throw new RuntimeException("Invalid day or shift value: day=" + day + ", shift=" + shift);
@@ -140,7 +144,7 @@ public class JobWeeklyShift {
         if (!(day >= 0 && day < IO_Data.amount_days && shift >= 0 && shift < IO_Data.amount_shifts)){
             throw new RuntimeException("Invalid day or shift value: day=" + day + ", shift=" + shift);
         }
-        ArrayList<Employee> specificShift = WeeklyShifts[day][shift];
+        ArrayList<Employee> specificShift = WeeklyShifts[shift][day];
         if (specificShift != null){
             for (Employee e : specificShift){
                 if (e.getId().equals(id + "")){
@@ -151,4 +155,9 @@ public class JobWeeklyShift {
         }
         return false;
     }
+
+    public String getJobType() {
+        return JobName.toString();
+    }
+
 }

@@ -15,6 +15,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class Menu {
+    public static Scanner scanner;
+
     /**
      * Adding employee to the database.
      */

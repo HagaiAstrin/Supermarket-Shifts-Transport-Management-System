@@ -12,13 +12,19 @@ import com.google.gson.JsonObject;
 
 
 public class IO_Data {
-    protected static Map<Integer, Employee> currEmployees = new HashMap<>();
+    public static Map<Integer, Employee> currEmployees = new HashMap<>();
 //    protected static Map<Integer, String[][]> WeekPreferences = new HashMap<>();
     static boolean flag = false;
     static int amount_days = 5;
     static int amount_shifts = 2;
     public static boolean isAdmin = false; // for user menu
     public static String employeeID; // for user interactions with his data
+    public static String branch = ""; // Where is the branch located.
+
+    public static List<Employee> GetCurrEmployees() {
+        Collection<Employee> employeeCollection = currEmployees.values();
+        return new ArrayList<>(employeeCollection);
+    }
 
     public static List<JsonObject> getEmployeeHowCanWork(int job, int day, int shift) {
             return WeeklyShift.getEmployeeForShift(job, day,shift);
@@ -64,7 +70,7 @@ public class IO_Data {
         String csvSplitBy = ",";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        try (BufferedReader br = new BufferedReader(new FileReader(Constants.PATH_EMPLOYEES))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Constants.DEV + branch + Constants.PATH_EMPLOYEE))) {
             br.readLine(); // Skip the header line
             while ((line = br.readLine()) != null) {
                 // Use comma as separator
@@ -121,7 +127,7 @@ public class IO_Data {
         String[][] preference = new String[amount_shifts][amount_days];
         String line;
         String csvSplitBy = ",";
-        String empSpecificPath = Constants.PATH_DATA_Preferences + id + ".csv";
+        String empSpecificPath = Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + id + ".csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(empSpecificPath))) {
             br.readLine(); // Skip the header line
@@ -188,7 +194,7 @@ public class IO_Data {
         String header = null;
 
         // Read the CSV file
-        try (BufferedReader br = new BufferedReader(new FileReader(Constants.PATH_EMPLOYEES))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Constants.DEV + branch + Constants.PATH_EMPLOYEE))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (header == null) {
@@ -204,7 +210,7 @@ public class IO_Data {
         }
 
         // Write the updated data back to the CSV file
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Constants.PATH_EMPLOYEES))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(Constants.DEV + branch + Constants.PATH_EMPLOYEE))) {
             for (String line : lines) {
                 bw.write(line);
                 bw.newLine();
@@ -279,7 +285,7 @@ public class IO_Data {
     }
 
     public static void addEmployeeToCSV(JsonObject employeeJson) throws IOException {
-        try (FileWriter writer = new FileWriter(Constants.PATH_EMPLOYEES, true)) {
+        try (FileWriter writer = new FileWriter(Constants.DEV + branch + Constants.PATH_EMPLOYEE, true)) {
             writer.append(employeeJsonToCSVString(employeeJson));
             writer.append("\n");
         }
@@ -323,7 +329,7 @@ public class IO_Data {
     }
 
     public static String[][] GetPreferencesFromCSV(){
-        String path = Constants.PATH_DATA_Preferences + IO_Data.employeeID + ".csv";
+        String path = Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + IO_Data.employeeID + ".csv";
         List<String[]> data = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
@@ -346,7 +352,7 @@ public class IO_Data {
     }
 
     public static void UpdatePreferencesToCSV(String[][] preferences){
-        String path = Constants.PATH_DATA_Preferences + IO_Data.employeeID + ".csv";
+        String path = Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + IO_Data.employeeID + ".csv";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             for (String[] row : preferences) {
                 bw.write(String.join(",", row));
@@ -355,5 +361,29 @@ public class IO_Data {
         } catch (IOException e) {
             System.err.println("Error writing to CSV file: " + e.getMessage());
         }
+    }
+
+    public static void SetBranchName(String s){
+        branch = s;
+    }
+
+    public static List<String> listFoldersInDirectory() {
+        File directory = new File("dev\\data");
+        List<String> folders = new ArrayList<>();
+
+        if (directory.exists() && directory.isDirectory()) {
+            File[] files = directory.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        folders.add(file.getName());
+                    }
+                }
+            }
+        } else {
+            return null;
+        }
+
+        return folders;
     }
 }

@@ -2,6 +2,7 @@ package Presentation;
 import Domain.IO_Data;
 import Controller.*;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Program {
@@ -10,7 +11,7 @@ public class Program {
 
     }
 
-    private final Scanner scanner = new Scanner(System.in); // Use a single scanner instance
+    public static Scanner scanner = new Scanner(System.in); // Use a single scanner instance
 
     boolean firstTime = true;
 
@@ -19,7 +20,34 @@ public class Program {
         program.Menu();
     }
 
+    public static void SelectBranch(){
+        List<String> branches = IO_Data.listFoldersInDirectory();
+        if(branches == null) {
+            System.out.println("Can't find branches");
+            return;
+        }
+        int branch_choice;
+        while(true){
+            System.out.println("Please select branch:");
+            for(int i = 0; i < branches.size(); i++){
+                System.out.println(i + ". " +branches.get(i));
+            }
+            System.out.print("Enter your choice: ");
+            branch_choice = scanner.nextInt();
+            scanner.nextLine();
+            if(branch_choice < 0 || branch_choice > branches.size()){
+                System.out.println("Invalid choice. Please try again.");
+            }
+            else{
+                break;
+            }
+        }
+        //TODO: Move through controller
+        IO_Data.SetBranchName(branches.get(branch_choice));
+    }
+
     public void Menu() throws IOException, InterruptedException {
+        SelectBranch();
         login();
     }
 
@@ -34,7 +62,7 @@ public class Program {
         System.out.println("--------------------------------------------------------------------------------------");
     }
 
-    private void login() throws IOException, InterruptedException {
+    public void login() throws IOException, InterruptedException {
         logo();
 
 
@@ -73,7 +101,7 @@ public class Program {
                 else{ AdminMenu.Menu(); }
                 break;
             } else {
-                System.out.println("Invalid username or password. Try again.");
+                System.out.println("Wrong input, please try again: ");
                 UsernamePassword = UserPassInput();
             }
         }

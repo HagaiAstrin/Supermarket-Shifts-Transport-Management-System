@@ -28,7 +28,7 @@ public class Printer {
         return str;
     }
 
-    private static String[][] convertMatrix(String[][] matrix) {
+    public static String[][] convertMatrix(String[][] matrix) {
         String[][] friendlyMatrix = new String[matrix.length][matrix[0].length];
 
         for (int i = 0; i < matrix.length; i++) {
