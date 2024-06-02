@@ -14,11 +14,11 @@ public class Add_Item {
         System.out.println("\nPlease enter Item:");
 
         System.out.println("Name of the item:");
-        j.addProperty("Name", reader.next());
+        j.addProperty("Name", reader.nextLine());
 
         while (true) {
             System.out.println("\nWeight of the item:");
-            String Weight = reader.next();
+            String Weight = reader.nextLine();
             try {
                 Double.parseDouble(Weight);
                 j.addProperty("Weight", Weight);
@@ -30,7 +30,7 @@ public class Add_Item {
 
         while (true) {
             System.out.println("\nAmount of the items");
-            String Amount = reader.next();
+            String Amount = reader.nextLine();
             try {
                 Integer.parseInt(Amount);
                 j.addProperty("Amount", Amount);
@@ -39,6 +39,6 @@ public class Add_Item {
                 System.out.println("\nWrong input! try again..");
             }
         }
-        Transportation_manager_controller.create_items_list(j);
+        Transportation_manager_controller.create_items_list(j, "Supplier");
     }
 }

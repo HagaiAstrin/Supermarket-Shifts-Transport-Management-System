@@ -1,5 +1,9 @@
 package domain;
 import java.util.ArrayList;
+import java.util.Map;
+
+import static domain.DataStructManager.all_items;
+
 public class Transport {
     private int id;
     private String date;
@@ -28,8 +32,6 @@ public class Transport {
     public double get_transport_Max_weight() {
         return this.max_weight;
     }
-
-
     /**
      * Setter id
      */
@@ -48,13 +50,11 @@ public class Transport {
     public void setLeaving_time(String leaving_time) {
         this.leaving_time = leaving_time;
     }
-
-
     /**
      * @return false if the truck in Over weight, true if it f+good to go
      */
-    public boolean Is_Over_Weight() {
-        boolean bool = true;
+    public int Is_Over_Weight() {
+        int result = 0;
         double count = truck.getNet_weight();
         for (Document d : targets) {
             Site new_site = d.getTarget();
@@ -64,14 +64,19 @@ public class Transport {
                     max_weight = count - truck.getNet_weight();
                 }
                 if (count > truck.getMax_weight()) {
-                    bool = false;
+                    result = 2;
                 }
             } else {
-
                 count -= d.getDoc_weight();
             }
         }
-        return bool;
+        if (result == 2)
+            return result;
+
+        if (count != truck.getNet_weight())
+            return  1;
+
+        return result;
     }
     /**
      * @return String represent of the Transport
@@ -101,6 +106,9 @@ public class Transport {
             s = "           Address : "+site.getAddress()+"\n           " +
                     "Contact name : "+site.getContact()+"\n           Phone : "+site.getPhone()+"\n"+
                     "           Shipping weight : "+d.getDoc_weight()+"\n\n";
+            for (Map.Entry <Item, Integer> iter: d.getItem_map().entrySet()){
+                System.out.println(iter.getKey().to_string() + ", Amount: " + iter.getValue());
+            }
             new_s.append(s);
         }
         return new_s.toString();

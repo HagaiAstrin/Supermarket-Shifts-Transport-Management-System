@@ -1,6 +1,5 @@
 package domain;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -21,6 +20,8 @@ public class DataStructManager {
     public static double current_max_transport;
     private static int count_good_transport = 1000;
 
+
+
 //    Driver's methods:
 
     /**
@@ -36,7 +37,6 @@ public class DataStructManager {
         drivers.add(new_driver);
 
     }
-
     /**
      * Checking name and password of the driver
      * @param j - JsonObject argument
@@ -107,7 +107,6 @@ public class DataStructManager {
         map.put("Supplier",new HashMap<>());
         manager_Map.put(Shipping_area, map);
     }
-
     /**
      * Adding new site in specific Shipping_area to manager_Map
      * @param j - JsonObject argument
@@ -142,7 +141,6 @@ public class DataStructManager {
             }
         }
     }
-
     /**
      * Adding Truck to DataStruct
      * @param j - JsonObject argument
@@ -164,18 +162,37 @@ public class DataStructManager {
      * Create new Item list to order
      * @param j - JsonObject argument
      */
-    public static void create_items_list(JsonObject j) {
+    public static void create_items_list(JsonObject j, String s) {
 
-        String name = j.get("Name").getAsString();
+        switch (s){
+            case "Supplier": {
 
-        double weight = j.get("Weight").getAsDouble();
-        int amount = j.get("Amount").getAsInt();
+                String name = j.get("Name").getAsString();
 
-        Item new_item = new Item(name, weight);
+                double weight = j.get("Weight").getAsDouble();
+                int amount = j.get("Amount").getAsInt();
 
-        items.put(new_item, amount);
-        all_items.put(new_item, amount);
+                Item new_item = new Item(name, weight);
+                items.put(new_item, amount);
 
+                try{
+                    all_items.get(new_item);
+                    all_items.put(new_item, all_items.get(new_item) + amount);
+                }
+                catch (Exception e){
+                    all_items.put(new_item, amount);
+                }
+                break;
+            }
+            case "Store": {
+                for (Map.Entry<Item, Integer> iter: all_items.entrySet()){
+                    if (iter.getKey().to_string().equals(j.get("Item").getAsString())) {
+                        items.put(iter.getKey(), j.get("Amount").getAsInt());
+                        iter.setValue(iter.getValue() - j.get("Amount").getAsInt());
+                    }
+                }
+            }
+        }
     }
     /**
      * Create new Document
@@ -201,7 +218,7 @@ public class DataStructManager {
      * @param j - JsonObject argument
      * @return true if the transportation is good to go, false otherwise
      */
-    public static boolean create_transportation(JsonObject j){
+    public static int create_transportation(JsonObject j){
 
         String source = j.get("Source").getAsString();
 
@@ -210,23 +227,25 @@ public class DataStructManager {
                 for (Truck t: trucks){
                     if (t.to_String().equals(j.get("Truck").getAsString())){
                         Transport new_transport = new Transport(t, d, source, documents);
-                        boolean result = new_transport.Is_Over_Weight();
+                        int result = new_transport.Is_Over_Weight();
+
                         current_max_transport = new_transport.get_transport_Max_weight();
-                        if (result) {
+                        if (result == 0) {
                             new_transport.setId(count_good_transport++);
+                            all_items.clear();
                             documents.clear();
                             d.setHold(true);
                             t.setHold(true);
                             d.setUsing_truck(t);
                             d.setTran(new_transport);
-                            return true;
+                            return 0;
                         }
-                        return false;
+                        return result;
                     }
                 }
             }
         }
-        return false;
+        return 2;
     }
 
 //    Selection methods:
@@ -307,6 +326,24 @@ public class DataStructManager {
             j.addProperty(String.valueOf(count++), iter.getValue().to_string());
         }
         return j;
+    }
+    public static JsonObject choose_items(){
+        JsonObject j = new JsonObject();
+        int count = 1;
+
+        for (Map.Entry<Item, Integer> iter: all_items.entrySet()){
+            if (iter.getValue() != 0)
+                j.addProperty(String.valueOf(count++),iter.getKey().to_string());
+        }
+        return j;
+    }
+    public static int amount_items(String s){
+
+        for (Map.Entry<Item, Integer> iter: all_items.entrySet()){
+            if (iter.getKey().to_string().equals(s))
+                return iter.getValue();
+        }
+        return 0;
     }
 
 

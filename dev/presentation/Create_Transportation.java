@@ -54,12 +54,11 @@ public class Create_Transportation {
                     a = reader.nextLine();
                 }
             }
-            boolean result = create_Transportation(new_json);
-
+            int result = create_Transportation(new_json);
 
             //HeadLine Weight Solutions
             boolean bool = true;
-            while (!result) {
+            while (result == 2) {
                 String sol = choose_solution();
                 switch (sol) {
 
@@ -76,12 +75,17 @@ public class Create_Transportation {
                 if(!bool) break;
                 result = create_Transportation(new_json);
             }
-            if(bool) {
+            if (result == 1){
+                System.out.println("\nThere are still products in the truck!");
+                bool = false;
+            }
+
+            if(bool)
                 System.out.println("\nTransportation added successfully!\n");
-            }
-            else{
+
+            else
                 System.out.println("\nThe Transportation canceled.\n");
-            }
+
             System.out.println("Would you like to make a new Transportation?");
             System.out.println("Enter 'yes' or 'no':");
             answer = reader.nextLine();
@@ -160,6 +164,9 @@ public class Create_Transportation {
                 String it = "yes";
                 while (it.equals("yes")) {
                     Add_Item.add_items();
+
+                    System.out.println("\nItem added successfully!\n");
+
                     System.out.println("\nDo you want to add another item?\nEnter 'yes' or 'no'.");
                     it = reader.next();
                     while (!it.equals("yes") && !it.equals("no")) {
@@ -172,16 +179,47 @@ public class Create_Transportation {
             }
 
             case "2" -> {
+                JsonObject Item_j = new JsonObject();
+
                 String store = choose_store(area);
                 String it = "yes";
                 while (it.equals("yes")) {
-                    Add_Item.add_items();
-                    System.out.println("\nDo you want to another add item?\nEnter 'yes' or 'no'.");
-                    it = reader.next();
-                    while (!it.equals("yes") && !it.equals("no")) {
-                        System.out.println("\nWrong input!, try again..");
-                        System.out.println("\nDo you want to add another item?\nEnter 'yes' or 'no'.");
+
+                    JsonObject j = Transportation_manager_controller.choose_items();
+
+                    if (j.size() != 0) {
+
+                        String item = Print_to_user(j.size(), j);
+
+                        int amount = Transportation_manager_controller.amount_items(item);
+
+                        System.out.println();
+
+                        System.out.println("Please enter amount: (The maximum products you can order is - " + amount + ").");
+                        int a = reader.nextInt();
+
+                        while (a > amount) {
+                            System.out.println("\nYou tried to order too much of this product!, try again..");
+                            System.out.println("Please enter amount:");
+                            a = reader.nextInt();
+                        }
+                        Item_j.addProperty("Item", item);
+                        Item_j.addProperty("Amount", String.valueOf(a));
+
+                        Transportation_manager_controller.create_items_list(Item_j, "Store");
+
+                        System.out.println("\nItem added successfully!\n");
+                        System.out.println("\nDo you want to  add another item?\nEnter 'yes' or 'no'.");
                         it = reader.next();
+                        while (!it.equals("yes") && !it.equals("no")) {
+                            System.out.println("\nWrong input!, try again..");
+                            System.out.println("\nDo you want to add another item?\nEnter 'yes' or 'no'.");
+                            it = reader.next();
+                        }
+                    }
+                    else {
+                        System.out.println("There are no more product in the truck!");
+                        break;
                     }
                 }
                 create_document(store, "Store", area);
@@ -200,7 +238,7 @@ public class Create_Transportation {
 
         Transportation_manager_controller.create_document(j);
     }
-    public static boolean create_Transportation(JsonObject j) {
+    public static int create_Transportation(JsonObject j) {
         return Transportation_manager_controller.create_transport(j);
     }
 
@@ -317,7 +355,7 @@ public class Create_Transportation {
                 System.out.println("press " + i + " for - " + j.get(String.valueOf(i)));
             }
 
-            answer = reader.next();
+            answer = reader.nextLine();
 
             try {
                 Integer.parseInt(answer);

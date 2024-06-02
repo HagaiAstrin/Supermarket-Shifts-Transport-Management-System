@@ -17,13 +17,13 @@ public class Transportation_manager_controller {
     }
 
 //  Creation methods:
-    public static void create_items_list(JsonObject j){
-        DataStructManager.create_items_list(j);
+    public static void create_items_list(JsonObject j, String s){
+        DataStructManager.create_items_list(j, s);
     }
     public static void create_document(JsonObject j){
        DataStructManager.create_document(j);
     }
-    public static boolean create_transport(JsonObject j){return DataStructManager.create_transportation(j);}
+    public static int create_transport(JsonObject j){return DataStructManager.create_transportation(j);}
 
 //  Selection methods:
     public static JsonObject choose_truck(){
@@ -45,8 +45,15 @@ public class Transportation_manager_controller {
     public static JsonObject Choose_Site_Target(){
         return Solutions.Choose_Drop_Target();
     }
+    public static JsonObject choose_items(){
+        return DataStructManager.choose_items();
+    }
+    public static int amount_items(String s){
+        return DataStructManager.amount_items(s);
+    }
 
-//   Solution methods:
+
+    //   Solution methods:
     public static void drop_Site(String a){Solutions.drop_Site(a);}
     public static void replace_Documents(String s){Solutions.replace_documents(s);}
     public static JsonObject get_Items_Json(String a){
