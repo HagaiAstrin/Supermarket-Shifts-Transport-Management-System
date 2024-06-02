@@ -2,7 +2,7 @@ package Presentation;
 
 import Controller.AdminController;
 import Controller.SystemController;
-import Domain.JobTypeEnum;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -100,6 +100,7 @@ public class AdminMenu {
                         break;
                     case 6:
                         ShiftInteraction();
+                        break;
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }

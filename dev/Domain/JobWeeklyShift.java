@@ -111,7 +111,7 @@ public class JobWeeklyShift {
 
     public String getJobName() {
         return JobName.toString();
-    }
+    } // TODO delete uml
 
     public JobTypeEnum getJobNameEnum() {
         return JobName;

@@ -1,8 +1,6 @@
 package Controller;
 
-import Domain.Constants;
-import Domain.Employee;
-import Domain.SHA_256_Hasher;
+import Domain.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -22,13 +20,27 @@ public class SystemController {
     public static void Logout(){
 
     }
+
     public static JsonObject ConvertEmployeeToJson(Employee employee){
         Gson gson = new Gson();
         return gson.toJsonTree(employee).getAsJsonObject();
-    }
+    } // TODO check if it in use if not delete it
 
     public static Employee ConvertFronJsonToEmployee(JsonObject json){
         Gson gson = new Gson();
         return gson.fromJson(json, Employee.class);
     }
+    public static void setEmployeeIDIOData(String setID){
+        IO_Data.SetEmployeeID(setID);
+    }
+
+    public static String[] getEnumArray(){
+        JobTypeEnum[] enumArray = JobTypeEnum.values();
+        String[] array = new String[enumArray.length];
+        for (int i = 0; i < enumArray.length; i++) {
+            array[i] = enumArray[i].toString();
+        }
+        return array;
+    }
+
 }
