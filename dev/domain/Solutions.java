@@ -93,14 +93,25 @@ public class Solutions {
     public static void drop_Site(String a){
         for(Document d : documents){
             if(d.to_string().equals(a)){
-                if (d.getTarget().getType().equals("Supplier")){
-
-                }
                 for(Map.Entry<Item, Integer> entry : d.getItem_map().entrySet()){
                     items.remove(entry.getKey());
+                    all_items.remove(entry.getKey());
                 }
                 documents.remove(d);
+                if (d.getTarget().getType().equals("Supplier")){
+                    for (Map.Entry<Item, Integer> iter : d.getItem_map().entrySet()){
+                        for(Document doc : documents){
+                            for (Map.Entry<Item, Integer> item : doc.getItem_map().entrySet()){
+                                if (item.getKey().to_string().equals(iter.getKey().to_string())){
+                                    doc.getItem_map().remove(item.getKey());
+                                }
+                            }
+                        }
+                    }
+                }
+                else{
 
+                }
             }
         }
     }
