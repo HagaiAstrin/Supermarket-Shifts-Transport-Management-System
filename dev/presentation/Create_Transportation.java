@@ -130,22 +130,15 @@ public class Create_Transportation {
 
         return Print_to_user(new_areas.size(), new_areas);
     }
-    public static String choose_supplier(String area) {
+    public static String choose_supplier_or_store_pres(String area, String type) {
 
-        System.out.println("\nPlease choose a Supplier:");
+        System.out.println("\nPlease choose a " + type + " :");
 
-        JsonObject new_suppliers = Transportation_manager_controller.choose_supplier(area);
+        JsonObject new_suppliers = Transportation_manager_controller.choose_supplier_or_store(area, type);
 
         return Print_to_user(new_suppliers.size(), new_suppliers);
     }
-    public static String choose_store(String area) {
 
-        System.out.println("\nPlease choose a Store:");
-
-        JsonObject new_stores = Transportation_manager_controller.choose_store(area);
-
-        return Print_to_user(new_stores.size(), new_stores);
-    }
     public static void choose_site(String area) {
 
         Scanner reader = new Scanner(System.in);
@@ -167,7 +160,7 @@ public class Create_Transportation {
         //HeadLine Supplier / Store choose
         switch (site) {
             case "1" -> {
-                String supplier = choose_supplier(area);
+                String supplier = choose_supplier_or_store_pres(area, "Supplier");
                 String it = "yes";
                 while (it.equals("yes")) {
                     Add_Item.add_items();
@@ -188,7 +181,7 @@ public class Create_Transportation {
             case "2" -> {
                 JsonObject Item_j = new JsonObject();
 
-                String store = choose_store(area);
+                String store = choose_supplier_or_store_pres(area, "Store");
                 String it = "yes";
                 while (it.equals("yes")) {
 

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static domain.DataStructManager.all_items;
+import static domain.DataStructManager.documents;
 
 public class Transport {
     private int id;
@@ -44,6 +45,11 @@ public class Transport {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public void del_Target(Document d){
+        this.targets.remove(d);
+    }
+
     /**
      * Setter leaving_time
      */

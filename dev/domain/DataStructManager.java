@@ -218,7 +218,8 @@ public class DataStructManager {
                 Map<Item, Integer> new_map = new HashMap<>(items);
                 Document d = new Document(iter.getValue(), new_map);
                 items.clear();
-                documents.add(d);
+                if(!d.getItem_map().isEmpty())
+                    documents.add(d);
             }
         }
     }
@@ -310,31 +311,19 @@ public class DataStructManager {
         return j;
     }
     /**
-     * Choose Supplier from DataStruct
+     * Choose Supplier or Store from DataStruct
      * @param area - the selected Area
      * @return JsonObject represent the all the Supplier inside the Area
      */
-    public static JsonObject choose_supplier(String area){
+    public static JsonObject choose_supplier_or_store_from_Data(String area, String type){
         JsonObject j = new JsonObject();
         int count = 1;
-        for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Supplier").entrySet()) {
+        for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get(type).entrySet()) {
             j.addProperty(String.valueOf(count++), iter.getValue().to_string());
         }
         return j;
     }
-    /**
-     * Choose Store from DataStruct
-     * @param area - the selected Area
-     * @return JsonObject represent the all the Store inside the Area
-     */
-    public static JsonObject choose_store(String area){
-        JsonObject j = new JsonObject();
-        int count = 1;
-        for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get("Store").entrySet()) {
-            j.addProperty(String.valueOf(count++), iter.getValue().to_string());
-        }
-        return j;
-    }
+
     public static JsonObject choose_items(){
         JsonObject j = new JsonObject();
         int count = 1;

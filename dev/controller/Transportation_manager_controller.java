@@ -35,12 +35,12 @@ public class Transportation_manager_controller {
     public static JsonObject choose_area(){
         return DataStructManager.choose_area();
     }
-    public static JsonObject choose_supplier(String a){
-        return DataStructManager.choose_supplier(a);
+    public static JsonObject choose_supplier_or_store(String a, String type){
+        return DataStructManager.choose_supplier_or_store_from_Data(a, type);
     }
-    public static JsonObject choose_store(String a){
-        return DataStructManager.choose_store(a);
-    }
+//    public static JsonObject choose_store(String a){
+//        return DataStructManager.choose_store(a);
+//    }
     public static JsonObject choose_good_Truck(){return Solutions.get_Truck_Json();}
     public static JsonObject Choose_Supplier_Target(){
         return Solutions.Choose_Drop_Target();
