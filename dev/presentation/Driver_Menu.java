@@ -51,26 +51,31 @@ public class Driver_Menu {
             new_s.append(s);
             if (d != null) {
                 new_s.append("\nYou got a Transportation list!\n");
-                System.out.println(d);
+                new_s.append(d);
             }
             new_s.append("\nWhat do you want to do?\n");
             new_s.append("Press '1' to - Report on leaving\n");
             new_s.append("Press '2' to - Report on back");
+            new_s.append("Press '9' to - Back to menu");
 
             System.out.println(new_s);
             String answer = reader.nextLine();
 
-            while (!answer.equals("1") && !answer.equals("2")) {
+            while (!answer.equals("1") && !answer.equals("2") && !answer.equals("9") ) {
                 System.out.println("\nWrong input, try again..\n");
                 System.out.println(new_s);
 
                 answer = reader.nextLine();
 
             }
+            if (answer.equals("9"))
+                break;
+
             switch (answer) {
                 case "1" -> leaving(new_Json);
                 case "2" -> back(new_Json);
             }
+
             System.out.println("\nDo you want to do something else?");
             System.out.println("Press 'yes' to continue in the system");
             a = reader.nextLine();
