@@ -43,7 +43,6 @@ public class Driver_Menu {
         }
         StringBuilder d = (Driver_controller.Print_document(new_Json));
 
-        //System.out.println(d.toString());
 
         String a = "yes";
         while (a.equals("yes")) {
