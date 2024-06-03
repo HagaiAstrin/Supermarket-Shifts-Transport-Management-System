@@ -47,8 +47,9 @@ public class Solutions {
     public static JsonObject Choose_Drop_Target() {
         JsonObject j = new JsonObject();
         int count = 1;
-        for (Document d : DataStructManager.documents) {
-            j.addProperty(String.valueOf(count++), d.to_string());
+        for (Document d : DataStructManager.documents) {  /////  BBZZZZZ
+            if (d.getTarget().getType().equals("Supplier"))
+                j.addProperty(String.valueOf(count++), d.to_string());
         }
         return j;
     }
@@ -98,41 +99,31 @@ public class Solutions {
      * @param a - String argument represent the Site to dropped
      */
     public static void drop_Site(String a) {
+        Document document = documents.get(0);
         int count = 0;
         for (Document d : documents) {
             if (d.to_string().equals(a)) {
+                document = d;
                 documents.remove(d);
-                if (d.getTarget().getType().equals("Supplier")) {
-                    for (Map.Entry<Item, Integer> iter : d.getItem_map().entrySet()) {
-                        all_items.put(iter.getKey(), all_items.get(iter.getKey()) - iter.getValue());
-                        for (int i = count; i < documents.size(); i++) {
-                            if (documents.get(i).getTarget().getType().equals("Store")) {
-                                for (Map.Entry<Item, Integer> item : documents.get(i).getItem_map().entrySet()) {
-                                    if (item.getKey().to_string().equals(iter.getKey().to_string())) {
-                                        documents.get(i).getItem_map().remove(item.getKey());
-                                    }
-                                }
-                            }
-                        }
-                        items.remove(iter.getKey());
-                    }
-                } else {
-                    for (Map.Entry<Item, Integer> iter : d.getItem_map().entrySet()) {
-                        all_items.put(iter.getKey(), all_items.get(iter.getKey()) + iter.getValue());
-                        for (int i = 0; i < count; i++) {
-                            if (documents.get(i).getTarget().getType().equals("Supplier")) {
-                                for (Map.Entry<Item, Integer> item : documents.get(i).getItem_map().entrySet()) {
-                                    if (item.getKey().to_string().equals(iter.getKey().to_string())) {
-                                        item.setValue(item.getValue() + iter.getValue());
-                                    }
-                                }
-                            }
-                        }
-                        items.remove(iter.getKey());
-                    }
-                }
+                break;
             }
             count++;
         }
+
+        for (Map.Entry<Item, Integer> iter : document.getItem_map().entrySet()) {
+            all_items.remove(iter.getKey());
+            for (int i = count; i < documents.size(); i++) {
+                if (documents.get(i).getTarget().getType().equals("Store")) {
+                    for (Map.Entry<Item, Integer> entry : documents.get(i).getItem_map().entrySet()) {
+                        if (entry.getKey().to_string().equals(iter.getKey().to_string())) {
+                            documents.get(i).drop_Item(entry.getKey());
+                        }
+                    }
+                }
+            }
+        }
     }
 }
+
+
+

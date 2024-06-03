@@ -59,7 +59,7 @@ public class Site {
      * @return String represent of the Site
      */
     public String to_string(){
-        return ("Address: " + address + ", Name: " + name + ", Shipping area: " + shipping_area);
+        return ("Address: " + address + ", Name: " + name + ", Shipping area: " + shipping_area + ", Type: " + getType());
     }
 
 }
