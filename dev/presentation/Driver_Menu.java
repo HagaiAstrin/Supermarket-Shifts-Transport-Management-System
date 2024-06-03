@@ -85,7 +85,7 @@ public class Driver_Menu {
     public static void leaving (JsonObject j) throws InterruptedException {
         String a = Driver_controller.update_leaving(j);
         System.out.println(a);
-        if(a.equals("Have a good trip!")) TruckAnimation.print();
+        if(a.equals("Have a good trip!")) TruckAnimation.print_leave();
     }
 
     /**

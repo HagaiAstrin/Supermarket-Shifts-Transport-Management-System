@@ -33,7 +33,7 @@ public class Solutions {
         for (Document d : DataStructManager.documents) {
             if (d.to_string().equals(a)) {
                 for (Map.Entry<Item, Integer> iter : d.getItem_map().entrySet()) {
-                    new_json.addProperty(String.valueOf(count++), d.item_String(iter.getKey()));
+                    new_json.addProperty(String.valueOf(count++), (iter.getKey().to_string()));
                 }
                 break;
             }
@@ -77,21 +77,43 @@ public class Solutions {
      *
      * @param a - String represent of the Item to dropped
      */
-    public static void drop_Items(String a) {
-        boolean bool = false;
+    public static void drop_Items(String a, String b) {
+
+        int count = 0;
         for (Document d : documents) {
-            for (Map.Entry<Item, Integer> entry : d.getItem_map().entrySet()) {
-                if (d.item_String(entry.getKey()).equals(a)) {
-                    d.drop_Item(entry.getKey());
-                    if (d.getItem_map().isEmpty()) documents.remove(d);
-                    all_items.remove(entry.getKey());
-                    bool = true;
-                    break;
+            if (d.to_string().equals(b)) {
+                for (Map.Entry<Item, Integer> entry : d.getItem_map().entrySet()) {
+                    if (entry.getKey().to_string().equals(a)) {
+                        d.drop_Item(entry.getKey());
+                        all_items.remove(entry.getKey());
+                        if(d.getItem_map().isEmpty()){
+                            documents.remove(d);
+                        }
+                        break;
+                    }
+
                 }
+
+                for (int i = count; i < documents.size(); i++) {
+                    if (documents.get(i).getTarget().getType().equals("Store")) {
+                        for (Map.Entry<Item, Integer> entry : documents.get(i).getItem_map().entrySet()) {
+                            if (entry.getKey().to_string().equals(a)) {
+                                documents.get(i).drop_Item(entry.getKey());
+                                if(documents.get(i).getItem_map().isEmpty()){
+                                    documents.remove(documents.get(i));
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+                break;
             }
-            if (bool) break;
+            count++;
         }
+
     }
+
 
     /**
      * Dropped Site from Database
@@ -117,6 +139,9 @@ public class Solutions {
                     for (Map.Entry<Item, Integer> entry : documents.get(i).getItem_map().entrySet()) {
                         if (entry.getKey().to_string().equals(iter.getKey().to_string())) {
                             documents.get(i).drop_Item(entry.getKey());
+                            if(documents.get(i).getItem_map().isEmpty()){
+                                documents.remove(documents.get(i));
+                            }
                         }
                     }
                 }

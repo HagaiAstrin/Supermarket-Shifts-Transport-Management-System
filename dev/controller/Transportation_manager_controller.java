@@ -42,7 +42,7 @@ public class Transportation_manager_controller {
         return DataStructManager.choose_store(a);
     }
     public static JsonObject choose_good_Truck(){return Solutions.get_Truck_Json();}
-    public static JsonObject Choose_Site_Target(){
+    public static JsonObject Choose_Supplier_Target(){
         return Solutions.Choose_Drop_Target();
     }
     public static JsonObject choose_items(){
@@ -60,7 +60,7 @@ public class Transportation_manager_controller {
     public static JsonObject get_Items_Json(String a){
         return Solutions.get_Item_Json(a);
     }
-    public static void drop_Items(String a){Solutions.drop_Items(a);}
+    public static void drop_Items(String a, String b) {Solutions.drop_Items(a, b);}
 
 //    Print method:
     public static JsonObject show_all_Transport(){return DataStructManager.All_transport();}

@@ -275,8 +275,8 @@ public class Create_Transportation {
         String p = "yes";
         boolean bool = true;
         while (p.equals("yes")) {
-            JsonObject sol_w = Transportation_manager_controller.Choose_Site_Target();
-            System.out.println("\nWhich Site do you want to dropped ? ");
+            JsonObject sol_w = Transportation_manager_controller.Choose_Supplier_Target();
+            System.out.println("\nWhich Supplier do you want to dropped ? ");
             String site_answer = Print_to_user(sol_w.size(), sol_w);
             Transportation_manager_controller.drop_Site(site_answer);
             if(sol_w.size() - 1 == 0){
@@ -290,13 +290,14 @@ public class Create_Transportation {
         if(!bool) System.out.println("\nYou dropped all the Sits from the Transport ! ");
         return bool;
     }
+
     public static boolean Drop_Items() {
         Scanner reader = new Scanner(System.in);
 
         JsonObject j_item;
         String p = "yes";
         boolean bool = true;
-        JsonObject sol_w = Transportation_manager_controller.Choose_Site_Target();
+        JsonObject sol_w = Transportation_manager_controller.Choose_Supplier_Target();
         while (p.equals("yes")) {
             System.out.println("\nWhich Site do you want to dropped Items from ? ");
             String site_answer = Print_to_user(sol_w.size(), sol_w);
@@ -304,8 +305,8 @@ public class Create_Transportation {
             j_item = Transportation_manager_controller.get_Items_Json(site_answer);
             String item_answer = Print_to_user(j_item.size(), j_item);
 
-            Transportation_manager_controller.drop_Items(item_answer);
-            sol_w = Transportation_manager_controller.Choose_Site_Target();  //change
+            Transportation_manager_controller.drop_Items(item_answer, site_answer);
+            sol_w = Transportation_manager_controller.Choose_Supplier_Target();  //change
             if(sol_w.size() == 0){
                 bool = false;
                 break;
@@ -322,7 +323,7 @@ public class Create_Transportation {
         return Print_to_user(j.size(), j);
     }
     public static void Change_Sites(String area) {
-        JsonObject s = Transportation_manager_controller.Choose_Site_Target();
+        JsonObject s = Transportation_manager_controller.Choose_Supplier_Target();
         System.out.println("\nwhich Site you want to replace ? ");
         String site_answer = Print_to_user(s.size(), s);
         choose_site(area);
