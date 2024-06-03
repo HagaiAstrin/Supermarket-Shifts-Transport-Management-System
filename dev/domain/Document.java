@@ -67,14 +67,7 @@ public class Document {
      * @return String that represent the Document
      */
     public String to_string(){
-        return ( "ID: " + id + ", Target: " + target.getName() + ", Total weight: " + this.doc_weight + ".");
+        return ( "ID: " + id + ", Target: " + target.getName() + ", Address:"
+                + target.getAddress()  + ", Total weight: " + this.doc_weight + ".");
     }
-
-//    /**
-//     * @param t - Item argument
-//     * @return String that represent the order Item in the Document
-//     */
-//    public String item_String(Item t){
-//        return ( t.to_string() + ", Count : "+ item_map.get(t) +", Total weight : "+item_map.get(t)*t.getWeight());
-//    }
 }

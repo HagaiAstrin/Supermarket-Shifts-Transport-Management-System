@@ -106,14 +106,14 @@ public class Driver {
         StringBuilder new_s = new StringBuilder();
         int count = 1;
         for (Document d: list){
-            String s =  count + " - " + d.to_string();
+            String s =  count + " - " + d.to_string() + "\n";
             new_s.append(s);
             count ++;
         }
         return new_s;
     }
     public void setList(ArrayList<Document> list) {
-        this.list = list;
+        this.list = new ArrayList<>(list);
     }
     /**
      * @return true if the Driver availability for drive
