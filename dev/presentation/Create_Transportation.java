@@ -42,10 +42,10 @@ public class Create_Transportation {
 
             String a = "yes";
 
+            outerLoop:
             while (a.equals("yes")) {
 
                 choose_site(area);
-
                 System.out.println("\nDo you want to add another site for the transport?\nEnter 'yes' or 'no'.");
                 a = reader.nextLine();
                 while (!a.equals("yes") && !a.equals("no")) {
@@ -54,36 +54,37 @@ public class Create_Transportation {
                     a = reader.nextLine();
                 }
             }
+
             int result = create_Transportation(new_json);
 
-            if(result == 1){
-                JsonObject cur_store_j = pick_exist_store();
-                String cur_store = Print_to_user(cur_store_j.size(), cur_store_j);
-            }
-
-
-            //HeadLine Weight Solution
             boolean bool = true;
-            while (result == 2) {
-                String sol = choose_solution();
-                switch (sol) {
+            //HeadLine Weight Solution
+            while (result != 0) {
+                switch (result) {
+                    case 1 -> {
+                        System.out.println("\nThere are still products in the truck!\nPlease continue with the Transportation making");
+                        choose_site(area);
 
-                    case "1" -> Change_Sites(area);
-                    case "2" -> {
-                        if (!Change_Truck()) continue;
                     }
-                    case "3" -> {
-                        bool = Drop_sites();
-                    }
-                    case "4" -> bool = Drop_Items();
+                    case 2 -> {
+                        String sol = choose_solution();
+                        switch (sol) {
 
+                            case "1" -> Change_Sites(area);
+                            case "2" -> {
+                                if (!Change_Truck()) continue;
+                            }
+                            case "3" -> {
+                                bool = Drop_sites();
+                            }
+                            case "4" -> bool = Drop_Items();
+
+                        }
+                    }
                 }
+
                 if(!bool) break;
                 result = create_Transportation(new_json);
-            }
-            if (result == 1){
-                System.out.println("\nThere are still products in the truck!");
-                bool = false;
             }
 
             if(bool)
@@ -194,7 +195,7 @@ public class Create_Transportation {
                     JsonObject j = Transportation_manager_controller.choose_items();
 
                     if (j.size() != 0) {
-
+                        System.out.println();
                         String item = Print_to_user(j.size(), j);
 
                         int amount = Transportation_manager_controller.amount_items(item);

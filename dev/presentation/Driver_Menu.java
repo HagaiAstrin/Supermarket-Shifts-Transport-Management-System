@@ -11,7 +11,7 @@ public class Driver_Menu {
     /**
      * Driver menu in the System
      */
-    public static void driver_x() {
+    public static void driver_x() throws InterruptedException {
 
         JsonObject new_Json = new JsonObject();
 
@@ -82,9 +82,10 @@ public class Driver_Menu {
      * Update leaving
      * @param j - JsonObject argument represent the Driver
      */
-    public static void leaving (JsonObject j){
+    public static void leaving (JsonObject j) throws InterruptedException {
         String a = Driver_controller.update_leaving(j);
         System.out.println(a);
+        if(a.equals("Have a good trip!")) TruckAnimation.print();
     }
 
     /**

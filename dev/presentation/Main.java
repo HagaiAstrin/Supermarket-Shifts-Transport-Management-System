@@ -3,7 +3,7 @@ package presentation;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
 
         Scanner reader = new Scanner(System.in);
