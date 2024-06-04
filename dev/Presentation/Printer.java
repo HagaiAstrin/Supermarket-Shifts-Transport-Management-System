@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Printer {
-    // TODO: Get data as Json and print it with friendly manner.
     public static void PrintAllEmployees(List<JsonObject> employees){
         String str = "Employees List:\n";
         for(int i = 0; i < employees.size(); i++){
