@@ -10,16 +10,19 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class DataStructManager {
-    private static final Map<String, Map<String, Map<String, Site>>> manager_Map = new HashMap<>();
+    private static Map<String, Map<String, Map<String, Site>>> manager_Map = new HashMap<>();
     private static ArrayList<Truck> trucks = new ArrayList<>();
-    public static ArrayList<Driver> drivers = new ArrayList<>();
-    public static ArrayList<Transport> transports = new ArrayList<>();
+    private static ArrayList<Driver> drivers = new ArrayList<>();
+    private static ArrayList<Transport> transports = new ArrayList<>();
     public static ArrayList<Document> documents = new ArrayList<>();
-    public static Map<Item, Integer> items = new HashMap<>();
-    public static Map<Item, Integer> all_items = new HashMap<>();
+    private static Map<Item, Integer> items = new HashMap<>();
+    public static Map<Item, Integer> curr_all_items = new HashMap<>();
     public static double current_max_transport;
     private static int count_good_transport = 1000;
 
+    public static Map<Item, Integer> getItems() {
+        return items;
+    }
 
     public static Map<String, Map<String, Map<String, Site>>> getManager_Map() {
         return manager_Map;
@@ -45,8 +48,8 @@ public class DataStructManager {
         documents.add(doc);
     }
 
-    public static void remove_doc(Document doc){
-        documents.remove(doc);
+    public static void remove_doc(int i){
+        documents.remove(i);
     }
 
     public static void add_new_Site(Site s){
@@ -162,16 +165,16 @@ public class DataStructManager {
                 items.put(new_item, amount);
 
                 try{
-                    all_items.get(new_item);
-                    all_items.put(new_item, all_items.get(new_item) + amount);
+                    curr_all_items.get(new_item);
+                    curr_all_items.put(new_item, curr_all_items.get(new_item) + amount);
                 }
                 catch (Exception e){
-                    all_items.put(new_item, amount);
+                    curr_all_items.put(new_item, amount);
                 }
                 break;
             }
             case "Store": {
-                for (Map.Entry<Item, Integer> iter: all_items.entrySet()){
+                for (Map.Entry<Item, Integer> iter: curr_all_items.entrySet()){
                     if (iter.getKey().to_string().equals(j.get("Item").getAsString())) {
                         items.put(iter.getKey(), j.get("Amount").getAsInt());
                         iter.setValue(iter.getValue() - j.get("Amount").getAsInt());
@@ -200,7 +203,7 @@ public class DataStructManager {
                         current_max_transport = new_transport.get_transport_Max_weight();
                         if (result == 0) {
                             new_transport.setId(count_good_transport++);
-                            all_items.clear();
+                            curr_all_items.clear();
                             d.setList(documents);
                             documents.clear();
                             d.setHold(true);
@@ -287,7 +290,7 @@ public class DataStructManager {
         JsonObject j = new JsonObject();
         int count = 1;
 
-        for (Map.Entry<Item, Integer> iter: all_items.entrySet()){
+        for (Map.Entry<Item, Integer> iter: curr_all_items.entrySet()){
             if (iter.getValue() != 0)
                 j.addProperty(String.valueOf(count++),iter.getKey().to_string());
         }
@@ -296,7 +299,7 @@ public class DataStructManager {
 
     public static int amount_items(String s){
 
-        for (Map.Entry<Item, Integer> iter: all_items.entrySet()){
+        for (Map.Entry<Item, Integer> iter: curr_all_items.entrySet()){
             if (iter.getKey().to_string().equals(s))
                 return iter.getValue();
         }

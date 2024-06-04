@@ -42,7 +42,7 @@ public class Create_Transportation {
 
             String a = "yes";
 
-            outerLoop:
+
             while (a.equals("yes")) {
 
                 choose_site(area);
@@ -63,7 +63,7 @@ public class Create_Transportation {
                 switch (result) {
                     case 1 -> {
                         System.out.println("\nThere are still products in the truck!\nPlease continue with the Transportation making");
-                        choose_site(area);
+                        bool = false;
 
                     }
                     case 2 -> {
@@ -319,7 +319,7 @@ public class Create_Transportation {
     //TODO change site
     public static void Change_Sites(String area) {
         JsonObject s = Transportation_manager_controller.Choose_Supplier_Target();
-        System.out.println("\nwhich Site you want to replace ? ");
+        System.out.println("\nwhich Supplier you want to replace ? ");
         String site_answer = Print_to_user(s.size(), s);
         choose_site(area);
         Transportation_manager_controller.replace_Documents(site_answer);

@@ -82,7 +82,7 @@ public class Driver_Menu {
                 case "2" -> back(new_Json);
             }
 
-            System.out.println("\nDo you want to do something else?");
+            System.out.println("\n\nDo you want to do something else?");
             System.out.println("Press 'yes' to continue in the system");
             a = reader.nextLine();
         }

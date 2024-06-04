@@ -43,7 +43,7 @@ public class Transportation_manager_controller {
 //    }
     public static JsonObject choose_good_Truck(){return Solutions.get_Truck_Json();}
     public static JsonObject Choose_Supplier_Target(){
-        return Solutions.Choose_Drop_Target();
+        return Solutions.Choose_Drop_Supplier_Target();
     }
     public static JsonObject choose_items(){
         return DataStructManager.choose_items();

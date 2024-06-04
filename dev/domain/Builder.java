@@ -47,11 +47,12 @@ public class Builder {
 
         for (Map.Entry<String, Site> iter : DataStructManager.getManager_Map().get(area).get(type).entrySet()) {
             if (iter.getValue().to_string().equals(site)) {
-                Map<Item, Integer> new_map = new HashMap<>(DataStructManager.items);
-                Document d = new Document(iter.getValue(), new_map);
-                DataStructManager.clear_cur_items();
-                if (!d.getItem_map().isEmpty())
+                Map<Item, Integer> new_map = new HashMap<>(DataStructManager.getItems());
+                if (!new_map.isEmpty()) {
+                    Document d = new Document(iter.getValue(), new_map);
+                    DataStructManager.clear_cur_items();
                     DataStructManager.add_new_doc(d);
+                }
             }
         }
     }

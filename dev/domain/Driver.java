@@ -87,6 +87,7 @@ public class Driver {
      * Setter availability
      */
     public void setAvailability(boolean availability) {
+        if(!availability) this.list = null;
         this.availability = availability;
     }
     /**

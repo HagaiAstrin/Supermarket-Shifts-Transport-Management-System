@@ -2,9 +2,6 @@ package domain;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static domain.DataStructManager.all_items;
-import static domain.DataStructManager.documents;
-
 public class Transport {
     private int id;
     private String date;

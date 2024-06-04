@@ -2,6 +2,7 @@ package domain;
 
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import static domain.DataStructManager.*;
@@ -44,7 +45,7 @@ public class Solutions {
     /**
      * @return JsonObject represent the available Sites to dropped
      */
-    public static JsonObject Choose_Drop_Target() {
+    public static JsonObject Choose_Drop_Supplier_Target() {
         JsonObject j = new JsonObject();
         int count = 1;
         for (Document d : DataStructManager.getDocuments()) {
@@ -85,7 +86,7 @@ public class Solutions {
                 for (Map.Entry<Item, Integer> entry : d.getItem_map().entrySet()) {
                     if (entry.getKey().to_string().equals(a)) {
                         d.drop_Item(entry.getKey());
-                        all_items.remove(entry.getKey());
+                        curr_all_items.remove(entry.getKey());
                         if(d.getItem_map().isEmpty()){
                             documents.remove(d);
                         }
@@ -131,23 +132,41 @@ public class Solutions {
             }
             count++;
         }
-
+        ArrayList<Integer> arr = new ArrayList<>();
         for (Map.Entry<Item, Integer> iter : document.getItem_map().entrySet()) {
-            all_items.remove(iter.getKey());
+            curr_all_items.remove(iter.getKey());
             for (int i = count; i < documents.size(); i++) {
                 if (documents.get(i).getTarget().getType().equals("Store")) {
-                    for (Map.Entry<Item, Integer> entry : documents.get(i).getItem_map().entrySet()) {
-                        if (entry.getKey().to_string().equals(iter.getKey().to_string())) {
-                            documents.get(i).drop_Item(entry.getKey());
-                            if(documents.get(i).getItem_map().isEmpty()){
-                                documents.remove(documents.get(i));
-                            }
-                        }
+
+//                    Map<Item, Integer> map_to_check = documents.get(i).getItem_map();
+//                    for (Map.Entry<Item, Integer> entry : map_to_check.entrySet()) {
+//                        if (entry.getKey().to_string().equals(iter.getKey().to_string())) {   //TODO has a problem
+//                            documents.get(i).drop_Item(entry.getKey());
+//                            if (documents.get(i).getItem_map().isEmpty()) {
+//                                documents.remove(documents.get(i));
+//                            }
+//                        }
+//
+//                    }
+
+                    if(documents.get(i).getItem_map().containsKey(iter.getKey())){
+                        documents.get(i).drop_Item(iter.getKey());
+                    }
+                    if(documents.get(i).getItem_map().isEmpty()) {
+                        arr.add(i);
                     }
                 }
             }
         }
+
+        if(arr.size() > 0) {
+            for (int j = arr.size() - 1; j >= 0; j--) {
+                DataStructManager.remove_doc(arr.get(j));
+            }
+        }
+
     }
+
 }
 
 
