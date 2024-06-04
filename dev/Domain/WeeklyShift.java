@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class WeeklyShift {
     static Map<JobTypeEnum, JobWeeklyShift> shiftByJob = new HashMap<>();
+    private static final String[] DAYS = {"Sun", "Mon", "Tue", "Wed", "Thu"};
+    private static final String[] SHIFTS = {"Morning", "Evening"};
 
     public static void startWeek() {
 
@@ -110,49 +112,6 @@ public class WeeklyShift {
         return jwsInWeeklyShift;
     }
 
-
-    static public String getEmployeeIDForShift(int job) {
-        StringBuilder output = new StringBuilder();
-        if (!(job >= 0 && job < JobTypeEnum.values().length)) {
-            throw new IllegalArgumentException("Invalid job index: " + job);
-        }
-        JobTypeEnum[] jobs = JobTypeEnum.values();
-        JobTypeEnum currentJob = jobs[job];
-        ArrayList<Employee> potentialEmp = shiftByJob.get(currentJob).PotentialEmployee;
-        for (Employee e : potentialEmp) {
-            output.append(e.getName()).append("\n");
-        }
-        return output.toString();
-    } //TODO deleteUML
-
-    static public JsonObject toJson() {
-        JsonObject jsonObject = new JsonObject();
-        for (JobTypeEnum job : shiftByJob.keySet()) {
-            jsonObject.add(job.toString(), shiftByJob.get(job).toJsonWeek());
-        }
-        return jsonObject;
-    }
-
-    private static final String[] DAYS = {"Sun", "Mon", "Tue", "Wed", "Thu"};
-    private static final String[] SHIFTS = {"Morning", "Evening"};
-
-    public static void printWeeklyShifts(ArrayList<Employee>[][] weeklyShifts) {
-        System.out.println("Final Weekly Shift Schedule:");
-        System.out.println("+--------+----------+------------------------+");
-
-        for (int i = 0; i < DAYS.length; i++) {
-            for (int j = 0; j < SHIFTS.length; j++) {
-                System.out.printf("| %-6s | %-8s | ", DAYS[i], SHIFTS[j]);
-                if (weeklyShifts[j][i] != null && !weeklyShifts[j][i].isEmpty()) {
-                    System.out.println(getEmployeesString(weeklyShifts[j][i]));
-                } else {
-                    System.out.println("No employees");
-                }
-                System.out.println("+--------+----------+------------------------+");
-            }
-        }
-    }
-
     private static String getEmployeesString(ArrayList<Employee> employees) {
         StringBuilder sb = new StringBuilder();
         for (Employee employee : employees) {
@@ -193,7 +152,6 @@ public class WeeklyShift {
             System.err.println("Error writing to CSV file: " + e.getMessage());
         }
     }
-    // TODO delete UML
 }
 
 

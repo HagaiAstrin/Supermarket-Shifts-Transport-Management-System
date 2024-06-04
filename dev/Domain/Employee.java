@@ -30,31 +30,23 @@ public class Employee {
 
     public void setName(String name) {
         this.name = name;
-    } //TODO delte UML
+    }
 
     public void addJobType(JobTypeEnum jobType) {
         this.jobType.add(jobType);
-    } //TODO delte UML
+    }
 
     public void setBankID(String bankID) {
         this.bankID = bankID;
-    } //TODO delte UML
-
-
-
-    public void setContract(Contract contract) {
-        this.contract = contract;
-    } //TODO delte UML
+    }
 
     public String getBankID() {
         return bankID;
-    } //TODO delte UML
-
-
+    }
 
     public Contract getContract() {
         return contract;
-    } //TODO delte UML
+    }
 
     public Employee(String id, String name, String bankID, int salary, int restDays, LocalDate startDate,  ArrayList<JobTypeEnum> jobTypes) {
         // TODO: Fine-tune this approach
@@ -68,16 +60,15 @@ public class Employee {
     }
 
     public String toString() {
-        return "Person{Name='" + name +'}';
+        return name + " (" + id + ")" + " works as: " + jobType + " ";
     }
-
     public void setSalary(int salary) {
         contract.setGlobalSalary(salary);
-    } //TODO delte UML
+    }
 
     public void setRestDays(int restDays) {
         contract.setRestDays(restDays);
-    } //TODO delte UML
+    }
 
     public JsonObject toJson() {
         JsonObject jsonObject = new JsonObject();

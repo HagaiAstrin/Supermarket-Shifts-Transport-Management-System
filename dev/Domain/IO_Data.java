@@ -13,11 +13,9 @@ import com.google.gson.JsonObject;
 
 public class IO_Data {
     protected static Map<Integer, Employee> currEmployees = new HashMap<>();
-//    protected static Map<Integer, String[][]> WeekPreferences = new HashMap<>();
     static boolean flag = false;
     static int amount_days = 5;
     static int amount_shifts = 2;
-    public static boolean isAdmin = false; // for user menu /TODO UML
     public static String employeeID; // for user interactions with his data
     public static String branch = ""; // Where is the branch located.
 
@@ -173,9 +171,6 @@ public class IO_Data {
      * @param json of an employee
      * @return a message of the performed action.
      */
-    // TODO: Append to database.
-    // TODO: add the employee to the .csv
-    // TODO: add the employee to the List in IO_Data.
 
     /**
      * Add an Employee to the database.

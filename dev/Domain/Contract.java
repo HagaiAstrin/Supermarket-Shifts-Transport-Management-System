@@ -5,16 +5,11 @@ import java.time.LocalDate;
 public class Contract {
     LocalDate startDate;
     int salary;
-    int hourlySalary;
     int restDays;
 
     public LocalDate getStartDate() {
         return startDate;
     }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    } //TODO delete UML
 
     public int getSalary() {
         return salary;
@@ -23,14 +18,6 @@ public class Contract {
     public void setGlobalSalary(int salary) {
         this.salary = salary;
     }
-
-    public int getHourlySalary() {
-        return hourlySalary;
-    } //TODO delete uml
-
-    public void setHourlySalary(int hourlySalary) {
-        this.hourlySalary = hourlySalary;
-    } //TODO delete uml
 
     public int getRestDays() {
         return restDays;

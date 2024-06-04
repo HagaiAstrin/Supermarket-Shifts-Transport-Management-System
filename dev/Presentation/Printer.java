@@ -15,7 +15,7 @@ public class Printer {
         System.out.println(str);
     }
 
-    private static String JsonToEmployee(JsonObject employee){
+    public static String JsonToEmployee(JsonObject employee){
         String str = "";
 
         str += "\n---- ID: ";

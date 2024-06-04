@@ -29,7 +29,7 @@ public class UserMenu {
                 case 1:
                     // Call method to view personal details
                     JsonObject j =  EmployeeController.ViewPersonalData();
-                    System.out.println(j);
+                    System.out.println(Printer.JsonToEmployee(j));
                     break;
                 case 2:
                     String[][] preferences = EmployeeController.GetPreferences();

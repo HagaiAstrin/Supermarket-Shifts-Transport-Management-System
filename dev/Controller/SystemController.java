@@ -5,8 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class SystemController {
-    public SystemController() {}
-
     public boolean LoginInputValidatorAdmin(String[] input) {
         return new SHA_256_Hasher().Checker(input, Constants.DEV + IO_Data.branch + Constants.PATH_DATA_VALIDATION_ADMIN);
     }
@@ -21,17 +19,6 @@ public class SystemController {
         System.out.println("Logged out successfully.");
     }
 
-
-
-    public static JsonObject ConvertEmployeeToJson(Employee employee){
-        Gson gson = new Gson();
-        return gson.toJsonTree(employee).getAsJsonObject();
-    } // TODO check if it in use if not delete it
-
-    public static Employee ConvertFronJsonToEmployee(JsonObject json){
-        Gson gson = new Gson();
-        return gson.fromJson(json, Employee.class);
-    }
     public static void setEmployeeIDIOData(String setID){
         IO_Data.SetEmployeeID(setID);
     }

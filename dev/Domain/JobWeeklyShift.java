@@ -113,15 +113,6 @@ public class JobWeeklyShift {
         return i;
     }
 
-    public String getJobName() {
-        return JobName.toString();
-    } // TODO delete uml
-
-    public JobTypeEnum getJobNameEnum() {
-        return JobName;
-    }
-
-
     public void setWeeklyShifts(int day, int shift, int id){
         // Validate day and shift
         if (day >= 0 && day < IO_Data.amount_days && shift >= 0 && shift < IO_Data.amount_shifts) {
