@@ -114,7 +114,7 @@ public class Menu {
         System.out.println(AdminController.RemoveEmployee(id));
     }
 
-    public static void UpdateEmployeeDetails() throws IOException {
+    public static void UpdateEmployeeDetails() throws Exception {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Employee ID: ");
         String id = scanner.nextLine();
@@ -198,6 +198,7 @@ public class Menu {
             }
 
             AdminController.RemoveEmployee(id);
+            AdminController.createPreferencesNewEmp(employee);
             AdminController.AddEmployee(employee);
             //AdminController.UpdateEmployee(SystemController.ConvertEmployeeToJson(employee));
         }
