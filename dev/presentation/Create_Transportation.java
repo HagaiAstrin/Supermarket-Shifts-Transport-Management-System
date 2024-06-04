@@ -308,7 +308,7 @@ public class Create_Transportation {
             String item_answer = Print_to_user(j_item.size(), j_item);
 
             Transportation_manager_controller.drop_Items(item_answer, site_answer);
-            sol_w = Transportation_manager_controller.Choose_Supplier_Target();  //change
+            sol_w = Transportation_manager_controller.Choose_Supplier_Target();
             if(sol_w.size() == 0){
                 bool = false;
                 break;

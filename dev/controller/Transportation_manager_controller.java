@@ -18,6 +18,7 @@ public class Transportation_manager_controller {
         Builder.build_Site(j);
     }
 
+
     /**
      * Creation methods
      */
@@ -28,6 +29,7 @@ public class Transportation_manager_controller {
         Builder.build_document(j);
     }
     public static int create_transport(JsonObject j){return DataStructManager.create_transportation(j);}
+
 
     /**
      * Selection methods
@@ -44,8 +46,6 @@ public class Transportation_manager_controller {
     public static JsonObject choose_supplier_or_store(String a, String type){
         return DataStructManager.choose_supplier_or_store_from_Data(a, type);
     }
-
-
     public static JsonObject choose_good_Truck(){return Solutions.get_Truck_Json();}
     public static JsonObject Choose_Supplier_Target(){
         return Solutions.Choose_Drop_Supplier_Target();
@@ -68,6 +68,7 @@ public class Transportation_manager_controller {
         return Solutions.get_Item_Json(a);
     }
     public static void drop_Items(String a, String b) {Solutions.drop_Items(a, b);}
+
 
     /**
      * Print method:

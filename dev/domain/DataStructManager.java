@@ -249,6 +249,8 @@ public class DataStructManager {
         }
         return 2;
     }
+
+
 //    Selection methods:
     /**
      * Choose a Truck from DataStruct
@@ -266,6 +268,8 @@ public class DataStructManager {
         }
         return j;
     }
+
+
     /**
      * Choose a Driver from DataStruct
      * @param truck - String argument represent the selected Truck
@@ -290,6 +294,8 @@ public class DataStructManager {
         }
         return j;
     }
+
+
     /**
      * Choose Area from DataStruct
      * @return JsonObject of all the area in the DataStruct
@@ -302,6 +308,8 @@ public class DataStructManager {
         }
         return j;
     }
+
+
     /**
      * Choose Supplier or Store from DataStruct
      * @param area - the selected Area
