@@ -6,6 +6,10 @@ import controller.Transportation_manager_controller;
 import java.util.Scanner;
 
 public class Add_Item {
+
+    /**
+     * Add Item from the user
+     */
     public static void add_items() {
         JsonObject j = new JsonObject();
 

@@ -26,7 +26,7 @@ public class Driver_Menu {
         new_Json.addProperty("Name", name);
         new_Json.addProperty("Password", password);
 
-        String driver_name = controller.Driver_controller.check_driver(new_Json);
+        String driver_name = controller.Driver_controller.check_driver_logIn(new_Json);
 
         while (driver_name == null) {
             System.out.println("\nThe name or password are wrong, try again..\n");
@@ -39,7 +39,7 @@ public class Driver_Menu {
             new_Json.addProperty("Name", name);
             new_Json.addProperty("Password", password);
 
-            driver_name = controller.Driver_controller.check_driver(new_Json);
+            driver_name = controller.Driver_controller.check_driver_logIn(new_Json);
         }
         StringBuilder d = (Driver_controller.Print_document(new_Json));
 

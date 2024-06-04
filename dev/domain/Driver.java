@@ -118,6 +118,9 @@ public class Driver {
         return new_s;
     }
 
+    /**
+     * Setter Driver list order
+     */
     public void setList(ArrayList<Document> list) {
         if(list != null)
             this.list = new ArrayList<>(list);

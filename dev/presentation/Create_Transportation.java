@@ -8,6 +8,9 @@ import java.util.Scanner;
 public class Create_Transportation {
     private static JsonObject new_json = new JsonObject();
 
+    /**
+     * Create new Transport with the Inputs from the user
+     */
     public static void create_Transport() {
 
         Scanner reader = new Scanner(System.in);
@@ -100,7 +103,9 @@ public class Create_Transportation {
         }
     }
 
-//    Selection methods:
+    /**
+     * Selection methods from the User
+     */
     public static String choose_truck() {
 
         System.out.println("\nPlease choose an Truck:");
@@ -229,7 +234,9 @@ public class Create_Transportation {
     }
 
 
-//    Creation methods:
+    /**
+     * Creation methods
+     */
     public static void create_document(String site, String type, String area) {
         JsonObject j = new JsonObject();
 
@@ -244,7 +251,9 @@ public class Create_Transportation {
     }
 
 
-//    Solution methods:
+    /**
+     * Solution methods:
+     */
     public static String choose_solution() {
 
     Scanner reader = new Scanner(System.in);
@@ -316,7 +325,7 @@ public class Create_Transportation {
         return Print_to_user(j.size(), j);
     }
 
-    //TODO change site
+
     public static void Change_Sites(String area) {
         JsonObject s = Transportation_manager_controller.Choose_Supplier_Target();
         System.out.println("\nwhich Supplier you want to replace ? ");
@@ -347,7 +356,10 @@ public class Create_Transportation {
         return true;
     }
 
-//    Print method:
+
+    /**
+     * Prints to the user the possible choices depending on the stage he is in
+     */
     public static String Print_to_user(int size, JsonObject j) {
         Scanner reader = new Scanner(System.in);
 

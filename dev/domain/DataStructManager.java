@@ -24,34 +24,58 @@ public class DataStructManager {
         return items;
     }
 
+    /**
+     * @return the Manager Map
+     */
     public static Map<String, Map<String, Map<String, Site>>> getManager_Map() {
         return manager_Map;
     }
 
+    /**
+     * @return all the Trucks in the System
+     */
     public static ArrayList<Truck> getTrucks() {
         return trucks;
     }
 
+    /**
+     * @return all the documents in the System
+     */
     public static ArrayList<Document> getDocuments() {
         return documents;
     }
 
+    /**
+     * Add new Driver to the System
+     */
     public static void add_new_driver(Driver d){
         drivers.add(d);
     }
 
+    /**
+     * Add new Truck to the System
+     */
     public static void add_new_Truck(Truck t){
         trucks.add(t);
     }
 
+    /**
+     * Add new Document to the System
+     */
     public static void add_new_doc(Document doc){
         documents.add(doc);
     }
 
+    /**
+     * Remove Document from the System
+     */
     public static void remove_doc(int i){
         documents.remove(i);
     }
 
+    /**
+     * Add new Shipping area to the System
+     */
     public static void add_new_Site(Site s){
         Map<String, Site> map = manager_Map.get(s.getShipping_area()).get(s.getType());
         if (!map.containsKey(s.getName())) {
@@ -59,12 +83,13 @@ public class DataStructManager {
         }
     }
 
+
     /**
      * Checking name and password of the driver
      * @param j - JsonObject argument
      * @return String represent of the Driver
      */
-    public static String check_driver(JsonObject j){
+    public static String driver_log_in(JsonObject j){
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get("Password").getAsString().equals(driver.getPassword())) {
                 return driver.getName();
@@ -72,6 +97,7 @@ public class DataStructManager {
         }
         return null;
     }
+
     public static StringBuilder print_driver_doc(JsonObject j){
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get("Password").getAsString().equals(driver.getPassword())) {
@@ -100,6 +126,7 @@ public class DataStructManager {
         }
         return ("\nYou are not exist in the system!\n");
     }
+
     /**
      * Updating that the Driver leaves
      * @param j - JsonObject argument
@@ -140,6 +167,9 @@ public class DataStructManager {
     }
 
 
+    /**
+     * Clear tje current item list
+     */
     public static void clear_cur_items(){
         items.clear();
     }
@@ -297,6 +327,11 @@ public class DataStructManager {
         return j;
     }
 
+
+    /**
+     * Return the number of a specific item in the Order
+     * @param s - String Type represent the Item name
+     */
     public static int amount_items(String s){
 
         for (Map.Entry<Item, Integer> iter: curr_all_items.entrySet()){

@@ -3,13 +3,13 @@ package presentation;
 import java.util.Scanner;
 
 public class Main {
+
+    /**
+     * Start of the Program
+     */
     public static void main(String[] args) throws InterruptedException {
 
-
         Scanner reader = new Scanner(System.in);
-        CSV_reader.reader("dev/data/Drivers.csv", 1);
-        CSV_reader.reader( "dev/data/Sites.csv", 2);
-        CSV_reader.reader( "dev/data/Trucks.csv", 3);
 
         while (true) {
 
@@ -17,12 +17,13 @@ public class Main {
             menu.append("\nHello! Welcome to Super-Li Transportation system!\n");
             menu.append("press '1' if you are the Manager.\n");
             menu.append("press '2' if you are a Driver.\n");
+            menu.append("press '3' if you want to load Data.\n");
             menu.append("press '9' to exit.");
             System.out.println(menu);
 
             String type = reader.nextLine();
 
-            while (!type.equals("1") && !type.equals("2") && !type.equals("9")) {
+            while (!type.equals("1") && !type.equals("2") && !type.equals("9") && !type.equals("3")) {
 
                 System.out.println("\nWrong input! please try again..");
                 System.out.println(menu);
@@ -32,6 +33,11 @@ public class Main {
             switch (type) {
                 case "1" -> Transportation_manager_Menu.transportation_manager();
                 case "2" -> Driver_Menu.driver_x();
+                case "3" -> {
+                    CSV_reader.reader("dev/data/Drivers.csv", 1);
+                    CSV_reader.reader( "dev/data/Sites.csv", 2);
+                    CSV_reader.reader( "dev/data/Trucks.csv", 3);
+                }
                 case "9" -> {
                     return;
                 }

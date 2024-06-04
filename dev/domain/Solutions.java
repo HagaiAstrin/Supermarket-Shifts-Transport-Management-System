@@ -137,17 +137,6 @@ public class Solutions {
             for (int i = count; i < documents.size(); i++) {
                 if (documents.get(i).getTarget().getType().equals("Store")) {
 
-//                    Map<Item, Integer> map_to_check = documents.get(i).getItem_map();
-//                    for (Map.Entry<Item, Integer> entry : map_to_check.entrySet()) {
-//                        if (entry.getKey().to_string().equals(iter.getKey().to_string())) {   //TODO has a problem
-//                            documents.get(i).drop_Item(entry.getKey());
-//                            if (documents.get(i).getItem_map().isEmpty()) {
-//                                documents.remove(documents.get(i));
-//                            }
-//                        }
-//
-//                    }
-
                     if(documents.get(i).getItem_map().containsKey(iter.getKey())){
                         documents.get(i).drop_Item(iter.getKey());
                     }

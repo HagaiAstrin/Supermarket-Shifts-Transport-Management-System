@@ -5,7 +5,9 @@ import domain.*;
 
 public class Transportation_manager_controller {
 
-//  Addition methods:
+    /**
+     * Addition methods:
+     */
     public static void add_driver(JsonObject j){
         Builder.build_driver(j);
     }
@@ -16,7 +18,9 @@ public class Transportation_manager_controller {
         Builder.build_Site(j);
     }
 
-//  Creation methods:
+    /**
+     * Creation methods
+     */
     public static void create_items_list(JsonObject j, String s){
         DataStructManager.create_items_list(j, s);
     }
@@ -25,7 +29,9 @@ public class Transportation_manager_controller {
     }
     public static int create_transport(JsonObject j){return DataStructManager.create_transportation(j);}
 
-//  Selection methods:
+    /**
+     * Selection methods
+     */
     public static JsonObject choose_truck(){
         return DataStructManager.choose_truck_from_Data();
     }
@@ -38,9 +44,8 @@ public class Transportation_manager_controller {
     public static JsonObject choose_supplier_or_store(String a, String type){
         return DataStructManager.choose_supplier_or_store_from_Data(a, type);
     }
-//    public static JsonObject choose_store(String a){
-//        return DataStructManager.choose_store(a);
-//    }
+
+
     public static JsonObject choose_good_Truck(){return Solutions.get_Truck_Json();}
     public static JsonObject Choose_Supplier_Target(){
         return Solutions.Choose_Drop_Supplier_Target();
@@ -53,7 +58,9 @@ public class Transportation_manager_controller {
     }
 
 
-    //   Solution methods:
+    /**
+     * Solution methods:
+     */
     public static void drop_Site(String a){
         Solutions.drop_Site(a);}
     public static void replace_Documents(String s){Solutions.replace_documents(s);}
@@ -62,7 +69,9 @@ public class Transportation_manager_controller {
     }
     public static void drop_Items(String a, String b) {Solutions.drop_Items(a, b);}
 
-//    Print method:
+    /**
+     * Print method:
+     */
     public static JsonObject show_all_Transport(){return DataStructManager.All_transport_print();}
 
 }

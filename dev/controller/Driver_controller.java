@@ -4,8 +4,12 @@ import com.google.gson.JsonObject;
 import domain.DataStructManager;
 
 public class Driver_controller {
-    public static String check_driver(JsonObject j){
-        return DataStructManager.check_driver(j);
+
+    /**
+     * Driver Controller
+     */
+    public static String check_driver_logIn(JsonObject j){
+        return DataStructManager.driver_log_in(j);
     }
     public static String update_back (JsonObject j){
          return DataStructManager.update_back_driver(j);
