@@ -20,7 +20,7 @@ public class Driver_Menu {
         System.out.println("\nEnter your name:");
         String name = reader.nextLine();
 
-        System.out.println("Enter your password:");
+        System.out.println("\nEnter your password:");
         String password = reader.nextLine();
 
         new_Json.addProperty("Name", name);
@@ -33,7 +33,7 @@ public class Driver_Menu {
             System.out.println("Enter name:");
             name = reader.nextLine();
 
-            System.out.println("Enter password:");
+            System.out.println("\nEnter password:");
             password = reader.nextLine();
 
             new_Json.addProperty("Name", name);
@@ -53,9 +53,15 @@ public class Driver_Menu {
                 new_s.append("\nYou got a Transportation list!\n");
                 new_s.append(d);
             }
+            else{
+                new_s.append("""
+
+                        You don't have a Transportation list.
+                        Please come back after the transport manager has assigned you to the ride.\n""");
+            }
             new_s.append("\nWhat do you want to do?\n");
             new_s.append("Press '1' to - Report on leaving\n");
-            new_s.append("Press '2' to - Report on back");
+            new_s.append("Press '2' to - Report on back\n");
             new_s.append("Press '9' to - Back to menu");
 
             System.out.println(new_s);

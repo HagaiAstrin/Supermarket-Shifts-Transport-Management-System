@@ -14,7 +14,7 @@ public class Solutions {
     public static JsonObject get_Truck_Json() {
         JsonObject new_json = new JsonObject();
         int count = 1;
-        for (Truck tr : DataStructManager.trucks) {
+        for (Truck tr : DataStructManager.getTrucks()) {
             if (tr.isAvailability() && (tr.getMax_weight() - tr.getNet_weight()) >= DataStructManager.current_max_transport) {
                 new_json.addProperty(String.valueOf(count), tr.to_String());
                 count++;
@@ -30,7 +30,7 @@ public class Solutions {
     public static JsonObject get_Item_Json(String a) {
         JsonObject new_json = new JsonObject();
         int count = 1;
-        for (Document d : DataStructManager.documents) {
+        for (Document d : DataStructManager.getDocuments()) {
             if (d.to_string().equals(a)) {
                 for (Map.Entry<Item, Integer> iter : d.getItem_map().entrySet()) {
                     new_json.addProperty(String.valueOf(count++), (iter.getKey().to_string()));
@@ -47,7 +47,7 @@ public class Solutions {
     public static JsonObject Choose_Drop_Target() {
         JsonObject j = new JsonObject();
         int count = 1;
-        for (Document d : DataStructManager.documents) {  /////  BBZZZZZ
+        for (Document d : DataStructManager.getDocuments()) {
             if (d.getTarget().getType().equals("Supplier"))
                 j.addProperty(String.valueOf(count++), d.to_string());
         }

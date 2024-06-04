@@ -10,8 +10,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class DataStructManager {
-    public static Map<String, Map<String, Map<String, Site>>> manager_Map = new HashMap<>();
-    public static ArrayList<Truck> trucks = new ArrayList<>();
+    private static final Map<String, Map<String, Map<String, Site>>> manager_Map = new HashMap<>();
+    private static ArrayList<Truck> trucks = new ArrayList<>();
     public static ArrayList<Driver> drivers = new ArrayList<>();
     public static ArrayList<Transport> transports = new ArrayList<>();
     public static ArrayList<Document> documents = new ArrayList<>();
@@ -21,22 +21,41 @@ public class DataStructManager {
     private static int count_good_transport = 1000;
 
 
-
-//    Driver's methods:
-
-    /**
-     * Adding Driver to DataStruct
-     * @param j - JsonObject argument
-     */
-    public static void add_driver(JsonObject j){
-
-        String name = j.get("Name").getAsString();
-        String licence = j.get("Licence").getAsString();
-        String password = j.get("Password").getAsString();
-        Driver new_driver = new Driver(name, licence, password);
-        drivers.add(new_driver);
-
+    public static Map<String, Map<String, Map<String, Site>>> getManager_Map() {
+        return manager_Map;
     }
+
+    public static ArrayList<Truck> getTrucks() {
+        return trucks;
+    }
+
+    public static ArrayList<Document> getDocuments() {
+        return documents;
+    }
+
+    public static void add_new_driver(Driver d){
+        drivers.add(d);
+    }
+
+    public static void add_new_Truck(Truck t){
+        trucks.add(t);
+    }
+
+    public static void add_new_doc(Document doc){
+        documents.add(doc);
+    }
+
+    public static void remove_doc(Document doc){
+        documents.remove(doc);
+    }
+
+    public static void add_new_Site(Site s){
+        Map<String, Site> map = manager_Map.get(s.getShipping_area()).get(s.getType());
+        if (!map.containsKey(s.getName())) {
+            manager_Map.get(s.getShipping_area()).get(s.getType()).put(s.getName(), s);
+        }
+    }
+
     /**
      * Checking name and password of the driver
      * @param j - JsonObject argument
@@ -116,54 +135,12 @@ public class DataStructManager {
         map.put("Supplier",new HashMap<>());
         manager_Map.put(Shipping_area, map);
     }
-    /**
-     * Adding new site in specific Shipping_area to manager_Map
-     * @param j - JsonObject argument
-     */
-    public static void add_Site(JsonObject j) {
 
-        String name = j.get("Name").getAsString();
-        String address = j.get("Address").getAsString();
-        String phone = j.get("Phone number").getAsString();
-        String contact = j.get("Contact").getAsString();
-        String Shipping_area = j.get("Shipping area").getAsString();
-        String type = j.get("Type").getAsString();
 
-        if (!manager_Map.containsKey(Shipping_area)) {
-            add_Shipping_area(Shipping_area);
-        }
-        if (type.equals("Store")) {
-
-            Site store = new Site(name, address, phone, contact, Shipping_area, "Store");
-
-            Map<String, Site> map = manager_Map.get(Shipping_area).get("Store");
-            if (!map.containsKey(store.getName())) {
-                manager_Map.get(Shipping_area).get("Store").put(store.getName(), store);
-            }
-        } else {
-            Site supplier = new Site(name, address, phone, contact, Shipping_area, "Supplier");
-
-            Map<String, Site> map = manager_Map.get(Shipping_area).get("Supplier");
-            if (!map.containsKey(supplier.getName())) {
-                manager_Map.get(Shipping_area).get("Supplier").put(supplier.getName(), supplier);
-
-            }
-        }
+    public static void clear_cur_items(){
+        items.clear();
     }
-    /**
-     * Adding Truck to DataStruct
-     * @param j - JsonObject argument
-     */
-    public static void add_truck(JsonObject j){
 
-        String n = j.get("Licence number").getAsString();
-        String l = j.get("Licence level").getAsString();
-        double net = j.get("Net weight").getAsDouble();
-        double max = j.get("Max weight").getAsDouble();
-        Truck new_truck = new Truck(n, l, net, max);
-        trucks.add(new_truck);
-
-    }
 
 
 //    Creation methods:
@@ -203,26 +180,8 @@ public class DataStructManager {
             }
         }
     }
-    /**
-     * Create new Document
-     * @param j - JsonObject argument
-     */
-    public static void create_document(JsonObject j){
 
-        String site = j.get("Site").getAsString();
-        String type = j.get("Type").getAsString();
-        String area = j.get("Area").getAsString();
 
-        for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get(type).entrySet()){
-            if (iter.getValue().to_string().equals(site)){
-                Map<Item, Integer> new_map = new HashMap<>(items);
-                Document d = new Document(iter.getValue(), new_map);
-                items.clear();
-                if(!d.getItem_map().isEmpty())
-                    documents.add(d);
-            }
-        }
-    }
     /**
      * Create Transportation
      * @param j - JsonObject argument
@@ -262,7 +221,7 @@ public class DataStructManager {
      * Choose a Truck from DataStruct
      * @return JsonObject represent the truck
      */
-    public static JsonObject choose_truck(){
+    public static JsonObject choose_truck_from_Data(){
 
         JsonObject j = new JsonObject();
         int count = 1;
@@ -279,7 +238,7 @@ public class DataStructManager {
      * @param truck - String argument represent the selected Truck
      * @return JsonObject of all the drivers who can drive in that Truck
      */
-    public static JsonObject choose_driver(String truck){
+    public static JsonObject choose_driver_from_Data(String truck){
 
         JsonObject j = new JsonObject();
         int count = 1;
@@ -302,7 +261,7 @@ public class DataStructManager {
      * Choose Area from DataStruct
      * @return JsonObject of all the area in the DataStruct
      */
-    public static JsonObject choose_area(){
+    public static JsonObject choose_area_from_Data(){
         JsonObject j = new JsonObject();
         int count = 1;
         for (Map.Entry<String, Map<String, Map<String, Site>>> iter : manager_Map.entrySet()) {
@@ -334,6 +293,7 @@ public class DataStructManager {
         }
         return j;
     }
+
     public static int amount_items(String s){
 
         for (Map.Entry<Item, Integer> iter: all_items.entrySet()){
@@ -349,23 +309,12 @@ public class DataStructManager {
      * Transport represent
      * @return JsonObject represent all the transportation in Database
      */
-    public static JsonObject All_transport(){
+    public static JsonObject All_transport_print(){
         if(transports.isEmpty()) return null;
         JsonObject j = new JsonObject();
         int count = 1;
         for(Transport tran : transports){
             j.addProperty(String.valueOf(count++), tran.to_String_tran());
-        }
-        return j;
-    }
-
-    public static JsonObject All_Stores(){    ////////////// adding
-        JsonObject j = new JsonObject();
-        int count = 1;
-        for(Document d : documents){
-            if(d.getTarget().getType().equals("Store")){
-                j.addProperty(String.valueOf(count++), d.to_string());
-            }
         }
         return j;
     }

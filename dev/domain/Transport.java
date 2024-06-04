@@ -91,6 +91,8 @@ public class Transport {
         StringBuilder new_s = new StringBuilder();
         String s = "Transport number : " + this.id + "\nDate : " + this.date + "\nNumber of Truck : " + this.truck.getLicence_number() + "\n";
         new_s.append(s);
+        s = "Maximum possible loading weight : " +(this.truck.getMax_weight() - this.truck.getNet_weight()) + "\n";
+        new_s.append(s);
         s = "Leaving time : " + this.leaving_time + "\nDriver name : " + this.driver.getName() + "\n";
         new_s.append(s);
         s = "Address of the Source: " + this.source;

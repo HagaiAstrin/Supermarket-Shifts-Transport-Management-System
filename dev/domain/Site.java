@@ -55,6 +55,10 @@ public class Site {
         return contact;
     }
 
+    public String getShipping_area() {
+        return shipping_area;
+    }
+
     /**
      * @return String represent of the Site
      */

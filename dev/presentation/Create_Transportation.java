@@ -373,7 +373,4 @@ public class Create_Transportation {
         return j.get(answer).getAsString();
     }
 
-    public static JsonObject pick_exist_store(){    //// adding
-        return Transportation_manager_controller.show_all_Stores();
-    }
 }

@@ -7,13 +7,13 @@ public class Transportation_manager_controller {
 
 //  Addition methods:
     public static void add_driver(JsonObject j){
-        DataStructManager.add_driver(j);
+        Builder.build_driver(j);
     }
     public static void add_truck(JsonObject j){
-        DataStructManager.add_truck(j);
+        Builder.build_truck(j);
     }
     public static void add_site(JsonObject j){
-        DataStructManager.add_Site(j);
+        Builder.build_Site(j);
     }
 
 //  Creation methods:
@@ -21,19 +21,19 @@ public class Transportation_manager_controller {
         DataStructManager.create_items_list(j, s);
     }
     public static void create_document(JsonObject j){
-       DataStructManager.create_document(j);
+        Builder.build_document(j);
     }
     public static int create_transport(JsonObject j){return DataStructManager.create_transportation(j);}
 
 //  Selection methods:
     public static JsonObject choose_truck(){
-        return DataStructManager.choose_truck();
+        return DataStructManager.choose_truck_from_Data();
     }
     public static JsonObject choose_driver(String truck){
-        return DataStructManager.choose_driver(truck);
+        return DataStructManager.choose_driver_from_Data(truck);
     }
     public static JsonObject choose_area(){
-        return DataStructManager.choose_area();
+        return DataStructManager.choose_area_from_Data();
     }
     public static JsonObject choose_supplier_or_store(String a, String type){
         return DataStructManager.choose_supplier_or_store_from_Data(a, type);
@@ -63,7 +63,6 @@ public class Transportation_manager_controller {
     public static void drop_Items(String a, String b) {Solutions.drop_Items(a, b);}
 
 //    Print method:
-    public static JsonObject show_all_Transport(){return DataStructManager.All_transport();}
+    public static JsonObject show_all_Transport(){return DataStructManager.All_transport_print();}
 
-    public static JsonObject show_all_Stores(){return DataStructManager.All_Stores();}   ////// adding
 }

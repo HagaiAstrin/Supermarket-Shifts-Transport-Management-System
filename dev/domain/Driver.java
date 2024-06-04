@@ -105,15 +105,21 @@ public class Driver {
     public StringBuilder getList() {
         StringBuilder new_s = new StringBuilder();
         int count = 1;
-        for (Document d: list){
-            String s =  count + " - " + d.to_string() + "\n";
-            new_s.append(s);
-            count ++;
+        if(list == null) {
+            return null;
         }
+        for (Document d : list) {
+            String s = count + " - " + d.to_string() + "\n";
+            new_s.append(s);
+            count++;
+        }
+
         return new_s;
     }
+
     public void setList(ArrayList<Document> list) {
-        this.list = new ArrayList<>(list);
+        if(list != null)
+            this.list = new ArrayList<>(list);
     }
     /**
      * @return true if the Driver availability for drive
