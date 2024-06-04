@@ -63,7 +63,8 @@ public class Create_Transportation {
                 switch (result) {
                     case 1 -> {
                         System.out.println("\nThere are still products in the truck!\nPlease continue with the Transportation making");
-                        bool = false;
+                        System.out.println("Please add sites to the transportation!\n");
+                        choose_site(area);
 
                     }
                     case 2 -> {
@@ -283,7 +284,6 @@ public class Create_Transportation {
         if(!bool) System.out.println("\nYou dropped all the Sits from the Transport ! ");
         return bool;
     }
-
     public static boolean Drop_Items() {
         Scanner reader = new Scanner(System.in);
 

@@ -64,13 +64,12 @@ public class Solutions {
         int count = 0;
         for (Document d : documents) {
             if (d.to_string().equals(a)) {
-                documents.remove(d);
-                Document doc = documents.remove(documents.size() - 1);
-                documents.add(count, doc);
                 break;
             }
             count++;
         }
+        drop_Site(a);
+        documents.add(count, documents.remove(documents.size() - 1));
     }
 
     /**
