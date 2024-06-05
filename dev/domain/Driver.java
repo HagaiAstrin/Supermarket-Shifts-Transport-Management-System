@@ -118,6 +118,12 @@ public class Driver {
      */
     public StringBuilder getList() {
         StringBuilder new_s = new StringBuilder();
+        if(!isAvailability() && !isHold()){
+            new_s.append("\nWe hope your trip goes well!\n");
+            return new_s;
+        }
+
+        new_s.append("\nYou got a Transportation list!\n\n");
         int count = 1;
         if(list == null) {
             return null;

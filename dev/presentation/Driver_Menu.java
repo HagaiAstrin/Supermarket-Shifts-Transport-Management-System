@@ -41,7 +41,7 @@ public class Driver_Menu {
 
             driver_name = controller.Driver_controller.check_driver_logIn(new_Json);
         }
-        StringBuilder d = (Driver_controller.Print_document(new_Json));
+        StringBuilder d = Driver_controller.Print_document(new_Json);
 
 
         String a = "yes";
@@ -50,7 +50,6 @@ public class Driver_Menu {
             String s = "\nHello " + driver_name + "!\n";
             new_s.append(s);
             if (d != null) {
-                new_s.append("\nYou got a Transportation list!\n");
                 new_s.append(d);
             }
             else{
@@ -95,7 +94,7 @@ public class Driver_Menu {
     public static void leaving (JsonObject j) throws InterruptedException {
         String a = Driver_controller.update_leaving(j);
         System.out.println(a);
-        if(a.equals("Have a good trip!")) TruckAnimation.print_leave();
+        if(a.equals("\nHave a good trip!")) TruckAnimation.print_leave();
     }
 
     /**

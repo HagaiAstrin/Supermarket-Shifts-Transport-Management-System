@@ -7,7 +7,7 @@ public class Transportation_manager_Menu {
 
         Scanner reader = new Scanner(System.in);
 
-        System.out.println("Enter password:");
+        System.out.println("\nEnter password:");
         String password = reader.nextLine();
 
         while (!password.equals("123456789")) {

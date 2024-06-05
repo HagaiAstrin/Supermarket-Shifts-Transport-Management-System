@@ -106,6 +106,8 @@ public class DataStructManager {
         }
         return null;
     }
+
+
     /**
      * Updating that the Driver comes back
      * @param j - JsonObject argument
@@ -136,7 +138,10 @@ public class DataStructManager {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get
                     ("Password").getAsString().equals(driver.getPassword())) {
                 if (driver.getTran() == null) {
-                    return ("You didnt assigned to any Transportation!");
+                    return ("\nYou didnt assigned to any Transportation!");
+                }
+                else if(!driver.isAvailability() && !driver.isHold()) {
+                    return "\nYou are currently in transit";
                 }
                 else {
                     driver.setAvailability(false);
@@ -146,11 +151,11 @@ public class DataStructManager {
                     driver.getTran().setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
                     driver.getTran().setLeaving_time(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
                     transports.add(driver.getTran());
-                    return ("Have a good trip!");
+                    return ("\nHave a good trip!");
                 }
             }
         }
-        return ("You are not exist in the system!");
+        return ("\nYou are not exist in the system!");
     }
 
 

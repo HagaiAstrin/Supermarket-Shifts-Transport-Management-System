@@ -16,7 +16,7 @@ public class Show_All_Transportations {
         }
         else {
             System.out.println("\n");
-            System.out.println("\nAll the transport that left \n");
+            System.out.println("\n\n\nAll the transport that left \n");
             for (String key : j.keySet()) {
                 System.out.println("----------------------------------------------------------------\n");
                 JsonElement element = j.get(key);
