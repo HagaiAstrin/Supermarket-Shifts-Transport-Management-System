@@ -30,9 +30,18 @@ public class AdminMenu {
             System.out.println("1. Load employees data");
             System.out.println("2. Logout");
             System.out.print("Enter your choice: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
-            switch (choice) {
+//            int choice = scanner.nextInt();
+//            scanner.nextLine();  // Consume newline
+            String choice;
+            while (true) {
+                choice = scanner.nextLine();
+                if (choice.equals("1") || choice.equals("2")){
+                    break;
+                }
+                System.out.println("Wrong input, please try again: ");
+            }
+            int choice_int = Integer.parseInt(choice);
+            switch (choice_int) {
                 case 1:
                     ProgressBar();
                     System.out.println("Data was loaded successfully.");
@@ -43,12 +52,15 @@ public class AdminMenu {
                 case 2:
                     // TODO: Implement LOGOUT
                     SystemController.Logout();
-                    break;
+                    return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
 //                    scanner.nextLine();
+                    break;
             }
         }
+
+
     }
 
     public static int Config() {

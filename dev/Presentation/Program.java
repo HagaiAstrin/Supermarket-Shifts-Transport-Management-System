@@ -26,24 +26,30 @@ public class Program {
             System.out.println("Can't find branches");
             return;
         }
-        int branch_choice;
-        while(true){
-            System.out.println("Please select branch:");
-            for(int i = 0; i < branches.size(); i++){
-                System.out.println(i + ". " +branches.get(i));
-            }
-            System.out.print("Enter your choice: ");
-            branch_choice = scanner.nextInt();
-            scanner.nextLine();
-            if(branch_choice < 0 || branch_choice > branches.size()){
-                System.out.println("Invalid choice. Please try again.");
-            }
-            else{
+
+        System.out.println("Please select branch:");
+        for (int i = 0; i < branches.size(); i++) {
+            System.out.println(i + ". " + branches.get(i));
+        }
+        System.out.print("Enter your choice: ");
+
+        String choice = loop();
+        //TODO: Move through controller
+        int branch_choice_int = Integer.parseInt(choice);
+        SystemController.SetBranchName(branches.get(branch_choice_int));
+    }
+
+    private static String loop(){
+        String branch_choice;
+        while (true) {
+            branch_choice = scanner.nextLine();
+            if (branch_choice.equals("0") || branch_choice.equals("1") || branch_choice.equals("2")) {
                 break;
             }
+            // If the user didn't press 1 or 2
+            System.out.println("Wrong input, please try again: ");
         }
-        //TODO: Move through controller
-        IO_Data.SetBranchName(branches.get(branch_choice));
+        return branch_choice;
     }
 
     public void Menu() throws IOException, InterruptedException {

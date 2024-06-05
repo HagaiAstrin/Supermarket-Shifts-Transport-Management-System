@@ -32,4 +32,8 @@ public class SystemController {
         return array;
     }
 
+    public static void SetBranchName(String branchName){
+        IO_Data.SetBranchName(branchName);
+    }
+
 }

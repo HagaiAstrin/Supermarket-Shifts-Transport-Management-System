@@ -20,64 +20,69 @@ public class Menu {
      * Adding employee to the database.
      */
     public static void AddEmployee() throws Exception {
-        JsonObject json = new JsonObject();
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Employee ID: ");
-        String id = scanner.nextLine();
-        json.addProperty("id", id);
-
-        System.out.print("Enter Employee Name: ");
-        String name = scanner.nextLine();
-        json.addProperty("name", name);
-
-        System.out.print("Enter Bank ID: ");
-        String bankID = scanner.nextLine();
-        json.addProperty("bankID", bankID);
-
-        System.out.print("Enter Salary: ");
-        int salary = scanner.nextInt();
-        scanner.nextLine();  // Consume newline
-        json.addProperty("salary", salary);
-
-        System.out.print("Enter Rest Days: ");
-        int restDays = scanner.nextInt();
-        scanner.nextLine();  // Consume newline
-        json.addProperty("restDays", restDays);
-
-        scanner = new Scanner(System.in);
-        System.out.println("Enter a date (dd/MM/yyyy): ");
-        String dateString = scanner.nextLine(); // Read the input from the user
-        json.addProperty("date", dateString);
-
-        String jobType = GetJobType();
-
-
-        // Define the date format
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-        LocalDate date = null;
         try {
-            // Parse the string to LocalDate
-            date = LocalDate.parse(dateString, formatter);
+            JsonObject json = new JsonObject();
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter Employee ID: ");
+            String id = scanner.nextLine();
+            json.addProperty("id", id);
 
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format: " + e.getMessage());
-            return;
+            System.out.print("Enter Employee Name: ");
+            String name = scanner.nextLine();
+            json.addProperty("name", name);
+
+            System.out.print("Enter Bank ID: ");
+            String bankID = scanner.nextLine();
+            json.addProperty("bankID", bankID);
+
+            System.out.print("Enter Salary: ");
+            int salary = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+            json.addProperty("salary", salary);
+
+            System.out.print("Enter Rest Days: ");
+            int restDays = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+            json.addProperty("restDays", restDays);
+
+            scanner = new Scanner(System.in);
+            System.out.println("Enter a date (dd/MM/yyyy): ");
+            String dateString = scanner.nextLine(); // Read the input from the user
+            json.addProperty("date", dateString);
+
+            String jobType = GetJobType();
+
+
+            // Define the date format
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            LocalDate date = null;
+            try {
+                // Parse the string to LocalDate
+                date = LocalDate.parse(dateString, formatter);
+
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format: " + e.getMessage());
+                return;
+            }
+
+            JsonObject e_Json = Sender.EmployeeToJson(id, name, bankID, salary, restDays, date, jobType);
+
+            try {
+                AdminController.createPreferencesNewEmp(e_Json);
+                AdminController.AddEmployee(e_Json);
+
+                System.out.println("Employee added successfully.");
+            } catch (IOException ex) {
+                System.err.println("Failed to add employee: " + ex.getMessage());
+            } catch (Exception e) {
+                System.out.println("Failed to add employee: " + e.getMessage());
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Failed to add employee");
         }
 
-        JsonObject e_Json = Sender.EmployeeToJson(id, name, bankID, salary, restDays, date, jobType);
-
-        try {
-            AdminController.createPreferencesNewEmp(e_Json);
-            AdminController.AddEmployee(e_Json);
-
-            System.out.println("Employee added successfully.");
-        } catch (IOException ex) {
-            System.err.println("Failed to add employee: " + ex.getMessage());
-        } catch (Exception e) {
-            System.out.println("Failed to add employee: " + e.getMessage());
-        }
     }
 
     private static String GetJobType(){
