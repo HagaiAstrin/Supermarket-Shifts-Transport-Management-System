@@ -27,6 +27,9 @@ public class Printer {
         return str;
     }
 
+    /**
+     * Used to update the preferences of a user.
+     */
     public static String[][] convertMatrix(String[][] matrix) {
         String[][] friendlyMatrix = new String[matrix.length][matrix[0].length];
 

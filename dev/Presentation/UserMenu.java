@@ -26,20 +26,18 @@ public class UserMenu {
             scanner.nextLine();  // Consume newline
 
             switch (choice) {
-                case 1:
-                    // Call method to view personal details
+                case 1: // Employees details
                     JsonObject j =  EmployeeController.ViewPersonalData();
                     System.out.println(Printer.JsonToEmployee(j));
                     break;
-                case 2:
+                case 2: // Check out the preferences
                     String[][] preferences = EmployeeController.GetPreferences();
                     Printer.PrintPreferences(preferences);
                     break;
-                case 3:
+                case 3: // Updating the preferences
                     updatePreferences();
                     break;
                 case 4:
-                    // TODO: Implement!
                     SystemController.Logout();
                     return;
                 default:
@@ -61,7 +59,7 @@ public class UserMenu {
             System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             if (choice == 6) {
                 break;
@@ -76,7 +74,7 @@ public class UserMenu {
                 System.out.println("1. Update Morning");
                 System.out.println("2. Update Evening");
                 row = scanner.nextInt();
-                scanner.nextLine(); // Consume newline
+                scanner.nextLine();
 
                 if (row != 1 && row != 2) {
                     System.out.println("Invalid row number.");
@@ -107,6 +105,8 @@ public class UserMenu {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
+
+            // Now send the preferences to the io_data for further update.
             IO_Data.UpdatePreferencesToCSV(preferences);
         }
     }

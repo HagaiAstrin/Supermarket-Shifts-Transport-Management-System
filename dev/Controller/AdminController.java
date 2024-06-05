@@ -14,11 +14,17 @@ public class AdminController {
         return IO_Data.PrintEmployees();
     }
 
+    /**
+     * Import employees from csv file
+     */
     public static void ImportEmployees(){
         IO_Data.ImportEmployees();
         IO_Data.startWeek();
     }
 
+    /**
+     * Adding new employee to the system
+     */
     public static void AddEmployee(JsonObject json) throws IOException {
         IO_Data.addEmployeeToCSV(json);
         IO_Data.addEmployeeToList(json);
@@ -27,6 +33,9 @@ public class AdminController {
         return IO_Data.createPreferencesCsv(json);
     }
 
+    /**
+     * Removing new employee to the system
+     */
     public static String RemoveEmployee(String id){
         try {
             if (IO_Data.RemoveEmployee(id)) {
@@ -39,10 +48,16 @@ public class AdminController {
         return "No employee was found with id: " + id + "\nPlease make sure you imported the employees data.\n";
     }
 
+    /**
+     * Search for an employee to the system
+     */
     public static boolean SearchEmployee(String id){
         return IO_Data.SearchEmployee(id) != 1;
     }
 
+    /**
+     * Get an employee based on his id as a JsonObject.
+     */
     public static JsonObject GetEmployee(String id){
         return IO_Data.GetEmployee(id);
     }
@@ -54,10 +69,14 @@ public class AdminController {
     public static String printTypeWeek(int job){
         return WeeklyShift.getJobWeeklyShift(job);
     }
+
     public static void checkEmployeeWeekFull(int amount) throws Exception {
         WeeklyShift.checkEmployeeForEachJobType(amount);
     }
 
+    /**
+     * Add an attribute for a shift - id and job of employee on day and time of the shift.
+     */
     public static void SetShift(int job, int day, int shift, int id){
         IO_Data.setEmployeeHowCanWork(job, day, shift, id);
     }
@@ -65,6 +84,10 @@ public class AdminController {
     public static String removeShift(int id, int day, int shift, int job){
         return IO_Data.removeFromShiftIO(id, day, shift, job);
     }
+
+    /**
+     * Get the list of employees in a certain shift.
+     */
     public static List<JsonObject> getEmployeeToShift(int job, int day, int shift){
         return IO_Data.getEmployeeHowCanWork(job,day,shift);
     }

@@ -20,6 +20,9 @@ public class Program {
         program.Menu();
     }
 
+    /**
+     * Menu for selecting branch
+     */
     public static void SelectBranch(){
         List<String> branches = IO_Data.listFoldersInDirectory();
         if(branches == null) {
@@ -32,13 +35,14 @@ public class Program {
             System.out.println(i + ". " + branches.get(i));
         }
         System.out.print("Enter your choice: ");
-
         String choice = loop();
-        //TODO: Move through controller
         int branch_choice_int = Integer.parseInt(choice);
         SystemController.SetBranchName(branches.get(branch_choice_int));
     }
 
+    /**
+     * Input checker
+     */
     private static String loop(){
         String branch_choice;
         while (true) {

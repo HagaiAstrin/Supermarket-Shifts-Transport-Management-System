@@ -32,6 +32,10 @@ public class JobWeeklyShift {
             }
         }
     }
+
+    /**
+     * Get all workers in a specific shift.
+     */
     protected StringBuilder getWorkingShiftString(int day, int shift){
         StringBuilder output = new StringBuilder();
         ArrayList<Employee> emArray = WeeklyShifts[shift][day]; // getJobWeeklyShift checks day and shift input
@@ -46,17 +50,23 @@ public class JobWeeklyShift {
         return output;
     }
 
+    /**
+     * Check if shifts are full
+     */
     public void checkFull(int amount) throws Exception{
         for (int day = 0; day < IO_Data.amount_days; day++) {
             for (int shift = 0; shift < IO_Data.amount_shifts; shift++) {
                 //There are no enough employee in the shift
                 if (WeeklyShifts[shift][day] == null || WeeklyShifts[shift][day].size() != amount) {
-                    throw new Exception("There are no enough employee in " + JobName.toString());  // TODO
+                    throw new Exception("There are no enough employee in " + JobName.toString());
                 }
             }
         }
     }
 
+    /**
+     * Get list of employees in a specific shift.
+     */
     public List<JsonObject> getEmployeeArray(int day, int shift) {
         List<JsonObject> ja = new ArrayList<>();
         for (Employee e : PotentialEmployee){
@@ -131,6 +141,9 @@ public class JobWeeklyShift {
         throw new RuntimeException("Invalid day or shift value: day=" + day + ", shift=" + shift);
     }
 
+    /**
+     * Remove an employee from a shift.
+     */
     protected boolean remove(int day, int shift, int id){
         if (!(day >= 0 && day < IO_Data.amount_days && shift >= 0 && shift < IO_Data.amount_shifts)){
             throw new RuntimeException("Invalid day or shift value: day=" + day + ", shift=" + shift);

@@ -5,10 +5,16 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 public class SystemController {
+    /**
+     * Hash function using for password validation.
+     */
     public boolean LoginInputValidatorAdmin(String[] input) {
         return new SHA_256_Hasher().Checker(input, Constants.DEV + IO_Data.branch + Constants.PATH_DATA_VALIDATION_ADMIN);
     }
 
+    /**
+     * Hash function using for password validation.
+     */
     public boolean LoginInputValidatorUser(String[] input) {
         return new SHA_256_Hasher().Checker(input, Constants.DEV + IO_Data.branch + Constants.PATH_DATA_VALIDATION_USER);
 
@@ -19,6 +25,9 @@ public class SystemController {
         System.out.println("Logged out successfully.");
     }
 
+    /**
+     * Set the ID of the employee to perform certain tasks.
+     */
     public static void setEmployeeIDIOData(String setID){
         IO_Data.SetEmployeeID(setID);
     }

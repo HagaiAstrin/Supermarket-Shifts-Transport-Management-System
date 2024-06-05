@@ -18,6 +18,9 @@ public class IO_Data {
     public static String employeeID; // for user interactions with his data
     public static String branch = ""; // Where is the branch located.
 
+    /**
+     * Get a list of the current loaded employees in the system.
+     */
     public static List<Employee> GetCurrEmployees() {
         Collection<Employee> employeeCollection = currEmployees.values();
         return new ArrayList<>(employeeCollection);
@@ -27,10 +30,16 @@ public class IO_Data {
         currEmployees = _currEmployees;
     }
 
+    /**
+     * Get the list of employees available in a specific time for shift arrangement.
+     */
     public static List<JsonObject> getEmployeeHowCanWork(int job, int day, int shift) {
             return WeeklyShift.getEmployeeForShift(job, day,shift);
     }
 
+    /**
+     * Remove an employee from a shift.
+     */
     public static String removeFromShiftIO(int id, int day, int shift, int job){
         Employee e = currEmployees.get(id);
         if (e == null){
@@ -50,6 +59,7 @@ public class IO_Data {
         return e.getName() + "(id: " + id + ")" + " was not shifted in this shift";
     }
 
+
     public static void setEmployeeHowCanWork(int job, int day, int shift, int id){
         try {
             WeeklyShift.setEmployeeHowCanWork(job, day, shift, id);
@@ -60,7 +70,7 @@ public class IO_Data {
 
     }
     public static void startWeek(){
-        WeeklyShift.startWeek(); // todo Start counting Weeks
+        WeeklyShift.startWeek();
     }
     /**
      * Import all employees data.
@@ -104,7 +114,6 @@ public class IO_Data {
                             currEmployees.put(Integer.valueOf(employee.getId()), employee);
                         }
                     } catch (DateTimeParseException e) {
-                        //System.out.println("Invalid date format: " + e.getMessage());
                     }
                 }
             }
@@ -114,17 +123,8 @@ public class IO_Data {
 
         flag = true;
     }
-//    public static void ImportPreferences(){
-//        for (Integer id : currEmployees.keySet()){
-//            if (!WeekPreferences.containsKey(id)){
-//                String[][] preferences = ImportEmployeePreferences(id.toString());
-//                WeekPreferences.put(id, preferences);
-//            }
-//        }
-//    }
-    public static String[][] ImportEmployeePreferences(String id) {
-        //    static List<Employee> currEmployees = new ArrayList<>();
 
+    public static String[][] ImportEmployeePreferences(String id) {
         String[][] preference = new String[amount_shifts][amount_days];
         String line;
         String csvSplitBy = ",";
@@ -139,14 +139,13 @@ public class IO_Data {
                 // Use comma as separator
                String[] fields = line.split(csvSplitBy);
 
-              if (fields.length == 5) { // Assuming the CSV has exactly 5 columns
+              if (fields.length == 5) {
                   // Create a 2D array to store the fields
-
                     for (int i = 0; i < 5; i++) {
                      preference[rowInt][i] = fields[i];
                   }
              }
-            }
+           }
         } catch (IOException e) {
           e.printStackTrace();
           System.out.println(id);
@@ -176,7 +175,7 @@ public class IO_Data {
      * @param id of an employee
      * @return a message of the performed action.
      */
-    // TODO: Delete from database.
+
     public static boolean RemoveEmployee(String id) throws IOException {
         int indexToRemove = SearchEmployee(id);
         if(indexToRemove != -1){
@@ -188,6 +187,9 @@ public class IO_Data {
         return false;
     }
 
+    /**
+     * Delete an employee's preferences from the csv file.
+     */
     private static boolean deleteCsvFile(String id) {
         File file = new File(Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + id + ".csv");
         if (file.exists() && file.isFile()) {
@@ -196,6 +198,9 @@ public class IO_Data {
         return false;
     }
 
+    /**
+     * Remove an employee from the csv file
+     */
     private static void RemoveEmployeeFromCSV(String id) throws IOException {
         List<String> lines = new ArrayList<>();
         String header = null;
@@ -243,6 +248,9 @@ public class IO_Data {
         return -1;
     }
 
+    /**
+     * Check validity of a user's login using SHA-256 encryption.
+     */
     public static boolean Authentication(String username, String password, String id, String path) {
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
@@ -288,9 +296,11 @@ public class IO_Data {
      */
     private static JsonObject ConvertEmployeeToJson(Employee employee){
         return employee.toJson();
-        //return new Gson().toJsonTree(employee).getAsJsonObject();
     }
 
+    /**
+     * Add an employee to csv file.
+     */
     public static void addEmployeeToCSV(JsonObject employeeJson) throws IOException {
         try (FileWriter writer = new FileWriter(Constants.DEV + branch + Constants.PATH_EMPLOYEE, true)) {
             writer.append(employeeJsonToCSVString(employeeJson));
@@ -331,8 +341,6 @@ public class IO_Data {
     }
 
     public static void addEmployeeToList(JsonObject e) {
-        // TODO: CHECK IF WORKS PROPERLY!
-        // Date does not work! Attribute is null.
         currEmployees.put(Integer.parseInt(e.get("id").getAsString()),Employee.JsonToEmployee(e));
     }
 
@@ -364,6 +372,9 @@ public class IO_Data {
         return csvString.toString();
     }
 
+    /**
+     * Get employee's preferences based on his ID from IO_Data.
+     */
     public static String[][] GetPreferencesFromCSV(){
         String path = Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + IO_Data.employeeID + ".csv";
         List<String[]> data = new ArrayList<>();
@@ -403,6 +414,9 @@ public class IO_Data {
         branch = s;
     }
 
+    /**
+     * Used to get branches of the Super-Lee shop. Usually Be'er-Sheva and Haifa.
+     */
     public static List<String> listFoldersInDirectory() {
         File directory = new File("dev\\data");
         List<String> folders = new ArrayList<>();

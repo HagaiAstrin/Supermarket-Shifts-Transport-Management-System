@@ -15,7 +15,6 @@ import com.google.gson.JsonObject;
 
 public class Menu {
     public static Scanner scanner;
-
     /**
      * Adding employee to the database.
      */
@@ -69,9 +68,10 @@ public class Menu {
             JsonObject e_Json = Sender.EmployeeToJson(id, name, bankID, salary, restDays, date, jobType);
 
             try {
+                // Add new preferences file for the new employee.
+                // Add the new employee to the db and to the list in this project.
                 AdminController.createPreferencesNewEmp(e_Json);
                 AdminController.AddEmployee(e_Json);
-
                 System.out.println("Employee added successfully.");
             } catch (IOException ex) {
                 System.err.println("Failed to add employee: " + ex.getMessage());
@@ -82,13 +82,14 @@ public class Menu {
         catch (Exception e) {
             System.out.println("Failed to add employee");
         }
-
     }
 
+    /**
+     *  Get the job type from enum to string
+     */
     private static String GetJobType(){
         Scanner scanner = new Scanner(System.in);
         String[] enumArray = SystemController.getEnumArray();
-//        JobTypeEnum[] enumArray = JobTypeEnum.values(); // TODO changed check it
         int size = enumArray.length;
 
         while(true) {
@@ -173,7 +174,6 @@ public class Menu {
                     System.out.println("Rest Days updated.");
                     break;
                 case 5:
-//                    System.out.print("Enter new Job Type (e.g., CASHIER, SHIFT_MANAGER, STOCK_KEEPER): ");
                     String jobTypeString = employee.get("jobType").getAsString();
                     String[] jobTypeArray = jobTypeString.split("/");
 
@@ -205,7 +205,6 @@ public class Menu {
             AdminController.RemoveEmployee(id);
             AdminController.createPreferencesNewEmp(employee);
             AdminController.AddEmployee(employee);
-            //AdminController.UpdateEmployee(SystemController.ConvertEmployeeToJson(employee));
         }
     }
 

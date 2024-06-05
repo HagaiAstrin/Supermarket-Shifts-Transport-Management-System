@@ -2,16 +2,10 @@ package Presentation;
 
 import Controller.AdminController;
 import Controller.SystemController;
-import Domain.IO_Data;
-import Domain.JobWeeklyShift;
 import Domain.WeeklyShift;
-
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,6 +14,10 @@ public class AdminMenu {
     static int employeeInShift = 1; // Default
 
 
+    /**
+     * First menu the admin sees.
+     * He has to import the data.
+     */
     public static void FirstMenu() throws InterruptedException, IOException {
         employeeInShift = Config();
         System.out.println("---------------------------------------------");
@@ -30,8 +28,6 @@ public class AdminMenu {
             System.out.println("1. Load employees data");
             System.out.println("2. Logout");
             System.out.print("Enter your choice: ");
-//            int choice = scanner.nextInt();
-//            scanner.nextLine();  // Consume newline
             String choice;
             while (true) {
                 choice = scanner.nextLine();
@@ -50,12 +46,10 @@ public class AdminMenu {
                     Menu();
                     return;
                 case 2:
-                    // TODO: Implement LOGOUT
                     SystemController.Logout();
                     return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
-//                    scanner.nextLine();
                     break;
             }
         }
@@ -86,9 +80,9 @@ public class AdminMenu {
             System.out.println("1. Add new employee");
             System.out.println("2. Remove employee");
             System.out.println("3. Update employee details");
-            System.out.println("4. Logout");
-            System.out.println("5. Statistics");
-            System.out.println("6. Manage Shifts");
+            System.out.println("4. Manage Shifts");
+            System.out.println("5. Print all employees");
+            System.out.println("6. Logout");
             System.out.print("Enter your choice: ");
 
             try {
@@ -108,14 +102,14 @@ public class AdminMenu {
                         Menu.UpdateEmployeeDetails();
                         break;
                     case 4:
-                        // TODO: Implement LOGOUT
-                        SystemController.Logout();
+                        // Going to the shift menu.
+                        ShiftInteraction();
                         return;
                     case 5:
                         Printer.PrintAllEmployees(AdminController.PrintEmployees());
                         break;
                     case 6:
-                        ShiftInteraction();
+                        SystemController.Logout();
                         break;
                     default:
                         System.out.println("Invalid choice. Please try again.");
@@ -163,22 +157,18 @@ public class AdminMenu {
 
                 switch (choice) {
                     case 1:
+                        // Print
                         System.out.println(AdminController.printAllTypeWeek());
-                        //WeeklyShift.printWeeklyShifts(jobWeeklyShift.getWeeklyShifts());
                         WeeklyShift.exportShiftsToCSV(WeeklyShift.GetShiftByJob());
                         break;
-
                     case 2:
                         int job = IOJobShiftMenu();
-
                         String jobWeek = AdminController.printTypeWeek(job);
                         System.out.println(jobWeek);
                         break;
-
                     case 3:
                         AddShiftMenu();
                         break;
-
                     case 4:
                         DeleteShiftMenu();
                         break;
@@ -192,13 +182,8 @@ public class AdminMenu {
                             System.out.println(e.getMessage());
                             System.out.println("Finish and try again later");
                             break;
-                        } // if it will continue it means the setup is finished
+                        }
                         break;
-
-                        // TODO
-                        // save Employee Presences
-                        // save Current State
-                        // ask if he is finish and want also to save the week
                     default:
                         System.out.println("Invalid choice. Please try again.");
                         break;
@@ -211,6 +196,9 @@ public class AdminMenu {
         }
     }
 
+    /**
+     * Menu for adding a shift that contains employees.
+     */
     private static void AddShiftMenu() throws IOException {
 
         //Getting User Input
@@ -235,6 +223,9 @@ public class AdminMenu {
         }
     }
 
+    /**
+     * Menu for deleting a shift that contains employees.
+     */
     private static void DeleteShiftMenu() throws IOException{
         System.out.println("Enter ID you want to remove from shift");
         int id = scanner.nextInt();
@@ -256,8 +247,8 @@ public class AdminMenu {
 
     }
 
-    public static Integer IOJobShiftMenu() throws IOException{
 
+    public static Integer IOJobShiftMenu() throws IOException{
         while (true){
             try {
                 System.out.println("\nSelect the job you want to add a shift for");
@@ -277,6 +268,9 @@ public class AdminMenu {
         }
     }
 
+    /**
+     * Determines which employee to add to which shift.
+     */
     public static List<Integer> iOShiftMenu() throws IOException{
         List <Integer> userInput = new ArrayList<>();
         while (true){

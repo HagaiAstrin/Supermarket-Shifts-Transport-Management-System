@@ -81,6 +81,9 @@ public class WeeklyShift {
         return output.toString();
     }
 
+    /**
+     * Remove an employee from a shift.
+     */
     static protected boolean removeEmployee(int job, int day, int shift, int id) {
         JobWeeklyShift jws = getWeeklyShift(job);
         // Removing Employee from Shift
@@ -123,6 +126,9 @@ public class WeeklyShift {
         return sb.toString();
     }
 
+    /**
+     * Send the shifts to the csv file.
+     */
     public static void exportShiftsToCSV(Map<JobTypeEnum, JobWeeklyShift> shiftByJob) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(Constants.DEV + IO_Data.branch + "\\Preferences.csv"))) {
             writer.write("JobType,Day,Shift,Employees\n");
