@@ -18,12 +18,12 @@ public class Transportation_manager_Menu {
 
         while (true) {
             StringBuilder manager_menu = new StringBuilder();
-            manager_menu.append("\n");
-            manager_menu.append("-----------------------------------------------------");
+            manager_menu.append("\n-----------------------------------------------------");
             manager_menu.append("\n|            Transportation Manger Menu             |\n");
-            manager_menu.append("-----------------------------------------------------");
+            manager_menu.append("-----------------------------------------------------\n");
             manager_menu.append("\n");
-            manager_menu.append("Choose from the options bellow:\n");
+            manager_menu.append("Hello Transportation manager, what do you want to do ?");
+            manager_menu.append("\nChoose from the options bellow:\n");
             manager_menu.append("'1' - Add Driver.\n");
             manager_menu.append("'2' - Add Truck.\n");
             manager_menu.append("'3' - Add Store.\n");

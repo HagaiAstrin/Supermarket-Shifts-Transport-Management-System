@@ -47,11 +47,9 @@ public class Driver_Menu {
         String a = "yes";
         while (a.equals("yes")) {
             StringBuilder new_s = new StringBuilder();
-            new_s.append("\n");
-            new_s.append("-----------------------------------------------------");
+            new_s.append("\n-----------------------------------------------------");
             new_s.append("\n|                  Driver Menu                    |\n");
-            new_s.append("-----------------------------------------------------");
-            new_s.append("\n");
+            new_s.append("-----------------------------------------------------\n");
             String s = "\nHello " + driver_name + "!\n";
             new_s.append(s);
             if (d != null) {
@@ -99,7 +97,6 @@ public class Driver_Menu {
     public static void leaving (JsonObject j) throws InterruptedException {
         String a = Driver_controller.update_leaving(j);
         System.out.println(a);
-        if(a.equals("\nHave a good trip!")) TruckAnimation.print_leave();
     }
 
     /**

@@ -14,7 +14,10 @@ public class Main {
         while (true) {
 
             StringBuilder menu = new StringBuilder();
-            menu.append("\nHello! Welcome to Super-Li Transportation system!\n");
+            menu.append("\n--------------------------------------------------------");
+            menu.append("\n| Hello and Welcome to Super - Li Transportation Menu |\n");
+            menu.append("--------------------------------------------------------\n");
+            menu.append("\n");
             menu.append("press '1' if you are the Manager.\n");
             menu.append("press '2' if you are a Driver.\n");
             menu.append("press '3' if you want to load Data.\n");
