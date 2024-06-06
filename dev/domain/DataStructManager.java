@@ -14,10 +14,10 @@ public class DataStructManager {
     private static ArrayList<Truck> trucks = new ArrayList<>();
     private static ArrayList<Driver> drivers = new ArrayList<>();
     private static ArrayList<Transport> transports = new ArrayList<>();
-    public static ArrayList<Document> documents = new ArrayList<>();
+    protected static ArrayList<Document> documents = new ArrayList<>();
     private static Map<Item, Integer> items = new HashMap<>();
     public static Map<Item, Integer> curr_all_items = new HashMap<>();
-    public static double current_max_transport;
+    protected static double current_max_transport;
     private static int count_good_transport = 1000;
 
     public static Map<Item, Integer> getItems() {
