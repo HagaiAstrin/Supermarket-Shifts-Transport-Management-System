@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class Create_Transportation {
     private static JsonObject new_json = new JsonObject();
-
     /**
      * Create new Transport with the Inputs from the user
      */
@@ -102,7 +101,6 @@ public class Create_Transportation {
             answer = reader.nextLine();
         }
     }
-
     /**
      * Selection methods from the User
      */
@@ -144,7 +142,6 @@ public class Create_Transportation {
 
         return Print_to_user(new_suppliers.size(), new_suppliers);
     }
-
     public static void choose_site(String area) {
 
         Scanner reader = new Scanner(System.in);
@@ -232,8 +229,6 @@ public class Create_Transportation {
             }
         }
     }
-
-
     /**
      * Creation methods
      */
@@ -249,8 +244,6 @@ public class Create_Transportation {
     public static int create_Transportation(JsonObject j) {
         return Transportation_manager_controller.create_transport(j);
     }
-
-
     /**
      * Solution methods:
      */
@@ -324,8 +317,6 @@ public class Create_Transportation {
         System.out.println("\nPlease choose a different Truck for the Transport: ");
         return Print_to_user(j.size(), j);
     }
-
-
     public static void Change_Sites(String area) {
         JsonObject s = Transportation_manager_controller.Choose_Supplier_Target();
         System.out.println("\nwhich Supplier you want to replace ? ");
@@ -355,8 +346,6 @@ public class Create_Transportation {
         new_json.addProperty("Driver", d);
         return true;
     }
-
-
     /**
      * Prints to the user the possible choices depending on the stage he is in
      */
@@ -384,5 +373,4 @@ public class Create_Transportation {
         }
         return j.get(answer).getAsString();
     }
-
 }

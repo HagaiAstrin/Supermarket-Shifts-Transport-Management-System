@@ -28,12 +28,7 @@ public class Driver {
         this.list = null;
     }
 
-    /**
-     * @return true if the Manager choose the driver to drive, false otherwise
-     */
-    public boolean isHold() {
-        return hold;
-    }
+//    get methods:
     /**
      * @return the name of the Driver
      */
@@ -57,62 +52,24 @@ public class Driver {
         }
         return 0;
     }
-
     /**
      * @return the password of the Driver
      */
     public String getPassword() {
         return Password;
     }
-
-
     /**
      * @return the using Truck of the Driver
      */
     public Truck getUsing_truck() {
         return using_truck;
     }
-
-
     /**
      * Getter transport
      */
     public Transport getTran() {
         return tran;
     }
-
-
-    /**
-     * Setter hold
-     */
-    public void setHold(boolean hold) {
-        this.hold = hold;
-    }
-    /**
-     * Setter availability
-     */
-    public void setAvailability(boolean availability) {
-        if(!availability) this.list = null;
-        this.availability = availability;
-    }
-
-
-    /**
-     * Getter using_truck
-     */
-    public void setUsing_truck(Truck using_truck) {
-        this.using_truck = using_truck;
-    }
-
-
-    /**
-     * Setter transport
-     */
-    public void setTran(Transport tran) {
-        this.tran = tran;
-    }
-
-
     /**
      * Return the List of the driving schedule
      */
@@ -138,6 +95,32 @@ public class Driver {
     }
 
 
+//    set methods:
+    /**
+     * Setter hold
+     */
+    public void setHold(boolean hold) {
+        this.hold = hold;
+    }
+    /**
+     * Setter availability
+     */
+    public void setAvailability(boolean availability) {
+        if(!availability) this.list = null;
+        this.availability = availability;
+    }
+    /**
+     * Getter using_truck
+     */
+    public void setUsing_truck(Truck using_truck) {
+        this.using_truck = using_truck;
+    }
+    /**
+     * Setter transport
+     */
+    public void setTran(Transport tran) {
+        this.tran = tran;
+    }
     /**
      * Setter Driver list order
      */
@@ -147,14 +130,22 @@ public class Driver {
     }
 
 
+//    checking methods:
     /**
      * @return true if the Driver availability for drive
      */
     public boolean isAvailability() {
         return availability;
     }
+    /**
+     * @return true if the Manager choose the driver to drive, false otherwise
+     */
+    public boolean isHold() {
+        return hold;
+    }
 
 
+//    print method:
     /**
      * @return String representation of the Driver
      */

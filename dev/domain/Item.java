@@ -25,6 +25,7 @@ public class Item {
     public double getWeight() {
         return weight;
     }
+
     /**
      * @return String represent of the Item
      */

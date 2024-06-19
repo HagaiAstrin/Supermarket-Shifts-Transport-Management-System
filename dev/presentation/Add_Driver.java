@@ -10,7 +10,7 @@ public class Add_Driver {
     /**
      * Input from the user for Driver arguments
      */
-    public static void add_driver() {
+        public static void add_driver() {
 
         JsonObject new_json = new JsonObject();
         Scanner reader = new Scanner(System.in);

@@ -20,24 +20,22 @@ public class DataStructManager {
     protected static double current_max_transport;
     private static int count_good_transport = 1000;
 
+//  Getters
     public static Map<Item, Integer> getItems() {
         return items;
     }
-
     /**
      * @return the Manager Map
      */
     public static Map<String, Map<String, Map<String, Site>>> getManager_Map() {
         return manager_Map;
     }
-
     /**
      * @return all the Trucks in the System
      */
     public static ArrayList<Truck> getTrucks() {
         return trucks;
     }
-
     /**
      * @return all the documents in the System
      */
@@ -45,45 +43,8 @@ public class DataStructManager {
         return documents;
     }
 
-    /**
-     * Add new Driver to the System
-     */
-    public static void add_new_driver(Driver d){
-        drivers.add(d);
-    }
 
-    /**
-     * Add new Truck to the System
-     */
-    public static void add_new_Truck(Truck t){
-        trucks.add(t);
-    }
-
-    /**
-     * Add new Document to the System
-     */
-    public static void add_new_doc(Document doc){
-        documents.add(doc);
-    }
-
-    /**
-     * Remove Document from the System
-     */
-    public static void remove_doc(int i){
-        documents.remove(i);
-    }
-
-    /**
-     * Add new Shipping area to the System
-     */
-    public static void add_new_Site(Site s){
-        Map<String, Site> map = manager_Map.get(s.getShipping_area()).get(s.getType());
-        if (!map.containsKey(s.getName())) {
-            manager_Map.get(s.getShipping_area()).get(s.getType()).put(s.getName(), s);
-        }
-    }
-
-
+//    Driver's methods:
     /**
      * Checking name and password of the driver
      * @param j - JsonObject argument
@@ -97,7 +58,6 @@ public class DataStructManager {
         }
         return null;
     }
-
     public static StringBuilder print_driver_doc(JsonObject j){
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get("Password").getAsString().equals(driver.getPassword())) {
@@ -106,8 +66,6 @@ public class DataStructManager {
         }
         return null;
     }
-
-
     /**
      * Updating that the Driver comes back
      * @param j - JsonObject argument
@@ -128,7 +86,6 @@ public class DataStructManager {
         }
         return ("\nYou are not exist in the system!\n");
     }
-
     /**
      * Updating that the Driver leaves
      * @param j - JsonObject argument
@@ -170,15 +127,33 @@ public class DataStructManager {
         map.put("Supplier",new HashMap<>());
         manager_Map.put(Shipping_area, map);
     }
-
-
     /**
-     * Clear tje current item list
+     * Add new Shipping area to the System
      */
-    public static void clear_cur_items(){
-        items.clear();
+    public static void add_new_Site(Site s){
+        Map<String, Site> map = manager_Map.get(s.getShipping_area()).get(s.getType());
+        if (!map.containsKey(s.getName())) {
+            manager_Map.get(s.getShipping_area()).get(s.getType()).put(s.getName(), s);
+        }
     }
-
+    /**
+     * Add new Driver to the System
+     */
+    public static void add_new_driver(Driver d){
+        drivers.add(d);
+    }
+    /**
+     * Add new Truck to the System
+     */
+    public static void add_new_Truck(Truck t){
+        trucks.add(t);
+    }
+    /**
+     * Add new Document to the System
+     */
+    public static void add_new_doc(Document doc){
+        documents.add(doc);
+    }
 
 
 //    Creation methods:
@@ -218,8 +193,6 @@ public class DataStructManager {
             }
         }
     }
-
-
     /**
      * Create Transportation
      * @param j - JsonObject argument
@@ -256,6 +229,21 @@ public class DataStructManager {
     }
 
 
+//    deleting methods:
+    /**
+     * Remove Document from the System
+     */
+    public static void remove_doc(int i){
+        documents.remove(i);
+    }
+    /**
+     * Clear tje current item list
+     */
+    public static void clear_cur_items(){
+        items.clear();
+    }
+
+
 //    Selection methods:
     /**
      * Choose a Truck from DataStruct
@@ -273,8 +261,6 @@ public class DataStructManager {
         }
         return j;
     }
-
-
     /**
      * Choose a Driver from DataStruct
      * @param truck - String argument represent the selected Truck
@@ -299,8 +285,6 @@ public class DataStructManager {
         }
         return j;
     }
-
-
     /**
      * Choose Area from DataStruct
      * @return JsonObject of all the area in the DataStruct
@@ -313,8 +297,6 @@ public class DataStructManager {
         }
         return j;
     }
-
-
     /**
      * Choose Supplier or Store from DataStruct
      * @param area - the selected Area
@@ -328,7 +310,6 @@ public class DataStructManager {
         }
         return j;
     }
-
     public static JsonObject choose_items(){
         JsonObject j = new JsonObject();
         int count = 1;
@@ -339,13 +320,11 @@ public class DataStructManager {
         }
         return j;
     }
-
-
     /**
      * Return the number of a specific item in the Order
      * @param s - String Type represent the Item name
      */
-    public static int amount_items(String s){
+    public static int amount_items(String s)    {
 
         for (Map.Entry<Item, Integer> iter: curr_all_items.entrySet()){
             if (iter.getKey().to_string().equals(s))
@@ -360,7 +339,7 @@ public class DataStructManager {
      * Transport represent
      * @return JsonObject represent all the transportation in Database
      */
-    public static JsonObject All_transport_print(){
+        public static JsonObject All_transport_print(){
         if(transports.isEmpty()) return null;
         JsonObject j = new JsonObject();
         int count = 1;

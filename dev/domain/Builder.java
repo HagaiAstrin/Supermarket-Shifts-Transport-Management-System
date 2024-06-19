@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Builder {
+
     /**
      * Adding Driver to DataStruct
      * @param j - JsonObject argument
@@ -19,7 +20,6 @@ public class Builder {
         DataStructManager.add_new_driver(new_driver);
 
     }
-
     /**
      * Adding Truck to DataStruct
      * @param j - JsonObject argument
@@ -34,7 +34,6 @@ public class Builder {
         DataStructManager.add_new_Truck(new_truck);
 
     }
-
     /**
      * Create new Document
      * @param j - JsonObject argument
@@ -56,7 +55,6 @@ public class Builder {
             }
         }
     }
-
     /**
      * Adding new site in specific Shipping_area to manager_Map
      * @param j - JsonObject argument

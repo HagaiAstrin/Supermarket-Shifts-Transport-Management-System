@@ -26,6 +26,19 @@ public class Document {
     public Site getTarget() {
         return target;
     }
+    /**
+     * @return the weight of Document
+     */
+    public double getDoc_weight() {
+        return doc_weight;
+    }
+    /**
+     * @return the Item , count Map of the Document
+     */
+    public Map<Item, Integer> getItem_map() {
+        return item_map;
+    }
+
 
     /**
      * Calculate all the weight of Document
@@ -39,14 +52,6 @@ public class Document {
         }
         return count;
     }
-
-    /**
-     * @return the weight of Document
-     */
-    public double getDoc_weight() {
-        return doc_weight;
-    }
-
     /**
      * Dropped an Item from the Document
      * @param t - Item argument
@@ -56,12 +61,6 @@ public class Document {
         this.doc_weight = cul_weight();
     }
 
-    /**
-     * @return the Item , count Map of the Document
-     */
-    public Map<Item, Integer> getItem_map() {
-        return item_map;
-    }
 
     /**
      * @return String that represent the Document

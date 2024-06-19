@@ -89,7 +89,6 @@ public class Driver_Menu {
             a = reader.nextLine();
         }
     }
-
     /**
      * Update leaving
      * @param j - JsonObject argument represent the Driver
@@ -98,7 +97,6 @@ public class Driver_Menu {
         String a = Driver_controller.update_leaving(j);
         System.out.println(a);
     }
-
     /**
      * Update come back
      * @param j - JsonObject argument represent the Driver

@@ -26,7 +26,27 @@ public class Site {
     public String getName() {
         return name;
     }
-
+    /**
+     * Getter address
+     */
+    public String getAddress() {
+        return address;
+    }
+    /**
+     * Getter phone
+     */
+    public String getPhone() {
+        return phone;
+    }
+    /**
+     * Getter Contact
+     */
+    public String getContact() {
+        return contact;
+    }
+    public String getShipping_area() {
+        return shipping_area;
+    }
     /**
      * Getter type
      */
@@ -34,30 +54,6 @@ public class Site {
         return type;
     }
 
-    /**
-     * Getter address
-     */
-    public String getAddress() {
-        return address;
-    }
-
-    /**
-     * Getter phone
-     */
-    public String getPhone() {
-        return phone;
-    }
-
-    /**
-     * Getter Contact
-     */
-    public String getContact() {
-        return contact;
-    }
-
-    public String getShipping_area() {
-        return shipping_area;
-    }
 
     /**
      * @return String represent of the Site

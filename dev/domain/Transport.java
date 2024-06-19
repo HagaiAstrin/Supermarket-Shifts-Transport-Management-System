@@ -30,6 +30,8 @@ public class Transport {
     public double get_transport_Max_weight() {
         return this.max_weight;
     }
+
+
     /**
      * Setter id
      */
@@ -42,17 +44,14 @@ public class Transport {
     public void setDate(String date) {
         this.date = date;
     }
-
-    public void del_Target(Document d){
-        this.targets.remove(d);
-    }
-
     /**
      * Setter leaving_time
      */
     public void setLeaving_time(String leaving_time) {
         this.leaving_time = leaving_time;
     }
+
+
     /**
      * @return false if the truck in Over weight, true if it f+good to go
      */

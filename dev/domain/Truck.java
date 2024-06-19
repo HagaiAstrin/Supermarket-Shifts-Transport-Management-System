@@ -8,6 +8,7 @@ public class Truck {
     private boolean availability;
     private boolean hold;
 
+
     /**
      * Constructor of Truck
      */
@@ -26,14 +27,12 @@ public class Truck {
     public double getNet_weight() {
         return net_weight;
     }
-
     /**
      * Getter max_weight
      */
     public double getMax_weight() {
         return max_weight;
     }
-
     /**
      * Getter licence_level
      */
@@ -51,7 +50,6 @@ public class Truck {
         }
         return 0;
     }
-
     /**
      * Getter licence_number
      */
@@ -59,26 +57,27 @@ public class Truck {
         return licence_number;
     }
 
+    public void setHold(boolean hold) {
+        this.hold = hold;
+    }
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
+    }
+
+
+
     /**
      * Getter availability
      */
     public boolean isAvailability() {
         return availability;
     }
-    public void setHold(boolean hold) {
-        this.hold = hold;
-    }
-
     /**
      * Getter hold
      */
     public boolean isHold() {
         return hold;
     }
-    public void setAvailability(boolean availability) {
-        this.availability = availability;
-    }
-
     /**
      * @return String represent of the Truck
      */

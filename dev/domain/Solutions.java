@@ -23,7 +23,6 @@ public class Solutions {
         }
         return new_json;
     }
-
     /**
      * @param a - String argument represent the Site to dropped items from
      * @return JsonObject of the Items to dropped
@@ -41,7 +40,6 @@ public class Solutions {
         }
         return new_json;
     }
-
     /**
      * @return JsonObject represent the available Sites to dropped
      */
@@ -54,7 +52,6 @@ public class Solutions {
         }
         return j;
     }
-
     /**
      * Replace Documents
      *
@@ -71,7 +68,6 @@ public class Solutions {
         drop_Site(a);
         documents.add(count, documents.remove(documents.size() - 1));
     }
-
     /**
      * Dropped Items
      *
@@ -113,8 +109,6 @@ public class Solutions {
         }
 
     }
-
-
     /**
      * Dropped Site from Database
      *

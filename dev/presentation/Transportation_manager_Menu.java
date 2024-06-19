@@ -58,7 +58,6 @@ public class Transportation_manager_Menu {
             }
         }
     }
-
     /**
      * Adding a Driver from the user
      */
