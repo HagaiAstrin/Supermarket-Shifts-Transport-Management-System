@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+
+import Controller.DataController;
 import com.google.gson.JsonObject;
 
 
@@ -77,51 +79,52 @@ public class IO_Data {
      * @return List of employees in Json format.
      */
     public static void ImportEmployees() {
-        String line;
-        String csvSplitBy = ",";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-        try (BufferedReader br = new BufferedReader(new FileReader(Constants.DEV + branch + Constants.PATH_EMPLOYEE))) {
-            br.readLine(); // Skip the header line
-            while ((line = br.readLine()) != null) {
-                // Use comma as separator
-                String[] fields = line.split(csvSplitBy);
-
-                if (fields.length == 7) { // Assuming the CSV has exactly 7 columns
-                    String id = fields[0];
-                    String[] jobTypeArray = fields[1].split("/");
-                    ArrayList<JobTypeEnum> jobTypes = new ArrayList<>();
-                    for (String jobType : jobTypeArray) {
-                        try {
-                            jobTypes.add(JobTypeEnum.valueOf(jobType.trim().toUpperCase().replace(" ", "_")));
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("Invalid job type: " + jobType);
-                        }
-                    }
-                    String name = fields[2];
-                    String bankID = fields[3];
-                    String startDate = fields[4];
-                    int salary = Integer.parseInt(fields[5]);
-                    int restDays = Integer.parseInt(fields[6]);
-
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-                    try {
-                        // Parse the string to LocalDate
-                        LocalDate date = LocalDate.parse(startDate, formatter);
-                        Employee employee = new Employee(id,  name, bankID, salary, restDays, date, jobTypes);
-                        if(!flag){
-                            currEmployees.put(Integer.valueOf(employee.getId()), employee);
-                        }
-                    } catch (DateTimeParseException e) {
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        flag = true;
+        DataController.importEmployees();
+//        String line;
+//        String csvSplitBy = ",";
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//
+//        try (BufferedReader br = new BufferedReader(new FileReader(Constants.DEV + branch + Constants.PATH_EMPLOYEE))) {
+//            br.readLine(); // Skip the header line
+//            while ((line = br.readLine()) != null) {
+//                // Use comma as separator
+//                String[] fields = line.split(csvSplitBy);
+//
+//                if (fields.length == 7) { // Assuming the CSV has exactly 7 columns
+//                    String id = fields[0];
+//                    String[] jobTypeArray = fields[1].split("/");
+//                    ArrayList<JobTypeEnum> jobTypes = new ArrayList<>();
+//                    for (String jobType : jobTypeArray) {
+//                        try {
+//                            jobTypes.add(JobTypeEnum.valueOf(jobType.trim().toUpperCase().replace(" ", "_")));
+//                        } catch (IllegalArgumentException e) {
+//                            System.out.println("Invalid job type: " + jobType);
+//                        }
+//                    }
+//                    String name = fields[2];
+//                    String bankID = fields[3];
+//                    String startDate = fields[4];
+//                    int salary = Integer.parseInt(fields[5]);
+//                    int restDays = Integer.parseInt(fields[6]);
+//
+//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//
+//                    try {
+//                        // Parse the string to LocalDate
+//                        LocalDate date = LocalDate.parse(startDate, formatter);
+//                        Employee employee = new Employee(id,  name, bankID, salary, restDays, date, jobTypes);
+//                        if(!flag){
+//                            currEmployees.put(Integer.valueOf(employee.getId()), employee);
+//                        }
+//                    } catch (DateTimeParseException e) {
+//                    }
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        flag = true;
     }
 
     public static String[][] ImportEmployeePreferences(String id) {
@@ -435,5 +438,14 @@ public class IO_Data {
         }
 
         return folders;
+    }
+
+    public static void appendEmployee(String id, String name, String bankID, int salary, int restDays, LocalDate startDate,  ArrayList<JobTypeEnum> jobTypes){
+        Employee employee = new Employee(id, name, bankID, salary, restDays, startDate, jobTypes);
+        currEmployees.put(Integer.valueOf(employee.getId()), employee);
+    }
+
+    public static void setFlag(boolean value){
+        flag = value;
     }
 }
