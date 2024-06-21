@@ -110,7 +110,7 @@ public class AdminMenu {
                         break;
                     case 6:
                         SystemController.Logout();
-                        break;
+                        return;
                     default:
                         System.out.println("Invalid choice. Please try again.");
                 }

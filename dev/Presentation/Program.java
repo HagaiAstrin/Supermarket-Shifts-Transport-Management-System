@@ -17,7 +17,9 @@ public class Program {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Program program = new Program();
-        program.Menu();
+        while(true) {
+            program.Menu();
+        }
     }
 
     /**
