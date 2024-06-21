@@ -54,11 +54,19 @@ public class JobWeeklyShift {
      * Check if shifts are full
      */
     public void checkFull(int amount) throws Exception{
+        // in a Job type I will check if there's enough employees
         for (int day = 0; day < IO_Data.amount_days; day++) {
             for (int shift = 0; shift < IO_Data.amount_shifts; shift++) {
                 //There are no enough employee in the shift
-                if (WeeklyShifts[shift][day] == null || WeeklyShifts[shift][day].size() != amount) {
-                    throw new Exception("There are no enough employee in " + JobName.toString());
+                if (this.JobName.toString().equals(JobTypeEnum.SHIFT_MANAGER.toString())){
+                    if (WeeklyShifts[shift][day] == null ||WeeklyShifts[shift][day].size() != 1){
+                        throw new Exception("There is no " + JobName.toString() + " across all of the shifts");
+                    }
+                }
+                else{
+                    if (WeeklyShifts[shift][day] == null || WeeklyShifts[shift][day].size() != amount) {
+                        throw new Exception("There are not enough employees in the " + JobName.toString() + " position across all shifts");
+                    }
                 }
             }
         }
