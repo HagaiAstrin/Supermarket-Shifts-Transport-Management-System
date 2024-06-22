@@ -30,7 +30,8 @@ public class AdminController {
         IO_Data.addEmployeeToList(json);
     }
     public static String createPreferencesNewEmp(JsonObject json) throws Exception {
-        return IO_Data.createPreferencesCsv(json);
+        return DataController.createPreferencesTable(json);
+        //return IO_Data.createPreferencesCsv(json);
     }
 
     /**
@@ -90,5 +91,9 @@ public class AdminController {
      */
     public static List<JsonObject> getEmployeeToShift(int job, int day, int shift){
         return IO_Data.getEmployeeHowCanWork(job,day,shift);
+    }
+
+    public static void AddNewLoginInfo(String id, String name) {
+        DataController.addNewLoginInfo(id, name);
     }
 }

@@ -127,33 +127,35 @@ public class IO_Data {
 //        flag = true;
     }
 
+
     public static String[][] ImportEmployeePreferences(String id) {
-        String[][] preference = new String[amount_shifts][amount_days];
-        String line;
-        String csvSplitBy = ",";
-        String empSpecificPath = Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + id + ".csv";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(empSpecificPath))) {
-            br.readLine(); // Skip the header line
-
-            int rowInt = -1;
-           while ((line = br.readLine()) != null && rowInt<2){
-              rowInt++;
-                // Use comma as separator
-               String[] fields = line.split(csvSplitBy);
-
-              if (fields.length == 5) {
-                  // Create a 2D array to store the fields
-                    for (int i = 0; i < 5; i++) {
-                     preference[rowInt][i] = fields[i];
-                  }
-             }
-           }
-        } catch (IOException e) {
-          e.printStackTrace();
-          System.out.println(id);
-     }
-        return preference;
+        return DataController.importEmployeePreferences(id);
+//        String[][] preference = new String[amount_shifts][amount_days];
+//        String line;
+//        String csvSplitBy = ",";
+//        String empSpecificPath = Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + id + ".csv";
+//
+//        try (BufferedReader br = new BufferedReader(new FileReader(empSpecificPath))) {
+//            br.readLine(); // Skip the header line
+//
+//            int rowInt = -1;
+//           while ((line = br.readLine()) != null && rowInt<2){
+//              rowInt++;
+//                // Use comma as separator
+//               String[] fields = line.split(csvSplitBy);
+//
+//              if (fields.length == 5) {
+//                  // Create a 2D array to store the fields
+//                    for (int i = 0; i < 5; i++) {
+//                     preference[rowInt][i] = fields[i];
+//                  }
+//             }
+//           }
+//        } catch (IOException e) {
+//          e.printStackTrace();
+//          System.out.println(id);
+//     }
+//        return preference;
     }
 
     public static List<JsonObject> PrintEmployees() {
@@ -182,9 +184,20 @@ public class IO_Data {
     public static boolean RemoveEmployee(String id) throws IOException {
         int indexToRemove = SearchEmployee(id);
         if(indexToRemove != -1){
-            deleteCsvFile(id);
+            //deleteCsvFile(id);
+            DataController.removeEmployee(id);
             currEmployees.remove(Integer.parseInt(id));
-            RemoveEmployeeFromCSV(id);
+            //RemoveEmployeeFromCSV(id);
+            DataController.removeEmployeePreferences(id);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean RemoveEmployeeFromMap(String id) throws IOException {
+        int indexToRemove = SearchEmployee(id);
+        if(indexToRemove != -1){
+            currEmployees.remove(Integer.parseInt(id));
             return true;
         }
         return false;
@@ -255,24 +268,25 @@ public class IO_Data {
      * Check validity of a user's login using SHA-256 encryption.
      */
     public static boolean Authentication(String username, String password, String id, String path) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] fields = line.split(",");
-                if (fields.length != 3) continue; // Skip malformed lines
-
-                String storedUsername = fields[0].trim();
-                String storedHashedPassword = fields[1].trim();
-                String storedID = fields[2].trim();
-
-                if (storedUsername.equals(username) && storedHashedPassword.equals(password) && storedID.equals(id)) {
-                    return true;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return DataController.Authenticate(username, password, id, path);
+    //        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                String[] fields = line.split(",");
+//                if (fields.length != 3) continue; // Skip malformed lines
+//
+//                String storedUsername = fields[0].trim();
+//                String storedHashedPassword = fields[1].trim();
+//                String storedID = fields[2].trim();
+//
+//                if (storedUsername.equals(username) && storedHashedPassword.equals(password) && storedID.equals(id)) {
+//                    return true;
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
     }
 
     /**
@@ -290,6 +304,21 @@ public class IO_Data {
         return null;
     }
 
+    public static void UpdateEmployee(String id, String fieldName, String fieldValue){
+        JsonObject employee = GetEmployee(id);
+
+        employee.remove(fieldName);
+        employee.addProperty(fieldName, fieldValue);
+        try {
+            IO_Data.RemoveEmployeeFromMap(id);
+            currEmployees.put(Integer.valueOf(id), Employee.JsonToEmployee(employee));
+        }
+        catch (Exception e){
+
+        }
+    }
+
+
     public static void SetEmployeeID(String id){
         employeeID = id;
     }
@@ -305,13 +334,14 @@ public class IO_Data {
      * Add an employee to csv file.
      */
     public static void addEmployeeToCSV(JsonObject employeeJson) throws IOException {
-        try (FileWriter writer = new FileWriter(Constants.DEV + branch + Constants.PATH_EMPLOYEE, true)) {
-            writer.append(employeeJsonToCSVString(employeeJson));
-            writer.append("\n");
-        }
-        catch (IOException e){
-            System.out.println(e.getMessage());
-        }
+        DataController.addEmployee(employeeJson);
+//        try (FileWriter writer = new FileWriter(Constants.DEV + branch + Constants.PATH_EMPLOYEE, true)) {
+//            writer.append(employeeJsonToCSVString(employeeJson));
+//            writer.append("\n");
+//        }
+//        catch (IOException e){
+//            System.out.println(e.getMessage());
+//        }
     }
 
     public static String createPreferencesCsv(JsonObject e) throws Exception{
@@ -447,5 +477,9 @@ public class IO_Data {
 
     public static void setFlag(boolean value){
         flag = value;
+    }
+
+    public static void EraseEmployees() {
+        currEmployees = new HashMap<>();
     }
 }

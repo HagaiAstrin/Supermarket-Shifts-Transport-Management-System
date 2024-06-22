@@ -72,6 +72,8 @@ public class Menu {
                 // Add the new employee to the db and to the list in this project.
                 AdminController.createPreferencesNewEmp(e_Json);
                 AdminController.AddEmployee(e_Json);
+                AdminController.AddNewLoginInfo(id, name);
+                // TODO: ADD NEW LOGIN DETAILS FOR THIS USER
                 System.out.println("Employee added successfully.");
             } catch (IOException ex) {
                 System.err.println("Failed to add employee: " + ex.getMessage());
@@ -146,31 +148,27 @@ public class Menu {
                 case 1:
                     System.out.print("Enter new Name: ");
                     String name = scanner.nextLine();
-                    employee.remove("name");
-                    employee.addProperty("name", name);
+                    DataController.updateEmployeeField(id, "name", name);
                     System.out.println("Name updated.");
                     break;
                 case 2:
                     System.out.print("Enter new Bank ID: ");
                     String bankID = scanner.nextLine();
-                    employee.remove("bankID");
-                    employee.addProperty("bankID", bankID);
+                    DataController.updateEmployeeField(id, "bankID", bankID);
                     System.out.println("Bank ID updated.");
                     break;
                 case 3:
                     System.out.print("Enter new Salary: ");
                     int salary = scanner.nextInt();
                     scanner.nextLine();  // Consume newline
-                    employee.remove("salary");
-                    employee.addProperty("salary", salary);
+                    DataController.updateEmployeeField(id, "salary", String.valueOf(salary));
                     System.out.println("Salary updated.");
                     break;
                 case 4:
                     System.out.print("Enter new Rest Days: ");
                     int restDays = scanner.nextInt();
                     scanner.nextLine();  // Consume newline
-                    employee.remove("restDays");
-                    employee.addProperty("restDays", restDays);
+                    DataController.updateEmployeeField(id, "restDays", String.valueOf(restDays));
                     System.out.println("Rest Days updated.");
                     break;
                 case 5:
@@ -190,10 +188,12 @@ public class Menu {
                             for (int j = 0; j < jobTypeArray.length; j++) {
                                 jobType += "/" + jobTypeArray[j];
                             }
-                            employee.addProperty("jobType", jobType);
+                            DataController.updateEmployeeField(id, "jobType", jobType);
                             System.out.println("Job Type updated.");
                         }
-                        else {break;}
+                        else {
+                            break;
+                        }
                     }
                     break;
                 case 6:
@@ -201,11 +201,6 @@ public class Menu {
                 default:
                     System.out.println("Invalid choice. Please try again.       ");
             }
-
-            AdminController.RemoveEmployee(id);
-            AdminController.createPreferencesNewEmp(employee);
-            AdminController.AddEmployee(employee);
         }
     }
-
 }

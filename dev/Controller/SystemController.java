@@ -23,6 +23,8 @@ public class SystemController {
     public static void Logout(){
         System.out.println("Dear user, thank you for using \"Super-Lee\" HR System!");
         System.out.println("Logged out successfully.");
+        IO_Data.EraseEmployees();
+        IO_Data.setFlag(false);
     }
 
     /**

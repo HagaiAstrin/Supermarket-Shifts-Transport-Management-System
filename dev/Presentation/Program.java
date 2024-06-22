@@ -110,7 +110,7 @@ public class Program {
                     AdminController.ImportEmployees();
                     UserMenu.Menu();
                 }
-                else{ AdminMenu.Menu(); }
+                else{ UserMenu.Menu(); }
                 break;
             } else {
                 System.out.println("Invalid username or password. Try again.");

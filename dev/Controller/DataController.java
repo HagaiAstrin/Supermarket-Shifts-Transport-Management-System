@@ -4,18 +4,17 @@ import Domain.IO_Data;
 import Domain.JobTypeEnum;
 import com.google.gson.JsonObject;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class DataController {
     private static final String DB_URL = "jdbc:sqlite:dev/Data/Be'erSheva.db";
+    private static final int amount_shifts = 2;  // Assuming there are 2 shifts
+    private static final int amount_days = 5;    // Assuming there are 5 days
 
     public static void importEmployees() {
         String query = "SELECT id, JobType, name, bankID, startDate, salary, restDays FROM Employees";
@@ -60,9 +59,9 @@ public class DataController {
         IO_Data.setFlag(true);
     }
 
-    public static void addEmployeeFromJson(JsonObject employeeJson) {
+    public static void addEmployee(JsonObject employeeJson) {
         // TODO: Call from addEmployeeToCSV
-        String sql = "INSERT INTO employees(id, name, bankID, salary, restDays, startDate, jobTypes) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO employees(id, name, bankID, salary, restDays, startDate, jobType) VALUES(?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -75,17 +74,176 @@ public class DataController {
             int salary = employeeJson.get("salary").getAsInt();
             int restDays = employeeJson.get("restDays").getAsInt();
 
+            // Convert startDate to the correct format
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate date = LocalDate.parse(startDate, inputFormatter);
+            String formattedDate = date.format(outputFormatter);
+
             // Set parameters for the prepared statement
             preparedStatement.setString(1, id);
             preparedStatement.setString(2, name);
             preparedStatement.setString(3, bankID);
             preparedStatement.setInt(4, salary);
             preparedStatement.setInt(5, restDays);
-            preparedStatement.setString(6, startDate);
+            preparedStatement.setString(6, formattedDate);
             preparedStatement.setString(7, jobTypes);
 
             preparedStatement.executeUpdate();
-            System.out.println("Employee added successfully.");
+        } catch (SQLException e) {
+
+        }
+    }
+
+    public static String createPreferencesTable(JsonObject e) throws Exception {
+        String id = e.get("id").getAsString();
+
+        String createTableSQL = String.format(
+                "CREATE TABLE IF NOT EXISTS \"%s\" (Sun INTEGER, Mon INTEGER, The INTEGER, Wen INTEGER, Thu INTEGER);",
+                id
+        );
+
+        String insertRowSQL = String.format(
+                "INSERT INTO \"%s\" (Sun, Mon, The, Wen, Thu) VALUES (1, 1, 1, 1, 1);",
+                id
+        );
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             Statement statement = connection.createStatement()) {
+
+            // Create table
+            statement.execute(createTableSQL);
+
+            // Insert two rows
+            statement.execute(insertRowSQL);
+            statement.execute(insertRowSQL);
+
+            return "Table created and rows inserted for id: " + id;
+        } catch (SQLException ex) {
+            throw new Exception("Problem with creating table or inserting rows for id: " + id, ex);
+        }
+    }
+
+    public static String[][] importEmployeePreferences(String id) {
+        String[][] preferences = new String[amount_shifts][amount_days];
+        String getPreferencesSQL = String.format("SELECT Sun, Mon, The, Wen, Thu FROM \"%s\"", id);
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(getPreferencesSQL)) {
+
+            int row = 0;
+            while (resultSet.next() && row < amount_shifts) {
+                preferences[row][0] = resultSet.getString("Sun");
+                preferences[row][1] = resultSet.getString("Mon");
+                preferences[row][2] = resultSet.getString("The");
+                preferences[row][3] = resultSet.getString("Wen");
+                preferences[row][4] = resultSet.getString("Thu");
+                row++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return preferences;
+    }
+
+    public static void removeEmployee(String id) {
+        String sql = "DELETE FROM employees WHERE id = ?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            // Set parameter for the prepared statement
+            preparedStatement.setString(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void removeEmployeePreferences(String id) {
+        String sql = String.format("DROP TABLE IF EXISTS \"%s\"", id);
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             Statement statement = connection.createStatement()) {
+
+            statement.execute(sql);
+            //System.out.println("Preferences table for employee ID " + id + " deleted successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateEmployeeField(String id, String fieldName, String fieldValue) {
+        String sql = String.format("UPDATE Employees SET %s = ? WHERE id = ?", fieldName);
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, fieldValue);
+            preparedStatement.setString(2, id);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            IO_Data.UpdateEmployee(id, fieldName, fieldValue);
+            if (rowsAffected > 0) {
+                System.out.println(fieldName + " updated successfully.");
+            } else {
+                System.out.println("Failed to update " + fieldName + " for employee ID " + id);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean Authenticate(String username, String password, String id, String tableName) {
+        String query = "";
+        if(tableName.equals("admin")) {
+            query = "SELECT COUNT(*) FROM DataValidationAdmin WHERE UserName = ? AND Password = ? AND ID = ?";
+        }
+        else{
+            query = "SELECT COUNT(*) FROM DataValidationUser WHERE UserName = ? AND Password = ? AND ID = ?";
+        }
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            preparedStatement.setString(3, id);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static void addNewLoginInfo(String id, String name) {
+        String sql = "INSERT INTO DataValidationUser (UserName, Password, ID) VALUES (?, ?, ?)";
+
+        // Default value for Password
+        String defaultPassword = "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, defaultPassword);
+            preparedStatement.setString(3, id);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("New login info added successfully.");
+            } else {
+                System.out.println("Failed to add new login info.");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
