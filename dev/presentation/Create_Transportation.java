@@ -21,6 +21,12 @@ public class Create_Transportation {
             System.out.println("\nPlease enter the address of the source place of the transportation:");
             new_json.addProperty("Source", reader.nextLine());
 
+            System.out.println("\nPlease enter the address of the date of the transportation:");
+            new_json.addProperty("Date", reader.nextLine());
+
+            System.out.println("\nPlease enter the address of the leaving time of the transportation:");
+            new_json.addProperty("Leaving time", reader.nextLine());
+
             String truck = choose_truck();
 
             if (truck == null) {

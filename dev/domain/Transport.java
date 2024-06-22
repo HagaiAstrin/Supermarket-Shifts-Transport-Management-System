@@ -16,11 +16,14 @@ public class Transport {
     /**
      * Constructor of Transport
      */
-    public Transport(Truck truck, Driver driver, String source, ArrayList<Document> t) {
+    public Transport(Truck truck, Driver driver, String source,
+                     ArrayList<Document> t, String date, String time) {
         this.truck = truck;
         this.driver = driver;
         this.targets = new ArrayList<>(t);
         this.source = source;
+        this.date = date;
+        this.leaving_time = time;
     }
 
 

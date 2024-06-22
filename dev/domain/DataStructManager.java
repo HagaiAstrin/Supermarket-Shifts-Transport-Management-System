@@ -1,7 +1,6 @@
 package domain;
 
 import com.google.gson.JsonObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -105,8 +104,8 @@ public class DataStructManager {
                     driver.getUsing_truck().setAvailability(false);
                     driver.getUsing_truck().setHold(false);
                     driver.setHold(false);
-                    driver.getTran().setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-                    driver.getTran().setLeaving_time(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+//                    driver.getTran().setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+//                    driver.getTran().setLeaving_time(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
                     transports.add(driver.getTran());
                     return ("\nHave a good trip!");
                 }
@@ -201,12 +200,15 @@ public class DataStructManager {
     public static int create_transportation(JsonObject j){
 
         String source = j.get("Source").getAsString();
+        String date = j.get("Date").getAsString();
+        String leaving_time = j.get("Leaving time").getAsString();
+
 
         for (Driver d: drivers){
             if (d.to_String().equals(j.get("Driver").getAsString())){
                 for (Truck t: trucks){
                     if (t.to_String().equals(j.get("Truck").getAsString())){
-                        Transport new_transport = new Transport(t, d, source, documents);
+                        Transport new_transport = new Transport(t, d, source, documents, date, leaving_time);
                         int result = new_transport.Is_Over_Weight();
                         current_max_transport = new_transport.get_transport_Max_weight();
                         if (result == 0) {

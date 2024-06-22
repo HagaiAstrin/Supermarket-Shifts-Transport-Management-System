@@ -1,4 +1,4 @@
-package DAO;
+package DataAccess;
 
 import com.google.gson.JsonObject;
 
