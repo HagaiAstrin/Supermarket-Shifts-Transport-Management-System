@@ -1,4 +1,4 @@
-package Controller;
+package Data;
 
 import Domain.IO_Data;
 import Domain.JobTypeEnum;
@@ -8,11 +8,10 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class DataController {
-    private static final String DB_URL = "jdbc:sqlite:dev/Data/Be'erSheva.db";
+    private static String DB_URL = "jdbc:sqlite:dev/Data/";
     private static final int amount_shifts = 2;  // Assuming there are 2 shifts
     private static final int amount_days = 5;    // Assuming there are 5 days
 
@@ -247,5 +246,9 @@ public class DataController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void SetDB(String s) {
+        DB_URL = "jdbc:sqlite:dev/Data/" + s + ".db";
     }
 }

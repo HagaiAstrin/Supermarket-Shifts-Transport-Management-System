@@ -1,13 +1,12 @@
 package Domain;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
-import Controller.DataController;
+import Data.DataController;
 import com.google.gson.JsonObject;
 
 
@@ -444,6 +443,7 @@ public class IO_Data {
     }
 
     public static void SetBranchName(String s){
+        DataController.SetDB(s);
         branch = s;
     }
 
