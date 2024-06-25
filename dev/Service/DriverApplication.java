@@ -19,7 +19,7 @@ public class DriverApplication {
         return DC.update_leaving(j);
     }
 
-    public StringBuilder Print_document(JsonObject j) {
+    public String Print_document(JsonObject j) {
         return DC.Print_document(j);
     }
 }
