@@ -69,6 +69,7 @@ public class DataStructManager {
                     driver.getUsing_truck().setAvailability(true);
                     driver.setTran(null);
                     driver.setDocuments(null);
+                    driver.setList(null);
                     driver.getTran().setStatus("Delivered!");
                     return ("\nWelcome back!\n");
                 }
@@ -169,7 +170,7 @@ public class DataStructManager {
             transport.setId(count_good_transport++);
             transport.getDriver().setDocuments(transport.getTargets());
             transport.getDriver().setHold(true);
-            transport.getDriver().setList();
+            transport.getDriver().showList();
             transport.getTruck().setHold(true);
             transport.getDriver().setUsing_truck(transport.getTruck());
             transport.getDriver().setTran(transport);

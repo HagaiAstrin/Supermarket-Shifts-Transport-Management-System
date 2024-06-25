@@ -114,28 +114,8 @@ public class Driver {
         if(list != null)
             this.documents = new ArrayList<>(list);
     }
-    public void setList() {
-
-        StringBuilder new_s = new StringBuilder();
-
-        if(!isAvailability() && !isHold()){
-            new_s.append("\nWe hope your trip goes well!\n");
-            this.list = new_s.toString();
-            return;
-        }
-
-        new_s.append("\nYou got a Transportation list!\n\n");
-        int count = 1;
-        if(documents == null) {
-            this.list = null;
-            return;
-        }
-        for (Document d : documents) {
-            String s = count + " - " + d.to_string() + "\n";
-            new_s.append(s);
-            count++;
-        }
-        this.list = new_s.toString();
+    public void setList(String list) {
+        this.list = list;
     }
 
 
@@ -160,5 +140,28 @@ public class Driver {
      */
     public String to_String(){
         return ("Worker number: " + DriverNumber + ", Name:" + Name + ", Licence Level: " + License + ".");
+    }
+    public void showList() {
+
+        StringBuilder new_s = new StringBuilder();
+
+        if(!isAvailability() && !isHold()){
+            new_s.append("\nWe hope your trip goes well!\n");
+            this.list = new_s.toString();
+            return;
+        }
+
+        new_s.append("\nYou got a Transportation list!\n\n");
+        int count = 1;
+        if(documents == null) {
+            this.list = null;
+            return;
+        }
+        for (Document d : documents) {
+            String s = count + " - " + d.to_string() + "\n";
+            new_s.append(s);
+            count++;
+        }
+        this.list = new_s.toString();
     }
 }
