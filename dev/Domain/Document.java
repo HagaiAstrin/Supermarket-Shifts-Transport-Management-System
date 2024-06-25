@@ -1,4 +1,4 @@
-package domain;
+package Domain;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +9,7 @@ public class Document {
     private Site target;
     private Map<Item, Integer> item_map;
     private double doc_weight;
+
 
     /**
      * Constructor of Document
@@ -39,7 +40,6 @@ public class Document {
         return item_map;
     }
 
-
     /**
      * Calculate all the weight of Document
      */
@@ -60,7 +60,6 @@ public class Document {
         item_map.remove(t);
         this.doc_weight = cul_weight();
     }
-
 
     /**
      * @return String that represent the Document

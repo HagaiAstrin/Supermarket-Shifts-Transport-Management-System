@@ -1,9 +1,11 @@
-package domain;
+package Domain;
 
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static Domain.DataStructManager.transport;
 
 public class Builder {
 
@@ -46,11 +48,12 @@ public class Builder {
 
         for (Map.Entry<String, Site> iter : DataStructManager.getManager_Map().get(area).get(type).entrySet()) {
             if (iter.getValue().to_string().equals(site)) {
-                Map<Item, Integer> new_map = new HashMap<>(DataStructManager.getItems());
+                Map<Item, Integer> new_map = new HashMap<>(transport.getItems());
                 if (!new_map.isEmpty()) {
                     Document d = new Document(iter.getValue(), new_map);
-                    DataStructManager.clear_cur_items();
-                    DataStructManager.add_new_doc(d);
+
+                    transport.clear_Items();
+                    transport.add_Document(d);
                 }
             }
         }

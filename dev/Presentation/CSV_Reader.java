@@ -1,11 +1,12 @@
-package presentation;
+package Presentation;
 
 import com.google.gson.JsonObject;
-import controller.Transportation_manager_controller;
+import Domain.TransportationManagerController;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class CSV_reader {
+public class CSV_Reader {
+
     /**
      * Start the program - CSV reader
      * @param file - the file to read from
@@ -29,9 +30,9 @@ public class CSV_reader {
                         j.addProperty(first_line[i], row[i]);
                     }
                     switch (choose){
-                        case 1 -> Transportation_manager_controller.add_driver(j);
-                        case 2 -> Transportation_manager_controller.add_site(j);
-                        case 3 -> Transportation_manager_controller.add_truck(j);
+                        case 1 -> TransportationManagerController.add_driver(j);
+                        case 2 -> TransportationManagerController.add_site(j);
+                        case 3 -> TransportationManagerController.add_truck(j);
                     }
                 }
             }

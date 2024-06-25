@@ -1,11 +1,11 @@
-package presentation;
+package Presentation;
 
 import com.google.gson.JsonObject;
-import controller.Transportation_manager_controller;
+import Domain.TransportationManagerController;
 
 import java.util.Scanner;
 
-public class Add_Item {
+public class AddItem {
 
     /**
      * Add Item from the user
@@ -43,6 +43,6 @@ public class Add_Item {
                 System.out.println("\nWrong input! try again..");
             }
         }
-        Transportation_manager_controller.create_items_list(j, "Supplier");
+        TransportationManagerController.add_Item(j, "Supplier");
     }
 }

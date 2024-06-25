@@ -1,31 +1,34 @@
-package domain;
+package Domain;
 
 import java.util.ArrayList;
 
 public class Driver {
     private String Name;
-    private int worker_num;
+    private int DriverNumber;
     private String License;
     private String Password;
     private boolean availability;
     private boolean hold;
-    private Truck using_truck;
+    private Truck Truck;
     private static int num = 10;
-    private Transport tran;
-    private ArrayList<Document> list;
+    private Transportation tran;
+    private ArrayList<Document> documents;
+    private String list;
+
+
 
     /**
      * Constructor for Driver
      */
     public Driver(String name, String license, String password) {
         this.Name = name;
-        this.worker_num = num++;
+        this.DriverNumber = num++;
         this.License = license;
         this.Password = password;
         this.availability = true;
-        this.using_truck = null;
+        this.Truck = null;
         this.hold = false;
-        this.list = null;
+        this.documents = null;
     }
 
 //    get methods:
@@ -62,36 +65,19 @@ public class Driver {
      * @return the using Truck of the Driver
      */
     public Truck getUsing_truck() {
-        return using_truck;
+        return Truck;
     }
     /**
      * Getter transport
      */
-    public Transport getTran() {
+    public Transportation getTran() {
         return tran;
     }
     /**
      * Return the List of the driving schedule
      */
-    public StringBuilder getList() {
-        StringBuilder new_s = new StringBuilder();
-        if(!isAvailability() && !isHold()){
-            new_s.append("\nWe hope your trip goes well!\n");
-            return new_s;
-        }
-
-        new_s.append("\nYou got a Transportation list!\n\n");
-        int count = 1;
-        if(list == null) {
-            return null;
-        }
-        for (Document d : list) {
-            String s = count + " - " + d.to_string() + "\n";
-            new_s.append(s);
-            count++;
-        }
-
-        return new_s;
+    public String getList() {
+        return list;
     }
 
 
@@ -106,31 +92,54 @@ public class Driver {
      * Setter availability
      */
     public void setAvailability(boolean availability) {
-        if(!availability) this.list = null;
+        if(!availability) this.documents = null;
         this.availability = availability;
     }
     /**
      * Getter using_truck
      */
     public void setUsing_truck(Truck using_truck) {
-        this.using_truck = using_truck;
+        this.Truck = using_truck;
     }
     /**
      * Setter transport
      */
-    public void setTran(Transport tran) {
+    public void setTran(Transportation tran) {
         this.tran = tran;
     }
     /**
      * Setter Driver list order
      */
-    public void setList(ArrayList<Document> list) {
+    public void setDocuments(ArrayList<Document> list) {
         if(list != null)
-            this.list = new ArrayList<>(list);
+            this.documents = new ArrayList<>(list);
+    }
+    public void setList() {
+
+        StringBuilder new_s = new StringBuilder();
+
+        if(!isAvailability() && !isHold()){
+            new_s.append("\nWe hope your trip goes well!\n");
+            this.list = new_s.toString();
+            return;
+        }
+
+        new_s.append("\nYou got a Transportation list!\n\n");
+        int count = 1;
+        if(documents == null) {
+            this.list = null;
+            return;
+        }
+        for (Document d : documents) {
+            String s = count + " - " + d.to_string() + "\n";
+            new_s.append(s);
+            count++;
+        }
+        this.list = new_s.toString();
     }
 
 
-//    checking methods:
+    //    checking methods:
     /**
      * @return true if the Driver availability for drive
      */
@@ -150,6 +159,6 @@ public class Driver {
      * @return String representation of the Driver
      */
     public String to_String(){
-        return ("Worker number: " + worker_num + ", Name:" + Name + ", Licence Level: " + License + ".");
+        return ("Worker number: " + DriverNumber + ", Name:" + Name + ", Licence Level: " + License + ".");
     }
 }

@@ -1,11 +1,11 @@
-package presentation;
+package Presentation;
 
 import com.google.gson.JsonObject;
-import controller.Transportation_manager_controller;
+import Domain.TransportationManagerController;
 
 import java.util.Scanner;
 
-public class Add_Driver {
+public class AddDriver {
 
     /**
      * Input from the user for Driver arguments
@@ -44,7 +44,7 @@ public class Add_Driver {
             new_json.addProperty("Password",password);
 
 
-            Transportation_manager_controller.add_driver(new_json);
+            TransportationManagerController.add_driver(new_json);
 
             System.out.println("\nDriver added successfully!");
 

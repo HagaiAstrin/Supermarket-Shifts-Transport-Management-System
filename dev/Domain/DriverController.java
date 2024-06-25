@@ -1,9 +1,8 @@
-package controller;
+package Domain;
 
 import com.google.gson.JsonObject;
-import domain.DataStructManager;
 
-public class Driver_controller {
+public class DriverController {
 
     /**
      * Driver Controller
@@ -12,12 +11,12 @@ public class Driver_controller {
         return DataStructManager.driver_log_in(j);
     }
     public static String update_back (JsonObject j){
-         return DataStructManager.update_back_driver(j);
+         return DataStructManager.updateBackDriver(j);
     }
     public static String update_leaving (JsonObject j){
-         return DataStructManager.update_leaving_driver(j);
+         return DataStructManager.updateLeavingDriver(j);
     }
-    public static StringBuilder Print_document(JsonObject j){
+    public static String Print_document(JsonObject j){
         return DataStructManager.print_driver_doc(j);
     }
 }

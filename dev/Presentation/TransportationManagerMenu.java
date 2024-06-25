@@ -1,20 +1,20 @@
-package presentation;
+package Presentation;
 
 import java.util.Scanner;
 
-public class Transportation_manager_Menu {
+public class TransportationManagerMenu {
     public static void transportation_manager() {
 
         Scanner reader = new Scanner(System.in);
 
-        System.out.println("\nEnter password:");
-        String password = reader.nextLine();
-
-        while (!password.equals("123456789")) {
-            System.out.println("Wrong password, try again..\n");
-            System.out.println("Enter password:");
-            password = reader.nextLine();
-        }
+//        System.out.println("\nEnter password:");
+//        String password = reader.nextLine();
+//
+//        while (!password.equals("123456789")) {
+//            System.out.println("Wrong password, try again..\n");
+//            System.out.println("Enter password:");
+//            password = reader.nextLine();
+//        }
 
         while (true) {
             StringBuilder manager_menu = new StringBuilder();
@@ -62,37 +62,37 @@ public class Transportation_manager_Menu {
      * Adding a Driver from the user
      */
     public static void add_driver(){
-        Add_Driver.add_driver();
+        AddDriver.add_driver();
     }
     /**
      * Adding a Truck from the user
      */
     public static void add_truck(){
-        Add_Truck.add_truck();
+        AddTruck.add_truck();
     }
     /**
      * Adding a Store from the user
      */
     public static void add_store(){
-        Add_Site.add_site("Store");
+        AddSite.add_site("Store");
     }
     /**
      * Adding a Supplier from the user
      */
     public static void add_supplier(){
-        Add_Site.add_site("Supplier");
+        AddSite.add_site("Supplier");
     }
     /**
      * Making Transport
      */
     public static void Create_transportation(){
-        Create_Transportation.create_Transport();
+        CreateTransportation.create_Transport();
     }
     /**
      * Showing all Transport
      */
     public static void show_all_Transport(){
-        Show_All_Transportations.show_all_Transportation();
+        ShowAllTransportations.show_all_Transportation();
     }
 }
 

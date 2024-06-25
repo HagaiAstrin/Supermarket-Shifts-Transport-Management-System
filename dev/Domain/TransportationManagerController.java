@@ -1,9 +1,8 @@
-package controller;
+package Domain;
 
 import com.google.gson.JsonObject;
-import domain.*;
 
-public class Transportation_manager_controller {
+public class TransportationManagerController {
 
     /**
      * Addition methods:
@@ -17,45 +16,46 @@ public class Transportation_manager_controller {
     public static void add_site(JsonObject j){
         Builder.build_Site(j);
     }
-
-
-    /**
-     * Creation methods
-     */
-    public static void create_items_list(JsonObject j, String s){
-        DataStructManager.create_items_list(j, s);
+    public static void add_Item (JsonObject j, String s){
+        DataStructManager.add_item(j, s);
     }
+
+
     public static void create_document(JsonObject j){
         Builder.build_document(j);
     }
-    public static int create_transport(JsonObject j){return DataStructManager.create_transportation(j);}
-
+    public static void create_transport(JsonObject j){
+        DataStructManager.createTransport(j);}
+    public static int check_transportation(){
+        return DataStructManager.checkTransport();
+    }
 
     /**
      * Selection methods
      */
     public static JsonObject choose_truck(){
-        return DataStructManager.choose_truck_from_Data();
+        return DataStructManager.chooseTruckFromData();
     }
     public static JsonObject choose_driver(String truck){
-        return DataStructManager.choose_driver_from_Data(truck);
+        return DataStructManager.chooseDriverFromData(truck);
     }
     public static JsonObject choose_area(){
-        return DataStructManager.choose_area_from_Data();
+        return DataStructManager.chooseAreaFromData();
     }
     public static JsonObject choose_supplier_or_store(String a, String type){
-        return DataStructManager.choose_supplier_or_store_from_Data(a, type);
+        return DataStructManager.chooseSiteFromData(a, type);
     }
     public static JsonObject choose_good_Truck(){return Solutions.get_Truck_Json();}
     public static JsonObject Choose_Supplier_Target(){
         return Solutions.Choose_Drop_Supplier_Target();
     }
     public static JsonObject choose_items(){
-        return DataStructManager.choose_items();
+        return DataStructManager.chooseItems();
     }
     public static int amount_items(String s){
-        return DataStructManager.amount_items(s);
+        return DataStructManager.amountItems(s);
     }
+    public static void change_truck(JsonObject j){Solutions.replace_truck_and_driver(j);}
 
 
     /**
@@ -73,6 +73,6 @@ public class Transportation_manager_controller {
     /**
      * Print method:
      */
-    public static JsonObject show_all_Transport(){return DataStructManager.All_transport_print();}
+    public static JsonObject show_all_Transport(){return DataStructManager.printAllTransports();}
 
 }

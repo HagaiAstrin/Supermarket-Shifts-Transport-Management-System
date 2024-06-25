@@ -1,28 +1,22 @@
-package domain;
+package Domain;
 
 import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 public class DataStructManager {
     private static Map<String, Map<String, Map<String, Site>>> manager_Map = new HashMap<>();
     private static ArrayList<Truck> trucks = new ArrayList<>();
     private static ArrayList<Driver> drivers = new ArrayList<>();
-    private static ArrayList<Transport> transports = new ArrayList<>();
-    protected static ArrayList<Document> documents = new ArrayList<>();
-    private static Map<Item, Integer> items = new HashMap<>();
-    public static Map<Item, Integer> curr_all_items = new HashMap<>();
+    private static ArrayList<Transportation> transports = new ArrayList<>();
     protected static double current_max_transport;
     private static int count_good_transport = 1000;
 
+    public static Transportation transport;
+
 //  Getters
-    public static Map<Item, Integer> getItems() {
-        return items;
-    }
     /**
      * @return the Manager Map
      */
@@ -35,15 +29,12 @@ public class DataStructManager {
     public static ArrayList<Truck> getTrucks() {
         return trucks;
     }
-    /**
-     * @return all the documents in the System
-     */
-    public static ArrayList<Document> getDocuments() {
-        return documents;
+    public static ArrayList<Driver> getDrivers() {
+        return drivers;
     }
 
 
-//    Driver's methods:
+    //    Driver's methods:
     /**
      * Checking name and password of the driver
      * @param j - JsonObject argument
@@ -57,7 +48,7 @@ public class DataStructManager {
         }
         return null;
     }
-    public static StringBuilder print_driver_doc(JsonObject j){
+    public static String print_driver_doc(JsonObject j){
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get("Password").getAsString().equals(driver.getPassword())) {
                 return driver.getList();
@@ -69,7 +60,7 @@ public class DataStructManager {
      * Updating that the Driver comes back
      * @param j - JsonObject argument
      */
-    public static String update_back_driver(JsonObject j){
+    public static String updateBackDriver(JsonObject j){
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get
                     ("Password").getAsString().equals(driver.getPassword())) {
@@ -77,7 +68,8 @@ public class DataStructManager {
                     driver.setAvailability(true);
                     driver.getUsing_truck().setAvailability(true);
                     driver.setTran(null);
-                    driver.setList(null);
+                    driver.setDocuments(null);
+                    driver.getTran().setStatus("Delivered!");
                     return ("\nWelcome back!\n");
                 }
                 return ("\nYou can't report back because you didnt made Transportation!\n");
@@ -89,7 +81,7 @@ public class DataStructManager {
      * Updating that the Driver leaves
      * @param j - JsonObject argument
      */
-    public static String update_leaving_driver(JsonObject j){
+    public static String updateLeavingDriver(JsonObject j){
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get
                     ("Password").getAsString().equals(driver.getPassword())) {
@@ -104,6 +96,7 @@ public class DataStructManager {
                     driver.getUsing_truck().setAvailability(false);
                     driver.getUsing_truck().setHold(false);
                     driver.setHold(false);
+                    driver.getTran().setStatus("Out for Delivery..");
 //                    driver.getTran().setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
 //                    driver.getTran().setLeaving_time(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
                     transports.add(driver.getTran());
@@ -147,111 +140,51 @@ public class DataStructManager {
     public static void add_new_Truck(Truck t){
         trucks.add(t);
     }
-    /**
-     * Add new Document to the System
-     */
-    public static void add_new_doc(Document doc){
-        documents.add(doc);
+    public static void add_item(JsonObject j, String s){
+        transport.add_Item(j, s);
     }
-
-
-//    Creation methods:
-    /**
-     * Create new Item list to order
-     * @param j - JsonObject argument
-     */
-    public static void create_items_list(JsonObject j, String s) {
-
-        switch (s){
-            case "Supplier": {
-
-                String name = j.get("Name").getAsString();
-
-                double weight = j.get("Weight").getAsDouble();
-                int amount = j.get("Amount").getAsInt();
-
-                Item new_item = new Item(name, weight);
-                items.put(new_item, amount);
-
-                try{
-                    curr_all_items.get(new_item);
-                    curr_all_items.put(new_item, curr_all_items.get(new_item) + amount);
-                }
-                catch (Exception e){
-                    curr_all_items.put(new_item, amount);
-                }
-                break;
-            }
-            case "Store": {
-                for (Map.Entry<Item, Integer> iter: curr_all_items.entrySet()){
-                    if (iter.getKey().to_string().equals(j.get("Item").getAsString())) {
-                        items.put(iter.getKey(), j.get("Amount").getAsInt());
-                        iter.setValue(iter.getValue() - j.get("Amount").getAsInt());
-                    }
-                }
-            }
-        }
-    }
-    /**
-     * Create Transportation
-     * @param j - JsonObject argument
-     * @return 0 if the transportation is good to go, 1 if there is still Items in the Truck, 2 if there is Over Weight
-     */
-    public static int create_transportation(JsonObject j){
+    public static void createTransport(JsonObject j) {
 
         String source = j.get("Source").getAsString();
         String date = j.get("Date").getAsString();
         String leaving_time = j.get("Leaving time").getAsString();
 
 
-        for (Driver d: drivers){
-            if (d.to_String().equals(j.get("Driver").getAsString())){
-                for (Truck t: trucks){
-                    if (t.to_String().equals(j.get("Truck").getAsString())){
-                        Transport new_transport = new Transport(t, d, source, documents, date, leaving_time);
-                        int result = new_transport.Is_Over_Weight();
-                        current_max_transport = new_transport.get_transport_Max_weight();
-                        if (result == 0) {
-                            new_transport.setId(count_good_transport++);
-                            curr_all_items.clear();
-                            d.setList(documents);
-                            documents.clear();
-                            d.setHold(true);
-                            t.setHold(true);
-                            d.setUsing_truck(t);
-                            d.setTran(new_transport);
-                            return 0;
-                        }
-                        return result;
+        for (Driver driver : drivers) {
+            if (driver.to_String().equals(j.get("Driver").getAsString())) {
+                for (Truck truck : trucks) {
+                    if (truck.to_String().equals(j.get("Truck").getAsString())) {
+                        transport = new Transportation(truck, driver, source, date, leaving_time);
                     }
                 }
             }
         }
-        return 2;
     }
+    public static int checkTransport() {
 
+        int result = transport.WeightCheck();
+        current_max_transport = transport.get_transport_Max_weight();
 
-//    deleting methods:
-    /**
-     * Remove Document from the System
-     */
-    public static void remove_doc(int i){
-        documents.remove(i);
+        if (result == 0) {
+            transport.setId(count_good_transport++);
+            transport.getDriver().setDocuments(transport.getTargets());
+            transport.getDriver().setHold(true);
+            transport.getDriver().setList();
+            transport.getTruck().setHold(true);
+            transport.getDriver().setUsing_truck(transport.getTruck());
+            transport.getDriver().setTran(transport);
+            transport = null;
+            return 0;
+        }
+        return result;
     }
-    /**
-     * Clear tje current item list
-     */
-    public static void clear_cur_items(){
-        items.clear();
-    }
-
 
 //    Selection methods:
     /**
      * Choose a Truck from DataStruct
      * @return JsonObject represent the truck
      */
-    public static JsonObject choose_truck_from_Data(){
+    public static JsonObject chooseTruckFromData(){
 
         JsonObject j = new JsonObject();
         int count = 1;
@@ -268,7 +201,7 @@ public class DataStructManager {
      * @param truck - String argument represent the selected Truck
      * @return JsonObject of all the drivers who can drive in that Truck
      */
-    public static JsonObject choose_driver_from_Data(String truck){
+    public static JsonObject chooseDriverFromData(String truck){
 
         JsonObject j = new JsonObject();
         int count = 1;
@@ -291,7 +224,7 @@ public class DataStructManager {
      * Choose Area from DataStruct
      * @return JsonObject of all the area in the DataStruct
      */
-    public static JsonObject choose_area_from_Data(){
+    public static JsonObject chooseAreaFromData(){
         JsonObject j = new JsonObject();
         int count = 1;
         for (Map.Entry<String, Map<String, Map<String, Site>>> iter : manager_Map.entrySet()) {
@@ -304,7 +237,7 @@ public class DataStructManager {
      * @param area - the selected Area
      * @return JsonObject represent the all the Supplier inside the Area
      */
-    public static JsonObject choose_supplier_or_store_from_Data(String area, String type){
+    public static JsonObject chooseSiteFromData(String area, String type){
         JsonObject j = new JsonObject();
         int count = 1;
         for (Map.Entry<String, Site> iter : DataStructManager.manager_Map.get(area).get(type).entrySet()) {
@@ -312,11 +245,11 @@ public class DataStructManager {
         }
         return j;
     }
-    public static JsonObject choose_items(){
+    public static JsonObject chooseItems(){
         JsonObject j = new JsonObject();
         int count = 1;
 
-        for (Map.Entry<Item, Integer> iter: curr_all_items.entrySet()){
+        for (Map.Entry<Item, Integer> iter: transport.getAll_transport_items().entrySet()){
             if (iter.getValue() != 0)
                 j.addProperty(String.valueOf(count++),iter.getKey().to_string());
         }
@@ -326,9 +259,9 @@ public class DataStructManager {
      * Return the number of a specific item in the Order
      * @param s - String Type represent the Item name
      */
-    public static int amount_items(String s)    {
+    public static int amountItems(String s) {
 
-        for (Map.Entry<Item, Integer> iter: curr_all_items.entrySet()){
+        for (Map.Entry<Item, Integer> iter: transport.getAll_transport_items().entrySet()){
             if (iter.getKey().to_string().equals(s))
                 return iter.getValue();
         }
@@ -341,12 +274,12 @@ public class DataStructManager {
      * Transport represent
      * @return JsonObject represent all the transportation in Database
      */
-        public static JsonObject All_transport_print(){
+    public static JsonObject printAllTransports(){
         if(transports.isEmpty()) return null;
         JsonObject j = new JsonObject();
         int count = 1;
-        for(Transport tran : transports){
-            j.addProperty(String.valueOf(count++), tran.to_String_tran());
+        for(Transportation tran : transports){
+            j.addProperty(String.valueOf(count++), tran.to_String());
         }
         return j;
     }

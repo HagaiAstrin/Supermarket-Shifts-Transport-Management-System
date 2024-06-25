@@ -1,4 +1,4 @@
-package domain;
+package Domain;
 
 public class Site {
     private String name;

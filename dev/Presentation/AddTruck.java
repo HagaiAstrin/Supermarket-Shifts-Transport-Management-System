@@ -1,12 +1,12 @@
-package presentation;
+package Presentation;
 
 import com.google.gson.JsonObject;
-import controller.Transportation_manager_controller;
+import Domain.TransportationManagerController;
 
 
 import java.util.Scanner;
 
-public class Add_Truck {
+public class AddTruck {
 
     /**
      * Input from the user for Truck arguments
@@ -72,7 +72,7 @@ public class Add_Truck {
             new_json.addProperty("Net weight", net_weight);
             new_json.addProperty("Max weight", max_weight);
 
-            Transportation_manager_controller.add_truck(new_json);
+            TransportationManagerController.add_truck(new_json);
 
             System.out.println("\nTruck added successfully!");
 

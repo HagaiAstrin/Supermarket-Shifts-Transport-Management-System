@@ -1,12 +1,12 @@
-package presentation;
+package Presentation;
 
 import com.google.gson.JsonObject;
-import controller.Driver_controller;
+import Domain.DriverController;
 
 
 import java.util.Scanner;
 
-public class Driver_Menu {
+public class DriverMenu {
 
     /**
      * Driver menu in the System
@@ -26,7 +26,7 @@ public class Driver_Menu {
         new_Json.addProperty("Name", name);
         new_Json.addProperty("Password", password);
 
-        String driver_name = controller.Driver_controller.check_driver_logIn(new_Json);
+        String driver_name = DriverController.check_driver_logIn(new_Json);
 
         while (driver_name == null) {
             System.out.println("\nThe name or password are wrong, try again..\n");
@@ -39,9 +39,9 @@ public class Driver_Menu {
             new_Json.addProperty("Name", name);
             new_Json.addProperty("Password", password);
 
-            driver_name = controller.Driver_controller.check_driver_logIn(new_Json);
+            driver_name = DriverController.check_driver_logIn(new_Json);
         }
-        StringBuilder d = Driver_controller.Print_document(new_Json);
+        String d = DriverController.Print_document(new_Json);
 
 
         String a = "yes";
@@ -89,20 +89,22 @@ public class Driver_Menu {
             a = reader.nextLine();
         }
     }
+
     /**
      * Update leaving
      * @param j - JsonObject argument represent the Driver
      */
     public static void leaving (JsonObject j) throws InterruptedException {
-        String a = Driver_controller.update_leaving(j);
+        String a = DriverController.update_leaving(j);
         System.out.println(a);
     }
+
     /**
      * Update come back
      * @param j - JsonObject argument represent the Driver
      */
     public static void back (JsonObject j){
-        String a = Driver_controller.update_back(j);
+        String a = DriverController.update_back(j);
         System.out.println(a);
     }
 }

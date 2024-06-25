@@ -1,16 +1,17 @@
-package presentation;
+package Presentation;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import controller.Transportation_manager_controller;
 
-public class Show_All_Transportations {
+import Domain.TransportationManagerController;
+
+public class ShowAllTransportations {
 
     /**
      * Print to user all the Transport that left the shipping area
      */
     public static void show_all_Transportation(){
-        JsonObject j = Transportation_manager_controller.show_all_Transport();
+        JsonObject j = TransportationManagerController.show_all_Transport();
         if(j == null){
             System.out.println("\nNo transport has left the shipping area ! \n");
         }
