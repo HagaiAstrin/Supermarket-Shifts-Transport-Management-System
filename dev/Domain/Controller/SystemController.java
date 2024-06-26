@@ -1,8 +1,6 @@
-package Controller;
+package Domain.Controller;
 
 import Domain.*;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 public class SystemController {
     /**

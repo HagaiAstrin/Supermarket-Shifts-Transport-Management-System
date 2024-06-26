@@ -6,9 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
-import Data.DataController;
+import Domain.Controller.DataController;
 import com.google.gson.JsonObject;
-
 
 
 public class IO_Data {
@@ -183,11 +182,10 @@ public class IO_Data {
     public static boolean RemoveEmployee(String id) throws IOException {
         int indexToRemove = SearchEmployee(id);
         if(indexToRemove != -1){
-            //deleteCsvFile(id);
             DataController.removeEmployee(id);
             currEmployees.remove(Integer.parseInt(id));
-            //RemoveEmployeeFromCSV(id);
             DataController.removeEmployeePreferences(id);
+            DataController.removeEmployeeLogin(id);
             return true;
         }
         return false;
@@ -268,24 +266,6 @@ public class IO_Data {
      */
     public static boolean Authentication(String username, String password, String id, String path) {
         return DataController.Authenticate(username, password, id, path);
-    //        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                String[] fields = line.split(",");
-//                if (fields.length != 3) continue; // Skip malformed lines
-//
-//                String storedUsername = fields[0].trim();
-//                String storedHashedPassword = fields[1].trim();
-//                String storedID = fields[2].trim();
-//
-//                if (storedUsername.equals(username) && storedHashedPassword.equals(password) && storedID.equals(id)) {
-//                    return true;
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
     }
 
     /**
@@ -334,13 +314,6 @@ public class IO_Data {
      */
     public static void addEmployeeToCSV(JsonObject employeeJson) throws IOException {
         DataController.addEmployee(employeeJson);
-//        try (FileWriter writer = new FileWriter(Constants.DEV + branch + Constants.PATH_EMPLOYEE, true)) {
-//            writer.append(employeeJsonToCSVString(employeeJson));
-//            writer.append("\n");
-//        }
-//        catch (IOException e){
-//            System.out.println(e.getMessage());
-//        }
     }
 
     public static String createPreferencesCsv(JsonObject e) throws Exception{
@@ -408,38 +381,40 @@ public class IO_Data {
      * Get employee's preferences based on his ID from IO_Data.
      */
     public static String[][] GetPreferencesFromCSV(){
-        String path = Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + IO_Data.employeeID + ".csv";
-        List<String[]> data = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(","); // Split by commas
-                data.add(values);
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading CSV file: " + e.getMessage());
-            return null;
-        }
-
-        // Convert the list to a 2D array
-        String[][] dataArray = new String[data.size()][];
-        for (int i = 0; i < data.size(); i++) {
-            dataArray[i] = data.get(i);
-        }
-
-        return dataArray;
+        return DataController.importEmployeePreferences(employeeID);
+//        String path = Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + IO_Data.employeeID + ".csv";
+//        List<String[]> data = new ArrayList<>();
+//        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+//            String line;
+//            while ((line = br.readLine()) != null) {
+//                String[] values = line.split(","); // Split by commas
+//                data.add(values);
+//            }
+//        } catch (IOException e) {
+//            System.err.println("Error reading CSV file: " + e.getMessage());
+//            return null;
+//        }
+//
+//        // Convert the list to a 2D array
+//        String[][] dataArray = new String[data.size()][];
+//        for (int i = 0; i < data.size(); i++) {
+//            dataArray[i] = data.get(i);
+//        }
+//
+//        return dataArray;
     }
 
     public static void UpdatePreferencesToCSV(String[][] preferences){
-        String path = Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + IO_Data.employeeID + ".csv";
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
-            for (String[] row : preferences) {
-                bw.write(String.join(",", row));
-                bw.newLine();
-            }
-        } catch (IOException e) {
-            System.err.println("Error writing to CSV file: " + e.getMessage());
-        }
+        DataController.updatePreferencesToDB(preferences, employeeID);
+//        String path = Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + IO_Data.employeeID + ".csv";
+//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
+//            for (String[] row : preferences) {
+//                bw.write(String.join(",", row));
+//                bw.newLine();
+//            }
+//        } catch (IOException e) {
+//            System.err.println("Error writing to CSV file: " + e.getMessage());
+//        }
     }
 
     public static void SetBranchName(String s){
@@ -452,14 +427,16 @@ public class IO_Data {
      */
     public static List<String> listFoldersInDirectory() {
         File directory = new File("dev\\data");
-        List<String> folders = new ArrayList<>();
+        List<String> dbFiles = new ArrayList<>();
 
         if (directory.exists() && directory.isDirectory()) {
             File[] files = directory.listFiles();
             if (files != null) {
                 for (File file : files) {
-                    if (file.isDirectory()) {
-                        folders.add(file.getName());
+                    if (file.isFile() && file.getName().endsWith(".db")) {
+                        // Remove the ".db" extension before adding to the list
+                        String fileNameWithoutExtension = file.getName().substring(0, file.getName().length() - 3);
+                        dbFiles.add(fileNameWithoutExtension);
                     }
                 }
             }
@@ -467,7 +444,7 @@ public class IO_Data {
             return null;
         }
 
-        return folders;
+        return dbFiles;
     }
 
     public static void appendEmployee(String id, String name, String bankID, int salary, int restDays, LocalDate startDate,  ArrayList<JobTypeEnum> jobTypes){

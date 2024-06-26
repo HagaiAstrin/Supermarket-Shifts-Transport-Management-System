@@ -1,9 +1,6 @@
-package Controller;
-import com.google.gson.Gson;
+package Domain.Controller;
 import Domain.*;
 import com.google.gson.JsonObject;
-
-import java.io.IOException;
 
 public class EmployeeController {
     public static JsonObject ViewPersonalData() {

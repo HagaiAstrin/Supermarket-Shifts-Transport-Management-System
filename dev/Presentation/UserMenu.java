@@ -1,11 +1,10 @@
 package Presentation;
 
-import Controller.EmployeeController;
-import Controller.SystemController;
+import Domain.Controller.EmployeeController;
+import Domain.Controller.SystemController;
 import Domain.IO_Data;
 import com.google.gson.JsonObject;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class UserMenu {
@@ -17,10 +16,10 @@ public class UserMenu {
         System.out.println("---------------------------------------------");
         while (true) {
             System.out.println("Please choose an option:\n");
-            System.out.println("1. View personal details");
-            System.out.println("2. View preferences");
-            System.out.println("3. Update preferences");
-            System.out.println("4. Logout");
+            System.out.println("\t1. View personal details");
+            System.out.println("\t2. View preferences");
+            System.out.println("\t3. Update preferences");
+            System.out.println("\t4. Logout");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
@@ -51,12 +50,12 @@ public class UserMenu {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("\nUpdate Preferences Menu:");
-            System.out.println("1. Update Sunday");
-            System.out.println("2. Update Monday");
-            System.out.println("3. Update Tuesday");
-            System.out.println("4. Update Wednesday");
-            System.out.println("5. Update Thursday");
-            System.out.println("6. Exit");
+            System.out.println("\t1. Update Sunday");
+            System.out.println("\t2. Update Monday");
+            System.out.println("\t3. Update Tuesday");
+            System.out.println("\t4. Update Wednesday");
+            System.out.println("\t5. Update Thursday");
+            System.out.println("\t6. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -84,26 +83,27 @@ public class UserMenu {
             switch (choice) {
                 case 1:
                     System.out.print("Enter new value for Sunday (1 or 0): ");
-                    preferences[row][0] = scanner.nextLine().trim();
+                    preferences[row-1][0] = scanner.nextLine().trim();
                     break;
                 case 2:
                     System.out.print("Enter new value for Monday (1 or 0): ");
-                    preferences[row][1] = scanner.nextLine().trim();
+                    preferences[row-1][1] = scanner.nextLine().trim();
                     break;
                 case 3:
                     System.out.print("Enter new value for Tuesday (1 or 0): ");
-                    preferences[row][2] = scanner.nextLine().trim();
+                    preferences[row-1][2] = scanner.nextLine().trim();
                     break;
                 case 4:
                     System.out.print("Enter new value for Wednesday (1 or 0): ");
-                    preferences[row][3] = scanner.nextLine().trim();
+                    preferences[row-1][3] = scanner.nextLine().trim();
                     break;
                 case 5:
                     System.out.print("Enter new value for Thursday (1 or 0): ");
-                    preferences[row][4] = scanner.nextLine().trim();
+                    preferences[row-1][4] = scanner.nextLine().trim();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
+                    break;
             }
 
             // Now send the preferences to the io_data for further update.

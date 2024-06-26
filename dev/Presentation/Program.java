@@ -1,6 +1,6 @@
 package Presentation;
 import Domain.IO_Data;
-import Controller.*;
+import Domain.Controller.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
@@ -76,13 +76,13 @@ public class Program {
 
     public void login() throws IOException, InterruptedException {
         logo();
-
+        firstTime = true;
 
         // Admin or User
         String UserKind;
         System.out.println("Welcome to the \"Super-Lee\" system.");
         System.out.println("Please identify yourself.");
-        System.out.print("Press 1 for Admin login, or 2 for User login: ");
+        System.out.print("Press\n\t1. for Admin login\n\t2. for User login\n");
 
         while (true) {
             String WhatKindOfUserLogin = scanner.nextLine();

@@ -1,5 +1,4 @@
-package Controller;
-import Data.DataController;
+package Domain.Controller;
 import Domain.*;
 import com.google.gson.JsonObject;
 import java.io.IOException;

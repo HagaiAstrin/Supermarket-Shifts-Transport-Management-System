@@ -1,4 +1,4 @@
-package Data;
+package Domain.Controller;
 
 import Domain.IO_Data;
 import Domain.JobTypeEnum;
@@ -158,9 +158,24 @@ public class DataController {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
+
+    public static void removeEmployeeLogin(String id) {
+        String sql = "DELETE FROM DataValidationUser WHERE id = ?";
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            // Set parameter for the prepared statement
+            preparedStatement.setString(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
+
     public static void removeEmployeePreferences(String id) {
         String sql = String.format("DROP TABLE IF EXISTS \"%s\"", id);
 
@@ -170,7 +185,7 @@ public class DataController {
             statement.execute(sql);
             //System.out.println("Preferences table for employee ID " + id + " deleted successfully.");
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -247,6 +262,37 @@ public class DataController {
             e.printStackTrace();
         }
     }
+
+
+    public static void updatePreferencesToDB(String[][] preferences, String id) {
+        String sql1 = String.format("UPDATE \"%s\" SET Sun=?, Mon=?, The=?, Wen=?, Thu=? WHERE rowid=1", id);
+        String sql2 = String.format("UPDATE \"%s\" SET Sun=?, Mon=?, The=?, Wen=?, Thu=? WHERE rowid=2", id);
+
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmtMorning = conn.prepareStatement(sql1);
+             PreparedStatement pstmtEvening = conn.prepareStatement(sql2)) {
+
+            // Update morning preferences (row 0)
+            pstmtMorning.setString(1, preferences[0][0]);
+            pstmtMorning.setString(2, preferences[0][1]);
+            pstmtMorning.setString(3, preferences[0][2]);
+            pstmtMorning.setString(4, preferences[0][3]);
+            pstmtMorning.setString(5, preferences[0][4]);
+            pstmtMorning.executeUpdate();
+
+            // Update evening preferences (row 1)
+            pstmtEvening.setString(1, preferences[1][0]);
+            pstmtEvening.setString(2, preferences[1][1]);
+            pstmtEvening.setString(3, preferences[1][2]);
+            pstmtEvening.setString(4, preferences[1][3]);
+            pstmtEvening.setString(5, preferences[1][4]);
+            pstmtEvening.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("Error updating preferences in the database: " + e.getMessage());
+        }
+    }
+
 
     public static void SetDB(String s) {
         DB_URL = "jdbc:sqlite:dev/Data/" + s + ".db";

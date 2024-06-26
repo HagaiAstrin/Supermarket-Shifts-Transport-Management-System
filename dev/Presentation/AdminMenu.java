@@ -1,7 +1,7 @@
 package Presentation;
 
-import Controller.AdminController;
-import Controller.SystemController;
+import Domain.Controller.AdminController;
+import Domain.Controller.SystemController;
 import Domain.WeeklyShift;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -25,8 +25,8 @@ public class AdminMenu {
         System.out.println("---------------------------------------------");
         while (true) {
             System.out.println("Please choose an option:\n");
-            System.out.println("1. Load employees data");
-            System.out.println("2. Logout");
+            System.out.println("\t1. Load employees data");
+            System.out.println("\t2. Logout");
             System.out.print("Enter your choice: ");
             String choice;
             while (true) {
@@ -77,12 +77,12 @@ public class AdminMenu {
         System.out.println("---------------------------------------------");
         while (true) {
             System.out.println("Please choose an option:\n");
-            System.out.println("1. Add new employee");
-            System.out.println("2. Remove employee");
-            System.out.println("3. Update employee details");
-            System.out.println("4. Manage Shifts");
-            System.out.println("5. Print all employees");
-            System.out.println("6. Logout");
+            System.out.println("\t1. Add new employee");
+            System.out.println("\t2. Remove employee");
+            System.out.println("\t3. Update employee details");
+            System.out.println("\t4. Manage Shifts");
+            System.out.println("\t5. Print all employees");
+            System.out.println("\t6. Logout");
             System.out.print("Enter your choice: ");
 
             try {
@@ -144,12 +144,12 @@ public class AdminMenu {
         while (true){
 
             System.out.println("\nYou Entered the Shift Menu\nSelect the next Stage");
-            System.out.println("1: Print scheduled week for all Job types");
-            System.out.println("2: Print scheduled week for specific job type");
-            System.out.println("3: Add shifts");
-            System.out.println("4: Delete Shifts");
-            System.out.println("5: Go Back");
-            System.out.println("6: Finish(Save & Print Shifts)\n");
+            System.out.println("\t1: Print scheduled week for all Job types");
+            System.out.println("\t2: Print scheduled week for specific job type");
+            System.out.println("\t3: Add shifts");
+            System.out.println("\t4: Delete Shifts");
+            System.out.println("\t5: Go Back");
+            System.out.println("\t6: Finish(Save & Print Shifts)\n");
 
             try {
                 int choice = scanner.nextInt();
@@ -252,10 +252,10 @@ public class AdminMenu {
         while (true){
             try {
                 System.out.println("\nSelect the job you want to add a shift for");
-                System.out.println("0: SHIFT_MANAGER");
-                System.out.println("1: CASHIER");
-                System.out.println("2: STOCK_KEEPER");
-                System.out.println("3: Go back");
+                System.out.println("\t0: SHIFT_MANAGER");
+                System.out.println("\t1: CASHIER");
+                System.out.println("\t2: STOCK_KEEPER");
+                System.out.println("\t3: Go back");
 
                 int job = scanner.nextInt();
                 scanner.nextLine();
