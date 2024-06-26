@@ -11,7 +11,7 @@ public class TransportationController {
     private static ArrayList<Truck> AllTrucks = new ArrayList<>();
     private static ArrayList<Driver> AllDrivers = new ArrayList<>();
     public static Transportation Transport;
-    private static Map<Integer, String> allTransportations =  new HashMap<>();
+    private static ArrayList<String> allTransportations =  new ArrayList<>();
 
 
 //  Getters
@@ -110,7 +110,7 @@ public class TransportationController {
             Transport.getDriver().showRoute();
             Transport.getDriver().setTruck(Transport.getTruck().getLicence_number());
             Transport.getDriver().setTransport(Transport);
-            allTransportations.put(Transport.getId(), Transport.to_String());
+            allTransportations.add(Transport.to_String());
             Transport = null;
             return 0;
         }

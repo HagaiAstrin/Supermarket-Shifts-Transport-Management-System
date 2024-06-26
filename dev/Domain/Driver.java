@@ -86,6 +86,9 @@ public class Driver {
     public String getStatus() {
         return Status;
     }
+    public int getWorkerNumber() {
+        return WorkerNumber;
+    }
 
 
     //    set methods:

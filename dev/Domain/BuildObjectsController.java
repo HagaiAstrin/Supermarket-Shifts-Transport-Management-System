@@ -18,7 +18,7 @@ public class BuildObjectsController {
         String name = j.get("Name").getAsString();
         String licence = j.get("Licence").getAsString();
         String password = j.get("Password").getAsString();
-        Driver new_driver = new Driver(name, licence, password);
+        Driver new_driver = new Driver(name, licence, password, "000-00-000");
         TransportationController.add_new_driver(new_driver);
 
     }
