@@ -1,7 +1,7 @@
 package Presentation;
 
+import Domain.BuildObjectsController;
 import com.google.gson.JsonObject;
-import Domain.TransportationManagerController;
 
 import java.util.Scanner;
 
@@ -38,7 +38,7 @@ public class AddSite {
             System.out.println("\nEnter Shipping area:");
             new_json.addProperty("Shipping area", reader.nextLine());
 
-            TransportationManagerController.add_site(new_json);
+            BuildObjectsController.AddSite(new_json);
 
             System.out.println("\n" + Type + " added successfully!\n");
             System.out.println("Would you like to add another " + Type + "? Press 'yes' or 'no'.");

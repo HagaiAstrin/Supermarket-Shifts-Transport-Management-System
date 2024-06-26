@@ -1,7 +1,8 @@
 package Presentation;
 
+import Domain.BuildObjectsController;
 import com.google.gson.JsonObject;
-import Domain.TransportationManagerController;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 
@@ -30,9 +31,9 @@ public class CSV_Reader {
                         j.addProperty(first_line[i], row[i]);
                     }
                     switch (choose){
-                        case 1 -> TransportationManagerController.add_driver(j);
-                        case 2 -> TransportationManagerController.add_site(j);
-                        case 3 -> TransportationManagerController.add_truck(j);
+                        case 1 -> BuildObjectsController.AddDriver(j);
+                        case 2 -> BuildObjectsController.AddSite(j);
+                        case 3 -> BuildObjectsController.AddTruck(j);
                     }
                 }
             }

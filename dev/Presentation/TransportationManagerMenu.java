@@ -1,5 +1,9 @@
 package Presentation;
 
+import Domain.TransportationController;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import java.util.Scanner;
 
 public class TransportationManagerMenu {
@@ -7,14 +11,14 @@ public class TransportationManagerMenu {
 
         Scanner reader = new Scanner(System.in);
 
-//        System.out.println("\nEnter password:");
-//        String password = reader.nextLine();
-//
-//        while (!password.equals("123456789")) {
-//            System.out.println("Wrong password, try again..\n");
-//            System.out.println("Enter password:");
-//            password = reader.nextLine();
-//        }
+        System.out.println("\nEnter password:");
+        String password = reader.nextLine();
+
+        while (!password.equals("123456789")) {
+            System.out.println("Wrong password, try again..\n");
+            System.out.println("Enter password:");
+            password = reader.nextLine();
+        }
 
         while (true) {
             StringBuilder manager_menu = new StringBuilder();
@@ -53,8 +57,8 @@ public class TransportationManagerMenu {
                 case "2" -> add_truck();
                 case "3" -> add_store();
                 case "4" -> add_supplier();
-                case "5" -> Create_transportation();
-                case "6" -> show_all_Transport();
+                case "5" -> createTransportation();
+                case "6" -> showAllTransportation();
             }
         }
     }
@@ -85,14 +89,27 @@ public class TransportationManagerMenu {
     /**
      * Making Transport
      */
-    public static void Create_transportation(){
-        CreateTransportation.create_Transport();
+    public static void createTransportation(){
+        CreateTransportation.createTransport();
     }
     /**
      * Showing all Transport
      */
-    public static void show_all_Transport(){
-        ShowAllTransportations.show_all_Transportation();
+    public static void showAllTransportation(){
+        JsonObject j = TransportationController.printAllTransports();
+        if(j == null){
+            System.out.println("\nNo transport has left the shipping area ! \n");
+        }
+        else {
+            System.out.println("\n");
+            System.out.println("\n\n\nAll the transport that left \n");
+            for (String key : j.keySet()) {
+                System.out.println("----------------------------------------------------------------\n");
+                JsonElement element = j.get(key);
+                String s = element.getAsString();
+                System.out.println(s);
+            }
+        }
     }
 }
 

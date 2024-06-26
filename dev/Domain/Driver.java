@@ -4,31 +4,29 @@ import java.util.ArrayList;
 
 public class Driver {
     private String Name;
-    private int DriverNumber;
+    private int WorkerNumber;
     private String License;
     private String Password;
-    private boolean availability;
-    private boolean hold;
-    private Truck Truck;
+    private String truck;
     private static int num = 10;
-    private Transportation tran;
+    private Transportation transport;
     private ArrayList<Document> documents;
-    private String list;
+    private String Route;
+    private String Status;
 
 
 
     /**
      * Constructor for Driver
      */
-    public Driver(String name, String license, String password) {
+    public Driver(String name, String license, String password, String truck) {
         this.Name = name;
-        this.DriverNumber = num++;
+        this.WorkerNumber = num++;
         this.License = license;
         this.Password = password;
-        this.availability = true;
-        this.Truck = null;
-        this.hold = false;
+        this.truck = truck;
         this.documents = null;
+        this.Status = "available";
     }
 
 //    get methods:
@@ -64,48 +62,44 @@ public class Driver {
     /**
      * @return the using Truck of the Driver
      */
-    public Truck getUsing_truck() {
-        return Truck;
+    public Truck getTruck() {
+        if (truck.equals("000-00-000"))
+            return null;
+        for (Truck t : TransportationController.getAllTrucks()){
+            if (t.getLicence_number().equals(truck))
+                return t;
+        }
+        return null;
     }
     /**
      * Getter transport
      */
-    public Transportation getTran() {
-        return tran;
+    public Transportation getTransport() {
+        return transport;
     }
     /**
      * Return the List of the driving schedule
      */
-    public String getList() {
-        return list;
+    public String getRoute() {
+        return Route;
+    }
+    public String getStatus() {
+        return Status;
     }
 
 
-//    set methods:
-    /**
-     * Setter hold
-     */
-    public void setHold(boolean hold) {
-        this.hold = hold;
-    }
-    /**
-     * Setter availability
-     */
-    public void setAvailability(boolean availability) {
-        if(!availability) this.documents = null;
-        this.availability = availability;
-    }
+    //    set methods:
     /**
      * Getter using_truck
      */
-    public void setUsing_truck(Truck using_truck) {
-        this.Truck = using_truck;
+    public void setTruck(String t) {
+        this.truck = t;
     }
     /**
      * Setter transport
      */
-    public void setTran(Transportation tran) {
-        this.tran = tran;
+    public void setTransport(Transportation tran) {
+        this.transport = tran;
     }
     /**
      * Setter Driver list order
@@ -114,24 +108,13 @@ public class Driver {
         if(list != null)
             this.documents = new ArrayList<>(list);
     }
-    public void setList(String list) {
-        this.list = list;
+    public void setRoute(String list) {
+        this.Route = list;
+    }
+    public void setStatus(String status) {
+        Status = status;
     }
 
-
-    //    checking methods:
-    /**
-     * @return true if the Driver availability for drive
-     */
-    public boolean isAvailability() {
-        return availability;
-    }
-    /**
-     * @return true if the Manager choose the driver to drive, false otherwise
-     */
-    public boolean isHold() {
-        return hold;
-    }
 
 
 //    print method:
@@ -139,22 +122,22 @@ public class Driver {
      * @return String representation of the Driver
      */
     public String to_String(){
-        return ("Worker number: " + DriverNumber + ", Name:" + Name + ", Licence Level: " + License + ".");
+        return ("Name:" + Name + ", Licence Level: " + License + ".");
     }
-    public void showList() {
+    public void showRoute() {
 
         StringBuilder new_s = new StringBuilder();
 
-        if(!isAvailability() && !isHold()){
+        if(Status.equals("On the road")){
             new_s.append("\nWe hope your trip goes well!\n");
-            this.list = new_s.toString();
+            this.Route = new_s.toString();
             return;
         }
 
         new_s.append("\nYou got a Transportation list!\n\n");
         int count = 1;
         if(documents == null) {
-            this.list = null;
+            this.Route = null;
             return;
         }
         for (Document d : documents) {
@@ -162,6 +145,6 @@ public class Driver {
             new_s.append(s);
             count++;
         }
-        this.list = new_s.toString();
+        this.Route = new_s.toString();
     }
 }

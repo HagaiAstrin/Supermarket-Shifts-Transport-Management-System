@@ -5,8 +5,7 @@ public class Truck {
     private String licence_level;
     private double net_weight;
     private double max_weight;
-    private boolean availability;
-    private boolean hold;
+    private String Status;
 
 
     /**
@@ -17,8 +16,7 @@ public class Truck {
         this.licence_level = licence;
         this.net_weight = net_weight;
         this.max_weight = max_weight;
-        this.availability = true;
-        this.hold = false;
+        this.Status = "available";
     }
 
     /**
@@ -56,28 +54,17 @@ public class Truck {
     public String getLicence_number() {
         return licence_number;
     }
-
-    public void setHold(boolean hold) {
-        this.hold = hold;
-    }
-    public void setAvailability(boolean availability) {
-        this.availability = availability;
+    public String getStatus() {
+        return Status;
     }
 
 
+    public void setStatus(String status) {
+        Status = status;
+    }
 
-    /**
-     * Getter availability
-     */
-    public boolean isAvailability() {
-        return availability;
-    }
-    /**
-     * Getter hold
-     */
-    public boolean isHold() {
-        return hold;
-    }
+
+
     /**
      * @return String represent of the Truck
      */

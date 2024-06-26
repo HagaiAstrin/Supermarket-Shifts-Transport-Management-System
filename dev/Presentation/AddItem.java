@@ -1,7 +1,7 @@
 package Presentation;
 
+import Domain.TransportationController;
 import com.google.gson.JsonObject;
-import Domain.TransportationManagerController;
 
 import java.util.Scanner;
 
@@ -43,6 +43,6 @@ public class AddItem {
                 System.out.println("\nWrong input! try again..");
             }
         }
-        TransportationManagerController.add_Item(j, "Supplier");
+        TransportationController.add_item(j, "Supplier");
     }
 }

@@ -58,7 +58,9 @@ public class Transportation {
     public Map<Item, Integer> getItems() {
         return items;
     }
-
+    public int getId() {
+        return id;
+    }
 
 
     /**

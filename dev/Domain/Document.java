@@ -39,7 +39,6 @@ public class Document {
     public Map<Item, Integer> getItem_map() {
         return item_map;
     }
-
     /**
      * Calculate all the weight of Document
      */
@@ -60,7 +59,6 @@ public class Document {
         item_map.remove(t);
         this.doc_weight = cul_weight();
     }
-
     /**
      * @return String that represent the Document
      */

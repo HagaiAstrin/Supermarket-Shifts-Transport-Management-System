@@ -26,7 +26,7 @@ public class DriverMenu {
         new_Json.addProperty("Name", name);
         new_Json.addProperty("Password", password);
 
-        String driver_name = DriverController.check_driver_logIn(new_Json);
+        String driver_name = DriverController.driverLogIn(new_Json);
 
         while (driver_name == null) {
             System.out.println("\nThe name or password are wrong, try again..\n");
@@ -39,9 +39,9 @@ public class DriverMenu {
             new_Json.addProperty("Name", name);
             new_Json.addProperty("Password", password);
 
-            driver_name = DriverController.check_driver_logIn(new_Json);
+            driver_name = DriverController.driverLogIn(new_Json);
         }
-        String d = DriverController.Print_document(new_Json);
+        String d = DriverController.printDriverDoc(new_Json);
 
 
         String a = "yes";
@@ -95,16 +95,15 @@ public class DriverMenu {
      * @param j - JsonObject argument represent the Driver
      */
     public static void leaving (JsonObject j) throws InterruptedException {
-        String a = DriverController.update_leaving(j);
+        String a = DriverController.updateLeavingDriver(j);
         System.out.println(a);
     }
-
     /**
      * Update come back
      * @param j - JsonObject argument represent the Driver
      */
     public static void back (JsonObject j){
-        String a = DriverController.update_back(j);
+        String a = DriverController.updateBackDriver(j);
         System.out.println(a);
     }
 }
