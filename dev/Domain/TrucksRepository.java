@@ -29,4 +29,7 @@ public class TrucksRepository implements IRepository<Truck>{
         }
         return null;
     }
+    public ArrayList<Truck> FindAll(){
+        return AllTrucks;
+    }
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 
 import static Domain.TransportationController.Transport;
 
-public class BuildObjectsController {
+public class DataController {
 
     /**
      * Adding Driver to DataStruct
@@ -36,28 +36,7 @@ public class BuildObjectsController {
         TransportationController.add_new_Truck(new_truck);
 
     }
-    /**
-     * Create new Document
-     * @param j - JsonObject argument
-     */
-    public static void AddDocument(JsonObject j) {
 
-        String site = j.get("Site").getAsString();
-        String type = j.get("Type").getAsString();
-        String area = j.get("Area").getAsString();
-
-        for (Map.Entry<String, Site> iter : TransportationController.getAllSites().get(area).get(type).entrySet()) {
-            if (iter.getValue().to_string().equals(site)) {
-                Map<Item, Integer> new_map = new HashMap<>(Transport.getItems());
-                if (!new_map.isEmpty()) {
-                    Document d = new Document(iter.getValue(), new_map);
-
-                    Transport.clear_Items();
-                    Transport.add_Document(d);
-                }
-            }
-        }
-    }
     /**
      * Adding new site in specific Shipping_area to manager_Map
      * @param j - JsonObject argument

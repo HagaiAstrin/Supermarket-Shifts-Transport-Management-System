@@ -66,25 +66,25 @@ public class TransportationManagerMenu {
      * Adding a Driver from the user
      */
     public static void add_driver(){
-        AddDriver.add_driver();
+        AddToData.add_driver();
     }
     /**
      * Adding a Truck from the user
      */
     public static void add_truck(){
-        AddTruck.add_truck();
+        AddToData.add_truck();
     }
     /**
      * Adding a Store from the user
      */
     public static void add_store(){
-        AddSite.add_site("Store");
+        AddToData.add_site("Store");
     }
     /**
      * Adding a Supplier from the user
      */
     public static void add_supplier(){
-        AddSite.add_site("Supplier");
+        AddToData.add_site("Supplier");
     }
     /**
      * Making Transport

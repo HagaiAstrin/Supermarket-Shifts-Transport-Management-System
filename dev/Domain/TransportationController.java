@@ -76,8 +76,30 @@ public class TransportationController {
     public static void add_new_Truck(Truck t){
         AllTrucks.add(t);
     }
-    public static void add_item(JsonObject j, String s){
+    public static void addItem(JsonObject j, String s){
         Transport.add_Item(j, s);
+    }
+    /**
+     * Create new Document
+     * @param j - JsonObject argument
+     */
+    public static void AddDocument(JsonObject j) {
+
+        String site = j.get("Site").getAsString();
+        String type = j.get("Type").getAsString();
+        String area = j.get("Area").getAsString();
+
+        for (Map.Entry<String, Site> iter : TransportationController.getAllSites().get(area).get(type).entrySet()) {
+            if (iter.getValue().to_string().equals(site)) {
+                Map<Item, Integer> new_map = new HashMap<>(Transport.getItems());
+                if (!new_map.isEmpty()) {
+                    Document d = new Document(iter.getValue(), new_map);
+
+                    Transport.clear_Items();
+                    Transport.add_Document(d);
+                }
+            }
+        }
     }
 
 
@@ -107,7 +129,7 @@ public class TransportationController {
             Transport.getDriver().setDocuments(Transport.getTargets());
             Transport.getDriver().setStatus("Waiting");
             Transport.getTruck().setStatus("Waiting");
-            Transport.getDriver().showRoute();
+            Transport.getDriver().createRoute();
             Transport.getDriver().setTruck(Transport.getTruck().getLicence_number());
             Transport.getDriver().setTransport(Transport);
             allTransportations.add(Transport.to_String());

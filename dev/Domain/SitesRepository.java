@@ -22,8 +22,13 @@ public class SitesRepository implements IRepository <Site>{
     }
 
     @Override
-    public void Delete(Site site) {
-
+    public void Delete(Site s) {
+//        String area = s.getShipping_area();
+//
+//        int count = 1;
+//        for (Map.Entry<String, Site> iter :AllSites.get(area).get(type).entrySet()) {
+//            j.addProperty(String.valueOf(count++), iter.getValue().to_string());
+//        }
     }
 
     @Override

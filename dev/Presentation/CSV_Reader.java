@@ -1,6 +1,6 @@
 package Presentation;
 
-import Domain.BuildObjectsController;
+import Domain.DataController;
 import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;
@@ -31,9 +31,9 @@ public class CSV_Reader {
                         j.addProperty(first_line[i], row[i]);
                     }
                     switch (choose){
-                        case 1 -> BuildObjectsController.AddDriver(j);
-                        case 2 -> BuildObjectsController.AddSite(j);
-                        case 3 -> BuildObjectsController.AddTruck(j);
+                        case 1 -> DataController.AddDriver(j);
+                        case 2 -> DataController.AddSite(j);
+                        case 3 -> DataController.AddTruck(j);
                     }
                 }
             }

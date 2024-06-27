@@ -1,6 +1,6 @@
 package Presentation;
 
-import Domain.BuildObjectsController;
+import Domain.DataController;
 import Domain.TransportationController;
 import com.google.gson.JsonObject;
 
@@ -23,10 +23,10 @@ public class CreateTransportation {
             System.out.println("\nPlease enter the address of the source place of the transportation:");
             new_json.addProperty("Source", reader.nextLine());
 
-            System.out.println("\nPlease enter the address of the date of the transportation:");
+            System.out.println("\nPlease enter the date of the transportation:");
             new_json.addProperty("Date", reader.nextLine());
 
-            System.out.println("\nPlease enter the address of the leaving time of the transportation:");
+            System.out.println("\nPlease enter the leaving time of the transportation:");
             new_json.addProperty("Leaving time", reader.nextLine());
 
             String truck = ChooseTruck();
@@ -48,7 +48,7 @@ public class CreateTransportation {
             new_json.addProperty("Truck", truck);
             new_json.addProperty("Driver", driver);
 
-            createTransportation(new_json);
+            TransportationController.createTransport(new_json);
 
             String area = chooseArea();
 
@@ -67,7 +67,7 @@ public class CreateTransportation {
                 }
             }
 
-            int result = checkTransportation();
+            int result = TransportationController.checkTransport();
 
             boolean bool = true;
             //HeadLine Weight Solution
@@ -97,7 +97,7 @@ public class CreateTransportation {
                 }
 
                 if(!bool) break;
-                result = checkTransportation();
+                result = TransportationController.checkTransport();
             }
 
             if(bool)
@@ -177,7 +177,7 @@ public class CreateTransportation {
                 String supplier = chooseTypeOfSite(area, "Supplier");
                 String it = "yes";
                 while (it.equals("yes")) {
-                    AddItem.add_items();
+                    addItems();
 
                     System.out.println("\nItem added successfully!\n");
 
@@ -220,7 +220,7 @@ public class CreateTransportation {
                         Item_j.addProperty("Item", item);
                         Item_j.addProperty("Amount", String.valueOf(a));
 
-                        TransportationController.add_item(Item_j, "Store");
+                        TransportationController.addItem(Item_j, "Store");
 
                         System.out.println("\nItem added successfully!\n");
                         System.out.println("\nDo you want to  add another item?\nEnter 'yes' or 'no'.");
@@ -241,7 +241,44 @@ public class CreateTransportation {
         }
     }
 
+    /**
+     * Add Item from the user
+     */
+    public static void addItems() {
+        JsonObject j = new JsonObject();
 
+        Scanner reader = new Scanner(System.in);
+
+        System.out.println("\nPlease enter Item:");
+
+        System.out.println("Name of the item:");
+        j.addProperty("Name", reader.nextLine());
+
+        while (true) {
+            System.out.println("\nWeight of the item:");
+            String Weight = reader.nextLine();
+            try {
+                Double.parseDouble(Weight);
+                j.addProperty("Weight", Weight);
+                break;
+            } catch (Exception e) {
+                System.out.println("\nWrong input! try again..");
+            }
+        }
+
+        while (true) {
+            System.out.println("\nAmount of the items");
+            String Amount = reader.nextLine();
+            try {
+                Integer.parseInt(Amount);
+                j.addProperty("Amount", Amount);
+                break;
+            } catch (Exception e) {
+                System.out.println("\nWrong input! try again..");
+            }
+        }
+        TransportationController.addItem(j, "Supplier");
+    }
     /**
      * Creation methods
      */
@@ -252,16 +289,8 @@ public class CreateTransportation {
         j.addProperty("Type", type);
         j.addProperty("Area", area);
 
-        BuildObjectsController.AddDocument(j);
+        TransportationController.AddDocument(j);
     }
-    public static void createTransportation(JsonObject j) {
-        TransportationController.createTransport(j);
-    }
-    public static int checkTransportation() {
-        return TransportationController.checkTransport();
-    }
-
-
     /**
      * Prints to the user the possible choices depending on the stage he is in
      */
