@@ -141,7 +141,6 @@ public class DataController {
                 row++;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         return preferences;
