@@ -13,7 +13,7 @@ public class Program {
 
     public static Scanner scanner = new Scanner(System.in); // Use a single scanner instance
 
-    boolean firstTime = true;
+    boolean firstTime =  true;
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Program program = new Program();
