@@ -153,7 +153,7 @@ public class Test_DB {
         IO_Data.ImportEmployees();
         List<Employee> employees = IO_Data.GetCurrEmployees();
 
-        assertEquals(employees.get(0).getBankID(), "1234");
+        assertEquals(employees.get(0).getBankID(),  "1234");
 
         DataController.updateEmployeeField("1", "bankID", "8888");
         employees = IO_Data.GetCurrEmployees();
