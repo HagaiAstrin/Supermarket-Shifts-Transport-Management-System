@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 
 import java.util.Scanner;
 
-public class AddToData {
+public class DataConnector {
 
     /**
      * Input from the user for Driver arguments
@@ -161,5 +161,8 @@ public class AddToData {
             System.out.println("Would you like to add another truck? Enter 'yes' or 'no'");
             answer = reader.nextLine();
         }
+    }
+    public static JsonObject printAllTransports(){
+        return DataController.getAllTransports();
     }
 }

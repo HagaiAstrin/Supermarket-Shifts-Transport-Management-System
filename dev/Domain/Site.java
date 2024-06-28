@@ -1,6 +1,8 @@
 package Domain;
 
 public class Site {
+
+    private int ID;
     private String name;
     private String address;
     private String phone;
@@ -11,7 +13,9 @@ public class Site {
     /**
      * Constructor of Transport
      */
-    public Site(String name, String address, String phone, String contact, String shipping_area, String type) {
+    public Site(int id, String name, String address, String phone,
+                String contact, String shipping_area, String type) {
+        this.ID = id;
         this.type = type;
         this.name = name;
         this.address = address;
@@ -20,36 +24,21 @@ public class Site {
         this.shipping_area = shipping_area;
     }
 
-    /**
-     * Getter Name
-     */
     public String getName() {
         return name;
     }
-    /**
-     * Getter address
-     */
     public String getAddress() {
         return address;
     }
-    /**
-     * Getter phone
-     */
     public String getPhone() {
         return phone;
     }
-    /**
-     * Getter Contact
-     */
     public String getContact() {
         return contact;
     }
     public String getShipping_area() {
         return shipping_area;
     }
-    /**
-     * Getter type
-     */
     public String getType() {
         return type;
     }

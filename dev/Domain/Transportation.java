@@ -61,7 +61,9 @@ public class Transportation {
     public int getId() {
         return id;
     }
-
+    public String getStatus() {
+        return Status;
+    }
 
     /**
      * Setter id
@@ -167,17 +169,15 @@ public class Transportation {
     /**
      * @return String represent of the Transport
      */
-    public String to_String() {
+    public String getDetails() {
         StringBuilder new_s = new StringBuilder();
-        String s = "Transport number: " + this.id + "\nDate: " + this.date + "\nNumber of Truck: " + this.truck.getLicence_number() + "\n";
+        String s = "Date: " + this.date + "\nNumber of Truck: " + this.truck.getLicence_number() + "\n";
         new_s.append(s);
         s = "Maximum possible loading weight: " +(this.truck.getMax_weight() - this.truck.getNet_weight()) + "\n";
         new_s.append(s);
         s = "Leaving time: " + this.leaving_time + "\nDriver name: " + this.driver.getName() + "\n";
         new_s.append(s);
         s = "Address of the Source: " + this.source;
-        new_s.append(s);
-        s = "\nStatus: " + Status;
         new_s.append(s);
         new_s.append("\nTargets: \n");
         int count = 1;

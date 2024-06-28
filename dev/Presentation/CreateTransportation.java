@@ -1,7 +1,6 @@
 package Presentation;
 
-import Domain.DataController;
-import Domain.TransportationController;
+import Domain.*;
 import com.google.gson.JsonObject;
 
 import java.util.Scanner;
@@ -119,7 +118,7 @@ public class CreateTransportation {
 
         System.out.println("\nPlease choose an Truck:");
 
-        JsonObject new_trucks = TransportationController.chooseTruckFromData();
+        JsonObject new_trucks = DataController.ChooseTruck();
 
         if (new_trucks.size() == 0)
             return null;
@@ -130,7 +129,9 @@ public class CreateTransportation {
 
         System.out.println("\nPlease choose a Driver:");
 
-        JsonObject new_drivers = TransportationController.chooseDriverFromData(truck);
+        String truckLicence = truck.substring(34, 35);
+
+        JsonObject new_drivers = DataController.ChooseDriver(truckLicence);
 
         if (new_drivers.size() == 0)
             return null;
@@ -141,7 +142,7 @@ public class CreateTransportation {
 
         System.out.println("\nPlease choose a Shipping area:");
 
-        JsonObject new_areas = TransportationController.chooseAreaFromData();
+        JsonObject new_areas = DataController.ChooseArea();
 
         return printToUser(new_areas.size(), new_areas);
     }
@@ -149,7 +150,7 @@ public class CreateTransportation {
 
         System.out.println("\nPlease choose a " + type + " :");
 
-        JsonObject new_Site = TransportationController.chooseSiteFromData(area, type);
+        JsonObject new_Site = DataController.ChooseSite(area, type);
 
         return printToUser(new_Site.size(), new_Site);
     }
@@ -205,7 +206,7 @@ public class CreateTransportation {
                         System.out.println();
                         String item = printToUser(j.size(), j);
 
-                        int amount = TransportationController.amountItems(item);
+                        int amount = TransportationController.amountOfItems(item);
 
                         System.out.println();
 
@@ -220,7 +221,7 @@ public class CreateTransportation {
                         Item_j.addProperty("Item", item);
                         Item_j.addProperty("Amount", String.valueOf(a));
 
-                        TransportationController.addItem(Item_j, "Store");
+                        TransportationController.AddItem(Item_j, "Store");
 
                         System.out.println("\nItem added successfully!\n");
                         System.out.println("\nDo you want to  add another item?\nEnter 'yes' or 'no'.");
@@ -240,6 +241,8 @@ public class CreateTransportation {
             }
         }
     }
+
+
 
     /**
      * Add Item from the user
@@ -277,7 +280,7 @@ public class CreateTransportation {
                 System.out.println("\nWrong input! try again..");
             }
         }
-        TransportationController.addItem(j, "Supplier");
+        TransportationController.AddItem(j, "Supplier");
     }
     /**
      * Creation methods

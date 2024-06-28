@@ -1,6 +1,7 @@
 package Presentation;
 
 import Domain.TransportationController;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -66,25 +67,25 @@ public class TransportationManagerMenu {
      * Adding a Driver from the user
      */
     public static void add_driver(){
-        AddToData.add_driver();
+        DataConnector.add_driver();
     }
     /**
      * Adding a Truck from the user
      */
     public static void add_truck(){
-        AddToData.add_truck();
+        DataConnector.add_truck();
     }
     /**
      * Adding a Store from the user
      */
     public static void add_store(){
-        AddToData.add_site("Store");
+        DataConnector.add_site("Store");
     }
     /**
      * Adding a Supplier from the user
      */
     public static void add_supplier(){
-        AddToData.add_site("Supplier");
+        DataConnector.add_site("Supplier");
     }
     /**
      * Making Transport
@@ -96,7 +97,7 @@ public class TransportationManagerMenu {
      * Showing all Transport
      */
     public static void showAllTransportation(){
-        JsonObject j = TransportationController.printAllTransports();
+        JsonObject j = DataConnector.printAllTransports();
         if(j == null){
             System.out.println("\nNo transport has left the shipping area ! \n");
         }

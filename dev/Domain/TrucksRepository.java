@@ -1,5 +1,7 @@
 package Domain;
 
+import com.google.gson.JsonObject;
+
 import java.util.ArrayList;
 
 public class TrucksRepository implements IRepository<Truck>{
@@ -10,26 +12,36 @@ public class TrucksRepository implements IRepository<Truck>{
     public void Add(Truck truck) {
         AllTrucks.add(truck);
     }
-
     @Override
     public void Delete(Truck truck) {
         AllTrucks.remove(truck);
     }
-
     @Override
-    public Truck FindByIndex(int index) {
-        return AllTrucks.get(index);
-    }
-
-    @Override
-    public Truck Find(String s) {
+    public Truck FindByID(String ID) {
         for (Truck t: AllTrucks){
-            if (t.getLicence_number().equals(s))
+            if (t.to_String().equals(ID))
                 return t;
         }
         return null;
     }
-    public ArrayList<Truck> FindAll(){
-        return AllTrucks;
+    @Override
+    public JsonObject FindAll(String s, String v) {
+        JsonObject j = new JsonObject();
+        int count = 1;
+        for (Truck t: AllTrucks){
+            if (t.getStatus().equals("available")){
+                j.addProperty(String.valueOf(count), t.to_String());
+                count++;
+            }
+        }
+        return j;
+    }
+    @Override
+    public JsonObject FindMore() {
+        return null;
+    }
+    @Override
+    public int getAmount() {
+        return AllTrucks.size();
     }
 }

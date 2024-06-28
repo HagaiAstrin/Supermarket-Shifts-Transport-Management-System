@@ -64,7 +64,6 @@ public class Truck {
     }
 
 
-
     /**
      * @return String represent of the Truck
      */

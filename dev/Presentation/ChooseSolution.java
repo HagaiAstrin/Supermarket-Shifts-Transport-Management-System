@@ -95,6 +95,7 @@ public class ChooseSolution {
             return false;
         }
         String s = chooseTruckToReplace(sol_w);
+
         j.addProperty("Truck", s);
 
         String d = CreateTransportation.chooseDriver(s);

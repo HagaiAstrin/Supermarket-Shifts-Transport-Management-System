@@ -2,12 +2,16 @@ package Domain;
 
 import com.google.gson.JsonObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static Domain.TransportationController.Transport;
-
 public class DataController {
+    private static int DriverNumber = 10;
+    private static int SiteID = 10;
+
+    private static IRepository<Truck> Trucks = new TrucksRepository();
+    private static IRepository<Driver> Drivers = new DriverRepository();
+    private static IRepository<Site> Sites = new SitesRepository();
+    private static IRepository<TransportDocument> Transports = new TransportsRepository();
+
+
 
     /**
      * Adding Driver to DataStruct
@@ -18,8 +22,11 @@ public class DataController {
         String name = j.get("Name").getAsString();
         String licence = j.get("Licence").getAsString();
         String password = j.get("Password").getAsString();
-        Driver new_driver = new Driver(name, licence, password, "000-00-000");
-        TransportationController.add_new_driver(new_driver);
+
+        Driver new_driver = new Driver(name, licence, password,
+                "000-00-000", DriverNumber ++, 0, null);
+
+        Drivers.Add(new_driver);
 
     }
     /**
@@ -32,11 +39,11 @@ public class DataController {
         String l = j.get("Licence level").getAsString();
         double net = j.get("Net weight").getAsDouble();
         double max = j.get("Max weight").getAsDouble();
+
         Truck new_truck = new Truck(n, l, net, max);
-        TransportationController.add_new_Truck(new_truck);
 
+        Trucks.Add(new_truck);
     }
-
     /**
      * Adding new site in specific Shipping_area to manager_Map
      * @param j - JsonObject argument
@@ -50,12 +57,59 @@ public class DataController {
         String Shipping_area = j.get("Shipping area").getAsString();
         String type = j.get("Type").getAsString();
 
-        if (!TransportationController.getAllSites().containsKey(Shipping_area)) {
-            TransportationController.add_Shipping_area(Shipping_area);
-        }
+        Site new_site = new Site(SiteID ++ ,name, address, phone, contact, Shipping_area, type);
 
-        Site new_site = new Site(name, address, phone, contact, Shipping_area, type);
-        TransportationController.add_new_Site(new_site);
-
+        Sites.Add(new_site);
     }
+    public static void AddTransportDocument(TransportDocument d){
+        Transports.Add(d);
+    }
+
+    public static JsonObject ChooseTruck(){
+        return Trucks.FindAll("a", "b");
+    }
+    public static JsonObject ChooseDriver(String truckLicence){
+        return Drivers.FindAll(truckLicence, "b");
+    }
+    public static JsonObject ChooseArea(){
+        return Sites.FindMore();
+    }
+    public static JsonObject ChooseSite(String area, String type){
+        return Sites.FindAll(area, type);
+    }
+
+    public static Truck getTruck(String s){
+        return Trucks.FindByID(s);
+    }
+    public static Driver getDriver(String s){
+        return Drivers.FindByID(s);
+    }
+    public static Site getSite(String s){
+        return Sites.FindByID(s);
+    }
+    public static TransportDocument getTransportDoc(String s){
+        return Transports.FindByID(s);
+    }
+    public static JsonObject getAllTransports(){
+        return Transports.FindAll("a", "b");
+    }
+
+    public static int getAmount(String type){
+        switch (type){
+            case "Transport" -> {
+                return Transports.getAmount();
+            }
+            case "Drivers" -> {
+                return Drivers.getAmount();
+            }
+            case "Trucks" -> {
+                return Trucks.getAmount();
+            }
+            case "Sites" -> {
+                return Sites.getAmount();
+            }
+        }
+        return 0;
+    }
+
 }
