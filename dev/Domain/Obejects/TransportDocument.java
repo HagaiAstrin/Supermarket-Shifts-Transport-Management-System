@@ -17,6 +17,12 @@ public class TransportDocument {
     public int getID() {
         return ID;
     }
+    public String getDetails() {
+        return Details;
+    }
+
+
+
     public void setStatus(String status) {
         Status = status;
     }

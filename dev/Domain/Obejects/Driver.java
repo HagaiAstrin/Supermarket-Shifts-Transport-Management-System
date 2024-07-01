@@ -2,9 +2,12 @@ package Domain.Obejects;
 
 import Domain.Controllers.DataController;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Driver {
+
+    private int DriverID;
     private String Name;
     private String License;
     private String Password;
@@ -19,12 +22,13 @@ public class Driver {
      * Constructor for Driver
      */
     public Driver(String name, String license, String password, String truckLicenceNumber,
-                  int TransportID, String route) {
+                  int TransportID, String route, int id, String status) {
+        this.DriverID = id;
         this.Name = name;
         this.License = license;
         this.Password = password;
         this.truckLicenceNumber = truckLicenceNumber;
-        this.Status = "available";
+        this.Status = status;
         this.transportID = TransportID;
         this.Route = route;
     }
@@ -39,7 +43,7 @@ public class Driver {
     public String getPassword() {
         return Password;
     }
-    public Truck getTruck() {
+    public Truck getTruck() throws SQLException {
         if (truckLicenceNumber.equals("000-00-000"))
             return null;
         ArrayList<Truck> trucks = DataController.getAllTrucks();
@@ -49,7 +53,7 @@ public class Driver {
         }
         return null;
     }
-    public TransportDocument getTransportDocument() {
+    public TransportDocument getTransportDocument() throws SQLException {
         if (transportID == 0)
             return null;
         return DataController.getTransportDoc(String.valueOf(transportID));
@@ -76,6 +80,8 @@ public class Driver {
     public void setStatus(String status) {
         Status = status;
     }
+
+
 
 
 

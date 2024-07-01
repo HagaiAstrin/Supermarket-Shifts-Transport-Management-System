@@ -1,5 +1,7 @@
 package Domain.Obejects;
 
+import Domain.Controllers.DataController;
+
 public class Site {
 
     private String name;
@@ -8,16 +10,18 @@ public class Site {
     private String contact;
     private String shipping_area;
     private String type;
+    private int Site_ID;
 
     /**
      * Constructor of Transport
      */
-    public Site(String name, String address, String phone,
+    public Site(String name, String address, String phone, int id,
                 String contact, String shipping_area, String type) {
         this.type = type;
         this.name = name;
         this.address = address;
         this.phone = phone;
+        this.Site_ID = id;
         this.contact = contact;
         this.shipping_area = shipping_area;
     }
@@ -40,6 +44,8 @@ public class Site {
     public String getType() {
         return type;
     }
+
+
 
 
     /**

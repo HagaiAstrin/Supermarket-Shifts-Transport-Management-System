@@ -1,29 +1,79 @@
 package DAL;
 
 import Domain.Obejects.Site;
+import com.google.gson.JsonObject;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SitesDAO implements IDAO<Site>{
+    private Connection connection;
+
+    public SitesDAO(){
+        this.connection = DB_Connector.getConnection();
+    }
+
     @Override
-    public Site get(int id) {
-        return null;
+    public List<JsonObject> SELECT_ALL()throws SQLException  {
+
+        List<JsonObject> all_sites = new ArrayList<>();
+
+        JsonObject j = new JsonObject();
+
+        String sql = "SELECT Name, Address, Phone_number, Contact, " +
+                     "Shipping_area, Type, Site_ID FROM Sites";
+
+        PreparedStatement site = connection.prepareStatement(sql);
+
+        ResultSet rs = site.executeQuery();
+        while (rs.next()) {
+            j.addProperty("Name", rs.getString("Name"));
+            j.addProperty("Address", rs.getString("Address"));
+            j.addProperty("Phone number", rs.getString("Phone_number"));
+            j.addProperty("Contact", rs.getString("Contact"));
+            j.addProperty("Shipping area", rs.getString("Shipping_area"));
+            j.addProperty("Type", rs.getString("Type"));
+            j.addProperty("Site ID", rs.getString("Site_ID"));
+
+            all_sites.add(j);
+        }
+
+        return all_sites;
     }
     @Override
-    public List<Site> GET_ALL() {
-        return null;
+    public void INSERT(JsonObject j) throws SQLException {
+
+        String sql = "INSERT INTO Sites(Name, Address, Phone_number, Contact, " +
+                     "Shipping_area, Type, Site_ID) VALUES(?, ?, ?, ?, ?, ?, ?)";
+
+        PreparedStatement site = connection.prepareStatement(sql);
+
+        site.setString(1, j.get("Name").getAsString());
+        site.setString(2, j.get("Address").getAsString());
+        site.setString(3, j.get("Phone number").getAsString());
+        site.setString(4, j.get("Contact").getAsString());
+        site.setString(5, j.get("Shipping area").getAsString());
+        site.setString(6, j.get("Type").getAsString());
+        site.setInt(7, j.get("Site ID").getAsInt());
+
+        site.executeUpdate();
     }
     @Override
-    public void INSERT(Site site) throws SQLException {
+    public void UPDATE(JsonObject j)throws SQLException {
 
     }
     @Override
-    public void UPDATE(Site site, String[] params) {
+    public void DELETE(JsonObject j)throws SQLException {
 
-    }
-    @Override
-    public void DELETE(Site site) {
+        String sql = "DELETE FROM Sites WHERE Site_ID = ?";
 
+        PreparedStatement site = connection.prepareStatement(sql);
+
+        site.setInt(1, j.get("Site ID").getAsInt());
+        site.executeUpdate();
     }
 }

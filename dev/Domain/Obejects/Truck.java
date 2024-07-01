@@ -11,12 +11,12 @@ public class Truck {
     /**
      * Constructor of Truck
      */
-    public Truck(String id, String licence, double net_weight, double max_weight) {
-        this.licence_number = id;
-        this.licence_level = licence;
+    public Truck(String LicenceNum, String LicenceLevel, double net_weight, double max_weight, String s) {
+        this.licence_number = LicenceNum;
+        this.licence_level = LicenceLevel;
         this.net_weight = net_weight;
         this.max_weight = max_weight;
-        this.Status = "available";
+        this.Status = s;
     }
 
     /**
@@ -36,6 +36,9 @@ public class Truck {
      */
     public String getLicence_number() {
         return licence_number;
+    }
+    public String getLicence_level() {
+        return licence_level;
     }
     public String getStatus() {
         return Status;

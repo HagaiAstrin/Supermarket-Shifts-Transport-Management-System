@@ -1,13 +1,14 @@
 package DAL;
+import com.google.gson.JsonObject;
+
 import java.sql.SQLException;
 import java.util.*;
 
 public interface IDAO<T> {
 
-     T get(int id);
-    List<T> GET_ALL();
-    void INSERT(T t) throws SQLException;
-    void UPDATE(T t, String[] params);
-    void DELETE(T t);
+    List<JsonObject> SELECT_ALL()throws SQLException ;
+    void INSERT(JsonObject j) throws SQLException;
+    void UPDATE(JsonObject j) throws SQLException;
+    void DELETE(JsonObject j) throws SQLException;
 }
 
