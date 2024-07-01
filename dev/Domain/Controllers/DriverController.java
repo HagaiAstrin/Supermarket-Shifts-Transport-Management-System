@@ -1,18 +1,18 @@
-package Domain;
+package Domain.Controllers;
 
+import Domain.Obejects.Driver;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
 public class DriverController {
-    private static DriverRepository Drivers = new DriverRepository();
 
     /**
      * Driver Controller
      */
     public static String driverLogIn(JsonObject j){
 
-        ArrayList<Driver> drivers = Drivers.getAllDrivers();
+        ArrayList<Driver> drivers = DataController.getAllDrivers();
 
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get("Password").getAsString().equals(driver.getPassword())) {
@@ -22,7 +22,8 @@ public class DriverController {
         return null;
     }
     public static String printDriverDoc(JsonObject j){
-        ArrayList<Driver> drivers = Drivers.getAllDrivers();
+
+        ArrayList<Driver> drivers = DataController.getAllDrivers();
 
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get("Password").getAsString().equals(driver.getPassword())) {
@@ -37,7 +38,7 @@ public class DriverController {
      */
     public static String updateBackDriver(JsonObject j){
 
-        ArrayList<Driver> drivers = Drivers.getAllDrivers();
+        ArrayList<Driver> drivers = DataController.getAllDrivers();
 
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get
@@ -61,7 +62,7 @@ public class DriverController {
      */
     public static String updateLeavingDriver(JsonObject j){
 
-        ArrayList<Driver> drivers = Drivers.getAllDrivers();
+        ArrayList<Driver> drivers = DataController.getAllDrivers();
 
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get

@@ -1,7 +1,10 @@
-package Domain;
+package Domain.Controllers;
 
+import Domain.Controllers.DataController;
+import Domain.Obejects.*;
 import com.google.gson.JsonObject;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +51,7 @@ public class TransportationController {
 
         Transport = new Transportation(truck, driver, source, date, leaving_time);
     }
-    public static int checkTransport() {
+    public static int checkTransport() throws SQLException {
 
         int result = Transport.WeightCheck();
 

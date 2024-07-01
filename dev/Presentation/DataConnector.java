@@ -1,8 +1,9 @@
 package Presentation;
 
-import Domain.DataController;
+import Domain.Controllers.DataController;
 import com.google.gson.JsonObject;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class DataConnector {
@@ -10,7 +11,7 @@ public class DataConnector {
     /**
      * Input from the user for Driver arguments
      */
-    public static void add_driver() {
+    public static void add_driver() throws SQLException {
 
         JsonObject new_json = new JsonObject();
         Scanner reader = new Scanner(System.in);
@@ -56,7 +57,7 @@ public class DataConnector {
      * Input from the user for Site arguments
      * @param Type - String type represent Store / Supplier
      */
-    public static void add_site(String Type){
+    public static void add_site(String Type) throws SQLException{
 
         JsonObject new_json = new JsonObject();
 
@@ -93,7 +94,7 @@ public class DataConnector {
     /**
      * Input from the user for Truck arguments
      */
-    public static void add_truck() {
+    public static void add_truck()throws SQLException {
 
         JsonObject new_json = new JsonObject();
 
@@ -162,6 +163,7 @@ public class DataConnector {
             answer = reader.nextLine();
         }
     }
+
     public static JsonObject printAllTransports(){
         return DataController.getAllTransports();
     }

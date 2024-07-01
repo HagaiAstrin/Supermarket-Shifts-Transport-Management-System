@@ -1,4 +1,4 @@
-package Domain;
+package Domain.Obejects;
 
 public class Truck {
     private String licence_number;
@@ -32,23 +32,6 @@ public class Truck {
         return max_weight;
     }
     /**
-     * Getter licence_level
-     */
-    public int getLicence_level() {
-        switch (licence_level){
-            case "A" -> {
-                return  1;
-            }
-            case "B" -> {
-                return  2;
-            }
-            case "C" -> {
-                return  3;
-            }
-        }
-        return 0;
-    }
-    /**
      * Getter licence_number
      */
     public String getLicence_number() {
@@ -62,8 +45,6 @@ public class Truck {
     public void setStatus(String status) {
         Status = status;
     }
-
-
     /**
      * @return String represent of the Truck
      */

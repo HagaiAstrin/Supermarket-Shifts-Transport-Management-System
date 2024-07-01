@@ -1,10 +1,11 @@
-package Domain;
+package Domain.Obejects;
+
+import Domain.Controllers.DataController;
 
 import java.util.ArrayList;
 
 public class Driver {
     private String Name;
-    private int WorkerNumber;
     private String License;
     private String Password;
     private String truckLicenceNumber;
@@ -18,9 +19,8 @@ public class Driver {
      * Constructor for Driver
      */
     public Driver(String name, String license, String password, String truckLicenceNumber,
-                  int workerNumber, int TransportID, String route) {
+                  int TransportID, String route) {
         this.Name = name;
-        this.WorkerNumber = workerNumber;
         this.License = license;
         this.Password = password;
         this.truckLicenceNumber = truckLicenceNumber;
@@ -42,7 +42,12 @@ public class Driver {
     public Truck getTruck() {
         if (truckLicenceNumber.equals("000-00-000"))
             return null;
-        return DataController.getTruck(truckLicenceNumber);
+        ArrayList<Truck> trucks = DataController.getAllTrucks();
+        for (Truck t : trucks){
+            if (t.getLicence_number().equals(truckLicenceNumber))
+                return t;
+        }
+        return null;
     }
     public TransportDocument getTransportDocument() {
         if (transportID == 0)
@@ -55,9 +60,7 @@ public class Driver {
     public String getStatus() {
         return Status;
     }
-    public int getWorkerNumber() {
-        return WorkerNumber;
-    }
+
 
 
     //    set methods:

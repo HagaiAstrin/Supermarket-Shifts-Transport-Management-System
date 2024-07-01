@@ -1,8 +1,7 @@
-package Domain;
+package Domain.Obejects;
 
 public class Site {
 
-    private int ID;
     private String name;
     private String address;
     private String phone;
@@ -13,9 +12,8 @@ public class Site {
     /**
      * Constructor of Transport
      */
-    public Site(int id, String name, String address, String phone,
+    public Site(String name, String address, String phone,
                 String contact, String shipping_area, String type) {
-        this.ID = id;
         this.type = type;
         this.name = name;
         this.address = address;

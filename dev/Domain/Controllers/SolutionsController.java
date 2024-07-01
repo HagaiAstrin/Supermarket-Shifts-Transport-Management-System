@@ -1,21 +1,29 @@
-package Domain;
+package Domain.Controllers;
 
+import Domain.Controllers.TransportationController;
+import Domain.Obejects.Document;
+import Domain.Obejects.Driver;
+import Domain.Obejects.Item;
+import Domain.Obejects.Truck;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-import static Domain.TransportationController.*;
+import static Domain.Controllers.TransportationController.*;
 
 public class SolutionsController {
 
     /**
      * @return JsonObject of all trucks that can make the Transport
      */
-    public static JsonObject get_Truck_Json() {
+    public static JsonObject getAvailableTruck() {
+
         JsonObject new_json = new JsonObject();
+        ArrayList<Truck> trucks = DataController.getAllTrucks();
+
         int count = 1;
-        for (Truck tr : TransportationController.getAllTrucks()) {
+        for (Truck tr : trucks) {
             if (tr.getStatus().equals("available") && (tr.getMax_weight() -
                 tr.getNet_weight())>= Transport.get_transport_Max_weight()) {
                 new_json.addProperty(String.valueOf(count), tr.to_String());
@@ -28,12 +36,13 @@ public class SolutionsController {
      * @param a - String argument represent the Site to dropped items from
      * @return JsonObject of the Items to dropped
      */
-    public static JsonObject get_Item_Json(String a) {
+    public static JsonObject getItem(String a) {
+
         JsonObject new_json = new JsonObject();
         int count = 1;
         for (Document d : Transport.getTargets()) {
             if (d.to_string().equals(a)) {
-                for (Map.Entry<Item, Integer> iter : d.getItem_map().entrySet()) {
+                for (Map.Entry<Item, Integer> iter : d.getAllItems().entrySet()) {
                     new_json.addProperty(String.valueOf(count++), (iter.getKey().to_string()));
                 }
                 break;
@@ -44,7 +53,7 @@ public class SolutionsController {
     /**
      * @return JsonObject represent the available Sites to dropped
      */
-    public static JsonObject Choose_Drop_Supplier_Target() {
+    public static JsonObject ChooseSupplierToDrop() {
         JsonObject j = new JsonObject();
         int count = 1;
         for (Document d : Transport.getTargets()) {
@@ -54,14 +63,12 @@ public class SolutionsController {
         return j;
     }
     public static void replace_truck_and_driver(JsonObject t){
-        for (Truck truck : TransportationController.getAllTrucks()) {
-            if (truck.to_String().equals(t.get("Truck").getAsString()))
-                Transport.setTruck(truck);
-        }
-        for (Driver driver : TransportationController.getAllDrivers()) {
-            if (driver.to_String().equals(t.get("Truck").getAsString()))
-                Transport.setDriver(driver);
-        }
+
+        Truck truck = DataController.getTruck(t.get("Truck").getAsString());
+        Driver driver = DataController.getDriver(t.get("Truck").getAsString());
+
+        Transport.setTruck(truck);
+        Transport.setDriver(driver);
 
     }
     /**
@@ -90,11 +97,11 @@ public class SolutionsController {
         int count = 0;
         for (Document d : Transport.getTargets()) {
             if (d.to_string().equals(b)) {
-                for (Map.Entry<Item, Integer> entry : d.getItem_map().entrySet()) {
+                for (Map.Entry<Item, Integer> entry : d.getAllItems().entrySet()) {
                     if (entry.getKey().to_string().equals(a)) {
-                        d.drop_Item(entry.getKey());
+                        d.dropItem(entry.getKey());
                         Transport.getAll_transport_items().remove(entry.getKey());
-                        if(d.getItem_map().isEmpty()){
+                        if(d.getAllItems().isEmpty()){
                             Transport.getTargets().remove(d);
                         }
                         break;
@@ -104,10 +111,10 @@ public class SolutionsController {
 
                 for (int i = count; i < Transport.getTargets().size(); i++) {
                     if (Transport.getTargets().get(i).getTarget().getType().equals("Store")) {
-                        for (Map.Entry<Item, Integer> entry : Transport.getTargets().get(i).getItem_map().entrySet()) {
+                        for (Map.Entry<Item, Integer> entry : Transport.getTargets().get(i).getAllItems().entrySet()) {
                             if (entry.getKey().to_string().equals(a)) {
-                                Transport.getTargets().get(i).drop_Item(entry.getKey());
-                                if(Transport.getTargets().get(i).getItem_map().isEmpty()){
+                                Transport.getTargets().get(i).dropItem(entry.getKey());
+                                if(Transport.getTargets().get(i).getAllItems().isEmpty()){
                                     Transport.getTargets().remove(Transport.getTargets().get(i));
                                 }
                                 break;
@@ -138,15 +145,15 @@ public class SolutionsController {
             count++;
         }
         ArrayList<Integer> arr = new ArrayList<>();
-        for (Map.Entry<Item, Integer> iter : document.getItem_map().entrySet()) {
+        for (Map.Entry<Item, Integer> iter : document.getAllItems().entrySet()) {
             Transport.getAll_transport_items().remove(iter.getKey());
             for (int i = count; i < Transport.getTargets().size(); i++) {
                 if (Transport.getTargets().get(i).getTarget().getType().equals("Store")) {
 
-                    if(Transport.getTargets().get(i).getItem_map().containsKey(iter.getKey())){
-                        Transport.getTargets().get(i).drop_Item(iter.getKey());
+                    if(Transport.getTargets().get(i).getAllItems().containsKey(iter.getKey())){
+                        Transport.getTargets().get(i).dropItem(iter.getKey());
                     }
-                    if(Transport.getTargets().get(i).getItem_map().isEmpty()) {
+                    if(Transport.getTargets().get(i).getAllItems().isEmpty()) {
                         arr.add(i);
                     }
                 }

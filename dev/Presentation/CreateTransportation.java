@@ -1,6 +1,7 @@
 package Presentation;
 
-import Domain.*;
+import Domain.Controllers.DataController;
+import Domain.Controllers.TransportationController;
 import com.google.gson.JsonObject;
 
 import java.util.Scanner;
@@ -129,7 +130,7 @@ public class CreateTransportation {
 
         System.out.println("\nPlease choose a Driver:");
 
-        String truckLicence = truck.substring(34, 35);
+        String truckLicence = truck.substring(43, 44);
 
         JsonObject new_drivers = DataController.ChooseDriver(truckLicence);
 

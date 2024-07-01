@@ -1,6 +1,6 @@
 package Presentation;
 
-import Domain.DataController;
+import Domain.Controllers.DataController;
 import com.google.gson.JsonObject;
 
 import java.io.BufferedReader;

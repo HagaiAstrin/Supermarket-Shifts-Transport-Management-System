@@ -1,10 +1,12 @@
-package Domain;
+package Domain.Repositories;
 
+import Domain.Obejects.Truck;
+import Domain.Repositories.IRepository;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
-public class TrucksRepository implements IRepository<Truck>{
+public class TrucksRepository implements IRepository<Truck> {
 
     private static ArrayList<Truck> AllTrucks = new ArrayList<>();
 
@@ -25,7 +27,7 @@ public class TrucksRepository implements IRepository<Truck>{
         return null;
     }
     @Override
-    public JsonObject FindAll(String s, String v) {
+    public JsonObject ChooseAll(String s, String v) {
         JsonObject j = new JsonObject();
         int count = 1;
         for (Truck t: AllTrucks){
@@ -37,8 +39,8 @@ public class TrucksRepository implements IRepository<Truck>{
         return j;
     }
     @Override
-    public JsonObject FindMore() {
-        return null;
+    public ArrayList<Truck> FindAll() {
+        return AllTrucks;
     }
     @Override
     public int getAmount() {

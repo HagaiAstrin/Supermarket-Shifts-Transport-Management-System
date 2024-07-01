@@ -1,7 +1,7 @@
 package Presentation;
 
 import com.google.gson.JsonObject;
-import Domain.DriverController;
+import Domain.Controllers.DriverController;
 
 
 import java.util.Scanner;
@@ -94,7 +94,7 @@ public class DriverMenu {
      * Update leaving
      * @param j - JsonObject argument represent the Driver
      */
-    public static void leaving (JsonObject j) throws InterruptedException {
+    public static void leaving (JsonObject j) {
         String a = DriverController.updateLeavingDriver(j);
         System.out.println(a);
     }

@@ -1,6 +1,6 @@
 package Presentation;
 
-import Domain.SolutionsController;
+import Domain.Controllers.SolutionsController;
 import com.google.gson.JsonObject;
 
 import java.util.Scanner;
@@ -34,7 +34,7 @@ public class ChooseSolution {
         String p = "yes";
         boolean bool = true;
         while (p.equals("yes")) {
-            JsonObject sol_w = SolutionsController.Choose_Drop_Supplier_Target();
+            JsonObject sol_w = SolutionsController.ChooseSupplierToDrop();
             System.out.println("\nWhich Supplier do you want to dropped ? ");
             String site_answer = CreateTransportation.printToUser(sol_w.size(), sol_w);
             SolutionsController.drop_Site(site_answer);
@@ -55,16 +55,16 @@ public class ChooseSolution {
         JsonObject j_item;
         String p = "yes";
         boolean bool = true;
-        JsonObject sol_w = SolutionsController.Choose_Drop_Supplier_Target();
+        JsonObject sol_w = SolutionsController.ChooseSupplierToDrop();
         while (p.equals("yes")) {
             System.out.println("\nWhich Site do you want to dropped Items from ? ");
             String site_answer = CreateTransportation.printToUser(sol_w.size(), sol_w);
             System.out.println("\nWhich Item do you want to dropped ? ");
-            j_item = SolutionsController.get_Item_Json(site_answer);
+            j_item = SolutionsController.getItem(site_answer);
             String item_answer = CreateTransportation.printToUser(j_item.size(), j_item);
 
             SolutionsController.drop_Items(item_answer, site_answer);
-            sol_w = SolutionsController.Choose_Drop_Supplier_Target();
+            sol_w = SolutionsController.ChooseSupplierToDrop();
             if(sol_w.size() == 0){
                 bool = false;
                 break;
@@ -78,7 +78,7 @@ public class ChooseSolution {
         return bool;
     }
     public static void changeSites(String area) {
-        JsonObject s = SolutionsController.Choose_Drop_Supplier_Target();
+        JsonObject s = SolutionsController.ChooseSupplierToDrop();
         System.out.println("\nwhich Supplier you want to replace ? ");
         String site_answer = CreateTransportation.printToUser(s.size(), s);
         CreateTransportation.chooseSite(area);
@@ -88,7 +88,7 @@ public class ChooseSolution {
 
         JsonObject j = new JsonObject();
 
-        JsonObject sol_w = SolutionsController.get_Truck_Json();
+        JsonObject sol_w = SolutionsController.getAvailableTruck();
         if (sol_w.size() == 0) {
             System.out.println("There is no available Trucks for this transportation, ");
             System.out.println("please choose other solution");

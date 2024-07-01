@@ -1,10 +1,11 @@
-package Domain;
+package Domain.Repositories;
 
+import Domain.Obejects.Driver;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
-public class DriverRepository implements IRepository<Driver>{
+public class DriverRepository implements IRepository<Driver> {
     private static ArrayList<Driver> AllDrivers = new ArrayList<>();
 
     @Override
@@ -24,7 +25,7 @@ public class DriverRepository implements IRepository<Driver>{
         return null;
     }
     @Override
-    public JsonObject FindAll(String s, String v) {
+    public JsonObject ChooseAll(String s, String v) {
 
         JsonObject j = new JsonObject();
         int count = 1;
@@ -39,15 +40,12 @@ public class DriverRepository implements IRepository<Driver>{
         return j;
     }
     @Override
-    public JsonObject FindMore() {
-        return null;
+    public ArrayList<Driver> FindAll() {
+        return AllDrivers;
     }
     @Override
     public int getAmount() {
         return AllDrivers.size();
     }
 
-    public ArrayList<Driver> getAllDrivers(){
-        return AllDrivers;
-    }
 }

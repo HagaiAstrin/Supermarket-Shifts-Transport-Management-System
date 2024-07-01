@@ -1,4 +1,5 @@
-package Domain;
+package Domain.Obejects;
+import Domain.Obejects.*;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -106,7 +107,7 @@ public class Transportation {
         for (Document d : targets) {
             Site new_site = d.getTarget();
             if (new_site.getType().equals("Supplier")) {
-                count += d.getDoc_weight();
+                count += d.getTotalWeight();
                 if (count > max_weight + truck.getNet_weight()) {
                     max_weight = count - truck.getNet_weight();
                 }
@@ -114,7 +115,7 @@ public class Transportation {
                     result = 2;
                 }
             } else {
-                count -= d.getDoc_weight();
+                count -= d.getTotalWeight();
             }
         }
         if (result == 2)
@@ -192,11 +193,11 @@ public class Transportation {
             }
             s = "           - Address: " + site.getAddress() + "\n           " +
                     "- Contact name: " + site.getContact() + "\n           - Phone: " + site.getPhone() + "\n" +
-                    "           - Shipping weight: " + d.getDoc_weight() + "\n";
+                    "           - Shipping weight: " + d.getTotalWeight() + "\n";
 
             new_s.append(s);
             new_s.append("\n           - Items: \n");
-            for (Map.Entry<Item, Integer> iter : d.getItem_map().entrySet()) {
+            for (Map.Entry<Item, Integer> iter : d.getAllItems().entrySet()) {
                 s = "                 Name: " + iter.getKey().getName() + ", Amount: " + iter.getValue() + "\n";
                 new_s.append(s);
             }

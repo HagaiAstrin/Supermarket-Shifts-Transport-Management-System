@@ -1,4 +1,4 @@
-package Domain;
+package Domain.Obejects;
 
 public class TransportDocument {
     private String Status;
@@ -20,6 +20,7 @@ public class TransportDocument {
     public void setStatus(String status) {
         Status = status;
     }
+
     public String to_String() {
         StringBuilder new_s = new StringBuilder();
         String s = "Transport number: " + ID + "\n";

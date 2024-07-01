@@ -1,14 +1,13 @@
 package Presentation;
 
-import Domain.TransportationController;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class TransportationManagerMenu {
-    public static void transportation_manager() {
+    public static void transportation_manager() throws SQLException {
 
         Scanner reader = new Scanner(System.in);
 
@@ -66,25 +65,25 @@ public class TransportationManagerMenu {
     /**
      * Adding a Driver from the user
      */
-    public static void add_driver(){
+    public static void add_driver() throws SQLException {
         DataConnector.add_driver();
     }
     /**
      * Adding a Truck from the user
      */
-    public static void add_truck(){
+    public static void add_truck() throws SQLException {
         DataConnector.add_truck();
     }
     /**
      * Adding a Store from the user
      */
-    public static void add_store(){
+    public static void add_store() throws SQLException {
         DataConnector.add_site("Store");
     }
     /**
      * Adding a Supplier from the user
      */
-    public static void add_supplier(){
+    public static void add_supplier() throws SQLException {
         DataConnector.add_site("Supplier");
     }
     /**
@@ -97,7 +96,9 @@ public class TransportationManagerMenu {
      * Showing all Transport
      */
     public static void showAllTransportation(){
+
         JsonObject j = DataConnector.printAllTransports();
+
         if(j == null){
             System.out.println("\nNo transport has left the shipping area ! \n");
         }

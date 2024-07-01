@@ -1,11 +1,13 @@
-package Domain;
+package Domain.Repositories;
 
+import Domain.Obejects.Site;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SitesRepository implements IRepository <Site>{
+public class SitesRepository implements IRepository<Site> {
 
     private static Map<String, Map<String, Map<String, Site>>> AllSites = new HashMap<>();
 
@@ -42,7 +44,7 @@ public class SitesRepository implements IRepository <Site>{
         return null;
     }
     @Override
-    public JsonObject FindAll(String area, String type) {
+    public JsonObject ChooseAll(String area, String type) {
         JsonObject j = new JsonObject();
         int count = 1;
         for (Map.Entry<String, Site> iter : AllSites.get(area).get(type).entrySet()) {
@@ -51,13 +53,8 @@ public class SitesRepository implements IRepository <Site>{
         return j;
     }
     @Override
-    public JsonObject FindMore() {
-        JsonObject j = new JsonObject();
-        int count = 1;
-        for (Map.Entry<String, Map<String, Map<String, Site>>> iter : AllSites.entrySet()) {
-            j.addProperty(String.valueOf(count++), iter.getKey());
-        }
-        return j;
+    public ArrayList<Site> FindAll() {
+        return null;
     }
     @Override
     public int getAmount() {
@@ -72,6 +69,8 @@ public class SitesRepository implements IRepository <Site>{
         return count;
     }
 
+
+    // Only Sites Repository Methods:
     public void AddShippingArea(String s){
         for (Map.Entry<String, Map<String, Map<String, Site>>> iter : AllSites.entrySet()) {
             if (iter.getKey().equals(s))
@@ -83,5 +82,16 @@ public class SitesRepository implements IRepository <Site>{
         m.put("Supplier",new HashMap<>());
 
         AllSites.put(s, m);
+    }
+    public JsonObject FindShippingArea(){
+        JsonObject j = new JsonObject();
+        int count = 1;
+        for (Map.Entry<String, Map<String, Map<String, Site>>> iter : AllSites.entrySet()) {
+            j.addProperty(String.valueOf(count++), iter.getKey());
+        }
+        return j;
+    }
+    public Map<String, Map<String, Map<String, Site>>> FindAllSites(){
+        return AllSites;
     }
 }
