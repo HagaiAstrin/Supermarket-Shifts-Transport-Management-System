@@ -1,5 +1,6 @@
 package Presentation;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
@@ -7,7 +8,7 @@ public class Main {
     /**
      * Start of the Program
      */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, SQLException {
 
         Scanner reader = new Scanner(System.in);
 

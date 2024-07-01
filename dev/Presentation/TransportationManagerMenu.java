@@ -89,7 +89,7 @@ public class TransportationManagerMenu {
     /**
      * Making Transport
      */
-    public static void createTransportation(){
+    public static void createTransportation() throws SQLException {
         CreateTransportation.createTransport();
     }
     /**

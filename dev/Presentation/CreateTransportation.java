@@ -4,6 +4,7 @@ import Domain.Controllers.DataController;
 import Domain.Controllers.TransportationController;
 import com.google.gson.JsonObject;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class CreateTransportation {
@@ -12,7 +13,7 @@ public class CreateTransportation {
     /**
      * Create new Transport with the Inputs from the user
      */
-    public static void createTransport() {
+    public static void createTransport() throws SQLException {
 
         Scanner reader = new Scanner(System.in);
 
