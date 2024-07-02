@@ -79,3 +79,5 @@ java.sql: for SQL operations (java.sql.*)
 java.time: for date and time operations (java.time.LocalDate, java.time.format.DateTimeFormatter, java.time.format.DateTimeParseException)
 java.util: for utility classes (java.util.*, java.util.ArrayList, java.util.Arrays, java.util.HashMap, java.util.List, java.util.Map, java.util.Objects, java.util.Scanner)
 ```
+Asaf and Hagai coding all night on their HR management system project, surrounded by computers and coffee:
+![Asaf and hagai](https://github.com/HagaiAstrin/ADSS_Group_AT/assets/68349855/53cdabf3-aaef-4f2a-b645-93a10716ff9a)
