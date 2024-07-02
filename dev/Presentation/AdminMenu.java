@@ -39,7 +39,7 @@ public class AdminMenu {
             int choice_int = Integer.parseInt(choice);
             switch (choice_int) {
                 case 1:
-                    //ProgressBar();
+                    ProgressBar();
                     System.out.println("Data was loaded successfully.");
                     Thread.sleep(500);
                     AdminController.ImportEmployees();

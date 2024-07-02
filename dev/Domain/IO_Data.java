@@ -78,82 +78,11 @@ public class IO_Data {
      */
     public static void ImportEmployees() {
         DataController.importEmployees();
-//        String line;
-//        String csvSplitBy = ",";
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//
-//        try (BufferedReader br = new BufferedReader(new FileReader(Constants.DEV + branch + Constants.PATH_EMPLOYEE))) {
-//            br.readLine(); // Skip the header line
-//            while ((line = br.readLine()) != null) {
-//                // Use comma as separator
-//                String[] fields = line.split(csvSplitBy);
-//
-//                if (fields.length == 7) { // Assuming the CSV has exactly 7 columns
-//                    String id = fields[0];
-//                    String[] jobTypeArray = fields[1].split("/");
-//                    ArrayList<JobTypeEnum> jobTypes = new ArrayList<>();
-//                    for (String jobType : jobTypeArray) {
-//                        try {
-//                            jobTypes.add(JobTypeEnum.valueOf(jobType.trim().toUpperCase().replace(" ", "_")));
-//                        } catch (IllegalArgumentException e) {
-//                            System.out.println("Invalid job type: " + jobType);
-//                        }
-//                    }
-//                    String name = fields[2];
-//                    String bankID = fields[3];
-//                    String startDate = fields[4];
-//                    int salary = Integer.parseInt(fields[5]);
-//                    int restDays = Integer.parseInt(fields[6]);
-//
-//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//
-//                    try {
-//                        // Parse the string to LocalDate
-//                        LocalDate date = LocalDate.parse(startDate, formatter);
-//                        Employee employee = new Employee(id,  name, bankID, salary, restDays, date, jobTypes);
-//                        if(!flag){
-//                            currEmployees.put(Integer.valueOf(employee.getId()), employee);
-//                        }
-//                    } catch (DateTimeParseException e) {
-//                    }
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        flag = true;
     }
 
 
     public static String[][] ImportEmployeePreferences(String id) {
         return DataController.importEmployeePreferences(id);
-//        String[][] preference = new String[amount_shifts][amount_days];
-//        String line;
-//        String csvSplitBy = ",";
-//        String empSpecificPath = Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + id + ".csv";
-//
-//        try (BufferedReader br = new BufferedReader(new FileReader(empSpecificPath))) {
-//            br.readLine(); // Skip the header line
-//
-//            int rowInt = -1;
-//           while ((line = br.readLine()) != null && rowInt<2){
-//              rowInt++;
-//                // Use comma as separator
-//               String[] fields = line.split(csvSplitBy);
-//
-//              if (fields.length == 5) {
-//                  // Create a 2D array to store the fields
-//                    for (int i = 0; i < 5; i++) {
-//                     preference[rowInt][i] = fields[i];
-//                  }
-//             }
-//           }
-//        } catch (IOException e) {
-//          e.printStackTrace();
-//          System.out.println(id);
-//     }
-//        return preference;
     }
 
     public static List<JsonObject> PrintEmployees() {
@@ -382,39 +311,10 @@ public class IO_Data {
      */
     public static String[][] GetPreferencesFromCSV(){
         return DataController.importEmployeePreferences(employeeID);
-//        String path = Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + IO_Data.employeeID + ".csv";
-//        List<String[]> data = new ArrayList<>();
-//        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                String[] values = line.split(","); // Split by commas
-//                data.add(values);
-//            }
-//        } catch (IOException e) {
-//            System.err.println("Error reading CSV file: " + e.getMessage());
-//            return null;
-//        }
-//
-//        // Convert the list to a 2D array
-//        String[][] dataArray = new String[data.size()][];
-//        for (int i = 0; i < data.size(); i++) {
-//            dataArray[i] = data.get(i);
-//        }
-//
-//        return dataArray;
     }
 
     public static void UpdatePreferencesToCSV(String[][] preferences){
         DataController.updatePreferencesToDB(preferences, employeeID);
-//        String path = Constants.DEV + IO_Data.branch + Constants.PATH_DATA_PREFERENCES + IO_Data.employeeID + ".csv";
-//        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
-//            for (String[] row : preferences) {
-//                bw.write(String.join(",", row));
-//                bw.newLine();
-//            }
-//        } catch (IOException e) {
-//            System.err.println("Error writing to CSV file: " + e.getMessage());
-//        }
     }
 
     public static void SetBranchName(String s){

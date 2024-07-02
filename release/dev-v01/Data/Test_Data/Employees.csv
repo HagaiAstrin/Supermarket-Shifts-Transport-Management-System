@@ -1,0 +1,4 @@
+id,JobType,name,bankID,startDate,salary,restDays
+2,Cashier,Jane Smith,5678,2024-05-26,60000,8
+3,Cashier,Alice Johnson,9101,2024-05-27,55000,12
+1,GUARD/SHIFT MANAGER/CASHIER,John Doe,1234,2024-05-25,50000,12

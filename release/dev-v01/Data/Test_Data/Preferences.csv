@@ -1,0 +1,5 @@
+JobType,Day,Shift,Employees
+STOCK KEEPER,Mon,Evening,Person{Name='R}
+SHIFT MANAGER,Sun,Morning,Person{Name='K}
+SHIFT MANAGER,Thu,Evening,Person{Name='N}
+CASHIER,Thu,Evening,Person{Name='John Doe}

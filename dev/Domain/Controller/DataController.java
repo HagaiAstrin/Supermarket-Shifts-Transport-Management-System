@@ -45,14 +45,9 @@ public class DataController {
                     LocalDate date = LocalDate.parse(startDate, formatter);
                     IO_Data.appendEmployee(id, name, bankID, salary, restDays, date, jobTypes);
                 } catch (Exception e) {
-                    // TODO: Dont forge to remove the print for submission
-                    System.out.println("Invalid date format for employee: " + name);
                 }
             }
         } catch (SQLException e) {
-            // TODO: Dont forge to remove the print for submission
-            System.out.println("אמאלה");
-            e.printStackTrace();
         }
 
         IO_Data.setFlag(true);
@@ -205,7 +200,7 @@ public class DataController {
                 System.out.println("Failed to update " + fieldName + " for employee ID " + id);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -232,7 +227,6 @@ public class DataController {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         return false;
@@ -258,7 +252,7 @@ public class DataController {
                 System.out.println("Failed to add new login info.");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -288,7 +282,6 @@ public class DataController {
             pstmtEvening.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("Error updating preferences in the database: " + e.getMessage());
         }
     }
 
