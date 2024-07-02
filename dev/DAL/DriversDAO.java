@@ -24,8 +24,9 @@ public class DriversDAO implements IDAO<Driver>{
 
         JsonObject j = new JsonObject();
 
-        String sql = "SELECT Name, Licence, Password, Status, Route," +
-                     "Transport_ID, Truck_Licence_Number, Driver_ID FROM Drivers";
+//        String sql = "SELECT Name, Licence, Password, Status, Route," +
+//                     "Transport_ID, Truck_Licence_Number, Driver_ID FROM Drivers";
+        String sql = "SELECT * FROM Drivers";
 
         PreparedStatement driver = connection.prepareStatement(sql);
 

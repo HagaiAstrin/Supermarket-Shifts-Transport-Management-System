@@ -116,7 +116,7 @@ public class CreateTransportation {
     /**
      * Selection methods from the User
      */
-    public static String ChooseTruck() {
+    public static String ChooseTruck() throws SQLException {
 
         System.out.println("\nPlease choose an Truck:");
 
@@ -127,7 +127,7 @@ public class CreateTransportation {
 
         return printToUser(new_trucks.size(), new_trucks);
     }
-    public static String chooseDriver(String truck) {
+    public static String chooseDriver(String truck) throws SQLException {
 
         System.out.println("\nPlease choose a Driver:");
 
@@ -140,7 +140,7 @@ public class CreateTransportation {
 
         return printToUser(new_drivers.size(), new_drivers);
     }
-    public static String chooseArea() {
+    public static String chooseArea() throws SQLException {
 
         System.out.println("\nPlease choose a Shipping area:");
 
@@ -148,7 +148,7 @@ public class CreateTransportation {
 
         return printToUser(new_areas.size(), new_areas);
     }
-    public static String chooseTypeOfSite(String area, String type) {
+    public static String chooseTypeOfSite(String area, String type) throws SQLException {
 
         System.out.println("\nPlease choose a " + type + " :");
 
@@ -156,7 +156,7 @@ public class CreateTransportation {
 
         return printToUser(new_Site.size(), new_Site);
     }
-    public static void chooseSite(String area) {
+    public static void chooseSite(String area) throws SQLException {
 
         Scanner reader = new Scanner(System.in);
 
@@ -287,7 +287,7 @@ public class CreateTransportation {
     /**
      * Creation methods
      */
-    public static void createDocument(String site, String type, String area) {
+    public static void createDocument(String site, String type, String area) throws SQLException {
         JsonObject j = new JsonObject();
 
         j.addProperty("Site", site);

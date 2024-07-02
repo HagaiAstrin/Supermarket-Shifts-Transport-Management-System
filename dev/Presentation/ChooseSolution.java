@@ -3,6 +3,7 @@ package Presentation;
 import Domain.Controllers.SolutionsController;
 import com.google.gson.JsonObject;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ChooseSolution {
@@ -77,14 +78,14 @@ public class ChooseSolution {
 
         return bool;
     }
-    public static void changeSites(String area) {
+    public static void changeSites(String area) throws SQLException {
         JsonObject s = SolutionsController.ChooseSupplierToDrop();
         System.out.println("\nwhich Supplier you want to replace ? ");
         String site_answer = CreateTransportation.printToUser(s.size(), s);
         CreateTransportation.chooseSite(area);
         SolutionsController.replace_documents(site_answer);
     }
-    public static boolean changeTruck() {
+    public static boolean changeTruck() throws SQLException {
 
         JsonObject j = new JsonObject();
 

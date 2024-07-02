@@ -3,6 +3,7 @@ package Domain.Controllers;
 import Domain.Obejects.Driver;
 import com.google.gson.JsonObject;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DriverController {
@@ -10,7 +11,7 @@ public class DriverController {
     /**
      * Driver Controller
      */
-    public static String driverLogIn(JsonObject j){
+    public static String driverLogIn(JsonObject j) throws SQLException {
 
         ArrayList<Driver> drivers = DataController.getAllDrivers();
 
@@ -21,7 +22,7 @@ public class DriverController {
         }
         return null;
     }
-    public static String printDriverDoc(JsonObject j){
+    public static String printDriverDoc(JsonObject j) throws SQLException{
 
         ArrayList<Driver> drivers = DataController.getAllDrivers();
 
@@ -36,7 +37,7 @@ public class DriverController {
      * Updating that the Driver comes back
      * @param j - JsonObject argument
      */
-    public static String updateBackDriver(JsonObject j){
+    public static String updateBackDriver(JsonObject j) throws SQLException{
 
         ArrayList<Driver> drivers = DataController.getAllDrivers();
 
@@ -60,7 +61,7 @@ public class DriverController {
      * Updating that the Driver leaves
      * @param j - JsonObject argument
      */
-    public static String updateLeavingDriver(JsonObject j){
+    public static String updateLeavingDriver(JsonObject j) throws SQLException {
 
         ArrayList<Driver> drivers = DataController.getAllDrivers();
 

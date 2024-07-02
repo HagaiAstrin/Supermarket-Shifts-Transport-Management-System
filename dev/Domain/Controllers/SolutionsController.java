@@ -7,6 +7,7 @@ import Domain.Obejects.Item;
 import Domain.Obejects.Truck;
 import com.google.gson.JsonObject;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class SolutionsController {
     /**
      * @return JsonObject of all trucks that can make the Transport
      */
-    public static JsonObject getAvailableTruck() {
+    public static JsonObject getAvailableTruck() throws SQLException {
 
         JsonObject new_json = new JsonObject();
         ArrayList<Truck> trucks = DataController.getAllTrucks();
@@ -62,7 +63,7 @@ public class SolutionsController {
         }
         return j;
     }
-    public static void replace_truck_and_driver(JsonObject t){
+    public static void replace_truck_and_driver(JsonObject t) throws SQLException {
 
         Truck truck = DataController.getTruck(t.get("Truck").getAsString());
         Driver driver = DataController.getDriver(t.get("Truck").getAsString());

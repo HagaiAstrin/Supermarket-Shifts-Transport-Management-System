@@ -66,7 +66,6 @@ public class Driver {
     }
 
 
-
     //    set methods:
     public void setTruckLicenceNumber(String t) {
         this.truckLicenceNumber = t;
@@ -82,10 +81,6 @@ public class Driver {
     }
 
 
-
-
-
-//    print method:
     /**
      * @return String representation of the Driver
      */

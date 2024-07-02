@@ -232,7 +232,7 @@ public class DataController {
     }
     public static void SelectAllTrucksFromDB() throws SQLException {
 
-        List<JsonObject> all_trucks = DB_Drivers.SELECT_ALL();
+        List<JsonObject> all_trucks = DB_Trucks.SELECT_ALL();
 
         for (JsonObject j : all_trucks){
 
@@ -268,7 +268,7 @@ public class DataController {
     }
     public static void SelectAllTransportsFromDB() throws SQLException {
 
-        List<JsonObject> all_transports = DB_Sites.SELECT_ALL();
+        List<JsonObject> all_transports = DB_Transports.SELECT_ALL();
 
         for (JsonObject j : all_transports){
 

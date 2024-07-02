@@ -26,14 +26,13 @@ public class TrucksDAO implements IDAO<Truck>{
 
         JsonObject j = new JsonObject();
 
-        String sql = "SELECT Licence_number, Licence_Level, Net_Weight, " +
-                     "Max_Weight, Status FROM Trucks";
+        String sql = "SELECT Licence_Number, Licence_Level, Net_Weight, Max_Weight, Status FROM Trucks";
 
         PreparedStatement truck = connection.prepareStatement(sql);
 
         ResultSet rs = truck.executeQuery();
         while (rs.next()) {
-            j.addProperty("Licence number", rs.getString("Licence_number"));
+            j.addProperty("Licence number", rs.getString("Licence_Number"));
             j.addProperty("Licence Level", rs.getString("Licence_Level"));
             j.addProperty("Net Weight", rs.getString("Net_Weight"));
             j.addProperty("Max Weight", rs.getString("Max_Weight"));

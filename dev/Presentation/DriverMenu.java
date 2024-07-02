@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import Domain.Controllers.DriverController;
 
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class DriverMenu {
@@ -11,7 +12,7 @@ public class DriverMenu {
     /**
      * Driver menu in the System
      */
-    public static void driver_x() throws InterruptedException {
+    public static void driver_x() throws InterruptedException, SQLException {
 
         JsonObject new_Json = new JsonObject();
 
@@ -94,7 +95,7 @@ public class DriverMenu {
      * Update leaving
      * @param j - JsonObject argument represent the Driver
      */
-    public static void leaving (JsonObject j) {
+    public static void leaving (JsonObject j) throws SQLException {
         String a = DriverController.updateLeavingDriver(j);
         System.out.println(a);
     }
@@ -102,7 +103,7 @@ public class DriverMenu {
      * Update come back
      * @param j - JsonObject argument represent the Driver
      */
-    public static void back (JsonObject j){
+    public static void back (JsonObject j) throws SQLException {
         String a = DriverController.updateBackDriver(j);
         System.out.println(a);
     }

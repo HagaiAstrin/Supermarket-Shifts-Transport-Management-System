@@ -22,7 +22,7 @@ public class TransportationController {
     public static void AddItem(JsonObject j, String s){
         Transport.add_Item(j, s);
     }
-    public static void AddDocument(JsonObject j) {
+    public static void AddDocument(JsonObject j) throws SQLException {
 
         String site = j.get("Site").getAsString();
         String type = j.get("Type").getAsString();
@@ -40,7 +40,7 @@ public class TransportationController {
     }
 
 
-    public static void createTransport(JsonObject j) {
+    public static void createTransport(JsonObject j) throws SQLException {
 
         String source = j.get("Source").getAsString();
         String date = j.get("Date").getAsString();

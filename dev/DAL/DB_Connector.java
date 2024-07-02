@@ -11,7 +11,7 @@ public class DB_Connector {
         if (connection == null) {
             try {
                 // Update the path to your .db file
-                String url = "jdbc:sqlite:dev/DB/";
+                String url = "jdbc:sqlite:dev/DB/TransportationDataBase.db";
                 connection = DriverManager.getConnection(url);
             } catch (SQLException e) {
                 e.printStackTrace();
