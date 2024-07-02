@@ -38,6 +38,12 @@ public class TrucksRepository implements IRepository<Truck> {
         }
         return j;
     }
+
+    @Override
+    public void Update(JsonObject j) {
+
+    }
+
     @Override
     public ArrayList<Truck> FindAll() {
         return AllTrucks;

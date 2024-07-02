@@ -22,16 +22,18 @@ public class DriversDAO implements IDAO<Driver>{
 
         List<JsonObject> all_drivers = new ArrayList<>();
 
-        JsonObject j = new JsonObject();
-
 //        String sql = "SELECT Name, Licence, Password, Status, Route," +
 //                     "Transport_ID, Truck_Licence_Number, Driver_ID FROM Drivers";
+
         String sql = "SELECT * FROM Drivers";
 
         PreparedStatement driver = connection.prepareStatement(sql);
 
         ResultSet rs = driver.executeQuery();
+
         while (rs.next()) {
+            JsonObject j = new JsonObject();
+
             j.addProperty("Name", rs.getString("Name"));
             j.addProperty("Licence", rs.getString("Licence"));
             j.addProperty("Password", rs.getString("Password"));
@@ -67,8 +69,17 @@ public class DriversDAO implements IDAO<Driver>{
     @Override
     public void UPDATE(JsonObject j)throws SQLException {
 
-        String sql = "UPDATE Drivers SET name = ? WHERE id = ?";
+        String sql = "UPDATE Drivers SET Status = ?, Route = ?, Transport_ID = ?, " +
+                     "Truck_Licence_Number = ? WHERE Driver_ID = ?";
 
+        PreparedStatement driver = connection.prepareStatement(sql);
+
+        driver.setString(1, j.get("Status").getAsString());
+        driver.setString(2, j.get("Route").getAsString());
+        driver.setString(3, j.get("Transport ID").getAsString());
+        driver.setString(4, j.get("Truck Licence Number").getAsString());
+
+        driver.executeUpdate();
     }
     @Override
     public void DELETE(JsonObject j)throws SQLException {

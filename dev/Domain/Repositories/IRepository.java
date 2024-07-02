@@ -10,6 +10,7 @@ public interface IRepository <T> {
     public void Delete(T t);
     public T FindByID(String ID);
     public JsonObject ChooseAll(String s, String v);
+    public void Update (JsonObject j);
     public ArrayList<T> FindAll();
     public int getAmount();
 }

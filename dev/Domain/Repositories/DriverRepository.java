@@ -39,6 +39,12 @@ public class DriverRepository implements IRepository<Driver> {
         }
         return j;
     }
+
+    @Override
+    public void Update(JsonObject j) {
+
+    }
+
     @Override
     public ArrayList<Driver> FindAll() {
         return AllDrivers;

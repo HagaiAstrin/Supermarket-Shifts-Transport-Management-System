@@ -22,15 +22,19 @@ public class SitesDAO implements IDAO<Site>{
 
         List<JsonObject> all_sites = new ArrayList<>();
 
-        JsonObject j = new JsonObject();
+//        String sql = "SELECT Name, Address, Phone_number, Contact, " +
+//                     "Shipping_area, Type, Site_ID FROM Sites";
 
-        String sql = "SELECT Name, Address, Phone_number, Contact, " +
-                     "Shipping_area, Type, Site_ID FROM Sites";
+        String sql = "SELECT * FROM Sites";
+
 
         PreparedStatement site = connection.prepareStatement(sql);
 
         ResultSet rs = site.executeQuery();
+
         while (rs.next()) {
+            JsonObject j = new JsonObject();
+
             j.addProperty("Name", rs.getString("Name"));
             j.addProperty("Address", rs.getString("Address"));
             j.addProperty("Phone number", rs.getString("Phone_number"));

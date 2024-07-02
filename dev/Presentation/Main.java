@@ -28,14 +28,14 @@ public class Main {
             menu.append("press '1' if you are the Manager.\n");
             menu.append("press '2' if you are a Driver.\n");
             menu.append("press '3' if you want to load Data.\n");
-            menu.append("press '9' to exit.");
+            menu.append("press '9' to exit.\n");
             System.out.println(menu);
 
             String type = reader.nextLine();
 
             while (!type.equals("1") && !type.equals("2") && !type.equals("9") && !type.equals("3")) {
 
-                System.out.println("\nWrong input! please try again..");
+                System.out.println("\nWrong input! please try again..\n");
                 System.out.println(menu);
 
                 type = reader.nextLine();

@@ -19,7 +19,7 @@ public class DataConnector {
         String answer = "yes";
 
         while (answer.equals("yes")){
-            System.out.println("\nEnter the name of the driver:");
+            System.out.println("\nEnter the name and last name of the driver:");
             String name = reader.nextLine();
 
             System.out.println("\nEnter the license leve of the driver: 'A', 'B', 'C'");
@@ -31,12 +31,12 @@ public class DataConnector {
                 license = reader.nextLine();
             }
 
-            System.out.println("\nEnter password of 5 digit:");
+            System.out.println("\nEnter password of 8 digit:");
             String password = reader.nextLine();
 
-            while (password.length() != 5){
-                System.out.println("\nWrong input! The password should hava a 5 digit. try again..");
-                System.out.println("Enter password of 5 digit:");
+            while (password.length() != 8){
+                System.out.println("\nWrong input! The password should hava a 8 digit. try again..");
+                System.out.println("Enter password of 8 digit:");
                 password = reader.nextLine();
             }
 
@@ -104,12 +104,12 @@ public class DataConnector {
 
         while (answer.equals("yes")){
 
-            System.out.println("\nEnter licence_number of 8 digits:");
+            System.out.println("\nEnter licence_number of 8 digits like this - 000-00-000: ");
             String licence_number = reader.nextLine();
 
-            while (licence_number.length() != 8){
+            while (licence_number.length() != 10){
                 System.out.println("\nWrong input! The licence_number should hava a 8 digit. try again..");
-                System.out.println("Enter licence_number of 8 digits:");
+                System.out.println("Enter licence_number of 8 digits like this - 000-00-000: ");
                 licence_number = reader.nextLine();
             }
 
@@ -159,12 +159,12 @@ public class DataConnector {
 
             System.out.println("\nTruck added successfully!");
 
-            System.out.println("Would you like to add another truck? Enter 'yes' or 'no'");
+            System.out.println("\nWould you like to add another truck? Enter 'yes' or 'no'");
             answer = reader.nextLine();
         }
     }
 
-    public static JsonObject printAllTransports(){
+    public static JsonObject printAllTransports() throws SQLException {
         return DataController.getAllTransports();
     }
 }

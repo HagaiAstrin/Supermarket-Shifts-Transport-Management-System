@@ -23,14 +23,18 @@ public class TransportsDAO implements IDAO<TransportDocument>{
 
         List<JsonObject> all_transports = new ArrayList<>();
 
-        JsonObject j = new JsonObject();
+//        String sql = "SELECT Transportation_ID, Details, Status FROM Transportations";
 
-        String sql = "SELECT Transportation_ID, Details, Status FROM Transportations";
+        String sql = "SELECT * FROM Transportations";
+
 
         PreparedStatement transport = connection.prepareStatement(sql);
 
         ResultSet rs = transport.executeQuery();
+
         while (rs.next()) {
+            JsonObject j = new JsonObject();
+
             j.addProperty("Transportation ID", rs.getString("Transportation_ID"));
             j.addProperty("Details", rs.getString("Details"));
             j.addProperty("Status", rs.getString("Status"));
@@ -47,7 +51,7 @@ public class TransportsDAO implements IDAO<TransportDocument>{
 
         PreparedStatement TransportDocument = connection.prepareStatement(sql);
 
-        TransportDocument.setInt(1, j.get("Transportation ID").getAsInt());
+        TransportDocument.setString(1, j.get("Transportation ID").getAsString());
         TransportDocument.setString(2, j.get("Details").getAsString());
         TransportDocument.setString(3, j.get("Status").getAsString());
 
@@ -56,6 +60,13 @@ public class TransportsDAO implements IDAO<TransportDocument>{
     @Override
     public void UPDATE(JsonObject j)throws SQLException {
 
+        String sql = "UPDATE Transportations SET Status = ? WHERE Transportation_ID = ?";
+
+        PreparedStatement transport = connection.prepareStatement(sql);
+
+        transport.setString(1, j.get("Status").getAsString());
+
+        transport.executeUpdate();
     }
     @Override
     public void DELETE(JsonObject j)throws SQLException {

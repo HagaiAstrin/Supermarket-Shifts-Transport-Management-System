@@ -35,6 +35,12 @@ public class TransportsRepository implements IRepository<TransportDocument> {
         }
         return j;
     }
+
+    @Override
+    public void Update(JsonObject j) {
+
+    }
+
     @Override
     public ArrayList<TransportDocument> FindAll() {
         return allTransportations;

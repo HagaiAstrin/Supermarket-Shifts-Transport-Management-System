@@ -34,7 +34,7 @@ public class TransportationManagerMenu {
             manager_menu.append("'4' - Add Supplier.\n");
             manager_menu.append("'5' - Make Transportation.\n");
             manager_menu.append("'6' - Show all Transport.\n");
-            manager_menu.append("'9' - Exit to the Main menu.");
+            manager_menu.append("'9' - Exit to the Main menu.\n");
 
             System.out.println(manager_menu);
 
@@ -62,6 +62,7 @@ public class TransportationManagerMenu {
             }
         }
     }
+
     /**
      * Adding a Driver from the user
      */
@@ -86,6 +87,8 @@ public class TransportationManagerMenu {
     public static void add_supplier() throws SQLException {
         DataConnector.add_site("Supplier");
     }
+
+
     /**
      * Making Transport
      */
@@ -95,7 +98,7 @@ public class TransportationManagerMenu {
     /**
      * Showing all Transport
      */
-    public static void showAllTransportation(){
+    public static void showAllTransportation() throws SQLException {
 
         JsonObject j = DataConnector.printAllTransports();
 

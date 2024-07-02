@@ -42,16 +42,18 @@ public class DataController {
         String licence = j.get("Licence").getAsString();
         String password = j.get("Password").getAsString();
 
+        int driverID = getDriverId();
+
         Driver new_driver = new Driver(name, licence, password,"000-00-000",
-                                       0 , "Not Have", getDriverId(), "available");
+                                       0 , "Not Have",driverID , "available");
 
         Drivers.Add(new_driver);
 
         j.addProperty("Status", "available");
         j.addProperty("Route", "Not Have");
-        j.addProperty("Transport ID","Not Have" );
+        j.addProperty("Transport ID","0" );
         j.addProperty("Truck Licence Number", "000-00-000");
-        j.addProperty("Driver ID", getDriverId());
+        j.addProperty("Driver ID", driverID);
 
         DB_Drivers.INSERT(j);
 
@@ -96,11 +98,13 @@ public class DataController {
         String Shipping_area = j.get("Shipping area").getAsString();
         String type = j.get("Type").getAsString();
 
-        Site new_site = new Site(name, address, phone, getSiteId(), contact, Shipping_area, type);
+        int siteID = getSiteId();
+
+        Site new_site = new Site(name, address, phone, siteID, contact, Shipping_area, type);
 
         Sites.Add(new_site);
 
-        j.addProperty("Site ID", getSiteId());
+        j.addProperty("Site ID", siteID);
 
         DB_Sites.INSERT(j);
     }
@@ -237,9 +241,9 @@ public class DataController {
         for (JsonObject j : all_trucks){
 
             String Licence_number = j.get("Licence number").getAsString();
-            String Licence_Level = j.get("Licence Level").getAsString();
-            double Net_Weight = j.get("Net Weight").getAsDouble();
-            double Max_Weight = j.get("MaxWeight").getAsDouble();
+            String Licence_Level = j.get("Licence level").getAsString();
+            double Net_Weight = j.get("Net weight").getAsDouble();
+            double Max_Weight = j.get("Max weight").getAsDouble();
             String status = j.get("Status").getAsString();
 
             Truck t = new Truck(Licence_number, Licence_Level, Net_Weight, Max_Weight, status);
@@ -284,7 +288,11 @@ public class DataController {
     }
 
 
-    public static JsonObject getAllTransports(){
+    public static JsonObject getAllTransports() throws SQLException{
+
+        if (Trucks.getAmount() == 0)
+            SelectAllTransportsFromDB();
+
         return Transports.ChooseAll("a", "b");
     }
     public static int getAmount(String type){
@@ -306,17 +314,17 @@ public class DataController {
     }
 
 
-    public static void updateDriverToDB(){
-
+    public static void updateDriver(JsonObject j){
+        Drivers.Update(j);
     }
-    public static void updateTruckToDB(){
-
+    public static void updateTruck(JsonObject j){
+        Trucks.Update(j);
     }
-    public static void updateTransportToDB(){
-
+    public static void updateTransport(JsonObject j){
+        Transports.Update(j);
     }
-    public static void updateSiteToDB(){
-
+    public static void updateSite(JsonObject j){
+        Sites.Update(j);
     }
 
     public static int getDriverId(){

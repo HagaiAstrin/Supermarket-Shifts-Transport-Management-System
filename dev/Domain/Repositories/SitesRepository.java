@@ -52,6 +52,12 @@ public class SitesRepository implements IRepository<Site> {
         }
         return j;
     }
+
+    @Override
+    public void Update(JsonObject j) {
+
+    }
+
     @Override
     public ArrayList<Site> FindAll() {
         return null;

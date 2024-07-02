@@ -24,18 +24,21 @@ public class TrucksDAO implements IDAO<Truck>{
 
         List<JsonObject> all_trucks = new ArrayList<>();
 
-        JsonObject j = new JsonObject();
+//        String sql = "SELECT Licence_Number, Licence_Level, Net_Weight, Max_Weight, Status FROM Trucks";
 
-        String sql = "SELECT Licence_Number, Licence_Level, Net_Weight, Max_Weight, Status FROM Trucks";
+        String sql = "SELECT * FROM Trucks";
 
         PreparedStatement truck = connection.prepareStatement(sql);
 
         ResultSet rs = truck.executeQuery();
+
         while (rs.next()) {
+            JsonObject j = new JsonObject();
+
             j.addProperty("Licence number", rs.getString("Licence_Number"));
-            j.addProperty("Licence Level", rs.getString("Licence_Level"));
-            j.addProperty("Net Weight", rs.getString("Net_Weight"));
-            j.addProperty("Max Weight", rs.getString("Max_Weight"));
+            j.addProperty("Licence level", rs.getString("Licence_Level"));
+            j.addProperty("Net weight", rs.getString("Net_Weight"));
+            j.addProperty("Max weight", rs.getString("Max_Weight"));
             j.addProperty("Status", rs.getString("Status"));
 
             all_trucks.add(j);
@@ -52,9 +55,9 @@ public class TrucksDAO implements IDAO<Truck>{
         PreparedStatement truck = connection.prepareStatement(sql);
 
         truck.setString(1, j.get("Licence number").getAsString());
-        truck.setString(2, j.get("Licence Level").getAsString());
-        truck.setString(3, j.get("Net Weight").getAsString());
-        truck.setString(4, j.get("Max Weight").getAsString());
+        truck.setString(2, j.get("Licence level").getAsString());
+        truck.setString(3, j.get("Net weight").getAsString());
+        truck.setString(4, j.get("Max weight").getAsString());
         truck.setString(5, j.get("Status").getAsString());
 
         truck.executeUpdate();
@@ -62,6 +65,13 @@ public class TrucksDAO implements IDAO<Truck>{
     @Override
     public void UPDATE(JsonObject j)throws SQLException {
 
+        String sql = "UPDATE Trucks SET Status = ? WHERE Licence_number = ?";
+
+        PreparedStatement truck = connection.prepareStatement(sql);
+
+        truck.setString(1, j.get("Status").getAsString());
+
+        truck.executeUpdate();
     }
     @Override
     public void DELETE(JsonObject j)throws SQLException {
