@@ -1,7 +1,6 @@
 package Domain.Repositories;
 
 import Domain.Obejects.Truck;
-import Domain.Repositories.IRepository;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -9,6 +8,7 @@ import java.util.ArrayList;
 public class TrucksRepository implements IRepository<Truck> {
 
     private static ArrayList<Truck> AllTrucks = new ArrayList<>();
+
 
     @Override
     public void Add(Truck truck) {
@@ -38,12 +38,17 @@ public class TrucksRepository implements IRepository<Truck> {
         }
         return j;
     }
-
     @Override
-    public void Update(JsonObject j) {
+    public void Update(JsonObject j){
 
+        String LicenceNumber = j.get("Licence number").getAsString();
+        String newStatus = j.get("Status").getAsString();
+
+        for (Truck t : AllTrucks){
+            if (t.getLicence_number().equals(LicenceNumber))
+                t.setStatus(newStatus);
+        }
     }
-
     @Override
     public ArrayList<Truck> FindAll() {
         return AllTrucks;

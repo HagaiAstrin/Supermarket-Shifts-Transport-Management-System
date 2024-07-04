@@ -26,7 +26,7 @@ public class DataConnector {
             String license = reader.nextLine();
 
             while (!license.equals("A") && !license.equals("B") && !license.equals("C")){
-                System.out.println("\nWrong input! try again..");
+                System.out.println("\nWrong input! try again..\n");
                 System.out.println("Enter the license leve of the driver: 'A', 'B', 'C'");
                 license = reader.nextLine();
             }
@@ -35,7 +35,7 @@ public class DataConnector {
             String password = reader.nextLine();
 
             while (password.length() != 8){
-                System.out.println("\nWrong input! The password should hava a 8 digit. try again..");
+                System.out.println("\nWrong input! The password should hava a 8 digit. try again..\n");
                 System.out.println("Enter password of 8 digit:");
                 password = reader.nextLine();
             }
@@ -47,7 +47,7 @@ public class DataConnector {
 
             DataController.AddDriver(new_json);
 
-            System.out.println("\nDriver added successfully!");
+            System.out.println("\nDriver added successfully!\n");
 
             System.out.println("Would you like to add another driver? Enter 'yes' or 'no'.");
             answer = reader.nextLine();

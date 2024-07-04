@@ -1,6 +1,7 @@
 package Domain.Obejects;
 
 import Domain.Controllers.DataController;
+import com.google.gson.JsonObject;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -64,7 +65,9 @@ public class Driver {
     public String getStatus() {
         return Status;
     }
-
+    public int getDriverID() {
+        return DriverID;
+    }
 
     //    set methods:
     public void setTruckLicenceNumber(String t) {

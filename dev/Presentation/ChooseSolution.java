@@ -79,10 +79,15 @@ public class ChooseSolution {
         return bool;
     }
     public static void changeSites(String area) throws SQLException {
+
         JsonObject s = SolutionsController.ChooseSupplierToDrop();
-        System.out.println("\nwhich Supplier you want to replace ? ");
+
+        System.out.println("\nWhich Supplier you want to replace?\n");
+
         String site_answer = CreateTransportation.printToUser(s.size(), s);
+
         CreateTransportation.chooseSite(area);
+
         SolutionsController.replace_documents(site_answer);
     }
     public static boolean changeTruck() throws SQLException {

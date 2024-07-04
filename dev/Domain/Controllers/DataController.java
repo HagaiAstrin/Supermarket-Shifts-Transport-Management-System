@@ -207,7 +207,7 @@ public class DataController {
     }
     public static Map<String, Map<String, Map<String, Site>>> getAllSites() throws SQLException {
 
-        if (Sites.getAmount() == 0 )
+        if (Sites.getAmount() == 0)
             SelectAllSitesFromDB();
 
         return Sites.FindAllSites();
@@ -314,17 +314,42 @@ public class DataController {
     }
 
 
-    public static void updateDriver(JsonObject j){
+    public static void updateDriver(JsonObject j) throws SQLException {
+
+        if (Drivers.getAmount() == 0)
+            SelectAllDriversFromDB();
+
         Drivers.Update(j);
+
+        DB_Drivers.UPDATE(j);
+
     }
-    public static void updateTruck(JsonObject j){
+    public static void updateTruck(JsonObject j) throws SQLException {
+
+        if (Trucks.getAmount() == 0)
+            SelectAllTrucksFromDB();
+
         Trucks.Update(j);
+
+        DB_Trucks.UPDATE(j);
     }
-    public static void updateTransport(JsonObject j){
+    public static void updateTransport(JsonObject j) throws SQLException {
+
+        if (Transports.getAmount() == 0)
+            SelectAllTransportsFromDB();
+
         Transports.Update(j);
+
+        DB_Transports.UPDATE(j);
     }
-    public static void updateSite(JsonObject j){
+    public static void updateSite(JsonObject j) throws SQLException {
+
+        if (Sites.getAmount() == 0)
+            SelectAllSitesFromDB();
+
         Sites.Update(j);
+
+        DB_Sites.UPDATE(j);
     }
 
     public static int getDriverId(){

@@ -56,12 +56,29 @@ public class TransportationController {
         int result = Transport.WeightCheck();
 
         if (result == 0) {
+
+            JsonObject DriverJson = new JsonObject();
+            JsonObject TruckJson = new JsonObject();
+
             Transport.setId(getNumberId() + 1);
             Transport.getDriver().setStatus("Waiting");
             Transport.getDriver().createRoute(Transport.getTargets());
             Transport.getDriver().setTruckLicenceNumber(Transport.getTruck().getLicence_number());
             Transport.getDriver().setTransportID(Transport.getId());
             Transport.getTruck().setStatus("Waiting");
+
+            DriverJson.addProperty("Driver ID", Transport.getDriver().getDriverID());
+            DriverJson.addProperty("Status", Transport.getDriver().getStatus());
+            DriverJson.addProperty("Route", Transport.getDriver().getRoute());
+            DriverJson.addProperty("Transport ID", Transport.getId());
+            DriverJson.addProperty("Truck Licence Number", Transport.getTruck().getLicence_number());
+
+            TruckJson.addProperty("Licence number", Transport.getTruck().getLicence_number());
+            TruckJson.addProperty("Status", Transport.getTruck().getStatus());
+
+            DataController.updateDriver(DriverJson);
+            DataController.updateTruck(TruckJson);
+
             TransportDocument t = new TransportDocument(Transport.getStatus(), Transport.getDetails(),Transport.getId());
             DataController.AddTransportDocument(t);
             Transport = null;

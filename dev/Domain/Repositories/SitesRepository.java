@@ -1,5 +1,7 @@
 package Domain.Repositories;
 
+import DAL.IDAO;
+import DAL.SitesDAO;
 import Domain.Obejects.Site;
 import com.google.gson.JsonObject;
 
@@ -52,12 +54,10 @@ public class SitesRepository implements IRepository<Site> {
         }
         return j;
     }
-
     @Override
     public void Update(JsonObject j) {
 
     }
-
     @Override
     public ArrayList<Site> FindAll() {
         return null;

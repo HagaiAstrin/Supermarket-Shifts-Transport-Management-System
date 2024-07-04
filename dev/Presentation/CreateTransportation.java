@@ -75,8 +75,10 @@ public class CreateTransportation {
             while (result != 0) {
                 switch (result) {
                     case 1 -> {
-                        System.out.println("\nThere are still products in the truck!\nPlease continue with the Transportation making");
+                        System.out.println("\nThere are still products in the truck!\n");
+                        System.out.println("Please continue with the Transportation making\n");
                         System.out.println("Please add sites to the transportation!\n");
+
                         chooseSite(area);
 
                     }

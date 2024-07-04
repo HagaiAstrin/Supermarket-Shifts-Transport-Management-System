@@ -70,6 +70,7 @@ public class TrucksDAO implements IDAO<Truck>{
         PreparedStatement truck = connection.prepareStatement(sql);
 
         truck.setString(1, j.get("Status").getAsString());
+        truck.setString(2, j.get("Licence number").getAsString());
 
         truck.executeUpdate();
     }

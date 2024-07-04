@@ -41,16 +41,32 @@ public class DriverController {
 
         ArrayList<Driver> drivers = DataController.getAllDrivers();
 
+        JsonObject DriverJson = new JsonObject();
+        JsonObject TruckJson = new JsonObject();
+        JsonObject TransportJson = new JsonObject();
+
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get
                     ("Password").getAsString().equals(driver.getPassword())) {
                 if (driver.getStatus().equals("On the road")){
-                    driver.getTruck().setStatus("available");
-                    driver.getTransportDocument().setStatus("Delivered!");
-                    driver.setTransportID(0);
-                    driver.setRoute(null);
-                    driver.setStatus("available");
-                    return ("\nWelcome back!\n");
+
+                    DriverJson.addProperty("Driver ID", driver.getDriverID());
+                    DriverJson.addProperty("Status", "available");
+                    DriverJson.addProperty("Route", "Not Have");
+                    DriverJson.addProperty("Transport ID", 0);
+                    DriverJson.addProperty("Truck Licence Number", "000-00-000");
+
+                    TruckJson.addProperty("Licence number", driver.getTruck().getLicence_number());
+                    TruckJson.addProperty("Status", "available");
+
+                    TransportJson.addProperty("Transportation ID",driver.getTransportDocument().getID());
+                    TransportJson.addProperty("Status", "Delivered!");
+
+                    DataController.updateDriver(DriverJson);
+                    DataController.updateTruck(TruckJson);
+                    DataController.updateTransport(TransportJson);
+
+                    return ("\nWelcome back " + driver.getName() + "!");
                 }
                 return ("\nYou can't report back because you didnt made Transportation!\n");
             }
@@ -65,6 +81,10 @@ public class DriverController {
 
         ArrayList<Driver> drivers = DataController.getAllDrivers();
 
+        JsonObject DriverJson = new JsonObject();
+        JsonObject TruckJson = new JsonObject();
+        JsonObject TransportJson = new JsonObject();
+
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get
                     ("Password").getAsString().equals(driver.getPassword())) {
@@ -75,12 +95,24 @@ public class DriverController {
                     return "\nYou are currently in transit";
                 }
                 else {
-                    driver.getTruck().setStatus("On the road");
-                    driver.setStatus("On the road");
-                    driver.getTransportDocument().setStatus("Out for Delivery..");
-//                    driver.getTran().setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-//                    driver.getTran().setLeaving_time(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-                    return ("\nHave a good trip!");
+
+                    DriverJson.addProperty("Driver ID", driver.getDriverID());
+                    DriverJson.addProperty("Status", "On the road");
+                    DriverJson.addProperty("Route", driver.getRoute());
+                    DriverJson.addProperty("Transport ID", driver.getTransportDocument().getID());
+                    DriverJson.addProperty("Truck Licence Number", driver.getTruck().getLicence_number());
+
+                    TruckJson.addProperty("Licence number", driver.getTruck().getLicence_number());
+                    TruckJson.addProperty("Status", "On the road");
+
+                    TransportJson.addProperty("Transportation ID",driver.getTransportDocument().getID());
+                    TransportJson.addProperty("Status", "Out for Delivery..");
+
+                    DataController.updateDriver(DriverJson);
+                    DataController.updateTruck(TruckJson);
+                    DataController.updateTransport(TransportJson);
+
+                    return ("\nHave a good trip " + driver.getName() + "!");
                 }
             }
         }

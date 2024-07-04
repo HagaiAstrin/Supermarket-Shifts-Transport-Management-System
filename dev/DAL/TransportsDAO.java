@@ -65,6 +65,7 @@ public class TransportsDAO implements IDAO<TransportDocument>{
         PreparedStatement transport = connection.prepareStatement(sql);
 
         transport.setString(1, j.get("Status").getAsString());
+        transport.setString(2, j.get("Transportation ID").getAsString());
 
         transport.executeUpdate();
     }

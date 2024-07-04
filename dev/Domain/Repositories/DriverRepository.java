@@ -1,11 +1,13 @@
 package Domain.Repositories;
 
+
 import Domain.Obejects.Driver;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
 public class DriverRepository implements IRepository<Driver> {
+
     private static ArrayList<Driver> AllDrivers = new ArrayList<>();
 
     @Override
@@ -39,12 +41,24 @@ public class DriverRepository implements IRepository<Driver> {
         }
         return j;
     }
-
     @Override
     public void Update(JsonObject j) {
 
-    }
+        int id = j.get("Driver ID").getAsInt();
+        String newStatus = j.get("Status").getAsString();
+        String newRoute = j.get("Route").getAsString();
+        int newTransportID = j.get("Transport ID").getAsInt();
+        String newTruckLicenceNumber = j.get("Truck Licence Number").getAsString();
 
+        for (Driver d : AllDrivers){
+            if (d.getDriverID() == id){
+                d.setStatus(newStatus);
+                d.setRoute(newRoute);
+                d.setTransportID(newTransportID);
+                d.setTruckLicenceNumber(newTruckLicenceNumber);
+            }
+        }
+    }
     @Override
     public ArrayList<Driver> FindAll() {
         return AllDrivers;

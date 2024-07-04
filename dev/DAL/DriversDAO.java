@@ -78,6 +78,7 @@ public class DriversDAO implements IDAO<Driver>{
         driver.setString(2, j.get("Route").getAsString());
         driver.setString(3, j.get("Transport ID").getAsString());
         driver.setString(4, j.get("Truck Licence Number").getAsString());
+        driver.setString(5, j.get("Driver ID").getAsString());
 
         driver.executeUpdate();
     }

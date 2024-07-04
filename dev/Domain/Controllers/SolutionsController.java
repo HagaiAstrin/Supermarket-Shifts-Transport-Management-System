@@ -1,6 +1,5 @@
 package Domain.Controllers;
 
-import Domain.Controllers.TransportationController;
 import Domain.Obejects.Document;
 import Domain.Obejects.Driver;
 import Domain.Obejects.Item;
@@ -55,7 +54,9 @@ public class SolutionsController {
      * @return JsonObject represent the available Sites to dropped
      */
     public static JsonObject ChooseSupplierToDrop() {
+
         JsonObject j = new JsonObject();
+
         int count = 1;
         for (Document d : Transport.getTargets()) {
             if (d.getTarget().getType().equals("Supplier"))
@@ -78,6 +79,7 @@ public class SolutionsController {
      * @param a - String represent of the Document to replace
      */
     public static void replace_documents(String a) {
+
         int count = 0;
         for (Document d : Transport.getTargets()) {
             if (d.to_string().equals(a)) {
