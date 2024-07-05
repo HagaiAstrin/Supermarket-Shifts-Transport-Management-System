@@ -4,9 +4,11 @@ import Domain.Obejects.Document;
 import Domain.Obejects.Driver;
 import Domain.Obejects.Item;
 import Domain.Obejects.Truck;
+
 import com.google.gson.JsonObject;
 
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -20,6 +22,7 @@ public class SolutionsController {
     public static JsonObject getAvailableTruck() throws SQLException {
 
         JsonObject new_json = new JsonObject();
+
         ArrayList<Truck> trucks = DataController.getAllTrucks();
 
         int count = 1;
@@ -67,7 +70,7 @@ public class SolutionsController {
     public static void replace_truck_and_driver(JsonObject t) throws SQLException {
 
         Truck truck = DataController.getTruck(t.get("Truck").getAsString());
-        Driver driver = DataController.getDriver(t.get("Truck").getAsString());
+        Driver driver = DataController.getDriver(t.get("Driver").getAsString());
 
         Transport.setTruck(truck);
         Transport.setDriver(driver);
@@ -88,7 +91,9 @@ public class SolutionsController {
             count++;
         }
         drop_Site(a);
-        Transport.getTargets().add(count, Transport.getTargets().remove(Transport.getTargets().size() - 1));
+
+        Transport.getTargets().add(count, Transport.getTargets().
+                  remove(Transport.getTargets().size() - 1));
     }
     /**
      * Dropped Items

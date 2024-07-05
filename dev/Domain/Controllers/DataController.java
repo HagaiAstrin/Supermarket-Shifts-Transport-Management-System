@@ -1,15 +1,13 @@
 package Domain.Controllers;
 
 import DAL.*;
-import Domain.Obejects.Driver;
-import Domain.Obejects.Site;
-import Domain.Obejects.TransportDocument;
-import Domain.Obejects.Truck;
+import Domain.Obejects.*;
 import Domain.Repositories.*;
+
+import java.sql.SQLException;
 
 import com.google.gson.JsonObject;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +26,6 @@ public class DataController {
     private static IDAO<TransportDocument> DB_Transports = new TransportsDAO();
 
 
-    /**
-     * Adding Driver to DataStruct
-     * @param j - JsonObject argument
-     */
     public static void AddDriver(JsonObject j) throws SQLException {
 
         if (Drivers.getAmount() == 0)
@@ -58,10 +52,6 @@ public class DataController {
         DB_Drivers.INSERT(j);
 
     }
-    /**
-     * Adding Truck to DataStruct
-     * @param j - JsonObject argument
-     */
     public static void AddTruck(JsonObject j) throws SQLException {
 
         if (Trucks.getAmount() == 0)
@@ -81,10 +71,6 @@ public class DataController {
 
         DB_Trucks.INSERT(j);
     }
-    /**
-     * Adding new site in specific Shipping_area to manager_Map
-     * @param j - JsonObject argument
-     */
     public static void AddSite(JsonObject j) throws SQLException {
 
         if (Sites.getAmount() == 0)
@@ -153,6 +139,13 @@ public class DataController {
 
         return Sites.ChooseAll(area, type);
     }
+    public static JsonObject chooseAllTransports() throws SQLException {
+
+        if (Transports.getAmount() == 0)
+            SelectAllTransportsFromDB();
+
+        return Transports.ChooseAll("a", "b");
+    }
 
     public static Truck getTruck(String s) throws SQLException {
 
@@ -183,7 +176,6 @@ public class DataController {
         return Transports.FindByID(s);
     }
 
-
     public static ArrayList<Truck> getAllTrucks() throws SQLException {
 
         if (Trucks.getAmount() == 0)
@@ -212,7 +204,6 @@ public class DataController {
 
         return Sites.FindAllSites();
     }
-
 
     public static void SelectAllDriversFromDB() throws SQLException {
 
@@ -287,33 +278,6 @@ public class DataController {
         }
     }
 
-
-    public static JsonObject getAllTransports() throws SQLException{
-
-        if (Trucks.getAmount() == 0)
-            SelectAllTransportsFromDB();
-
-        return Transports.ChooseAll("a", "b");
-    }
-    public static int getAmount(String type){
-        switch (type){
-            case "Transport" -> {
-                return Transports.getAmount();
-            }
-            case "Drivers" -> {
-                return Drivers.getAmount();
-            }
-            case "Trucks" -> {
-                return Trucks.getAmount();
-            }
-            case "Sites" -> {
-                return Sites.getAmount();
-            }
-        }
-        return 0;
-    }
-
-
     public static void updateDriver(JsonObject j) throws SQLException {
 
         if (Drivers.getAmount() == 0)
@@ -352,14 +316,43 @@ public class DataController {
         DB_Sites.UPDATE(j);
     }
 
-    public static int getDriverId(){
+    public static int getAmount(String type) throws SQLException {
+        switch (type){
+            case "Transport" -> {
+                if (Transports.getAmount() == 0)
+                    SelectAllTransportsFromDB();
+
+                return Transports.getAmount();
+            }
+            case "Drivers" -> {
+                if (Drivers.getAmount() == 0)
+                    SelectAllDriversFromDB();
+
+                return Drivers.getAmount();
+            }
+            case "Trucks" -> {
+                if (Trucks.getAmount() == 0)
+                    SelectAllTrucksFromDB();
+
+                return Trucks.getAmount();
+            }
+            case "Sites" -> {
+                if (Sites.getAmount() == 0 )
+                    SelectAllSitesFromDB();
+
+                return Sites.getAmount();
+            }
+        }
+        return 0;
+    }
+    public static int getDriverId() throws SQLException {
 
         if ((DataController.getAmount("Drivers")) == 0)
             return 10;
 
         return (DataController.getAmount("Drivers")) + 10;
     }
-    public static int getSiteId(){
+    public static int getSiteId() throws SQLException {
 
         if ((DataController.getAmount("Sites")) == 0)
             return 10;

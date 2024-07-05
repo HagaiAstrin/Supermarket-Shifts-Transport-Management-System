@@ -42,7 +42,7 @@ public class DriverMenu {
 
             driver_name = DriverController.driverLogIn(new_Json);
         }
-        String d = DriverController.printDriverDoc(new_Json);
+        String d = DriverController.printDriverRoute(new_Json);
 
 
         String a = "yes";
@@ -51,21 +51,18 @@ public class DriverMenu {
             new_s.append("\n-----------------------------------------------------");
             new_s.append("\n|                  Driver Menu                    |\n");
             new_s.append("-----------------------------------------------------\n");
-            String s = "\nHello " + driver_name + "!\n";
-            new_s.append(s);
-            if (d != null) {
-                new_s.append(d);
-            }
-            else{
-                new_s.append("""
 
-                        You don't have a Transportation list.
-                        Please come back after the transport manager has assigned you to the ride.\n""");
-            }
+            String s = "\nHello " + driver_name + "!\n";
+
+            new_s.append(s);
+
+            if (!d.equals("Not Have"))
+                new_s.append(d);
+
             new_s.append("\nWhat do you want to do?\n");
-            new_s.append("Press '1' to - Report on leaving\n");
-            new_s.append("Press '2' to - Report on back\n");
-            new_s.append("Press '9' to - Back to menu");
+            new_s.append("'1' - Report on exit to transportation \n");
+            new_s.append("'2' - Report on back from transportation\n");
+            new_s.append("'9' - Exit to the Main menu.");
 
             System.out.println(new_s);
             String answer = reader.nextLine();
@@ -85,8 +82,7 @@ public class DriverMenu {
                 case "2" -> back(new_Json);
             }
 
-            System.out.println("\n\nDo you want to do something else?");
-            System.out.println("Press 'yes' to continue in the system");
+            System.out.println("\nDo you want to do something else? Enter 'yes' or 'no':");
             a = reader.nextLine();
         }
     }

@@ -165,6 +165,6 @@ public class DataConnector {
     }
 
     public static JsonObject printAllTransports() throws SQLException {
-        return DataController.getAllTransports();
+        return DataController.chooseAllTransports();
     }
 }

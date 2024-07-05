@@ -59,11 +59,11 @@ public class CreateTransportation {
             while (a.equals("yes")) {
 
                 chooseSite(area);
-                System.out.println("\nDo you want to add another site for the transport?\nEnter 'yes' or 'no'.");
+                System.out.println("\nDo you want to add another site for the transport? Enter 'yes' or 'no'.");
                 a = reader.nextLine();
                 while (!a.equals("yes") && !a.equals("no")) {
                     System.out.println("\nWrong input!, try again..");
-                    System.out.println("\nDo you want to add another site for the transport?\nEnter 'yes' or 'no'.");
+                    System.out.println("\nDo you want to add another site for the transport? Enter 'yes' or 'no'.");
                     a = reader.nextLine();
                 }
             }
@@ -77,7 +77,7 @@ public class CreateTransportation {
                     case 1 -> {
                         System.out.println("\nThere are still products in the truck!\n");
                         System.out.println("Please continue with the Transportation making\n");
-                        System.out.println("Please add sites to the transportation!\n");
+                        System.out.println("Please add more sites to the transportation!\n");
 
                         chooseSite(area);
 
@@ -104,13 +104,12 @@ public class CreateTransportation {
             }
 
             if(bool)
-                System.out.println("\nTransportation added successfully!\n");
+                System.out.println("\nTransportation added successfully!");
 
             else
-                System.out.println("\nThe Transportation canceled.\n");
+                System.out.println("\nThe Transportation canceled..");
 
-            System.out.println("Would you like to make a new Transportation?");
-            System.out.println("Enter 'yes' or 'no':");
+            System.out.println("\nWould you like to make a new transportation? Enter 'yes' or 'no':");
             answer = reader.nextLine();
         }
     }
@@ -165,8 +164,8 @@ public class CreateTransportation {
         StringBuilder str_Sup_Sto = new StringBuilder();
 
         str_Sup_Sto.append("\nPlease choose Supplier or Store:");
-        str_Sup_Sto.append("\nPress '1' to - Supplier");
-        str_Sup_Sto.append("\nPress '2' to - Store");
+        str_Sup_Sto.append("\n'1' - Supplier");
+        str_Sup_Sto.append("\n'2' - Store");
         System.out.println(str_Sup_Sto);
 
         String site = reader.next();
@@ -184,13 +183,13 @@ public class CreateTransportation {
                 while (it.equals("yes")) {
                     addItems();
 
-                    System.out.println("\nItem added successfully!\n");
+                    System.out.println("\nItem added successfully!");
 
-                    System.out.println("\nDo you want to add another item?\nEnter 'yes' or 'no'.");
+                    System.out.println("\nDo you want to add another item? Enter 'yes' or 'no'.");
                     it = reader.next();
                     while (!it.equals("yes") && !it.equals("no")) {
                         System.out.println("\nWrong input!, try again..");
-                        System.out.println("\nDo you want to add another item?\nEnter 'yes' or 'no'.");
+                        System.out.println("\nDo you want to add another item? Enter 'yes' or 'no'.");
                         it = reader.next();
                     }
                 }
@@ -208,18 +207,17 @@ public class CreateTransportation {
 
                     if (j.size() != 0) {
                         System.out.println();
+
                         String item = printToUser(j.size(), j);
 
                         int amount = TransportationController.amountOfItems(item);
 
-                        System.out.println();
-
-                        System.out.println("Please enter amount: (The maximum products you can order is - " + amount + ").");
+                        System.out.println("\nPlease enter the amount: (The maximum products you can order is - " + amount + ").");
                         int a = reader.nextInt();
 
                         while (a > amount) {
                             System.out.println("\nYou tried to order too much of this product!, try again..");
-                            System.out.println("Please enter amount:");
+                            System.out.println("\nPlease enter the amount: (The maximum products you can order is - " + amount + ").");
                             a = reader.nextInt();
                         }
                         Item_j.addProperty("Item", item);
@@ -227,12 +225,12 @@ public class CreateTransportation {
 
                         TransportationController.AddItem(Item_j, "Store");
 
-                        System.out.println("\nItem added successfully!\n");
-                        System.out.println("\nDo you want to  add another item?\nEnter 'yes' or 'no'.");
+                        System.out.println("\nItem added successfully!");
+                        System.out.println("\nDo you want to add another item? Enter 'yes' or 'no'.");
                         it = reader.next();
                         while (!it.equals("yes") && !it.equals("no")) {
                             System.out.println("\nWrong input!, try again..");
-                            System.out.println("\nDo you want to add another item?\nEnter 'yes' or 'no'.");
+                            System.out.println("\nDo you want to add another item? Enter 'yes' or 'no'.");
                             it = reader.next();
                         }
                     }
@@ -247,7 +245,6 @@ public class CreateTransportation {
     }
 
 
-
     /**
      * Add Item from the user
      */
@@ -256,13 +253,13 @@ public class CreateTransportation {
 
         Scanner reader = new Scanner(System.in);
 
-        System.out.println("\nPlease enter Item:");
+        System.out.println("\nPlease enter details of the item:");
 
-        System.out.println("Name of the item:");
+        System.out.println("\nName: ");
         j.addProperty("Name", reader.nextLine());
 
         while (true) {
-            System.out.println("\nWeight of the item:");
+            System.out.println("\nWeight: ");
             String Weight = reader.nextLine();
             try {
                 Double.parseDouble(Weight);
@@ -274,7 +271,7 @@ public class CreateTransportation {
         }
 
         while (true) {
-            System.out.println("\nAmount of the items");
+            System.out.println("\nAmount: ");
             String Amount = reader.nextLine();
             try {
                 Integer.parseInt(Amount);

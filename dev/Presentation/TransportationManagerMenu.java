@@ -26,15 +26,15 @@ public class TransportationManagerMenu {
             manager_menu.append("\n|            Transportation Manger Menu             |\n");
             manager_menu.append("-----------------------------------------------------\n");
             manager_menu.append("\n");
-            manager_menu.append("Hello Transportation manager, what do you want to do ?");
+            manager_menu.append("Hello Transportation manager, what do you want to do?\n");
             manager_menu.append("\nChoose from the options bellow:\n");
-            manager_menu.append("'1' - Add Driver.\n");
+            manager_menu.append("\n'1' - Add Driver.\n");
             manager_menu.append("'2' - Add Truck.\n");
             manager_menu.append("'3' - Add Store.\n");
             manager_menu.append("'4' - Add Supplier.\n");
             manager_menu.append("'5' - Make Transportation.\n");
             manager_menu.append("'6' - Show all Transport.\n");
-            manager_menu.append("'9' - Exit to the Main menu.\n");
+            manager_menu.append("'9' - Exit to the Main menu.");
 
             System.out.println(manager_menu);
 

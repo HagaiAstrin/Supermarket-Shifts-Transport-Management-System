@@ -84,21 +84,16 @@ public class Driver {
     }
 
 
+
     /**
      * @return String representation of the Driver
      */
     public String to_String(){
-        return ("Name:" + Name + ", Licence Level: " + License + ".");
+        return ("Name: " + Name + ", Licence Level: " + License + ".");
     }
     public void createRoute(ArrayList<Document> Targets) {
 
         StringBuilder new_s = new StringBuilder();
-
-        if(Status.equals("On the road")){
-            new_s.append("\nWe hope your trip goes well!\n");
-            this.Route = new_s.toString();
-            return;
-        }
 
         new_s.append("\nYou got a Transportation list!\n\n");
         int count = 1;

@@ -24,16 +24,15 @@ public class Main {
             menu.append("\n| Hello and Welcome to Segal Shinua Transportation Menu |\n");
             menu.append("--------------------------------------------------------\n");
             menu.append("\n");
-
-            menu.append("press '1' if you are the Manager.\n");
-            menu.append("press '2' if you are a Driver.\n");
-            menu.append("press '3' if you want to load Data.\n");
-            menu.append("press '9' to exit.\n");
+            menu.append("What is your role in the system?\n");
+            menu.append("\n'1' -  Manager.\n");
+            menu.append("'2' - Driver.\n");
+            menu.append("'9' - Exit.");
             System.out.println(menu);
 
             String type = reader.nextLine();
 
-            while (!type.equals("1") && !type.equals("2") && !type.equals("9") && !type.equals("3")) {
+            while (!type.equals("1") && !type.equals("2") && !type.equals("9")) {
 
                 System.out.println("\nWrong input! please try again..\n");
                 System.out.println(menu);
@@ -43,11 +42,6 @@ public class Main {
             switch (type) {
                 case "1" -> TransportationManagerMenu.transportation_manager();
                 case "2" -> DriverMenu.driver_x();
-                case "3" -> {
-                    CSV_Reader.reader("dev/CSV_Data/Drivers.csv", 1);
-                    CSV_Reader.reader( "dev/CSV_Data/Sites.csv", 2);
-                    CSV_Reader.reader( "dev/CSV_Data/Trucks.csv", 3);
-                }
                 case "9" -> {
                     return;
                 }

@@ -21,15 +21,13 @@ public class TransportDocument {
         return Details;
     }
 
-
-
     public void setStatus(String status) {
         Status = status;
     }
 
     public String to_String() {
         StringBuilder new_s = new StringBuilder();
-        String s = "Transport number: " + ID + "\n";
+        String s = "Transport number: " + ID;
         new_s.append(s);
         s = "\nStatus: " + Status + "\n";;
         new_s.append(s);

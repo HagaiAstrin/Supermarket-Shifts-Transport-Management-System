@@ -11,7 +11,7 @@ import java.util.Map;
 public class TransportationController {
     public static Transportation Transport;
 
-    public static int getNumberId(){
+    public static int getNumberId() throws SQLException {
         if ((DataController.getAmount("Transport")) == 0)
             return 1000;
 
@@ -25,12 +25,11 @@ public class TransportationController {
     public static void AddDocument(JsonObject j) throws SQLException {
 
         String site = j.get("Site").getAsString();
-        String type = j.get("Type").getAsString();
-        String area = j.get("Area").getAsString();
 
         Site s = DataController.getSite(site);
 
         Map<Item, Integer> new_map = new HashMap<>(Transport.getItems());
+
         if (!new_map.isEmpty()) {
             Document d = new Document(s, new_map);
 
@@ -61,6 +60,7 @@ public class TransportationController {
             JsonObject TruckJson = new JsonObject();
 
             Transport.setId(getNumberId() + 1);
+
             Transport.getDriver().setStatus("Waiting");
             Transport.getDriver().createRoute(Transport.getTargets());
             Transport.getDriver().setTruckLicenceNumber(Transport.getTruck().getLicence_number());
@@ -97,10 +97,6 @@ public class TransportationController {
         }
         return j;
     }
-    /**
-     * Return the number of a specific item in the Order
-     * @param s - String Type represent the Item name
-     */
     public static int amountOfItems(String s) {
 
         for (Map.Entry<Item, Integer> iter: Transport.getAll_transport_items().entrySet()){

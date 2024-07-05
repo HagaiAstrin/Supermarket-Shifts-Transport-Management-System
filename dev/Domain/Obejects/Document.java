@@ -27,21 +27,12 @@ public class Document {
     public Site getTarget() {
         return target;
     }
-    /**
-     * @return the weight of Document
-     */
     public double getTotalWeight() {
         return totalWeight;
     }
-    /**
-     * @return the Item , count Map of the Document
-     */
     public Map<Item, Integer> getAllItems() {
         return AllItems;
     }
-    /**
-     * Calculate all the weight of Document
-     */
     public double getWeight(){
         double count = 0.0;
         for (Map.Entry<Item, Integer> iter : AllItems.entrySet()){
@@ -51,10 +42,6 @@ public class Document {
         }
         return count;
     }
-    /**
-     * Dropped an Item from the Document
-     * @param t - Item argument
-     */
     public void dropItem(Item t){
         AllItems.remove(t);
         this.totalWeight = getWeight();
@@ -63,7 +50,8 @@ public class Document {
      * @return String that represent the Document
      */
     public String to_string(){
-        return ( "ID: " + id + ", Target: " + target.getName() + ", Address:"
-                + target.getAddress()  + ", Total weight: " + this.totalWeight + ".");
+        return ("Name: " + target.getName() + ", Address: "
+                + target.getAddress()  + ", Total weight: " + this.totalWeight +
+                ", Type: " + getTarget().getType() +".");
     }
 }

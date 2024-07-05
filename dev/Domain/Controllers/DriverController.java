@@ -8,9 +8,6 @@ import java.util.ArrayList;
 
 public class DriverController {
 
-    /**
-     * Driver Controller
-     */
     public static String driverLogIn(JsonObject j) throws SQLException {
 
         ArrayList<Driver> drivers = DataController.getAllDrivers();
@@ -22,21 +19,18 @@ public class DriverController {
         }
         return null;
     }
-    public static String printDriverDoc(JsonObject j) throws SQLException{
+    public static String printDriverRoute(JsonObject j) throws SQLException{
 
         ArrayList<Driver> drivers = DataController.getAllDrivers();
 
         for (Driver driver : drivers) {
-            if (j.get("Name").getAsString().equals(driver.getName()) && j.get("Password").getAsString().equals(driver.getPassword())) {
+            if (j.get("Name").getAsString().equals(driver.getName()) &&
+                    j.get("Password").getAsString().equals(driver.getPassword())) {
                 return driver.getRoute();
             }
         }
         return null;
     }
-    /**
-     * Updating that the Driver comes back
-     * @param j - JsonObject argument
-     */
     public static String updateBackDriver(JsonObject j) throws SQLException{
 
         ArrayList<Driver> drivers = DataController.getAllDrivers();
@@ -73,10 +67,6 @@ public class DriverController {
         }
         return ("\nYou are not exist in the system!\n");
     }
-    /**
-     * Updating that the Driver leaves
-     * @param j - JsonObject argument
-     */
     public static String updateLeavingDriver(JsonObject j) throws SQLException {
 
         ArrayList<Driver> drivers = DataController.getAllDrivers();
@@ -88,6 +78,7 @@ public class DriverController {
         for (Driver driver : drivers) {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get
                     ("Password").getAsString().equals(driver.getPassword())) {
+
                 if (driver.getTransportDocument().getID() == 0) {
                     return ("\nYou didnt assigned to any Transportation!");
                 }
