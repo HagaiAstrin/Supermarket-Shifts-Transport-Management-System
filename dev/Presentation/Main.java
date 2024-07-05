@@ -15,15 +15,12 @@ public class Main {
         while (true) {
 
             StringBuilder menu = new StringBuilder();
-//            menu.append("\n--------------------------------------------------------");
-//            menu.append("\n| Hello and Welcome to Super - Li Transportation Menu |\n");
-//            menu.append("--------------------------------------------------------\n");
-//            menu.append("\n");
 
             menu.append("\n--------------------------------------------------------");
-            menu.append("\n| Hello and Welcome to Segal Shinua Transportation Menu |\n");
+            menu.append("\n| Hello and Welcome to Super - Li Transportation Menu |\n");
             menu.append("--------------------------------------------------------\n");
             menu.append("\n");
+
             menu.append("What is your role in the system?\n");
             menu.append("\n'1' -  Manager.\n");
             menu.append("'2' - Driver.\n");
