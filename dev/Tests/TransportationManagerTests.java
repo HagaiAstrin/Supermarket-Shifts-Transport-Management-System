@@ -193,8 +193,8 @@ public class TransportationManagerTests {
                 "           - Shipping weight: 6500.0\n" +
                 "\n" +
                 "           - Items: \n" +
-                "                 Name: eggs, Amount: 2500\n" +
                 "                 Name: milk, Amount: 4000\n" +
+                "                 Name: eggs, Amount: 2500\n" +
                 "\n" +
                 "\n" +
                 "        2. Dropped products at Store: Hertseliya\n" +
@@ -204,8 +204,8 @@ public class TransportationManagerTests {
                 "           - Shipping weight: 6500.0\n" +
                 "\n" +
                 "           - Items: \n" +
-                "                 Name: eggs, Amount: 2500\n" +
                 "                 Name: milk, Amount: 4000\n" +
+                "                 Name: eggs, Amount: 2500\n" +
                 "\n" +
                 "\n";
 
