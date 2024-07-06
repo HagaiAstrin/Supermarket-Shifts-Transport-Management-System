@@ -15,10 +15,16 @@ public class TrucksDAO implements IDAO<Truck>{
 
     private Connection connection;
 
+    /**
+     * TrucksDAO Constructor
+     */
     public TrucksDAO(){
         this.connection = DB_Connector.getConnection();
     }
 
+    /**
+     * Return List of JsonObject that SELECT all the Trucks
+     */
     @Override
     public List<JsonObject> SELECT_ALL()throws SQLException  {
 
@@ -46,6 +52,10 @@ public class TrucksDAO implements IDAO<Truck>{
 
         return all_trucks;
     }
+
+    /**
+     * INSERT onto the DB new Truck
+     */
     @Override
     public void INSERT(JsonObject j) throws SQLException {
 
@@ -62,6 +72,10 @@ public class TrucksDAO implements IDAO<Truck>{
 
         truck.executeUpdate();
     }
+
+    /**
+     * Update a Truck in the DB
+     */
     @Override
     public void UPDATE(JsonObject j)throws SQLException {
 
@@ -74,6 +88,10 @@ public class TrucksDAO implements IDAO<Truck>{
 
         truck.executeUpdate();
     }
+
+    /**
+     * DELETE a Truck in the DB
+     */
     @Override
     public void DELETE(JsonObject j)throws SQLException {
 

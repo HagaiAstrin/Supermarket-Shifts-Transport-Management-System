@@ -13,6 +13,10 @@ public class SitesRepository implements IRepository<Site> {
 
     private static Map<String, Map<String, Map<String, Site>>> AllSites = new HashMap<>();
 
+
+    /**
+     * Add a Site to the AllSites
+     */
     @Override
     public void Add(Site s) {
 
@@ -24,6 +28,10 @@ public class SitesRepository implements IRepository<Site> {
             AllSites.get(s.getShipping_area()).get(s.getType()).put(s.getName(), s);
         }
     }
+
+    /**
+     * Delete a Site from the AllSites
+     */
     @Override
     public void Delete(Site s) {
 
@@ -33,6 +41,10 @@ public class SitesRepository implements IRepository<Site> {
             AllSites.get(s.getShipping_area()).get(s.getType()).remove(s.getName());
         }
     }
+
+    /**
+     * Find a Site from the AllSites using String ID
+     */
     @Override
     public Site FindByID(String ID) {
         for (Map.Entry<String, Map<String, Map<String, Site>>> SA : AllSites.entrySet()){
@@ -45,6 +57,10 @@ public class SitesRepository implements IRepository<Site> {
         }
         return null;
     }
+
+    /**
+     * Returns JsonObject of all the Sites in the AllSites and inside the Specific area
+     */
     @Override
     public JsonObject ChooseAll(String area, String type) {
         JsonObject j = new JsonObject();
@@ -97,6 +113,10 @@ public class SitesRepository implements IRepository<Site> {
         }
         return j;
     }
+
+    /**
+     * @return the AllSites
+     */
     public Map<String, Map<String, Map<String, Site>>> FindAllSites(){
         return AllSites;
     }

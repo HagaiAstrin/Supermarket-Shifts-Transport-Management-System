@@ -10,14 +10,25 @@ public class DriverRepository implements IRepository<Driver> {
 
     private static ArrayList<Driver> AllDrivers = new ArrayList<>();
 
+    /**
+     * Add a Driver to the AllDrivers
+     */
     @Override
     public void Add(Driver driver) {
         AllDrivers.add(driver);
     }
+
+    /**
+     * Delete a Driver from the AllDrivers
+     */
     @Override
     public void Delete(Driver driver) {
         AllDrivers.remove(driver);
     }
+
+    /**
+     * Find a Driver from the AllDrivers using String ID
+     */
     @Override
     public Driver FindByID(String ID) {
         for (Driver d: AllDrivers){
@@ -26,6 +37,10 @@ public class DriverRepository implements IRepository<Driver> {
         }
         return null;
     }
+
+    /**
+     * Returns JsonObject of all the available Drivers in the AllDrivers
+     */
     @Override
     public JsonObject ChooseAll(String s, String v) {
 
@@ -41,6 +56,10 @@ public class DriverRepository implements IRepository<Driver> {
         }
         return j;
     }
+
+    /**
+     * Update a Driver using JsonObject
+     */
     @Override
     public void Update(JsonObject j) {
 
@@ -59,10 +78,18 @@ public class DriverRepository implements IRepository<Driver> {
             }
         }
     }
+
+    /**
+     * @return the AllDrivers
+     */
     @Override
     public ArrayList<Driver> FindAll() {
         return AllDrivers;
     }
+
+    /**
+     * @return the sum of all the Drivers
+     */
     @Override
     public int getAmount() {
         return AllDrivers.size();

@@ -1,14 +1,13 @@
 package Domain.Controllers;
-
-import Domain.Controllers.DataController;
 import Domain.Obejects.*;
-import com.google.gson.JsonObject;
 
+import com.google.gson.JsonObject;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TransportationController {
+
     public static Transportation Transport;
 
     public static int getNumberId() throws SQLException {
