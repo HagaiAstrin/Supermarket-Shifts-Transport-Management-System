@@ -13,10 +13,16 @@ import java.util.List;
 public class SitesDAO implements IDAO<Site>{
     private Connection connection;
 
+    /**
+     * SitesDAO Constructor
+     */
     public SitesDAO(){
         this.connection = DB_Connector.getConnection();
     }
 
+    /**
+     * Return List of JsonObject that SELECT all the Sites
+     */
     @Override
     public List<JsonObject> SELECT_ALL()throws SQLException  {
 
@@ -48,6 +54,10 @@ public class SitesDAO implements IDAO<Site>{
 
         return all_sites;
     }
+
+    /**
+     * INSERT onto the DB new Site
+     */
     @Override
     public void INSERT(JsonObject j) throws SQLException {
 
@@ -66,10 +76,15 @@ public class SitesDAO implements IDAO<Site>{
 
         site.executeUpdate();
     }
+
+
     @Override
     public void UPDATE(JsonObject j)throws SQLException {
-
     }
+
+    /**
+     * DELETE a Site in the DB
+     */
     @Override
     public void DELETE(JsonObject j)throws SQLException {
 

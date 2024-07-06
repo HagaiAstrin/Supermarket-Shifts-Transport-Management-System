@@ -7,6 +7,10 @@ import java.sql.SQLException;
 public class DB_Connector {
     private static Connection connection;
 
+    /**
+     * Starting the Connection to the DB
+     * @return Connection
+     */
     public static Connection getConnection() {
         if (connection == null) {
             try {

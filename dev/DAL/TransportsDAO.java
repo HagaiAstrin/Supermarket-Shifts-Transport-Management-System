@@ -13,11 +13,16 @@ import java.util.List;
 public class TransportsDAO implements IDAO<TransportDocument>{
     private Connection connection;
 
+    /**
+     * TransportsDAO Constructor
+     */
     public TransportsDAO(){
         this.connection = DB_Connector.getConnection();
     }
 
-
+    /**
+     * Return List of JsonObject that SELECT all the Transports
+     */
     @Override
     public List<JsonObject> SELECT_ALL()throws SQLException  {
 
@@ -44,6 +49,10 @@ public class TransportsDAO implements IDAO<TransportDocument>{
 
         return all_transports;
     }
+
+    /**
+     * INSERT onto the DB new Transport
+     */
     @Override
     public void INSERT(JsonObject j) throws SQLException {
 
@@ -57,6 +66,10 @@ public class TransportsDAO implements IDAO<TransportDocument>{
 
         TransportDocument.executeUpdate();
     }
+
+    /**
+     * Update a Transport in the DB
+     */
     @Override
     public void UPDATE(JsonObject j)throws SQLException {
 
@@ -69,6 +82,10 @@ public class TransportsDAO implements IDAO<TransportDocument>{
 
         transport.executeUpdate();
     }
+
+    /**
+     * DELETE Transport in the DB
+     */
     @Override
     public void DELETE(JsonObject j)throws SQLException {
 

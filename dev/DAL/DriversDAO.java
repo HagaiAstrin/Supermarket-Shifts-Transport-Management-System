@@ -13,10 +13,16 @@ import java.util.List;
 public class DriversDAO implements IDAO<Driver>{
     private Connection connection;
 
+    /**
+     * DriversDAO Constructor
+     */
     public DriversDAO(){
         this.connection = DB_Connector.getConnection();
     }
 
+    /**
+     * Return List of JsonObject that SELECT all the Drivers
+     */
     @Override
     public List<JsonObject> SELECT_ALL()throws SQLException {
 
@@ -45,6 +51,10 @@ public class DriversDAO implements IDAO<Driver>{
 
         return all_drivers;
     }
+
+    /**
+     * INSERT onto the DB new Driver
+     */
     @Override
     public void INSERT(JsonObject j) throws SQLException {
         String sql = "INSERT INTO Drivers(Name, Licence, Password, Status, Route, " +
@@ -63,6 +73,10 @@ public class DriversDAO implements IDAO<Driver>{
 
         driver.executeUpdate();
     }
+
+    /**
+     * Update a Driver in the DB
+     */
     @Override
     public void UPDATE(JsonObject j)throws SQLException {
 
@@ -79,6 +93,10 @@ public class DriversDAO implements IDAO<Driver>{
 
         driver.executeUpdate();
     }
+
+    /**
+     * DELETE a Driver in the DB
+     */
     @Override
     public void DELETE(JsonObject j)throws SQLException {
 
