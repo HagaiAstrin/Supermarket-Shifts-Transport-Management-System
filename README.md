@@ -90,10 +90,10 @@ To access the manager menu, enter the password: `123456789`. The manager menu in
   
 - If the total weight exceeds the truck's capacity, a window will open with options for the manager to adjust the delivery:
 
-- **Change Site**
-- **Replace Truck**
-- **Remove Sites**
-- **Remove Items**
+1. **Change Site**
+2. **Replace Truck**
+3. **Remove Sites**
+4. **Remove Items**
 
 #### Print Transportations
 
@@ -120,6 +120,23 @@ The status of the delivery changes to "Out for Delivery..", and the status of th
 #### Report Back
 
 The status of the delivery changes to "Delivered!", and the status of the driver and truck changes to "available". The driver and truck are now available for new deliveries.
+
+#### Drivers list
+
+1. Daniel Levi – 11111111 (Waiting for exit do delivery).
+2. Omer Cohen – 22222222.
+3. Yoni Avraham – 33333333.
+4. Assaf Moalem – 44444444.
+5. Hadar Fadida – 55555555.
+6. Elad Cohen – 66666666.
+7. Noam Revivo – 77777777.
+8. Alon Cohen – 88888888.
+9. Avraham Peretz – 99999999.
+10. Adir Yossef – 10101010.
+11. David Segal – 12121212.
+12. Noam Kfir – 13131313.
+13. Yotam Zimri – 14141414.
+14. Noam Fathi – 15151515
 
 ## Features
 
