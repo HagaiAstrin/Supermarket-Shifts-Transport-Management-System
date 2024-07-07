@@ -17,7 +17,7 @@ and managing drivers, trucks, and delivery sites.
 - [Features](#features)
 - [System Requirements](#system-requirements)
 - [Contributors](#contributors)
-- 
+  
 ## Installation
 
 1. **Download the JAR file:**
@@ -206,6 +206,3 @@ java.io: for input and output operations (java.io.*, java.io.BufferedWriter, jav
 java.sql: for SQL operations (java.sql.*)
 java.util: for utility classes (java.util.*, java.util.ArrayList, java.util.Arrays, java.util.HashMap, java.util.List, java.util.Map, java.util.Objects, java.util.Scanner)
 ```
-
-## Illustration
-
