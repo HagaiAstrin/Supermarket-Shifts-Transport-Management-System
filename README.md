@@ -206,3 +206,5 @@ java.io: for input and output operations (java.io.*, java.io.BufferedWriter, jav
 java.sql: for SQL operations (java.sql.*)
 java.util: for utility classes (java.util.*, java.util.ArrayList, java.util.Arrays, java.util.HashMap, java.util.List, java.util.Map, java.util.Objects, java.util.Scanner)
 ```
+## Illustration
+Segal and Omer coding all night on their Transportation management system project:
