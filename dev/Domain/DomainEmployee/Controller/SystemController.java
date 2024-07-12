@@ -7,14 +7,14 @@ public class SystemController {
      * Hash function using for password validation.
      */
     public boolean LoginInputValidatorAdmin(String[] input) {
-        return new SHA_256_Hasher().Checker(input, Constants.DEV + IO_Data.branch + Constants.PATH_DATA_VALIDATION_ADMIN);
+        return new SHA_256_Hasher().Checker(input,  "admin");
     }
 
     /**
      * Hash function using for password validation.
      */
     public boolean LoginInputValidatorUser(String[] input) {
-        return new SHA_256_Hasher().Checker(input, Constants.DEV + IO_Data.branch + Constants.PATH_DATA_VALIDATION_USER);
+        return new SHA_256_Hasher().Checker(input, "user");
 
     }
 

@@ -103,7 +103,7 @@ public class AdminMenu {
                     case 4:
                         // Going to the shift menu.
                         ShiftInteraction();
-                        return;
+                        break;
                     case 5:
                         Printer.PrintAllEmployees(AdminController.PrintEmployees());
                         break;

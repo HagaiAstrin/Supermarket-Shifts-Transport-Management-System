@@ -66,6 +66,8 @@ public class SitesRepository implements IRepository<Site> {
         JsonObject j = new JsonObject();
         int count = 1;
         for (Map.Entry<String, Site> iter : AllSites.get(area).get(type).entrySet()) {
+            //TODO: if iter have stock keeper
+
             j.addProperty(String.valueOf(count++), iter.getValue().to_string());
         }
         return j;

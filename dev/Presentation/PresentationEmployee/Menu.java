@@ -15,57 +15,66 @@ import com.google.gson.JsonObject;
 
 public class Menu {
     public static Scanner scanner;
+
+
+    public static JsonObject EmployeeToJson() throws Exception {
+        JsonObject json = new JsonObject();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Employee ID: ");
+        String id = scanner.nextLine();
+        json.addProperty("id", id);
+
+        System.out.print("Enter Employee Name: ");
+        String name = scanner.nextLine();
+        json.addProperty("name", name);
+
+        System.out.print("Enter Bank ID: ");
+        String bankID = scanner.nextLine();
+        json.addProperty("bankID", bankID);
+
+        System.out.print("Enter Salary: ");
+        int salary = scanner.nextInt();
+        scanner.nextLine();  // Consume newline
+        json.addProperty("salary", salary);
+
+        System.out.print("Enter Rest Days: ");
+        int restDays = scanner.nextInt();
+        scanner.nextLine();  // Consume newline
+        json.addProperty("restDays", restDays);
+
+        scanner = new Scanner(System.in);
+        System.out.println("Enter a date (dd/MM/yyyy): ");
+        String dateString = scanner.nextLine(); // Read the input from the user
+        json.addProperty("date", dateString);
+
+        String jobType = GetJobType();
+
+
+        // Define the date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        LocalDate date = null;
+        try {
+            // Parse the string to LocalDate
+            date = LocalDate.parse(dateString, formatter);
+
+        } catch (DateTimeParseException e) {
+            throw new Exception("Invalid date format: " + e.getMessage());
+
+        }
+
+        JsonObject e_Json = Sender.EmployeeToJson(id, name, bankID, salary, restDays, date, jobType);
+        return e_Json;
+    }
+
     /**
      * Adding employee to the database.
      */
     public static void AddEmployee() throws Exception {
         try {
-            JsonObject json = new JsonObject();
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter Employee ID: ");
-            String id = scanner.nextLine();
-            json.addProperty("id", id);
-
-            System.out.print("Enter Employee Name: ");
-            String name = scanner.nextLine();
-            json.addProperty("name", name);
-
-            System.out.print("Enter Bank ID: ");
-            String bankID = scanner.nextLine();
-            json.addProperty("bankID", bankID);
-
-            System.out.print("Enter Salary: ");
-            int salary = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
-            json.addProperty("salary", salary);
-
-            System.out.print("Enter Rest Days: ");
-            int restDays = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
-            json.addProperty("restDays", restDays);
-
-            scanner = new Scanner(System.in);
-            System.out.println("Enter a date (dd/MM/yyyy): ");
-            String dateString = scanner.nextLine(); // Read the input from the user
-            json.addProperty("date", dateString);
-
-            String jobType = GetJobType();
-
-
-            // Define the date format
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-            LocalDate date = null;
-            try {
-                // Parse the string to LocalDate
-                date = LocalDate.parse(dateString, formatter);
-
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date format: " + e.getMessage());
-                return;
-            }
-
-            JsonObject e_Json = Sender.EmployeeToJson(id, name, bankID, salary, restDays, date, jobType);
+            JsonObject e_Json = EmployeeToJson();
+            String id = e_Json.get("id").getAsString();
+            String name = e_Json.get("name").getAsString();
 
             try {
                 // Add new preferences file for the new employee.
@@ -73,7 +82,7 @@ public class Menu {
                 AdminController.createPreferencesNewEmp(e_Json);
                 AdminController.AddEmployee(e_Json);
                 AdminController.AddNewLoginInfo(id, name);
-                // TODO: ADD NEW LOGIN DETAILS FOR THIS USER
+
                 System.out.println("Employee added successfully.");
             } catch (IOException ex) {
                 System.err.println("Failed to add employee: " + ex.getMessage());

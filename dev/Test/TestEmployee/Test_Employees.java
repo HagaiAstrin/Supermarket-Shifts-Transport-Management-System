@@ -85,7 +85,7 @@ public class Test_Employees {
         employee.setBankID("987123");
         employee.setSalary(58000);
         employee.setRestDays(15);
-        employee.addJobType(JobTypeEnum.GUARD);
+        employee.addJobType(JobTypeEnum.DRIVER);
 
         // Verify updated properties
         assertEquals("890", employee.getId());

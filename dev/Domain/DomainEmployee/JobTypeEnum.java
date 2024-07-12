@@ -5,7 +5,7 @@ public enum JobTypeEnum {
     SHIFT_MANAGER("SHIFT MANAGER"),
     CASHIER("CASHIER"),
     STOCK_KEEPER("STOCK KEEPER"),
-    GUARD("GUARD");
+    DRIVER("DRIVER");
 
     private String jobType;
     JobTypeEnum(String jobType) {
