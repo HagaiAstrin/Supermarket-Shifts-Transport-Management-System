@@ -63,7 +63,7 @@ public class Program {
         login();
     }
 
-    private static void logo(){
+    public void logo(){
         System.out.println("     _______. __    __  .______    _______ .______          __       _______  _______ ");
         System.out.println("    /       ||  |  |  | |   _  \\  |   ____||   _  \\        |  |     |   ____||   ____|");
         System.out.println("   |   (----`|  |  |  | |  |_)  | |  |__   |  |_)  |       |  |     |  |__   |  |__   ");
@@ -75,12 +75,12 @@ public class Program {
     }
 
     public void login() throws IOException, InterruptedException {
-        logo();
+//        logo();
         firstTime = true;
 
         // Admin or User
         String UserKind;
-        System.out.println("Welcome to the \"Super-Lee\" system.");
+
         System.out.println("Please identify yourself.");
         System.out.print("Press\n\t1. for Admin login\n\t2. for User login\n");
 

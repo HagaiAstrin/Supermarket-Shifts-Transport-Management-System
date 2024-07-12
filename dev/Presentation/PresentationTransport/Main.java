@@ -8,7 +8,7 @@ public class Main {
     /**
      * Start of the Program
      */
-    public static void main(String[] args) throws InterruptedException, SQLException {
+    public static void TransportMenu() throws InterruptedException, SQLException {
 
         Scanner reader = new Scanner(System.in);
 
