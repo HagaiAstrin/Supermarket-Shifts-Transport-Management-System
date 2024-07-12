@@ -42,8 +42,9 @@ public class DriverRepository implements IRepository<Driver> {
      * Returns JsonObject of all the available Drivers in the AllDrivers
      */
     @Override
-    public JsonObject ChooseAll(String s, String v) {
+    public JsonObject ChooseAll(JsonObject jas) {
 
+        String s = jas.get("Truck Licence").getAsString();
         JsonObject j = new JsonObject();
         int count = 1;
         for (Driver d: AllDrivers){

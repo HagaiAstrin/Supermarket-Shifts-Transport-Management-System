@@ -22,7 +22,7 @@ public class DataController {
 
     private static IDAO<Truck> DB_Trucks = new TrucksDAO();
     private static IDAO<Driver> DB_Drivers = new DriversDAO();
-    private static IDAO<Site> DB_Sites = new SitesDAO();
+    private static SitesDAO DB_Sites = new SitesDAO();
     private static IDAO<TransportDocument> DB_Transports = new TransportsDAO();
 
 
@@ -115,7 +115,9 @@ public class DataController {
         if (Trucks.getAmount() == 0)
             SelectAllTrucksFromDB();
 
-        return Trucks.ChooseAll("a", "b");
+        JsonObject j = new JsonObject();
+
+        return Trucks.ChooseAll(j);
     }
     public static JsonObject ChooseDriver(String truckLicence) throws SQLException {
 
@@ -123,7 +125,10 @@ public class DataController {
 
             SelectAllDriversFromDB();
 
-        return Drivers.ChooseAll(truckLicence, "b");
+        JsonObject j = new JsonObject();
+        j.addProperty("Truck Licence", truckLicence);
+
+        return Drivers.ChooseAll(j);
     }
     public static JsonObject ChooseArea() throws SQLException {
 
@@ -132,19 +137,28 @@ public class DataController {
 
         return Sites.FindShippingArea();
     }
-    public static JsonObject ChooseSite(String area, String type) throws SQLException {
+    public static JsonObject ChooseSite(String area, String type, String day, String time) throws SQLException {
 
         if (Sites.getAmount() == 0)
             SelectAllSitesFromDB();
 
-        return Sites.ChooseAll(area, type);
+        JsonObject j = new JsonObject();
+
+        j.addProperty("Area", area);
+        j.addProperty("Type", type);
+        j.addProperty("Day", day);
+        j.addProperty("Time", time);
+
+        return Sites.ChooseAll(j);
     }
     public static JsonObject chooseAllTransports() throws SQLException {
 
         if (Transports.getAmount() == 0)
             SelectAllTransportsFromDB();
 
-        return Transports.ChooseAll("a", "b");
+        JsonObject j = new JsonObject();
+
+        return Transports.ChooseAll(j);
     }
 
     public static Truck getTruck(String s) throws SQLException {
@@ -358,6 +372,10 @@ public class DataController {
             return 10;
 
         return (DataController.getAmount("Sites")) + 10;
+    }
+
+    public static boolean isStorekeeper(String name, String day, String time) throws SQLException {
+        return DB_Sites.IS_STORE_KEEPER(name, day, time);
     }
 
 }

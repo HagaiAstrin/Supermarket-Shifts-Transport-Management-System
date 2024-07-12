@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SitesDAO implements IDAO<Site>{
@@ -28,11 +29,7 @@ public class SitesDAO implements IDAO<Site>{
 
         List<JsonObject> all_sites = new ArrayList<>();
 
-//        String sql = "SELECT Name, Address, Phone_number, Contact, " +
-//                     "Shipping_area, Type, Site_ID FROM Sites";
-
         String sql = "SELECT * FROM Sites";
-
 
         PreparedStatement site = connection.prepareStatement(sql);
 
@@ -76,12 +73,9 @@ public class SitesDAO implements IDAO<Site>{
 
         site.executeUpdate();
     }
-
-
     @Override
     public void UPDATE(JsonObject j)throws SQLException {
     }
-
     /**
      * DELETE a Site in the DB
      */
@@ -94,5 +88,37 @@ public class SitesDAO implements IDAO<Site>{
 
         site.setInt(1, j.get("Site ID").getAsInt());
         site.executeUpdate();
+    }
+    public boolean IS_STORE_KEEPER(String name, String day, String time) throws SQLException{
+
+        List<JsonObject> keeperShifts = new ArrayList<>();
+
+        String sql = "SELECT template FROM " + name;
+
+        PreparedStatement site = connection.prepareStatement(sql);
+
+        ResultSet rs = site.executeQuery();
+
+        while (rs.next()) {
+            JsonObject j = new JsonObject();
+
+            j.addProperty("Sunday", rs.getString("Sun"));
+            j.addProperty("Monday", rs.getString("Mon"));
+            j.addProperty("Tuesday", rs.getString("Tue"));
+            j.addProperty("Wednesday", rs.getString("Wed"));
+            j.addProperty("Thursday", rs.getString("Thu"));
+
+            keeperShifts.add(j);
+        }
+
+        switch (time){
+            case "08:00" -> {
+                return keeperShifts.get(0).get(day) != null;
+            }
+            case "16:00" -> {
+                return keeperShifts.get(1).get(day) != null;
+            }
+        }
+        return false;
     }
 }

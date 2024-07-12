@@ -2,9 +2,11 @@ package Domain.DomainTransport.Repositories;
 
 import DAL.DALTransport.IDAO;
 import DAL.DALTransport.SitesDAO;
+import Domain.DomainTransport.Controllers.DataController;
 import Domain.DomainTransport.Obejects.Site;
 import com.google.gson.JsonObject;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,11 +64,25 @@ public class SitesRepository implements IRepository<Site> {
      * Returns JsonObject of all the Sites in the AllSites and inside the Specific area
      */
     @Override
-    public JsonObject ChooseAll(String area, String type) {
+    public JsonObject ChooseAll(JsonObject jas) throws SQLException {
+
+        String area = jas.get("Area").getAsString();
+        String type = jas.get("Type").getAsString();
+        String day = jas.get("Day").getAsString();
+        String time = jas.get("Time").getAsString();
+
         JsonObject j = new JsonObject();
         int count = 1;
         for (Map.Entry<String, Site> iter : AllSites.get(area).get(type).entrySet()) {
-            //TODO: if iter have stock keeper
+
+            if (type.equals("Store")){
+                String name = iter.getValue().getName();
+
+                boolean answer = DataController.isStorekeeper(name, day, time);
+
+                if (!answer)
+                    continue;
+            }
 
             j.addProperty(String.valueOf(count++), iter.getValue().to_string());
         }
@@ -92,7 +108,6 @@ public class SitesRepository implements IRepository<Site> {
         }
         return count;
     }
-
 
     // Only Sites Repository Methods:
     public void AddShippingArea(String s){

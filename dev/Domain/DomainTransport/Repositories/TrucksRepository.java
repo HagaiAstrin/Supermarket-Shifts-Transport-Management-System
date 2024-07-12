@@ -27,7 +27,7 @@ public class TrucksRepository implements IRepository<Truck> {
         return null;
     }
     @Override
-    public JsonObject ChooseAll(String s, String v) {
+    public JsonObject ChooseAll(JsonObject jas) {
         JsonObject j = new JsonObject();
         int count = 1;
         for (Truck t: AllTrucks){

@@ -41,7 +41,7 @@ public class TransportationController {
     public static void createTransport(JsonObject j) throws SQLException {
 
         String source = j.get("Source").getAsString();
-        String date = j.get("Date").getAsString();
+        String date = j.get("Day").getAsString();
         String leaving_time = j.get("Leaving time").getAsString();
 
         Truck truck = DataController.getTruck(j.get("Truck").getAsString());
