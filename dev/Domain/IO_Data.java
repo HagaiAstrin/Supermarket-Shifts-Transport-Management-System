@@ -60,12 +60,12 @@ public class IO_Data {
     }
 
 
-    public static void setEmployeeHowCanWork(int job, int day, int shift, int id){
+    public static void setEmployeeHowCanWork(int job, int day, int shift, int id) throws Exception {
         try {
             WeeklyShift.setEmployeeHowCanWork(job, day, shift, id);
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            throw new Exception("couldn't add employee to shift");
         }
 
     }

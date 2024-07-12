@@ -78,7 +78,7 @@ public class AdminController {
     /**
      * Add an attribute for a shift - id and job of employee on day and time of the shift.
      */
-    public static void SetShift(int job, int day, int shift, int id){
+    public static void SetShift(int job, int day, int shift, int id) throws Exception {
         IO_Data.setEmployeeHowCanWork(job, day, shift, id);
     }
 

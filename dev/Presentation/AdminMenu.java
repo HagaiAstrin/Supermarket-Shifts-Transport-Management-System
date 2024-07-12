@@ -159,7 +159,7 @@ public class AdminMenu {
                     case 1:
                         // Print
                         System.out.println(AdminController.printAllTypeWeek());
-                        WeeklyShift.exportShiftsToCSV(WeeklyShift.GetShiftByJob());
+                        //WeeklyShift.exportShiftsToCSV(WeeklyShift.GetShiftByJob());
                         break;
                     case 2:
                         int job = IOJobShiftMenu();
@@ -219,7 +219,7 @@ public class AdminMenu {
             System.out.println(id + " was successfully added");
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Could not add employee to shift.");
         }
     }
 
