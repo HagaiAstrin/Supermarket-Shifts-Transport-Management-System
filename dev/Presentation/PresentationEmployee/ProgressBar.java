@@ -1,4 +1,4 @@
-package Presentation;
+package Presentation.PresentationEmployee;
 
 public class ProgressBar {
     private int total;

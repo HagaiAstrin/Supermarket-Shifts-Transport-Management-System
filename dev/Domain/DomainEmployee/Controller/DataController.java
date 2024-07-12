@@ -1,7 +1,7 @@
-package Domain.Controller;
+package Domain.DomainEmployee.Controller;
 
-import Domain.IO_Data;
-import Domain.JobTypeEnum;
+import Domain.DomainEmployee.IO_Data;
+import Domain.DomainEmployee.JobTypeEnum;
 import com.google.gson.JsonObject;
 
 import java.sql.*;

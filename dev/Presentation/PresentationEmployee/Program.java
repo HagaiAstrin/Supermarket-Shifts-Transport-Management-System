@@ -1,6 +1,6 @@
-package Presentation;
-import Domain.IO_Data;
-import Domain.Controller.*;
+package Presentation.PresentationEmployee;
+import Domain.DomainEmployee.IO_Data;
+import Domain.DomainEmployee.Controller.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;

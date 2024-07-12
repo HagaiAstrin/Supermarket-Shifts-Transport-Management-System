@@ -1,6 +1,6 @@
-package Presentation;
+package Presentation.PresentationEmployee;
 
-import Domain.Controller.*;
+import Domain.DomainEmployee.Controller.*;
 
 
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 
-import Domain.Controller.DataController;
+import Domain.DomainEmployee.Controller.DataController;
 import com.google.gson.JsonObject;
 
 public class Menu {

@@ -1,4 +1,4 @@
-package Domain;
+package Domain.DomainEmployee;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

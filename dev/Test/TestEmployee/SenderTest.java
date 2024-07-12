@@ -1,6 +1,6 @@
-package Test;
+package Test.TestEmployee;
 
-import Presentation.Sender;
+import Presentation.PresentationEmployee.Sender;
 import com.google.gson.JsonObject;
 import org.junit.Test;
 

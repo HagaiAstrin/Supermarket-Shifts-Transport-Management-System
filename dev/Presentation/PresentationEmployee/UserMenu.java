@@ -1,8 +1,8 @@
-package Presentation;
+package Presentation.PresentationEmployee;
 
-import Domain.Controller.EmployeeController;
-import Domain.Controller.SystemController;
-import Domain.IO_Data;
+import Domain.DomainEmployee.Controller.EmployeeController;
+import Domain.DomainEmployee.Controller.SystemController;
+import Domain.DomainEmployee.IO_Data;
 import com.google.gson.JsonObject;
 
 import java.util.Scanner;

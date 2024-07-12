@@ -1,6 +1,6 @@
-package Test;
+package Test.TestEmployee;
 
-import Domain.SHA_256_Hasher;
+import Domain.DomainEmployee.SHA_256_Hasher;
 import org.junit.Test;
 
 import java.util.Objects;

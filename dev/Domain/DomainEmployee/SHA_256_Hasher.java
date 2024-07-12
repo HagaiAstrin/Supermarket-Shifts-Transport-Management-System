@@ -1,4 +1,4 @@
-package Domain;
+package Domain.DomainEmployee;
 
 import com.google.gson.JsonObject;
 import java.security.MessageDigest;

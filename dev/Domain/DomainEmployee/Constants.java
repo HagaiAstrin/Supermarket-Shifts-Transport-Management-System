@@ -1,4 +1,4 @@
-package Domain;
+package Domain.DomainEmployee;
 
 public class Constants {
     public static final String DEV = "dev\\Data\\";

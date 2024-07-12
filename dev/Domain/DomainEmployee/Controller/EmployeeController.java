@@ -1,5 +1,5 @@
-package Domain.Controller;
-import Domain.*;
+package Domain.DomainEmployee.Controller;
+import Domain.DomainEmployee.*;
 import com.google.gson.JsonObject;
 
 public class EmployeeController {

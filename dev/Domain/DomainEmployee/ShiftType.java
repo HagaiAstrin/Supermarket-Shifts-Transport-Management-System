@@ -1,4 +1,4 @@
-package Domain;
+package Domain.DomainEmployee;
 
 public enum ShiftType {
     Morning,

@@ -1,6 +1,6 @@
-package Domain.Controller;
+package Domain.DomainEmployee.Controller;
 
-import Domain.*;
+import Domain.DomainEmployee.*;
 
 public class SystemController {
     /**

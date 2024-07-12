@@ -1,8 +1,8 @@
-package Test;
+package Test.TestEmployee;
 
-import Domain.Employee;
-import Domain.IO_Data;
-import Domain.JobTypeEnum;
+import Domain.DomainEmployee.Employee;
+import Domain.DomainEmployee.IO_Data;
+import Domain.DomainEmployee.JobTypeEnum;
 import org.junit.Test;
 
 import java.time.LocalDate;

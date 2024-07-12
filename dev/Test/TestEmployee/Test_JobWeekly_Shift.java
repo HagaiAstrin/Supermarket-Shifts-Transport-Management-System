@@ -1,9 +1,8 @@
-package Test;
+package Test.TestEmployee;
 
-import Domain.Contract;
-import Domain.Employee;
-import Domain.JobTypeEnum;
-import Domain.JobWeeklyShift;
+import Domain.DomainEmployee.Employee;
+import Domain.DomainEmployee.JobTypeEnum;
+import Domain.DomainEmployee.JobWeeklyShift;
 import com.google.gson.JsonObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +10,7 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.util.*;
 
-import Domain.IO_Data;
+import Domain.DomainEmployee.IO_Data;
 
 import static org.junit.Assert.*;
 

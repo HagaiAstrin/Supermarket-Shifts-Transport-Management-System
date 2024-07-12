@@ -1,8 +1,7 @@
-package Presentation;
+package Presentation.PresentationEmployee;
 
-import Domain.Controller.AdminController;
-import Domain.Controller.SystemController;
-import Domain.WeeklyShift;
+import Domain.DomainEmployee.Controller.AdminController;
+import Domain.DomainEmployee.Controller.SystemController;
 import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -159,7 +158,6 @@ public class AdminMenu {
                     case 1:
                         // Print
                         System.out.println(AdminController.printAllTypeWeek());
-                        //WeeklyShift.exportShiftsToCSV(WeeklyShift.GetShiftByJob());
                         break;
                     case 2:
                         int job = IOJobShiftMenu();
