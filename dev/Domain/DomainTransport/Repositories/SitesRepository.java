@@ -1,8 +1,8 @@
-package Domain.Repositories;
+package Domain.DomainTransport.Repositories;
 
-import DAL.IDAO;
-import DAL.SitesDAO;
-import Domain.Obejects.Site;
+import DAL.DALTransport.IDAO;
+import DAL.DALTransport.SitesDAO;
+import Domain.DomainTransport.Obejects.Site;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;

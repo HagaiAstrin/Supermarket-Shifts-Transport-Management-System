@@ -1,4 +1,4 @@
-package Domain.Obejects;
+package Domain.DomainTransport.Obejects;
 
 public class Item {
     private String name;

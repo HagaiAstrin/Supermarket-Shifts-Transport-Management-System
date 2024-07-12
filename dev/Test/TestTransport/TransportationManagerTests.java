@@ -1,11 +1,11 @@
-package Tests;
+package Test.TestTransport;
 
 import java.sql.SQLException;
-import static Presentation.CreateTransportation.createDocument;
+import static Presentation.PresentationTransport.CreateTransportation.createDocument;
 
-import Domain.Controllers.DataController;
-import Domain.Controllers.TransportationController;
-import Presentation.DataConnector;
+import Domain.DomainTransport.Controllers.DataController;
+import Domain.DomainTransport.Controllers.TransportationController;
+import Presentation.PresentationTransport.DataConnector;
 
 import com.google.gson.JsonObject;
 
@@ -30,7 +30,7 @@ public class TransportationManagerTests {
 
         String d = "Name: Yosi Ben Haiim, Licence Level: C.";
 
-        Domain.Obejects.Driver driver = DataController.getDriver(d);
+        Domain.DomainTransport.Obejects.Driver driver = DataController.getDriver(d);
 
         assertNotNull(driver,  "Failed to add driver");
 
@@ -55,7 +55,7 @@ public class TransportationManagerTests {
 
         String t = "Licence Number: 161-61-616, Licence Level: B, Max weight: 15000.0.";
 
-        Domain.Obejects.Truck truck = DataController.getTruck(t);
+        Domain.DomainTransport.Obejects.Truck truck = DataController.getTruck(t);
 
         assertNotNull(truck,  "Failed to add truck");
 
@@ -81,7 +81,7 @@ public class TransportationManagerTests {
 
         String s = "Address: Mevaseret-Zion 13, Name: Mevaseret-Zion, Shipping area: East, Type: Store.";
 
-        Domain.Obejects.Site store = DataController.getSite(s);
+        Domain.DomainTransport.Obejects.Site store = DataController.getSite(s);
 
         assertNotNull(store,  "Failed to add store");
 
@@ -108,7 +108,7 @@ public class TransportationManagerTests {
 
         String s = "Address: Maale-Edumim 33, Name: Tnuva, Shipping area: East, Type: Supplier.";
 
-        Domain.Obejects.Site store = DataController.getSite(s);
+        Domain.DomainTransport.Obejects.Site store = DataController.getSite(s);
 
         assertNotNull(store,  "Failed to add supplier");
 
@@ -177,7 +177,7 @@ public class TransportationManagerTests {
 
         TransportationController.checkTransport();
 
-        Domain.Obejects.TransportDocument transport = DataController.getTransportDoc("1001");
+        Domain.DomainTransport.Obejects.TransportDocument transport = DataController.getTransportDoc("1001");
 
         String d = "Date: 24/07\n" +
                 "Number of Truck: 111-11-111\n" +

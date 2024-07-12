@@ -1,6 +1,6 @@
-package Domain.Repositories;
+package Domain.DomainTransport.Repositories;
 
-import Domain.Obejects.TransportDocument;
+import Domain.DomainTransport.Obejects.TransportDocument;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;

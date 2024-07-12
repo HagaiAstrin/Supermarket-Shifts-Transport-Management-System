@@ -1,7 +1,7 @@
-package Presentation;
+package Presentation.PresentationTransport;
 
 import com.google.gson.JsonObject;
-import Domain.Controllers.DriverController;
+import Domain.DomainTransport.Controllers.DriverController;
 
 
 import java.sql.SQLException;

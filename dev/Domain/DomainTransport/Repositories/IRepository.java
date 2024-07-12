@@ -1,4 +1,4 @@
-package Domain.Repositories;
+package Domain.DomainTransport.Repositories;
 
 
 import com.google.gson.JsonObject;

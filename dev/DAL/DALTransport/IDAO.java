@@ -1,4 +1,4 @@
-package DAL;
+package DAL.DALTransport;
 import com.google.gson.JsonObject;
 
 import java.sql.SQLException;

@@ -1,5 +1,5 @@
-package Domain.Obejects;
-import Domain.Obejects.*;
+package Domain.DomainTransport.Obejects;
+import Domain.DomainTransport.Obejects.*;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;

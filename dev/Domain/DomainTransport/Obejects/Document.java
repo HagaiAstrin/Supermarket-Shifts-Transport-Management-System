@@ -1,4 +1,4 @@
-package Domain.Obejects;
+package Domain.DomainTransport.Obejects;
 
 import java.util.HashMap;
 import java.util.Map;

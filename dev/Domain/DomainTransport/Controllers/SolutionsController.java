@@ -1,9 +1,6 @@
-package Domain.Controllers;
+package Domain.DomainTransport.Controllers;
 
-import Domain.Obejects.Document;
-import Domain.Obejects.Driver;
-import Domain.Obejects.Item;
-import Domain.Obejects.Truck;
+import Domain.DomainTransport.Obejects.*;
 
 import com.google.gson.JsonObject;
 
@@ -12,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static Domain.Controllers.TransportationController.*;
+import static Domain.DomainTransport.Controllers.TransportationController.*;
 
 public class SolutionsController {
 

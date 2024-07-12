@@ -1,6 +1,6 @@
-package DAL;
+package DAL.DALTransport;
 
-import Domain.Obejects.Site;
+import Domain.DomainTransport.Obejects.Site;
 import com.google.gson.JsonObject;
 
 import java.sql.Connection;

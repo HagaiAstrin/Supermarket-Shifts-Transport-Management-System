@@ -1,5 +1,5 @@
-package Domain.Controllers;
-import Domain.Obejects.*;
+package Domain.DomainTransport.Controllers;
+import Domain.DomainTransport.Obejects.*;
 
 import com.google.gson.JsonObject;
 import java.sql.SQLException;

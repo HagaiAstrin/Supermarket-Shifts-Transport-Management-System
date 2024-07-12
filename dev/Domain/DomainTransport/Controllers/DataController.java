@@ -1,8 +1,8 @@
-package Domain.Controllers;
+package Domain.DomainTransport.Controllers;
 
-import DAL.*;
-import Domain.Obejects.*;
-import Domain.Repositories.*;
+import DAL.DALTransport.*;
+import Domain.DomainTransport.Obejects.*;
+import Domain.DomainTransport.Repositories.*;
 
 import java.sql.SQLException;
 

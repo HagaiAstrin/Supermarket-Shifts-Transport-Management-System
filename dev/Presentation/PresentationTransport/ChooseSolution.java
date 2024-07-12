@@ -1,6 +1,5 @@
-package Presentation;
-
-import Domain.Controllers.SolutionsController;
+package Presentation.PresentationTransport;
+import Domain.DomainTransport.Controllers.SolutionsController;
 import com.google.gson.JsonObject;
 
 import java.sql.SQLException;
