@@ -165,6 +165,8 @@ public class CreateTransportation {
         JsonObject new_Site = DataController.ChooseSite(area, type,
                 new_json.get("Day").getAsString(), new_json.get("Leaving time").getAsString());
 
+        if(new_Site == null) return null;
+
         return printToUser(new_Site.size(), new_Site);
     }
     public static void chooseSite(String area) throws SQLException {
@@ -210,6 +212,11 @@ public class CreateTransportation {
                 JsonObject Item_j = new JsonObject();
 
                 String store = chooseTypeOfSite(area, "Store");
+                if(store == null){
+                    //TODO Canceled the Transport, there are not Stoker in the Stores in the Area
+                    return;
+                }
+
                 String it = "yes";
                 while (it.equals("yes")) {
 

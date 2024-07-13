@@ -93,70 +93,44 @@ public class SitesDAO implements IDAO<Site>{
         site.setInt(1, j.get("Site ID").getAsInt());
         site.executeUpdate();
     }
-    public boolean IS_STORE_KEEPER(String name, String day, String time) throws SQLException{
 
-        connection_store = DB_Connector.getStoreConnection(name);
+    /**
+     * Return True if there is a Stocker in the Store, on the Specific day and in the Specific time
+     */
+    public static boolean IS_STORE_KEEPER(String name, String day, String time) throws SQLException {
+        Connection connection_store = DB_Connector.getStoreConnection(name);
         String sql = "SELECT * FROM template";
         PreparedStatement site = connection_store.prepareStatement(sql);
-        List<JsonObject> keeperShifts = new ArrayList<>();
-
         ResultSet rs = site.executeQuery();
 
-        while (rs.next()) {
-            JsonObject j = new JsonObject();
+        if (time.equals("2")) rs.next();
 
-            j.addProperty("Sunday", rs.getString("Sun"));
-            j.addProperty("Monday", rs.getString("Mon"));
-            j.addProperty("Tuesday", rs.getString("Tue"));
-            j.addProperty("Wednesday", rs.getString("Wed"));
-            j.addProperty("Thursday", rs.getString("Thu"));
-
-            keeperShifts.add(j);
-        }
-        System.out.println(time);
-        System.out.println("***** time *****");
-
-        //TODO problem in the Store print
-
-        switch (time){
-            case "1" -> {
-                return keeperShifts.get(0).get(day) != null;
+        List<List<String>> rowArray = new ArrayList<>();
+        for (String column : new String[]{"Sun", "Mon", "Tue", "Wed", "Thu"}) {
+            List<String> cellArray = new ArrayList<>();
+            String cellValue = rs.getString(column);
+            if (cellValue != null && !cellValue.isEmpty()) {
+                String[] values = cellValue.split(",");
+                for (String value : values) {
+                    cellArray.add(value); // Add the split values to the list
+                }
             }
-            case "2" -> {
-                return keeperShifts.get(1).get(day) != null;
-            }
+            rowArray.add(cellArray); // Add the cellArray to the rowArray
         }
-        return false;
+
+        // Convert the day to an integer
+        int cur_day = Integer.parseInt(day);
+
+        // Check if the specified day is within the valid range
+        if (cur_day < 1 || cur_day > rowArray.size()) {
+            System.out.println("Invalid day: " + cur_day);
+            return false;
+        }
+
+        // Get the list of scheduled keepers for the specified day
+        List<String> check_stock_keeper = rowArray.get(cur_day - 1);
+
+        // Check if there are any keepers scheduled for the specified day and time
+        return check_stock_keeper != null && !check_stock_keeper.isEmpty();
     }
-
-//        List<JsonObject> keeperShifts = new ArrayList<>();
-//
-//        String sql = "SELECT template FROM " + name;
-//
-//        PreparedStatement site = connection.prepareStatement(sql);
-//
-//        ResultSet rs = site.executeQuery();
-//
-//        while (rs.next()) {
-//            JsonObject j = new JsonObject();
-//
-//            j.addProperty("Sunday", rs.getString("Sun"));
-//            j.addProperty("Monday", rs.getString("Mon"));
-//            j.addProperty("Tuesday", rs.getString("Tue"));
-//            j.addProperty("Wednesday", rs.getString("Wed"));
-//            j.addProperty("Thursday", rs.getString("Thu"));
-//
-//            keeperShifts.add(j);
-//        }
-//
-//        switch (time){
-//            case "08:00" -> {
-//                return keeperShifts.get(0).get(day) != null;
-//            }
-//            case "16:00" -> {
-//                return keeperShifts.get(1).get(day) != null;
-//            }
-//        }
-//        return false;
-//    }
 }

@@ -88,8 +88,6 @@ public class SitesRepository implements IRepository<Site> {
             }
         }
 
-        System.out.println("**** it comes secound here *****");
-
         return j;
     }
 
