@@ -1,8 +1,11 @@
 package Presentation.PresentationEmployee;
 
 import Domain.DomainEmployee.Controller.AdminController;
+import Domain.DomainEmployee.Controller.DataController;
 import Domain.DomainEmployee.Controller.SystemController;
 import com.google.gson.JsonObject;
+
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +105,7 @@ public class AdminMenu {
                         break;
                     case 4:
                         // Going to the shift menu.
+                        List<List<List<Integer>>> lst = DataController.getTableValuesAsArray();
                         ShiftInteraction();
                         break;
                     case 5:
@@ -147,8 +151,9 @@ public class AdminMenu {
             System.out.println("\t2: Print scheduled week for specific job type");
             System.out.println("\t3: Add shifts");
             System.out.println("\t4: Delete Shifts");
-            System.out.println("\t5: Go Back");
-            System.out.println("\t6: Finish(Save & Print Shifts)\n");
+            System.out.println("\t5: Restart Week");
+            System.out.println("\t6: Go Back");
+            System.out.println("\t7: Finish(Save & Print Shifts)\n");
 
             try {
                 int choice = scanner.nextInt();
@@ -171,8 +176,11 @@ public class AdminMenu {
                         DeleteShiftMenu();
                         break;
                     case 5:
-                        return;
+                        AdminController.RestartWeek();
+                        break;
                     case 6:
+                        return;
+                    case 7:
                         try {
                             AdminController.checkEmployeeWeekFull(employeeInShift);
                         }

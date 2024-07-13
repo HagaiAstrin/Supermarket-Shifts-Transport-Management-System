@@ -58,6 +58,11 @@ public class DriverRepository implements IRepository<Driver> {
         return j;
     }
 
+//    @Override
+    public JsonObject ChooseAll(String s, String v) {
+        return null;
+    }
+
     /**
      * Update a Driver using JsonObject
      */

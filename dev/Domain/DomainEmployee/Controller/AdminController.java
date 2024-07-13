@@ -20,6 +20,7 @@ public class AdminController {
     public static void ImportEmployees(){
         IO_Data.ImportEmployees();
         IO_Data.startWeek();
+        // TODO: load template table to memory
     }
 
     /**
@@ -95,5 +96,9 @@ public class AdminController {
 
     public static void AddNewLoginInfo(String id, String name) {
         DataController.addNewLoginInfo(id, name);
+    }
+
+    public static void RestartWeek() {
+        DataController.recreateTemplateTable();
     }
 }

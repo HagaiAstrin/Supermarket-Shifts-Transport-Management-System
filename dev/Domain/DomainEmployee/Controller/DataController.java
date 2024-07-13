@@ -8,6 +8,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class DataController {
@@ -283,6 +284,96 @@ public class DataController {
 
         } catch (SQLException e) {
         }
+    }
+
+
+    public static void recreateTemplateTable() {
+        String dropTableSQL = "DROP TABLE IF EXISTS template;";
+        String createTableSQL = "CREATE TABLE template (Sun TEXT, Mon TEXT, Tue TEXT, Wed TEXT, Thu TEXT);";
+        String insertNullRowSQL = "INSERT INTO template (Sun, Mon, Tue, Wed, Thu) VALUES (NULL, NULL, NULL, NULL, NULL);";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             Statement statement = connection.createStatement()) {
+
+            // Drop the table if it exists
+            statement.execute(dropTableSQL);
+
+            // Create the table
+            statement.execute(createTableSQL);
+
+            // Insert 8 rows of NULLs
+            for (int i = 0; i < 8; i++) {
+                statement.execute(insertNullRowSQL);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Failed to recreate table 'template'.");
+        }
+    }
+
+    public static JsonObject getEmployeeById(String id) {
+        String query = "SELECT id, JobType, name, bankID, startDate, salary, restDays FROM Employees WHERE id = ?";
+        JsonObject employeeJson = new JsonObject();
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    employeeJson.addProperty("id", resultSet.getString("id"));
+                    employeeJson.addProperty("JobType", resultSet.getString("JobType"));
+                    employeeJson.addProperty("name", resultSet.getString("name"));
+                    employeeJson.addProperty("bankID", resultSet.getString("bankID"));
+                    employeeJson.addProperty("startDate", resultSet.getString("startDate"));
+                    employeeJson.addProperty("salary", resultSet.getString("salary"));
+                    employeeJson.addProperty("restDays", resultSet.getString("restDays"));
+                } else {
+                    System.out.println("No employee found with ID: " + id);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Failed to get employee with ID: " + id);
+        }
+
+        return employeeJson;
+    }
+
+    public static List<List<List<Integer>>> getTableValuesAsArray() {
+        List<List<List<Integer>>> tableArray = new ArrayList<>();
+        String query = "SELECT Sun, Mon, Tue, Wed, Thu FROM template";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                List<List<Integer>> rowArray = new ArrayList<>();
+                for (String column : new String[]{"Sun", "Mon", "Tue", "Wed", "Thu"}) {
+                    String cellValue = resultSet.getString(column);
+                    List<Integer> cellArray = new ArrayList<>();
+                    if (cellValue != null && !cellValue.isEmpty()) {
+                        String[] values = cellValue.split(",");
+                        for (String value : values) {
+                            try {
+                                cellArray.add(Integer.parseInt(value.trim()));
+                            } catch (NumberFormatException e) {
+                                System.out.println("Invalid number format: " + value);
+                            }
+                        }
+                    }
+                    rowArray.add(cellArray);
+                }
+                tableArray.add(rowArray);
+            }
+
+            System.out.println("Table values retrieved and converted to array successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Failed to retrieve and convert table values to array.");
+        }
+
+        return tableArray;
     }
 
 

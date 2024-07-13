@@ -126,38 +126,8 @@ public class WeeklyShift {
         return sb.toString();
     }
 
-    /**
-     * Send the shifts to the csv file.
-     */
-    public static void exportShiftsToCSV(Map<JobTypeEnum, JobWeeklyShift> shiftByJob) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Constants.DEV + IO_Data.branch + "\\Preferences.csv"))) {
-            writer.write("JobType,Day,Shift,Employees\n");
 
-            for (Map.Entry<JobTypeEnum, JobWeeklyShift> entry : shiftByJob.entrySet()) {
-                JobTypeEnum jobType = entry.getKey();
-                JobWeeklyShift jobWeeklyShift = entry.getValue();
-                ArrayList<Employee>[][] weeklyShifts = jobWeeklyShift.getWeeklyShifts();
 
-                for (int i = 0; i < DAYS.length; i++) {
-                    for (int j = 0; j < SHIFTS.length; j++) {
-                        String day = DAYS[i];
-                        String shift = SHIFTS[j];
-                        String employees;
-                        if(weeklyShifts[j][i] == null){
-                            employees = "";
-                        }
-                        else {
-                            employees = getEmployeesString(weeklyShifts[j][i]);
-                            writer.write(jobType + "," + day + "," + shift + "," + employees + "\n");
-                        }
-                    }
-                }
-            }
-
-        } catch (IOException e) {
-            System.err.println("Error writing to CSV file: " + e.getMessage());
-        }
-    }
 }
 
 

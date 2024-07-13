@@ -3,6 +3,7 @@ package Domain.DomainTransport.Repositories;
 import Domain.DomainTransport.Obejects.TransportDocument;
 import com.google.gson.JsonObject;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TransportsRepository implements IRepository<TransportDocument> {
@@ -26,8 +27,14 @@ public class TransportsRepository implements IRepository<TransportDocument> {
         }
         return null;
     }
-    @Override
-    public JsonObject ChooseAll(String s, String v) {
+
+//    @Override
+//    public JsonObject ChooseAll(JsonObject j) throws SQLException {
+//        return null;
+//    }
+
+//    @Override
+    public JsonObject ChooseAll(JsonObject k) {
         JsonObject j = new JsonObject();
         int count = 1;
         for (TransportDocument t : AllTransportations){

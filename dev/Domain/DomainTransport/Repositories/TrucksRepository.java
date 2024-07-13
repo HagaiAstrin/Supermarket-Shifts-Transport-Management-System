@@ -38,6 +38,12 @@ public class TrucksRepository implements IRepository<Truck> {
         }
         return j;
     }
+
+//    @Override
+    public JsonObject ChooseAll(String s, String v) {
+        return null;
+    }
+
     @Override
     public void Update(JsonObject j){
 
