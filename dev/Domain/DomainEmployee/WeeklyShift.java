@@ -99,6 +99,7 @@ public class WeeklyShift {
 
         // now we need to remove employee because he cant work in this shift
         // Schedules will be 2 in his chart
+        System.out.println("ID:" + id);
         IO_Data.currEmployees.get(id).WeekPreferences[shift][day] = "2";
     }
 

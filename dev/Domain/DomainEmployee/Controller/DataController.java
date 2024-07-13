@@ -368,9 +368,7 @@ public class DataController {
                 return;
             }
 
-            List<String> ids = new ArrayList<>(List.of(cellValue.split(",")));
-            ids.remove(id);
-            cellValue = String.join(",", ids);
+            cellValue = RemoveValueFromCell(cellValue, id, role);
 
             updateStatement.setString(1, cellValue);
 
@@ -385,6 +383,20 @@ public class DataController {
         } catch (SQLException e) {
             System.out.println("Failed to remove preference from db.");
         }
+    }
+
+    private static String RemoveValueFromCell(String currValue, String id, JobTypeEnum role){
+        List<String> ids = new ArrayList<>(List.of(currValue.split(",")));
+
+        if(role == JobTypeEnum.STOCK_KEEPER && ids.size() == 1){
+            throw new RuntimeException("Can't remove the last stock keeper from the shift.\n" +
+                    "Please add another stock keeper before removing this one.");
+        }
+        else{
+            ids.remove(id);
+        }
+
+        return String.join(",", ids);
     }
 
     private static String addValueToCell(String currValue, String id){
