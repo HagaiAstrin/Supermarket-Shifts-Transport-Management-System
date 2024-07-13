@@ -48,9 +48,9 @@ public class IO_Data {
         if (day >= amount_days || day < 0 || shift >= amount_shifts || amount_shifts < 0){
             throw new RuntimeException("Invalid day or shift");
         }
-        if (e.WeekPreferences[day][shift].equals("2")){
+        if (e.WeekPreferences[shift][day].equals("2")){
             if (WeeklyShift.removeEmployee(job, day, shift, id)){ //Changed in public calendar
-                e.WeekPreferences[day][shift] = "1"; // save in Employee Personal preferences
+                e.WeekPreferences[shift][day] = "1"; // save in Employee Personal preferences
                 dayTypeEnum dte = dayTypeEnum.values()[day];
                 ShiftType st = ShiftType.values()[shift];
                 return e.getName() + "(id: " + id + ")" + " was removed from shift and change his preferences to not work on " + dte.toString() + " at " + st.toString() + " shift";

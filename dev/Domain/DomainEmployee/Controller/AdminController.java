@@ -85,7 +85,9 @@ public class AdminController {
     }
 
     public static String removeShift(int id, int day, int shift, int job){
-        return IO_Data.removeFromShiftIO(id, day, shift, job);
+        String ret = IO_Data.removeFromShiftIO(id, day, shift, job);
+        DataController.RemoveFromTemplateTable(day, shift, String.valueOf(id), JobTypeEnum.values()[job]);
+        return ret;
     }
 
     /**

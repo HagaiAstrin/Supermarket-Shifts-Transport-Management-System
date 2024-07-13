@@ -315,7 +315,7 @@ public class DataController {
         int offset = getOffsetByRole(role);
 
         String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu"};
-        String query = "SELECT Sun, Mon, Tue, Wed, Thu FROM template WHERE rowid = " + offset+1;
+        String query = "SELECT Sun, Mon, Tue, Wed, Thu FROM template WHERE rowid = " + (offset+shift+1);
         String column = days[day];
         String updateSQL = "UPDATE template SET " + column + " = ? WHERE rowid = " + (offset+shift+1);
 
@@ -347,6 +347,43 @@ public class DataController {
 
         } catch (SQLException e) {
             System.out.println("Failed to add preference to db.");
+        }
+    }
+
+    public static void RemoveFromTemplateTable(int day, int shift, String id, JobTypeEnum role){
+        int offset = getOffsetByRole(role);
+
+        String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu"};
+        String query = "SELECT Sun, Mon, Tue, Wed, Thu FROM template WHERE rowid = " + (offset+shift+1);
+        String column = days[day];
+        String updateSQL = "UPDATE template SET " + column + " = ? WHERE rowid = " + (offset+shift+1);
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             PreparedStatement updateStatement = connection.prepareStatement(updateSQL)) {
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String cellValue = resultSet.getString(days[day]);
+            if(cellValue == null || cellValue.isEmpty()){
+                return;
+            }
+
+            List<String> ids = new ArrayList<>(List.of(cellValue.split(",")));
+            ids.remove(id);
+            cellValue = String.join(",", ids);
+
+            updateStatement.setString(1, cellValue);
+
+            int rowsAffected = updateStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Removed successfully.");
+            } else {
+                System.out.println("Update failed. No rows affected.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Failed to remove preference from db.");
         }
     }
 
