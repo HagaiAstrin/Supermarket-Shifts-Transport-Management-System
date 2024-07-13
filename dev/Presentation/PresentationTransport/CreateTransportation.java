@@ -66,7 +66,8 @@ public class CreateTransportation {
 
             while (a.equals("yes")) {
 
-                chooseSite(area);
+                if (!chooseSite(area))
+                    return;
                 System.out.println("\nDo you want to add another site for the transport? Enter 'yes' or 'no'.");
                 a = reader.nextLine();
                 while (!a.equals("yes") && !a.equals("no")) {
@@ -165,11 +166,11 @@ public class CreateTransportation {
         JsonObject new_Site = DataController.ChooseSite(area, type,
                 new_json.get("Day").getAsString(), new_json.get("Leaving time").getAsString());
 
-        if(new_Site == null) return null;
+        if(new_Site.size() == 0) return null;
 
         return printToUser(new_Site.size(), new_Site);
     }
-    public static void chooseSite(String area) throws SQLException {
+    public static boolean chooseSite(String area) throws SQLException {
 
         Scanner reader = new Scanner(System.in);
 
@@ -206,6 +207,7 @@ public class CreateTransportation {
                     }
                 }
                 createDocument(supplier, "Supplier", area);
+                return true;
             }
 
             case "2" -> {
@@ -213,8 +215,9 @@ public class CreateTransportation {
 
                 String store = chooseTypeOfSite(area, "Store");
                 if(store == null){
-                    //TODO Canceled the Transport, there are not Stoker in the Stores in the Area
-                    return;
+                    System.out.println("\nThere are no Stores available in this area..");
+                    System.out.println("\nTransport canceled!\n");
+                    return false;
                 }
 
                 String it = "yes";
@@ -257,10 +260,11 @@ public class CreateTransportation {
                     }
                 }
                 createDocument(store, "Store", area);
+                return true;
             }
         }
+        return false;
     }
-
 
     /**
      * Add Item from the user
