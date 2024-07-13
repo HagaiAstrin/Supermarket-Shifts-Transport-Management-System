@@ -37,7 +37,7 @@ public class Program {
             System.out.println(i + ". " + branches.get(i));
         }
         System.out.print("Enter your choice: ");
-        String choice = loop();
+        String choice = loop(branches.size());
         int branch_choice_int = Integer.parseInt(choice);
         SystemController.SetBranchName(branches.get(branch_choice_int));
     }
@@ -45,14 +45,18 @@ public class Program {
     /**
      * Input checker
      */
-    private static String loop(){
+    private static String loop(int size) {
         String branch_choice;
         while (true) {
             branch_choice = scanner.nextLine();
-            if (branch_choice.equals("0") || branch_choice.equals("1") || branch_choice.equals("2")) {
-                break;
+            try {
+                int choice = Integer.parseInt(branch_choice);
+                if (choice >= 0 && choice < size) {
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                // Do nothing, let it fall through to the error message
             }
-            // If the user didn't press 1 or 2
             System.out.println("Wrong input, please try again: ");
         }
         return branch_choice;
