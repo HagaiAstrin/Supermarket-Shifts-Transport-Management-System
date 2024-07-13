@@ -16,7 +16,7 @@ public class WeeklyShift {
     public static void startWeek() {
 
         for (JobTypeEnum JTE : JobTypeEnum.values()) {
-            if (JTE != null) {
+            if (JTE != null && !JTE.toString().equals("DRIVER")) {
                 JobWeeklyShift JWS = new JobWeeklyShift(JTE);
                 shiftByJob.put(JTE, JWS);
             }
@@ -53,7 +53,9 @@ public class WeeklyShift {
     static public String iterAllJobWeeklyShift() {
         StringBuilder output = new StringBuilder();
         for (int job = 0; job < JobTypeEnum.values().length; job++) {
-            output.append(getJobWeeklyShift(job));
+            if (!JobTypeEnum.values()[job].toString().equals("DRIVER")) {
+                output.append(getJobWeeklyShift(job));
+            }
         }
         return output.toString();
     }
