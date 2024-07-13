@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 public class DriverController {
 
+    /**
+     * Driver Log in to the System
+     */
     public static String driverLogIn(JsonObject j) throws SQLException {
 
         ArrayList<Driver> drivers = DataController.getAllDrivers();
@@ -18,6 +21,10 @@ public class DriverController {
         }
         return null;
     }
+
+    /**
+     * Driver Log in to the System
+     */
     public static String printDriverRoute(JsonObject j) throws SQLException{
 
         ArrayList<Driver> drivers = DataController.getAllDrivers();
@@ -78,7 +85,7 @@ public class DriverController {
             if (j.get("Name").getAsString().equals(driver.getName()) && j.get
                     ("Password").getAsString().equals(driver.getPassword())) {
 
-                if (driver.getTransportDocument().getID() == 0) {
+                if (driver.getTransportDocument() == null) {
                     return ("\nYou didnt assigned to any Transportation!");
                 }
                 else if(driver.getStatus().equals("On the road")) {

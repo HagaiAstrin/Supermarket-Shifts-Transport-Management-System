@@ -21,7 +21,23 @@ public class Menu {
         JsonObject json = new JsonObject();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Employee ID: ");
-        String id = scanner.nextLine();
+        String id;
+        while (true) {
+            id = scanner.nextLine();
+            int id_int;
+            try {
+                id_int = Integer.parseInt(id);
+            } catch (NumberFormatException e) {
+                System.out.print("Invalid input, try again. Enter Employee ID: ");
+                continue;
+            }
+
+            if (id_int < 200) {
+                System.out.print("Invalid input, try again. Enter Employee ID: ");
+                continue;
+            }
+            break;
+        }
         json.addProperty("id", id);
 
         System.out.print("Enter Employee Name: ");

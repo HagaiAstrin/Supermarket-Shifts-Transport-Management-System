@@ -25,17 +25,17 @@ public class CreateTransportation {
             new_json.addProperty("Source", reader.nextLine());
 
             System.out.println("\nPlease choose the day of the transportation: " +
-                    "'1' - Sunday" +
-                    "'2' - Monday" +
-                    "'3' - Tuesday" +
-                    "'4' - Wednesday" +
-                    "'5' - Thursday");
+                    "\n'1' - Sunday" +
+                    "\n'2' - Monday" +
+                    "\n'3' - Tuesday" +
+                    "\n'4' - Wednesday" +
+                    "\n'5' - Thursday");
 
             new_json.addProperty("Day", reader.nextLine());
 
-            System.out.println("\nPlease choose the leaving time of the transportation:" +
-                    "'1' - 08:00" +
-                    "'2' - 16:00");
+            System.out.println("\nPlease choose the leaving time of the transportation :" +
+                    "\n'1' - 08:00" +
+                    "\n'2' - 16:00");
             new_json.addProperty("Leaving time", reader.nextLine());
 
             String truck = ChooseTruck();
@@ -79,7 +79,8 @@ public class CreateTransportation {
             int result = TransportationController.checkTransport();
 
             boolean bool = true;
-            //HeadLine Weight Solution
+
+            //HeadLine /*Weight Solution*/
             while (result != 0) {
                 switch (result) {
                     case 1 -> {
@@ -162,7 +163,9 @@ public class CreateTransportation {
         System.out.println("\nPlease choose a " + type + " :");
 
         JsonObject new_Site = DataController.ChooseSite(area, type,
-                new_json.get("Date").getAsString(), new_json.get("Leaving time").getAsString());
+                new_json.get("Day").getAsString(), new_json.get("Leaving time").getAsString());
+
+        if(new_Site == null) return null;
 
         return printToUser(new_Site.size(), new_Site);
     }
@@ -209,6 +212,11 @@ public class CreateTransportation {
                 JsonObject Item_j = new JsonObject();
 
                 String store = chooseTypeOfSite(area, "Store");
+                if(store == null){
+                    //TODO Canceled the Transport, there are not Stoker in the Stores in the Area
+                    return;
+                }
+
                 String it = "yes";
                 while (it.equals("yes")) {
 
