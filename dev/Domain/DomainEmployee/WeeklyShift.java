@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class WeeklyShift {
     static Map<JobTypeEnum, JobWeeklyShift> shiftByJob = new HashMap<>();
-    static private JobTypeEnum[] jobTypeArray = JobTypeEnum.values();
+    static private JobTypeEnum[] jobTypeArray  = JobTypeEnum.values();
     private static final String[] DAYS = {"Sun", "Mon", "Tue", "Wed", "Thu"};
     private static final String[] SHIFTS = {"Morning", "Evening"};
 
