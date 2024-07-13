@@ -81,6 +81,7 @@ public class AdminController {
      */
     public static void SetShift(int job, int day, int shift, int id) throws Exception {
         IO_Data.setEmployeeHowCanWork(job, day, shift, id);
+        DataController.InsertToTemplateTable(day, shift, String.valueOf(id), JobTypeEnum.values()[job]);
     }
 
     public static String removeShift(int id, int day, int shift, int job){

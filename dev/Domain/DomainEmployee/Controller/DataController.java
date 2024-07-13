@@ -311,6 +311,65 @@ public class DataController {
         }
     }
 
+    public static void InsertToTemplateTable(int day, int shift, String id, JobTypeEnum role){
+        int offset = getOffsetByRole(role);
+
+        String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu"};
+        String query = "SELECT Sun, Mon, Tue, Wed, Thu FROM template WHERE rowid = " + offset+1;
+        String column = days[day];
+        String updateSQL = "UPDATE template SET " + column + " = ? WHERE rowid = " + (offset+shift+1);
+
+
+
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             PreparedStatement updateStatement = connection.prepareStatement(updateSQL)) {
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String cellValue = resultSet.getString(days[day]);
+            if(cellValue == null || cellValue.isEmpty()){
+                cellValue = id;
+            }
+            else{
+                cellValue = addValueToCell(cellValue, id);
+            }
+
+            updateStatement.setString(1, cellValue);
+
+            int rowsAffected = updateStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Updated successfully.");
+            } else {
+                System.out.println("Update failed. No rows affected.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Failed to add preference to db.");
+        }
+    }
+
+    private static String addValueToCell(String currValue, String id){
+        List<String> ids = new ArrayList<>(List.of(currValue.split(",")));
+
+        ids.add(id);
+        return String.join(",", ids);
+    }
+    private static int getOffsetByRole(JobTypeEnum role){
+        switch (role) {
+            case STOCK_KEEPER:
+                return 0;
+            case SHIFT_MANAGER:
+                return 2;
+            case CASHIER:
+                return 4;
+            case DRIVER:
+                return 6;
+        }
+        return -1;
+    }
+
     public static JsonObject getEmployeeById(String id) {
         String query = "SELECT id, JobType, name, bankID, startDate, salary, restDays FROM Employees WHERE id = ?";
         JsonObject employeeJson = new JsonObject();

@@ -108,7 +108,6 @@ public class AdminMenu {
                         Menu.UpdateEmployeeDetails();
                         break;
                     case 4:
-
                         ShiftInteraction();
                         break;
                     case 5:
@@ -261,9 +260,9 @@ public class AdminMenu {
         while (true){
             try {
                 System.out.println("\nSelect the job you want to add a shift for");
-                System.out.println("\t0: SHIFT_MANAGER");
-                System.out.println("\t1: CASHIER");
-                System.out.println("\t2: STOCK_KEEPER");
+                System.out.println("\t0: STOCK_KEEPER");
+                System.out.println("\t1: SHIFT_MANAGER");
+                System.out.println("\t2: CASHIER");
                 System.out.println("\t3: Go back");
 
                 int job = scanner.nextInt();
