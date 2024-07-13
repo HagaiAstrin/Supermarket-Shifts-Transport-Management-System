@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class main {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) throws IOException, InterruptedException, SQLException {
+    public static void main(String[] args) throws Exception {
         Program program = new Program();
         while (true) {
             displayMenu(program);
@@ -17,7 +17,7 @@ public class main {
 
     }
 
-    private static void displayMenu(Program program) throws IOException, InterruptedException, SQLException {
+    private static void displayMenu(Program program) throws Exception {
         program.logo();
         System.out.println("Welcome to the \"Super-Lee\" system.");
         System.out.println("Choose an option:");

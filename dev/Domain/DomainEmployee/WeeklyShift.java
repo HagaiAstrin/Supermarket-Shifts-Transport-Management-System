@@ -133,7 +133,7 @@ public class WeeklyShift {
     public static void setShiftedAllEmployees(List<List<List<String>>> lst) {
         List<List<List<List<String>>>> refactoredSchedule = new ArrayList<>();
         refactoredSchedule = refactorSchedule(lst);
-        for (int job = 0; job < 4; job++) {
+        for (int job = 0; job < 3; job++) {
             for (int day = 0; day < 5; day++) {
                 for (int shift = 0; shift < 2; shift++) {
                     List<String> ids = refactoredSchedule.get(job).get(shift).get(day);
