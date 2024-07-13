@@ -2,9 +2,9 @@ package Domain.DomainEmployee;
 
 public enum JobTypeEnum {
 
+    STOCK_KEEPER("STOCK KEEPER"),
     SHIFT_MANAGER("SHIFT MANAGER"),
     CASHIER("CASHIER"),
-    STOCK_KEEPER("STOCK KEEPER"),
     DRIVER("DRIVER");
 
     private String jobType;

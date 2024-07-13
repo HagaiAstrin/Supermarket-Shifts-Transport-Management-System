@@ -1,11 +1,7 @@
 package Domain.DomainEmployee;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +9,7 @@ import java.util.Map;
 
 public class WeeklyShift {
     static Map<JobTypeEnum, JobWeeklyShift> shiftByJob = new HashMap<>();
+    static private JobTypeEnum[] jobTypeArray = JobTypeEnum.values();
     private static final String[] DAYS = {"Sun", "Mon", "Tue", "Wed", "Thu"};
     private static final String[] SHIFTS = {"Morning", "Evening"};
 
@@ -25,6 +22,11 @@ public class WeeklyShift {
             }
         }
     }
+
+//    public static void setByRole(int role, int day, int shift, int id) {
+//        // {0, 1, 2, 3} -> {SHIFT_MANAGER, CASHIER, STOCK_KEEPER, DRIVER}
+//
+//    }
 
     public static Map<JobTypeEnum, JobWeeklyShift> GetShiftByJob() {
         return shiftByJob;
@@ -127,7 +129,48 @@ public class WeeklyShift {
     }
 
 
+    public static void setShiftedAllEmployees(List<List<List<String>>> lst) {
+        List<List<List<List<String>>>> refactoredSchedule = new ArrayList<>();
+        refactoredSchedule = refactorSchedule(lst);
+        for (int job = 0; job < 4; job++) {
+            for (int day = 0; day < 5; day++) {
+                for (int shift = 0; shift < 2; shift++) {
+                    List<String> ids = refactoredSchedule.get(job).get(shift).get(day);
+                    for (String id : ids) {
+                        if (!id.equals("")) {
+                            setEmployeeHowCanWork(job, day, shift, Integer.parseInt(id));
+                        }
+                    }
+                }
+            }
+        }
+    }
 
+    private static List<List<List<String>>> getbyjob(List<List<List<List<String>>>> lst, int i){
+        //0 - Stock
+        //1 - Shift Manager
+        //2 - Cashier
+        //3 - Driver
+        return lst.get(i);
+    }
+
+    public static List<List<List<List<String>>>> refactorSchedule(List<List<List<String>>> schedule) {
+        List<List<List<List<String>>>> refactoredSchedule = new ArrayList<>();
+        //[[[1,2],[3],..]]] -> [[1,2],[3]],.....
+        // Initialize the refactored structure with two lists (one for each shift)
+        for (int i = 0; i < schedule.size(); i+=2) {
+            refactoredSchedule.add(get_new_array(schedule,i));
+        }
+
+        return refactoredSchedule;
+    }
+    private static List<List<List<String>>> get_new_array(List<List<List<String>>> lst, int i){
+        List<List<List<String>>> new_lst = new ArrayList<>();
+        new_lst.add(lst.get(i));
+        new_lst.add(lst.get(i+1));
+        return new_lst;
+
+    }
 }
 
 

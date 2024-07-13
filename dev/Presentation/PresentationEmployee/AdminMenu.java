@@ -41,10 +41,14 @@ public class AdminMenu {
             int choice_int = Integer.parseInt(choice);
             switch (choice_int) {
                 case 1:
-                    ProgressBar();
+//                    ProgressBar();
+
                     System.out.println("Data was loaded successfully.");
                     Thread.sleep(500);
                     AdminController.ImportEmployees();
+                    // Going to the shift menu.
+                    List<List<List<String>>> lst = DataController.getTableValuesAsArray();
+                    AdminController.setShiftedEmployees(lst);
                     Menu();
                     return;
                 case 2:
@@ -104,8 +108,7 @@ public class AdminMenu {
                         Menu.UpdateEmployeeDetails();
                         break;
                     case 4:
-                        // Going to the shift menu.
-                        List<List<List<Integer>>> lst = DataController.getTableValuesAsArray();
+
                         ShiftInteraction();
                         break;
                     case 5:
