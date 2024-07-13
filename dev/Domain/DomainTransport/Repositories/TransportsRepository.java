@@ -28,12 +28,7 @@ public class TransportsRepository implements IRepository<TransportDocument> {
         return null;
     }
 
-//    @Override
-//    public JsonObject ChooseAll(JsonObject j) throws SQLException {
-//        return null;
-//    }
-
-//    @Override
+    @Override
     public JsonObject ChooseAll(JsonObject k) {
         JsonObject j = new JsonObject();
         int count = 1;

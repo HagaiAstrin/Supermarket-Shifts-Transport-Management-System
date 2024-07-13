@@ -14,6 +14,8 @@ import java.util.List;
 public class SitesDAO implements IDAO<Site>{
     private Connection connection;
 
+    private Connection connection_store;
+
     /**
      * SitesDAO Constructor
      */
@@ -53,7 +55,7 @@ public class SitesDAO implements IDAO<Site>{
     }
 
     /**
-     * INSERT onto the DB new Site
+     * INSERT into the DB new Site
      */
     @Override
     public void INSERT(JsonObject j) throws SQLException {
@@ -76,6 +78,8 @@ public class SitesDAO implements IDAO<Site>{
     @Override
     public void UPDATE(JsonObject j)throws SQLException {
     }
+
+
     /**
      * DELETE a Site in the DB
      */
@@ -91,11 +95,10 @@ public class SitesDAO implements IDAO<Site>{
     }
     public boolean IS_STORE_KEEPER(String name, String day, String time) throws SQLException{
 
+        connection_store = DB_Connector.getStoreConnection(name);
+        String sql = "SELECT * FROM template";
+        PreparedStatement site = connection_store.prepareStatement(sql);
         List<JsonObject> keeperShifts = new ArrayList<>();
-
-        String sql = "SELECT template FROM " + name;
-
-        PreparedStatement site = connection.prepareStatement(sql);
 
         ResultSet rs = site.executeQuery();
 
@@ -110,15 +113,50 @@ public class SitesDAO implements IDAO<Site>{
 
             keeperShifts.add(j);
         }
+        System.out.println(time);
+        System.out.println("***** time *****");
+
+        //TODO problem in the Store print
 
         switch (time){
-            case "08:00" -> {
+            case "1" -> {
                 return keeperShifts.get(0).get(day) != null;
             }
-            case "16:00" -> {
+            case "2" -> {
                 return keeperShifts.get(1).get(day) != null;
             }
         }
         return false;
     }
+
+//        List<JsonObject> keeperShifts = new ArrayList<>();
+//
+//        String sql = "SELECT template FROM " + name;
+//
+//        PreparedStatement site = connection.prepareStatement(sql);
+//
+//        ResultSet rs = site.executeQuery();
+//
+//        while (rs.next()) {
+//            JsonObject j = new JsonObject();
+//
+//            j.addProperty("Sunday", rs.getString("Sun"));
+//            j.addProperty("Monday", rs.getString("Mon"));
+//            j.addProperty("Tuesday", rs.getString("Tue"));
+//            j.addProperty("Wednesday", rs.getString("Wed"));
+//            j.addProperty("Thursday", rs.getString("Thu"));
+//
+//            keeperShifts.add(j);
+//        }
+//
+//        switch (time){
+//            case "08:00" -> {
+//                return keeperShifts.get(0).get(day) != null;
+//            }
+//            case "16:00" -> {
+//                return keeperShifts.get(1).get(day) != null;
+//            }
+//        }
+//        return false;
+//    }
 }

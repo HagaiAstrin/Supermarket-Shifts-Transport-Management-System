@@ -80,12 +80,16 @@ public class SitesRepository implements IRepository<Site> {
 
                 boolean answer = DataController.isStorekeeper(name, day, time);
 
-                if (!answer)
-                    continue;
+                if (answer)
+                    j.addProperty(String.valueOf(count++), iter.getValue().to_string());
             }
-
-            j.addProperty(String.valueOf(count++), iter.getValue().to_string());
+            else {
+                j.addProperty(String.valueOf(count++), iter.getValue().to_string());
+            }
         }
+
+        System.out.println("**** it comes secound here *****");
+
         return j;
     }
 
@@ -115,7 +119,7 @@ public class SitesRepository implements IRepository<Site> {
         return count;
     }
 
-    // Only Sites Repository Methods:
+    /* Only Sites Repository Methods:*/
     public void AddShippingArea(String s){
         for (Map.Entry<String, Map<String, Map<String, Site>>> iter : AllSites.entrySet()) {
             if (iter.getKey().equals(s))

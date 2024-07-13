@@ -6,19 +6,19 @@ import com.google.gson.JsonObject;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class TransportationManagerMenu {
+public class Transportation_Manager_Menu {
     public static void transportation_manager() throws SQLException {
 
         Scanner reader = new Scanner(System.in);
 
-        System.out.println("\nEnter password:");
-        String password = reader.nextLine();
-
-        while (!password.equals("123456789")) {
-            System.out.println("Wrong password, try again..\n");
-            System.out.println("Enter password:");
-            password = reader.nextLine();
-        }
+//        System.out.println("\nEnter password:");
+//        String password = reader.nextLine();
+//
+//        while (!password.equals("123456789")) {
+//            System.out.println("Wrong password, try again..\n");
+//            System.out.println("Enter password:");
+//            password = reader.nextLine();
+//        }
 
         while (true) {
             StringBuilder manager_menu = new StringBuilder();

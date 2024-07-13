@@ -3,10 +3,10 @@ package Presentation.PresentationTransport;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Main {
+public class Main_Transport {
 
     /**
-     * Start of the Program
+     * Start of the Transport System
      */
     public static void TransportMenu() throws InterruptedException, SQLException {
 
@@ -37,7 +37,7 @@ public class Main {
                 type = reader.nextLine();
             }
             switch (type) {
-                case "1" -> TransportationManagerMenu.transportation_manager();
+                case "1" -> Transportation_Manager_Menu.transportation_manager();
                 case "2" -> DriverMenu.driver_x();
                 case "9" -> {
                     return;
