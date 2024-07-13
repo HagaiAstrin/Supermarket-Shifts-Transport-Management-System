@@ -101,4 +101,8 @@ public class AdminController {
     public static void RestartWeek() {
         DataController.recreateTemplateTable();
     }
+
+    public static void setShiftedEmployees(List<List<List<String>>> lst) {
+        WeeklyShift.setShiftedAllEmployees(lst);
+    }
 }

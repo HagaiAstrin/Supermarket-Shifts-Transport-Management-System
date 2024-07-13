@@ -339,8 +339,8 @@ public class DataController {
         return employeeJson;
     }
 
-    public static List<List<List<Integer>>> getTableValuesAsArray() {
-        List<List<List<Integer>>> tableArray = new ArrayList<>();
+    public static List<List<List<String>>> getTableValuesAsArray() {
+        List<List<List<String>>> tableArray = new ArrayList<>();
         String query = "SELECT Sun, Mon, Tue, Wed, Thu FROM template";
 
         try (Connection connection = DriverManager.getConnection(DB_URL);
@@ -348,15 +348,15 @@ public class DataController {
              ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
-                List<List<Integer>> rowArray = new ArrayList<>();
+                List<List<String>> rowArray = new ArrayList<>();
                 for (String column : new String[]{"Sun", "Mon", "Tue", "Wed", "Thu"}) {
                     String cellValue = resultSet.getString(column);
-                    List<Integer> cellArray = new ArrayList<>();
+                    List<String> cellArray = new ArrayList<>();
                     if (cellValue != null && !cellValue.isEmpty()) {
                         String[] values = cellValue.split(",");
                         for (String value : values) {
                             try {
-                                cellArray.add(Integer.parseInt(value.trim()));
+                                cellArray.add(value); //Convert to int
                             } catch (NumberFormatException e) {
                                 System.out.println("Invalid number format: " + value);
                             }
