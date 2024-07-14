@@ -62,12 +62,13 @@ public class DriverMenu {
             new_s.append("\nWhat do you want to do?\n");
             new_s.append("'1' - Report on exit to transportation \n");
             new_s.append("'2' - Report on back from transportation\n");
+            new_s.append("'3' - Update your work arrangement\n");
             new_s.append("'9' - Exit to the Main menu.");
 
             System.out.println(new_s);
             String answer = reader.nextLine();
 
-            while (!answer.equals("1") && !answer.equals("2") && !answer.equals("9") ) {
+            while (!answer.equals("1") && !answer.equals("2")&& !answer.equals("3") && !answer.equals("9") ) {
                 System.out.println("\nWrong input, try again..\n");
                 System.out.println(new_s);
 
@@ -80,6 +81,7 @@ public class DriverMenu {
             switch (answer) {
                 case "1" -> leaving(new_Json);
                 case "2" -> back(new_Json);
+                case "3" -> Update();
             }
 
             System.out.println("\nDo you want to do something else? Enter 'yes' or 'no':");
@@ -102,6 +104,11 @@ public class DriverMenu {
     public static void back (JsonObject j) throws SQLException {
         String a = DriverController.updateBackDriver(j);
         System.out.println(a);
+    }
+    public static void Update () throws SQLException {
+        System.out.println("\nEnter your shifts: \n");
+        System.out.println("Enter '1' if you can work and '0'");
+        DriverController.UpdateDriverWorkArrangement();
     }
 }
 

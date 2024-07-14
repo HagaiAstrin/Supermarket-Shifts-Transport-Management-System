@@ -115,4 +115,7 @@ public class DriverController {
         }
         return ("\nYou are not exist in the system!");
     }
+    public static void UpdateDriverWorkArrangement(){
+
+    }
 }
