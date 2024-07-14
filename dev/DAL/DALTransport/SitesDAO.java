@@ -74,6 +74,10 @@ public class SitesDAO implements IDAO<Site>{
         site.setInt(7, j.get("Site ID").getAsInt());
 
         site.executeUpdate();
+
+        if (j.get("Type").getAsString().equals("Store")){
+            DB_Creator.copyDatabase("dev/Data/Haiffa.db", j.get("Name").getAsString());
+        }
     }
     @Override
     public void UPDATE(JsonObject j)throws SQLException {

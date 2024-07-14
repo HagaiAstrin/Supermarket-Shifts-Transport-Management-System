@@ -93,6 +93,8 @@ public class DataConnector {
             a = reader.nextLine();
         }
     }
+
+
     /**
      * Input from the user for Truck arguments
      */
