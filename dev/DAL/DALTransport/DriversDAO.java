@@ -3,21 +3,19 @@ package DAL.DALTransport;
 import Domain.DomainTransport.Obejects.Driver;
 import com.google.gson.JsonObject;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DriversDAO implements IDAO<Driver>{
     private Connection connection;
 
+
     /**
      * DriversDAO Constructor
      */
     public DriversDAO(){
-        this.connection = DB_Connector.getConnection();
+        this.connection = DB_Connector.getTransportationConnection();
     }
 
     /**
@@ -51,7 +49,6 @@ public class DriversDAO implements IDAO<Driver>{
 
         return all_drivers;
     }
-
     /**
      * INSERT onto the DB new Driver
      */
@@ -73,7 +70,6 @@ public class DriversDAO implements IDAO<Driver>{
 
         driver.executeUpdate();
     }
-
     /**
      * Update a Driver in the DB
      */
@@ -93,7 +89,6 @@ public class DriversDAO implements IDAO<Driver>{
 
         driver.executeUpdate();
     }
-
     /**
      * DELETE a Driver in the DB
      */
@@ -106,5 +101,33 @@ public class DriversDAO implements IDAO<Driver>{
 
         driver.setInt(1, j.get("Driver ID").getAsInt());
         driver.executeUpdate();
+    }
+
+
+    // Only DriverDAO Methods:
+    public static String CREATE_DRIVER_TABLE(int id) throws SQLException {
+
+        String createTableSQL = String.format(
+                "CREATE TABLE IF NOT EXISTS \"%s\" (Sun INTEGER, Mon INTEGER, The INTEGER, Wen INTEGER, Thu INTEGER);",
+                id
+        );
+
+        String insertRowSQL = String.format(
+                "INSERT INTO \"%s\" (Sun, Mon, The, Wen, Thu) VALUES (1, 1, 1, 1, 1);",
+                id
+        );
+        Connection connection = DB_Connector.getDriversConnection();
+
+        Statement statement = connection.createStatement();
+
+        // Create table
+        statement.execute(createTableSQL);
+
+        // Insert two rows
+        statement.execute(insertRowSQL);
+        statement.execute(insertRowSQL);
+
+        return "Table created and rows inserted for id: " + id;
+
     }
 }

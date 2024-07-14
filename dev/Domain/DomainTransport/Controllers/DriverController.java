@@ -1,4 +1,5 @@
 package Domain.DomainTransport.Controllers;
+
 import Domain.DomainTransport.Obejects.*;
 import com.google.gson.JsonObject;
 
@@ -116,6 +117,5 @@ public class DriverController {
         return ("\nYou are not exist in the system!");
     }
     public static void UpdateDriverWorkArrangement(){
-
     }
 }

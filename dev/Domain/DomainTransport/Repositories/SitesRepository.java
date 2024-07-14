@@ -1,7 +1,5 @@
 package Domain.DomainTransport.Repositories;
 
-import DAL.DALTransport.IDAO;
-import DAL.DALTransport.SitesDAO;
 import Domain.DomainTransport.Controllers.DataController;
 import Domain.DomainTransport.Obejects.Site;
 import com.google.gson.JsonObject;

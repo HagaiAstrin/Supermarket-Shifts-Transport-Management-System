@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TransportationManagerTests {
 
     @Test
-    public void AddDriverTest() throws SQLException {
+    public void AddDriverTest() throws Exception {
 
         JsonObject j = new JsonObject();
 

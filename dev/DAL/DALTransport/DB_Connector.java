@@ -1,31 +1,3 @@
-//package DAL.DALTransport;
-//
-//import java.sql.Connection;
-//import java.sql.DriverManager;
-//import java.sql.SQLException;
-//
-//public class DB_Connector {
-//    private static Connection connection;
-//
-//
-//    /**
-//     * Starting the Connection to the DB
-//     * @return Connection
-//     */
-//    public static Connection getConnection() {
-//        if (connection == null) {
-//            try {
-//                // Update the path to your .db file
-//                String url = "jdbc:sqlite:dev/Data/TransportationDataBase.db";
-//                connection = DriverManager.getConnection(url);
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return connection;
-//    }
-//}
-
 package DAL.DALTransport;
 
 import java.sql.Connection;
@@ -33,36 +5,45 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DB_Connector {
-    private static Connection connection;
-    private static Connection connection_store;
+    private static Connection TransportationConnection;
+    private static Connection StoreConnection;
+    private static Connection DriversConnection;
+
 
     /**
      * Starting the Connection to the DB
      * @return Connection
      */
-    public static Connection getConnection() {
-        if (connection == null) {
+    public static Connection getTransportationConnection() {
+        if (TransportationConnection == null) {
             try {
                 // Update the path to your .db file
                 String url = "jdbc:sqlite:dev/Data/Transportation.db";
-                connection = DriverManager.getConnection(url);
+                TransportationConnection = DriverManager.getConnection(url);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        return connection;
+        return TransportationConnection;
     }
-
-
-
     public static Connection getStoreConnection(String name){
         try {
             // Update the path to your .db file
             String url = "jdbc:sqlite:dev/Data/" + name + ".db";
-            connection_store = DriverManager.getConnection(url);
+            StoreConnection = DriverManager.getConnection(url);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return connection_store;
+        return StoreConnection;
+    }
+    public static Connection getDriversConnection(){
+        try {
+            // Update the path to your .db file
+            String url = "jdbc:sqlite:dev/Data/Drivers.db";
+            DriversConnection = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return DriversConnection;
     }
 }

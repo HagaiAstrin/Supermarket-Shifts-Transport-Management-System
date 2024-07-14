@@ -14,16 +14,16 @@ import java.util.Map;
 
 public class DataController {
 
-    private static IRepository<Truck> Trucks = new TrucksRepository();
-    private static IRepository<Driver> Drivers = new DriverRepository();
+    private static TrucksRepository Trucks = new TrucksRepository();
+    private static DriverRepository Drivers = new DriverRepository();
     private static SitesRepository Sites = new SitesRepository();
-    private static IRepository<TransportDocument> Transports = new TransportsRepository();
+    private static TransportsRepository Transports = new TransportsRepository();
 
 
-    private static IDAO<Truck> DB_Trucks = new TrucksDAO();
-    private static IDAO<Driver> DB_Drivers = new DriversDAO();
+    private static TrucksDAO DB_Trucks = new TrucksDAO();
+    private static DriversDAO DB_Drivers = new DriversDAO();
     private static SitesDAO DB_Sites = new SitesDAO();
-    private static IDAO<TransportDocument> DB_Transports = new TransportsDAO();
+    private static TransportsDAO DB_Transports = new TransportsDAO();
 
 
     public static void AddDriver(JsonObject j) throws SQLException {
@@ -51,6 +51,7 @@ public class DataController {
 
         DB_Drivers.INSERT(j);
 
+        DB_Drivers.CREATE_DRIVER_TABLE(driverID);
     }
     public static void AddTruck(JsonObject j) throws SQLException {
 
@@ -377,5 +378,6 @@ public class DataController {
     public static boolean isStorekeeper(String name, String day, String time) throws SQLException {
         return DB_Sites.IS_STORE_KEEPER(name, day, time);
     }
+
 
 }

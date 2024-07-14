@@ -6,7 +6,6 @@ import Domain.DomainEmployee.IO_Data;
 import Domain.DomainEmployee.JobTypeEnum;
 import org.junit.Test;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -123,7 +122,7 @@ public class Test_DB {
         DataController.removeEmployee(id);
         DataController.removeEmployeePreferences(id);
 
-        assertEquals(preferences,DataController.importEmployeePreferences("21"));
+        assertEquals(preferences, DataController.importEmployeePreferences("21"));
     }
 
     @Test

@@ -8,19 +8,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class SitesDAO implements IDAO<Site>{
     private Connection connection;
 
-    private Connection connection_store;
 
     /**
      * SitesDAO Constructor
      */
     public SitesDAO(){
-        this.connection = DB_Connector.getConnection();
+        this.connection = DB_Connector.getTransportationConnection();
     }
 
     /**
@@ -53,7 +51,6 @@ public class SitesDAO implements IDAO<Site>{
 
         return all_sites;
     }
-
     /**
      * INSERT into the DB new Site
      */
@@ -82,8 +79,6 @@ public class SitesDAO implements IDAO<Site>{
     @Override
     public void UPDATE(JsonObject j)throws SQLException {
     }
-
-
     /**
      * DELETE a Site in the DB
      */
@@ -98,13 +93,20 @@ public class SitesDAO implements IDAO<Site>{
         site.executeUpdate();
     }
 
+
+    // Only SiteDAO Methods:
+
     /**
      * Return True if there is a Stocker in the Store, on the Specific day and in the Specific time
      */
     public static boolean IS_STORE_KEEPER(String name, String day, String time) throws SQLException {
+
         Connection connection_store = DB_Connector.getStoreConnection(name);
+
         String sql = "SELECT * FROM template";
+
         PreparedStatement site = connection_store.prepareStatement(sql);
+
         ResultSet rs = site.executeQuery();
 
         if (time.equals("2")) rs.next();

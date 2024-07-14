@@ -1,7 +1,5 @@
 package Domain.DomainTransport.Obejects;
 
-import Domain.DomainTransport.Controllers.DataController;
-
 public class Site {
 
     private String name;

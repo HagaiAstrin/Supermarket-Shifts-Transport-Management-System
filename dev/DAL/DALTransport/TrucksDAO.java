@@ -18,7 +18,7 @@ public class TrucksDAO implements IDAO<Truck>{
      * TrucksDAO Constructor
      */
     public TrucksDAO(){
-        this.connection = DB_Connector.getConnection();
+        this.connection = DB_Connector.getTransportationConnection();
     }
 
     /**
@@ -28,8 +28,6 @@ public class TrucksDAO implements IDAO<Truck>{
     public List<JsonObject> SELECT_ALL()throws SQLException  {
 
         List<JsonObject> all_trucks = new ArrayList<>();
-
-//        String sql = "SELECT Licence_Number, Licence_Level, Net_Weight, Max_Weight, Status FROM Trucks";
 
         String sql = "SELECT * FROM Trucks";
 
@@ -51,7 +49,6 @@ public class TrucksDAO implements IDAO<Truck>{
 
         return all_trucks;
     }
-
     /**
      * INSERT onto the DB new Truck
      */
@@ -71,7 +68,6 @@ public class TrucksDAO implements IDAO<Truck>{
 
         truck.executeUpdate();
     }
-
     /**
      * Update a Truck in the DB
      */
@@ -87,7 +83,6 @@ public class TrucksDAO implements IDAO<Truck>{
 
         truck.executeUpdate();
     }
-
     /**
      * DELETE a Truck in the DB
      */

@@ -17,7 +17,7 @@ public class TransportsDAO implements IDAO<TransportDocument>{
      * TransportsDAO Constructor
      */
     public TransportsDAO(){
-        this.connection = DB_Connector.getConnection();
+        this.connection = DB_Connector.getTransportationConnection();
     }
 
     /**
@@ -27,8 +27,6 @@ public class TransportsDAO implements IDAO<TransportDocument>{
     public List<JsonObject> SELECT_ALL()throws SQLException  {
 
         List<JsonObject> all_transports = new ArrayList<>();
-
-//        String sql = "SELECT Transportation_ID, Details, Status FROM Transportations";
 
         String sql = "SELECT * FROM Transportations";
 
@@ -49,7 +47,6 @@ public class TransportsDAO implements IDAO<TransportDocument>{
 
         return all_transports;
     }
-
     /**
      * INSERT onto the DB new Transport
      */
@@ -66,7 +63,6 @@ public class TransportsDAO implements IDAO<TransportDocument>{
 
         TransportDocument.executeUpdate();
     }
-
     /**
      * Update a Transport in the DB
      */
@@ -82,7 +78,6 @@ public class TransportsDAO implements IDAO<TransportDocument>{
 
         transport.executeUpdate();
     }
-
     /**
      * DELETE Transport in the DB
      */

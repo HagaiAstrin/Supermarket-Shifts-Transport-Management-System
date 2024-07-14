@@ -1,7 +1,6 @@
 package Domain.DomainTransport.Obejects;
 
 import Domain.DomainTransport.Controllers.DataController;
-import com.google.gson.JsonObject;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
