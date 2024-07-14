@@ -102,6 +102,8 @@ public class Transportation {
      * @return false if the truck in Over weight, true if it f+good to go
      */
     public int WeightCheck() {
+        if (targets.isEmpty())
+            return 4;
         int result = 0;
         double count = truck.getNet_weight();
         for (Document d : targets) {

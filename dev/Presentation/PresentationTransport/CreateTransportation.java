@@ -79,6 +79,11 @@ public class CreateTransportation {
 
             int result = TransportationController.checkTransport();
 
+            if (result == 4){
+                System.out.println("\nThere are no sites in the Transportation");
+                System.out.println("\nTransportation canceled!");
+                return;
+            }
             boolean bool = true;
 
             //HeadLine /*Weight Solution*/
