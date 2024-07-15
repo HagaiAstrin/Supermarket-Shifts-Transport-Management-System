@@ -58,13 +58,13 @@ public class TransportationController {
 
         if (result == 0) {
 
+            Transport.setId(getNumberId() + 1);
+
             String DriverShifts [][] = DriversDAO.GET_DRIVER_PREFERENCES(Transport.getDriver().getDriverID());
             String TruckShifts [][] = TrucksDAO.GET_TRUCK_TABLE(Transport.getTruck().getLicence_number());
 
             JsonObject DriverJson = new JsonObject();
             JsonObject TruckJson = new JsonObject();
-
-            Transport.setId(getNumberId() + 1);
 
             int day = Integer.parseInt(Transport.getDay());
             int shift = Integer.parseInt(Transport.getShift());
@@ -99,7 +99,8 @@ public class TransportationController {
             DataController.updateDriver(DriverJson);
             DataController.updateTruck(TruckJson);
 
-            TransportDocument t = new TransportDocument(Transport.getStatus(), Transport.getDetails(),Transport.getId());
+            TransportDocument t = new TransportDocument(Transport.getStatus(),
+                                 Transport.getDetails(),Transport.getId(), day, shift);
             DataController.AddTransportDocument(t);
             Transport = null;
             return 0;

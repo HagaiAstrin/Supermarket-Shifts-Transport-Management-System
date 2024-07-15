@@ -110,6 +110,8 @@ public class DataController {
         j.addProperty("Transportation ID", d.getID());
         j.addProperty("Details", d.getDetails());
         j.addProperty("Status", d.getStatus());
+        j.addProperty("Day", d.getDay());
+        j.addProperty("Shift", d.getShift());
 
         DB_Transports.INSERT(j);
     }
@@ -294,8 +296,10 @@ public class DataController {
             int Transportation_ID = j.get("Transportation ID").getAsInt();
             String Details = j.get("Details").getAsString();
             String Status = j.get("Status").getAsString();
+            int Day = j.get("Day").getAsInt();
+            int Shift = j.get("Shift").getAsInt();
 
-            TransportDocument t = new TransportDocument(Status, Details, Transportation_ID);
+            TransportDocument t = new TransportDocument(Status, Details, Transportation_ID, Day, Shift);
 
             Transports.Add(t);
 

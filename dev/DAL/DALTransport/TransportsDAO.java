@@ -30,7 +30,6 @@ public class TransportsDAO implements IDAO<TransportDocument>{
 
         String sql = "SELECT * FROM Transportations";
 
-
         PreparedStatement transport = connection.prepareStatement(sql);
 
         ResultSet rs = transport.executeQuery();
@@ -41,6 +40,8 @@ public class TransportsDAO implements IDAO<TransportDocument>{
             j.addProperty("Transportation ID", rs.getString("Transportation_ID"));
             j.addProperty("Details", rs.getString("Details"));
             j.addProperty("Status", rs.getString("Status"));
+            j.addProperty("Day", rs.getString("Day"));
+            j.addProperty("Shift", rs.getString("Shift"));
 
             all_transports.add(j);
         }
@@ -53,13 +54,16 @@ public class TransportsDAO implements IDAO<TransportDocument>{
     @Override
     public void INSERT(JsonObject j) throws SQLException {
 
-        String sql = "INSERT INTO Transportations (Transportation_ID, Details, Status) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO Transportations (Transportation_ID, Details, Status," +
+                " Day, Shift) VALUES(?, ?, ?, ?, ?)";
 
         PreparedStatement TransportDocument = connection.prepareStatement(sql);
 
         TransportDocument.setString(1, j.get("Transportation ID").getAsString());
         TransportDocument.setString(2, j.get("Details").getAsString());
         TransportDocument.setString(3, j.get("Status").getAsString());
+        TransportDocument.setString(4, j.get("Day").getAsString());
+        TransportDocument.setString(5, j.get("Shift").getAsString());
 
         TransportDocument.executeUpdate();
     }

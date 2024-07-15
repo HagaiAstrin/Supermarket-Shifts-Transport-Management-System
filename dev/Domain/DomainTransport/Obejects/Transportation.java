@@ -71,6 +71,32 @@ public class Transportation {
         return shift;
     }
 
+    public String getDayString() {
+
+        String result = "";
+
+        switch (day){
+            case "1" -> result = "Sunday";
+            case "2" -> result = "Monday";
+            case "3" -> result = "Tuesday";
+            case "4" -> result = "Wednesday";
+            case "5" -> result = "Thursday";
+        }
+        return result;
+    }
+    public String getShiftString() {
+        String result = "";
+
+        switch (shift){
+            case "1" -> result = "08:00";
+            case "2" -> result = "16:00";
+        }
+        return result;
+    }
+
+
+
+
     /**
      * Setter id
      */
@@ -101,6 +127,7 @@ public class Transportation {
     public void setDriver(Driver driver) {
         this.driver = driver;
     }
+
 
 
     /**
@@ -179,11 +206,11 @@ public class Transportation {
      */
     public String getDetails() {
         StringBuilder new_s = new StringBuilder();
-        String s = "Date: " + this.day + "\nNumber of Truck: " + this.truck.getLicence_number() + "\n";
+        String s = "Day: " + getDayString() + "\nNumber of Truck: " + this.truck.getLicence_number() + "\n";
         new_s.append(s);
         s = "Maximum possible loading weight: " +(this.truck.getMax_weight() - this.truck.getNet_weight()) + "\n";
         new_s.append(s);
-        s = "Leaving time: " + this.shift + "\nDriver name: " + this.driver.getName() + "\n";
+        s = "Leaving time: " + getShiftString() + "\nDriver name: " + this.driver.getName() + "\n";
         new_s.append(s);
         s = "Address of the Source: " + this.source;
         new_s.append(s);

@@ -1,6 +1,7 @@
 package Domain.DomainTransport.Controllers;
 
 import DAL.DALTransport.DriversDAO;
+import DAL.DALTransport.TrucksDAO;
 import Domain.DomainTransport.Obejects.*;
 import com.google.gson.JsonObject;
 
@@ -70,6 +71,15 @@ public class DriverController {
                     DataController.updateTruck(TruckJson);
                     DataController.updateTransport(TransportJson);
 
+                    String DriverShifts [][] = DriversDAO.GET_DRIVER_PREFERENCES(driver.getDriverID());
+                    String TruckShifts [][] = TrucksDAO.GET_TRUCK_TABLE(driver.getTruck().getLicence_number());
+
+                    int day = driver.getTransportDocument().getDay();
+                    int shift = driver.getTransportDocument().getShift();
+
+                    DriverShifts[shift-1][day-1] = "1";
+                    TruckShifts[shift-1][day-1] = "1";
+
                     return ("\nWelcome back " + driver.getName() + "!");
                 }
                 return ("\nYou can't report back because you didnt made Transportation!\n");
@@ -112,6 +122,15 @@ public class DriverController {
                     DataController.updateDriver(DriverJson);
                     DataController.updateTruck(TruckJson);
                     DataController.updateTransport(TransportJson);
+
+                    String DriverShifts [][] = DriversDAO.GET_DRIVER_PREFERENCES(driver.getDriverID());
+                    String TruckShifts [][] = TrucksDAO.GET_TRUCK_TABLE(driver.getTruck().getLicence_number());
+
+                    int day = driver.getTransportDocument().getDay();
+                    int shift = driver.getTransportDocument().getShift();
+
+                    DriverShifts[shift-1][day-1] = "3";
+                    TruckShifts[shift-1][day-1] = "3";
 
                     return ("\nHave a good trip " + driver.getName() + "!");
                 }
