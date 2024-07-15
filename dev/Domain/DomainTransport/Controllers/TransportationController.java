@@ -72,6 +72,9 @@ public class TransportationController {
             DriverShifts[shift-1][day-1] = "2";
             TruckShifts[shift-1][day-1] = "2";
 
+            DriversDAO.UPDATE_DRIVER_PREFERENCES(DriverShifts, Transport.getDriver().getDriverID());
+            TrucksDAO.UPDATE_TRUCK_TABLE(TruckShifts, Transport.getTruck().getLicence_number());
+
             for (Document d : Transport.getTargets()){
                 if (d.getTarget().getType().equals("Store")){
                     Domain.DomainEmployee.Controller.DataController.SetDB(d.getTarget().getName());
@@ -79,9 +82,6 @@ public class TransportationController {
                             shift -1, String.valueOf(Transport.getDriver().getDriverID()) , JobTypeEnum.DRIVER);
                 }
             }
-
-            DriversDAO.UPDATE_DRIVER_PREFERENCES(DriverShifts, Transport.getDriver().getDriverID());
-            TrucksDAO.UPDATE_TRUCK_TABLE(TruckShifts, Transport.getTruck().getLicence_number());
 
             Transport.getDriver().createRoute(Transport.getTargets());
             Transport.getDriver().setTruckLicenceNumber(Transport.getTruck().getLicence_number());

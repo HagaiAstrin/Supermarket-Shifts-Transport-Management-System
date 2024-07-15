@@ -10,6 +10,7 @@ public class Site {
     private String type;
     private int Site_ID;
 
+
     /**
      * Constructor of Transport
      */

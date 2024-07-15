@@ -25,10 +25,6 @@ public class DriverController {
         }
         return null;
     }
-
-    /**
-     * Driver Log in to the System
-     */
     public static String printDriverRoute(JsonObject j) throws SQLException{
 
         ArrayList<Driver> drivers = DataController.getAllDrivers();
@@ -55,6 +51,18 @@ public class DriverController {
 
                 if (driver.getStatus().equals("On the road")){
 
+                    String DriverShifts [][] = DriversDAO.GET_DRIVER_PREFERENCES(driver.getDriverID());
+                    String TruckShifts [][] = TrucksDAO.GET_TRUCK_TABLE(driver.getTruck().getLicence_number());
+
+                    int day = driver.getTransportDocument().getDay();
+                    int shift = driver.getTransportDocument().getShift();
+
+                    DriverShifts[shift-1][day-1] = "1";
+                    TruckShifts[shift-1][day-1] = "1";
+
+                    DriversDAO.UPDATE_DRIVER_PREFERENCES(DriverShifts, driver.getDriverID());
+                    TrucksDAO.UPDATE_TRUCK_TABLE(TruckShifts, driver.getTruck().getLicence_number());
+
                     DriverJson.addProperty("Driver ID", driver.getDriverID());
                     DriverJson.addProperty("Status", "available");
                     DriverJson.addProperty("Route", "Not Have");
@@ -70,15 +78,6 @@ public class DriverController {
                     DataController.updateDriver(DriverJson);
                     DataController.updateTruck(TruckJson);
                     DataController.updateTransport(TransportJson);
-
-                    String DriverShifts [][] = DriversDAO.GET_DRIVER_PREFERENCES(driver.getDriverID());
-                    String TruckShifts [][] = TrucksDAO.GET_TRUCK_TABLE(driver.getTruck().getLicence_number());
-
-                    int day = driver.getTransportDocument().getDay();
-                    int shift = driver.getTransportDocument().getShift();
-
-                    DriverShifts[shift-1][day-1] = "1";
-                    TruckShifts[shift-1][day-1] = "1";
 
                     return ("\nWelcome back " + driver.getName() + "!");
                 }
@@ -131,6 +130,9 @@ public class DriverController {
 
                     DriverShifts[shift-1][day-1] = "3";
                     TruckShifts[shift-1][day-1] = "3";
+
+                    DriversDAO.UPDATE_DRIVER_PREFERENCES(DriverShifts, driver.getDriverID());
+                    TrucksDAO.UPDATE_TRUCK_TABLE(TruckShifts, driver.getTruck().getLicence_number());
 
                     return ("\nHave a good trip " + driver.getName() + "!");
                 }

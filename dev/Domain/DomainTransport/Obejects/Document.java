@@ -42,6 +42,8 @@ public class Document {
         }
         return count;
     }
+
+
     public void dropItem(Item t){
         AllItems.remove(t);
         this.totalWeight = getWeight();
