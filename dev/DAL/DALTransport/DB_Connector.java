@@ -8,6 +8,8 @@ public class DB_Connector {
     private static Connection TransportationConnection;
     private static Connection StoreConnection;
     private static Connection DriversConnection;
+    private static Connection TrucksConnection;
+
 
 
     /**
@@ -45,5 +47,15 @@ public class DB_Connector {
             e.printStackTrace();
         }
         return DriversConnection;
+    }
+    public static Connection getTrucksConnection(){
+        try {
+            // Update the path to your .db file
+            String url = "jdbc:sqlite:dev/Data/Trucks.db";
+            TrucksConnection = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return TrucksConnection;
     }
 }

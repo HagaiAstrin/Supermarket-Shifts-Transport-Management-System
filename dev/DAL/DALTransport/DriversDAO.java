@@ -9,6 +9,8 @@ import java.util.List;
 
 public class DriversDAO implements IDAO<Driver>{
     private Connection connection;
+    private static final int amount_shifts = 2;  // Assuming there are 2 shifts
+    private static final int amount_days = 5;
 
 
     /**
@@ -105,7 +107,7 @@ public class DriversDAO implements IDAO<Driver>{
 
 
     // Only DriverDAO Methods:
-    public static String CREATE_DRIVER_TABLE(int id) throws SQLException {
+    public static void CREATE_DRIVER_PREFERENCES(int id) throws SQLException {
 
         String createTableSQL = String.format(
                 "CREATE TABLE IF NOT EXISTS \"%s\" (Sun INTEGER, Mon INTEGER, The INTEGER, Wen INTEGER, Thu INTEGER);",
@@ -127,7 +129,59 @@ public class DriversDAO implements IDAO<Driver>{
         statement.execute(insertRowSQL);
         statement.execute(insertRowSQL);
 
-        return "Table created and rows inserted for id: " + id;
+        System.out.println("Table created and rows inserted for id: " + id);
 
+    }
+    public static String UPDATE_DRIVER_PREFERENCES(String[][] preferences, int id) throws SQLException {
+
+        String sql1 = String.format("UPDATE \"%s\" SET Sun=?, Mon=?, The=?, Wen=?, Thu=? WHERE rowid=1", id);
+        String sql2 = String.format("UPDATE \"%s\" SET Sun=?, Mon=?, The=?, Wen=?, Thu=? WHERE rowid=2", id);
+
+        Connection connection = DB_Connector.getDriversConnection();
+
+        PreparedStatement pstmtMorning = connection.prepareStatement(sql1);
+        PreparedStatement pstmtEvening = connection.prepareStatement(sql2);
+
+        // Update morning preferences (row 0)
+        pstmtMorning.setString(1, preferences[0][0]);
+        pstmtMorning.setString(2, preferences[0][1]);
+        pstmtMorning.setString(3, preferences[0][2]);
+        pstmtMorning.setString(4, preferences[0][3]);
+        pstmtMorning.setString(5, preferences[0][4]);
+        pstmtMorning.executeUpdate();
+
+        // Update evening preferences (row 1)
+        pstmtEvening.setString(1, preferences[1][0]);
+        pstmtEvening.setString(2, preferences[1][1]);
+        pstmtEvening.setString(3, preferences[1][2]);
+        pstmtEvening.setString(4, preferences[1][3]);
+        pstmtEvening.setString(5, preferences[1][4]);
+        pstmtEvening.executeUpdate();
+
+        return "Your preferences list has been updated";
+    }
+    public static String[][] GET_DRIVER_PREFERENCES(int id) throws SQLException {
+
+        String[][] preferences = new String[amount_shifts][amount_days];
+
+        String getPreferencesSQL = String.format("SELECT Sun, Mon, The, Wen, Thu FROM \"%s\"", id);
+
+        Connection connection = DB_Connector.getDriversConnection();
+
+        Statement statement = connection.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(getPreferencesSQL);
+
+            int row = 0;
+
+            while (resultSet.next() && row < amount_shifts) {
+                preferences[row][0] = resultSet.getString("Sun");
+                preferences[row][1] = resultSet.getString("Mon");
+                preferences[row][2] = resultSet.getString("The");
+                preferences[row][3] = resultSet.getString("Wen");
+                preferences[row][4] = resultSet.getString("Thu");
+                row++;
+            }
+        return preferences;
     }
 }

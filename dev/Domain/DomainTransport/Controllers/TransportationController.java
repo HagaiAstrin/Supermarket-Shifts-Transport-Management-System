@@ -1,4 +1,6 @@
 package Domain.DomainTransport.Controllers;
+import DAL.DALTransport.DriversDAO;
+import DAL.DALTransport.TrucksDAO;
 import Domain.DomainTransport.Obejects.*;
 
 import com.google.gson.JsonObject;
@@ -41,13 +43,13 @@ public class TransportationController {
     public static void createTransport(JsonObject j) throws SQLException {
 
         String source = j.get("Source").getAsString();
-        String date = j.get("Day").getAsString();
-        String leaving_time = j.get("Leaving time").getAsString();
+        String day = j.get("Day").getAsString();
+        String shift = j.get("Shift").getAsString();
 
         Truck truck = DataController.getTruck(j.get("Truck").getAsString());
         Driver driver = DataController.getDriver(j.get("Driver").getAsString());
 
-        Transport = new Transportation(truck, driver, source, date, leaving_time);
+        Transport = new Transportation(truck, driver, source, day, shift);
     }
     public static int checkTransport() throws SQLException {
 
@@ -55,16 +57,26 @@ public class TransportationController {
 
         if (result == 0) {
 
+            String DriverShifts [][] = DriversDAO.GET_DRIVER_PREFERENCES(Transport.getDriver().getDriverID());
+            String TruckShifts [][] = TrucksDAO.GET_TRUCK_TABLE(Transport.getTruck().getLicence_number());
+
             JsonObject DriverJson = new JsonObject();
             JsonObject TruckJson = new JsonObject();
 
             Transport.setId(getNumberId() + 1);
 
-            Transport.getDriver().setStatus("Waiting");
+            int day = Integer.parseInt(Transport.getDay());
+            int shift = Integer.parseInt(Transport.getShift());
+
+            DriverShifts[shift-1][day-1] = "2";
+            TruckShifts[shift-1][day-1] = "2";
+
+            DriversDAO.UPDATE_DRIVER_PREFERENCES(DriverShifts, Transport.getDriver().getDriverID());
+            TrucksDAO.UPDATE_TRUCK_TABLE(TruckShifts, Transport.getTruck().getLicence_number());
+
             Transport.getDriver().createRoute(Transport.getTargets());
             Transport.getDriver().setTruckLicenceNumber(Transport.getTruck().getLicence_number());
             Transport.getDriver().setTransportID(Transport.getId());
-            Transport.getTruck().setStatus("Waiting");
 
             DriverJson.addProperty("Driver ID", Transport.getDriver().getDriverID());
             DriverJson.addProperty("Status", Transport.getDriver().getStatus());

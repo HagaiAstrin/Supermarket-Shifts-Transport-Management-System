@@ -6,8 +6,8 @@ import com.google.gson.JsonObject;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Transportation_Manager_Menu {
-    public static void transportation_manager() throws SQLException {
+public class TransportationManagerMenu {
+    public static void Transportation_Manager_Menu() throws SQLException {
 
         Scanner reader = new Scanner(System.in);
 

@@ -89,7 +89,7 @@ public class ChooseSolution {
 
         SolutionsController.replace_documents(site_answer);
     }
-    public static boolean changeTruck() throws SQLException {
+    public static boolean changeTruck(String day, String shift) throws SQLException {
 
         JsonObject j = new JsonObject();
 
@@ -103,7 +103,7 @@ public class ChooseSolution {
 
         j.addProperty("Truck", s);
 
-        String d = CreateTransportation.chooseDriver(s);
+        String d = CreateTransportation.chooseDriver(s, day, shift);
 
         if (d == null){
             System.out.println("There is no available Drivers for this transportation!\n");

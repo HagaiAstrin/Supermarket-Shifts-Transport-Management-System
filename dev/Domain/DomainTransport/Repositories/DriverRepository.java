@@ -1,9 +1,11 @@
 package Domain.DomainTransport.Repositories;
 
 
+import DAL.DALTransport.DriversDAO;
 import Domain.DomainTransport.Obejects.Driver;
 import com.google.gson.JsonObject;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DriverRepository implements IRepository<Driver> {
@@ -42,16 +44,22 @@ public class DriverRepository implements IRepository<Driver> {
      * Returns JsonObject of all the available Drivers in the AllDrivers
      */
     @Override
-    public JsonObject ChooseAll(JsonObject jas) {
+    public JsonObject ChooseAll(JsonObject jas) throws SQLException {
 
         String s = jas.get("Truck Licence").getAsString();
+        int day = jas.get("Day").getAsInt();
+        int shift = jas.get("Shift").getAsInt();
+
         JsonObject j = new JsonObject();
         int count = 1;
         for (Driver d: AllDrivers){
-            if (d.getStatus().equals("available")){
-                if (d.getLicense().compareTo(s) >= 0){
-                    j.addProperty(String.valueOf(count), d.to_String());
-                    count++;
+            String Preferences [][] = DriversDAO.GET_DRIVER_PREFERENCES(d.getDriverID());
+            if (Preferences[shift-1][day-1].equals("1")) {
+                if (d.getStatus().equals("available")) {
+                    if (d.getLicense().compareTo(s) >= 0) {
+                        j.addProperty(String.valueOf(count), d.to_String());
+                        count++;
+                    }
                 }
             }
         }

@@ -1,5 +1,4 @@
 package Domain.DomainTransport.Obejects;
-import Domain.DomainTransport.Obejects.*;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -10,8 +9,8 @@ import java.util.Map;
 public class Transportation {
     private int id;
     private String source;
-    private String date;
-    private String leaving_time;
+    private String day;
+    private String shift;
     private Truck truck;
     private Driver driver;
     private String Status;
@@ -25,12 +24,12 @@ public class Transportation {
     /**
      * Constructor of Transport
      */
-    public Transportation(Truck truck, Driver driver, String source, String date, String time) {
+    public Transportation(Truck truck, Driver driver, String source, String day, String time) {
         this.truck = truck;
         this.driver = driver;
         this.source = source;
-        this.date = date;
-        this.leaving_time = time;
+        this.day = day;
+        this.shift = time;
         this.Status = "Pending";
     }
 
@@ -65,6 +64,12 @@ public class Transportation {
     public String getStatus() {
         return Status;
     }
+    public String getDay() {
+        return day;
+    }
+    public String getShift() {
+        return shift;
+    }
 
     /**
      * Setter id
@@ -81,14 +86,14 @@ public class Transportation {
     /**
      * Setter date
      */
-    public void setDate(String date) {
-        this.date = date;
+    public void setDay(String day) {
+        this.day = day;
     }
     /**
      * Setter leaving_time
      */
-    public void setLeaving_time(String leaving_time) {
-        this.leaving_time = leaving_time;
+    public void setShift(String shift) {
+        this.shift = shift;
     }
     public void setTruck(Truck truck) {
         this.truck = truck;
@@ -174,11 +179,11 @@ public class Transportation {
      */
     public String getDetails() {
         StringBuilder new_s = new StringBuilder();
-        String s = "Date: " + this.date + "\nNumber of Truck: " + this.truck.getLicence_number() + "\n";
+        String s = "Date: " + this.day + "\nNumber of Truck: " + this.truck.getLicence_number() + "\n";
         new_s.append(s);
         s = "Maximum possible loading weight: " +(this.truck.getMax_weight() - this.truck.getNet_weight()) + "\n";
         new_s.append(s);
-        s = "Leaving time: " + this.leaving_time + "\nDriver name: " + this.driver.getName() + "\n";
+        s = "Leaving time: " + this.shift + "\nDriver name: " + this.driver.getName() + "\n";
         new_s.append(s);
         s = "Address of the Source: " + this.source;
         new_s.append(s);

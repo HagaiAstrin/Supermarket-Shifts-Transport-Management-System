@@ -12,7 +12,7 @@ public class DriverMenu {
     /**
      * Driver menu in the System
      */
-    public static void driver_x() throws InterruptedException, SQLException {
+    public static void Driver_Menu() throws SQLException {
 
         JsonObject new_Json = new JsonObject();
 
@@ -62,7 +62,7 @@ public class DriverMenu {
             new_s.append("\nWhat do you want to do?\n");
             new_s.append("'1' - Report on exit to transportation \n");
             new_s.append("'2' - Report on back from transportation\n");
-            new_s.append("'3' - Update your work arrangement\n");
+            new_s.append("'3' - Update your work preferences\n");
             new_s.append("'9' - Exit to the Main menu.");
 
             System.out.println(new_s);
@@ -81,7 +81,7 @@ public class DriverMenu {
             switch (answer) {
                 case "1" -> leaving(new_Json);
                 case "2" -> back(new_Json);
-                case "3" -> Update();
+                case "3" -> Update(new_Json);
             }
 
             System.out.println("\nDo you want to do something else? Enter 'yes' or 'no':");
@@ -105,10 +105,9 @@ public class DriverMenu {
         String a = DriverController.updateBackDriver(j);
         System.out.println(a);
     }
-    public static void Update () throws SQLException {
-        System.out.println("\nEnter your shifts: \n");
-        System.out.println("Enter '1' if you can work and '0'");
-        DriverController.UpdateDriverWorkArrangement();
+    public static void Update (JsonObject j) throws SQLException {
+        String a = DriverController.UpdateDriverWorkPreferences(j);
+        System.out.println(a);
     }
 }
 

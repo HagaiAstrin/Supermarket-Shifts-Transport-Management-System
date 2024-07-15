@@ -51,7 +51,7 @@ public class DataController {
 
         DB_Drivers.INSERT(j);
 
-        DB_Drivers.CREATE_DRIVER_TABLE(driverID);
+        DriversDAO.CREATE_DRIVER_PREFERENCES(driverID);
     }
     public static void AddTruck(JsonObject j) throws SQLException {
 
@@ -71,6 +71,9 @@ public class DataController {
         j.addProperty("Status", "available");
 
         DB_Trucks.INSERT(j);
+
+        TrucksDAO.CREATE_TRUCK_TABLE(n);
+
     }
     public static void AddSite(JsonObject j) throws SQLException {
 
@@ -111,23 +114,29 @@ public class DataController {
         DB_Transports.INSERT(j);
     }
 
-    public static JsonObject ChooseTruck() throws SQLException {
+    public static JsonObject ChooseTruck(String day, String shift) throws SQLException {
 
         if (Trucks.getAmount() == 0)
             SelectAllTrucksFromDB();
 
         JsonObject j = new JsonObject();
 
+        j.addProperty("Day", day);
+        j.addProperty("Shift", shift);
+
         return Trucks.ChooseAll(j);
     }
-    public static JsonObject ChooseDriver(String truckLicence) throws SQLException {
+    public static JsonObject ChooseDriver(String truckLicence, String day, String shift) throws SQLException {
 
         if (Drivers.getAmount() == 0)
 
             SelectAllDriversFromDB();
 
         JsonObject j = new JsonObject();
+
         j.addProperty("Truck Licence", truckLicence);
+        j.addProperty("Day", day);
+        j.addProperty("Shift", shift);
 
         return Drivers.ChooseAll(j);
     }

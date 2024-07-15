@@ -31,14 +31,42 @@ public class CreateTransportation {
                     "\n'4' - Wednesday" +
                     "\n'5' - Thursday");
 
-            new_json.addProperty("Day", reader.nextLine());
+            String day = reader.nextLine();
+
+            while (!day.equals("1") && !day.equals("2") && !day.equals("3") &&
+                    !day.equals("4") && !day.equals("5")) {
+
+                System.out.println("\nWrong input! please write your ans ware again..\n");
+
+                System.out.println("\nPlease choose the day of the transportation: " +
+                        "\n'1' - Sunday" +
+                        "\n'2' - Monday" +
+                        "\n'3' - Tuesday" +
+                        "\n'4' - Wednesday" +
+                        "\n'5' - Thursday");
+                day = reader.nextLine();
+            }
+            new_json.addProperty("Day", day);
 
             System.out.println("\nPlease choose the leaving time of the transportation :" +
                     "\n'1' - 08:00" +
                     "\n'2' - 16:00");
-            new_json.addProperty("Leaving time", reader.nextLine());
 
-            String truck = ChooseTruck();
+            String Shift = reader.nextLine();
+
+            while (!Shift.equals("1") && !Shift.equals("2")) {
+
+                System.out.println("\nWrong input! please write your ans ware again..\n");
+
+                System.out.println("\nPlease choose the leaving time of the transportation :" +
+                        "\n'1' - 08:00" +
+                        "\n'2' - 16:00");
+
+                Shift = reader.nextLine();
+            }
+            new_json.addProperty("Shift", Shift);
+
+            String truck = ChooseTruck(day, Shift);
 
             if (truck == null) {
                 System.out.println("Sorry but we can't arrange the transport, " +
@@ -46,7 +74,7 @@ public class CreateTransportation {
                 return;
             }
 
-            String driver = chooseDriver(truck);
+            String driver = chooseDriver(truck, day, Shift);
 
             if (driver == null) {
                 System.out.println("Sorry but we can't arrange the transport, " +
@@ -103,7 +131,7 @@ public class CreateTransportation {
 
                             case "1" -> ChooseSolution.changeSites(area);
                             case "2" -> {
-                                if (!ChooseSolution.changeTruck()) continue;
+                                if (!ChooseSolution.changeTruck(day, Shift)) continue;
                             }
                             case "3" -> {
                                 bool = ChooseSolution.dropSites();
@@ -132,24 +160,24 @@ public class CreateTransportation {
     /**
      * Selection methods from the User
      */
-    public static String ChooseTruck() throws SQLException {
+    public static String ChooseTruck(String day, String shift) throws SQLException {
 
         System.out.println("\nPlease choose an Truck:");
 
-        JsonObject new_trucks = DataController.ChooseTruck();
+        JsonObject new_trucks = DataController.ChooseTruck(day, shift);
 
         if (new_trucks.size() == 0)
             return null;
 
         return printToUser(new_trucks.size(), new_trucks);
     }
-    public static String chooseDriver(String truck) throws SQLException {
+    public static String chooseDriver(String truck, String day, String shift) throws SQLException {
 
         System.out.println("\nPlease choose a Driver:");
 
         String truckLicence = truck.substring(43, 44);
 
-        JsonObject new_drivers = DataController.ChooseDriver(truckLicence);
+        JsonObject new_drivers = DataController.ChooseDriver(truckLicence, day, shift);
 
         if (new_drivers.size() == 0)
             return null;
