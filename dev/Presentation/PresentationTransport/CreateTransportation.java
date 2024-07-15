@@ -197,7 +197,7 @@ public class CreateTransportation {
         System.out.println("\nPlease choose a " + type + " :");
 
         JsonObject new_Site = DataController.ChooseSite(area, type,
-                new_json.get("Day").getAsString(), new_json.get("Leaving time").getAsString());
+                new_json.get("Day").getAsString(), new_json.get("Shift").getAsString());
 
         if(new_Site.size() == 0) return null;
 

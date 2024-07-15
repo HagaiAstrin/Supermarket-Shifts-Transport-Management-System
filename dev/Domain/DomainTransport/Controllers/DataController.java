@@ -147,7 +147,7 @@ public class DataController {
 
         return Sites.FindShippingArea();
     }
-    public static JsonObject ChooseSite(String area, String type, String day, String time) throws SQLException {
+    public static JsonObject ChooseSite(String area, String type, String day, String shift) throws SQLException {
 
         if (Sites.getAmount() == 0)
             SelectAllSitesFromDB();
@@ -157,7 +157,7 @@ public class DataController {
         j.addProperty("Area", area);
         j.addProperty("Type", type);
         j.addProperty("Day", day);
-        j.addProperty("Time", time);
+        j.addProperty("Shift", shift);
 
         return Sites.ChooseAll(j);
     }
@@ -385,7 +385,7 @@ public class DataController {
     }
 
     public static boolean isStorekeeper(String name, String day, String time) throws SQLException {
-        return DB_Sites.IS_STORE_KEEPER(name, day, time);
+        return SitesDAO.IS_STORE_KEEPER(name, day, time);
     }
 
 

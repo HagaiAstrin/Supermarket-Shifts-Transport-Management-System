@@ -155,7 +155,7 @@ public class TrucksDAO implements IDAO<Truck>{
 
         String getPreferencesSQL = String.format("SELECT Sun, Mon, The, Wen, Thu FROM \"%s\"", id);
 
-        Connection connection = DB_Connector.getDriversConnection();
+        Connection connection = DB_Connector.getTrucksConnection();
 
         Statement statement = connection.createStatement();
 

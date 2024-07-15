@@ -28,7 +28,6 @@ public class SitesRepository implements IRepository<Site> {
             AllSites.get(s.getShipping_area()).get(s.getType()).put(s.getName(), s);
         }
     }
-
     /**
      * Delete a Site from the AllSites
      */
@@ -41,7 +40,6 @@ public class SitesRepository implements IRepository<Site> {
             AllSites.get(s.getShipping_area()).get(s.getType()).remove(s.getName());
         }
     }
-
     /**
      * Find a Site from the AllSites using String ID
      */
@@ -57,7 +55,6 @@ public class SitesRepository implements IRepository<Site> {
         }
         return null;
     }
-
     /**
      * Returns JsonObject of all the Sites in the AllSites and inside the Specific area
      */
@@ -67,7 +64,7 @@ public class SitesRepository implements IRepository<Site> {
         String area = jas.get("Area").getAsString();
         String type = jas.get("Type").getAsString();
         String day = jas.get("Day").getAsString();
-        String time = jas.get("Time").getAsString();
+        String time = jas.get("Shift").getAsString();
 
         JsonObject j = new JsonObject();
         int count = 1;
@@ -88,12 +85,6 @@ public class SitesRepository implements IRepository<Site> {
 
         return j;
     }
-
-//    @Override
-    public JsonObject ChooseAll(String s, String v) {
-        return null;
-    }
-
     @Override
     public void Update(JsonObject j) {
 
