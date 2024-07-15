@@ -66,10 +66,6 @@ public class DriverRepository implements IRepository<Driver> {
         return j;
     }
 
-//    @Override
-    public JsonObject ChooseAllInRoad(String s, String v) {
-        return null;
-    }
 
     /**
      * Update a Driver using JsonObject

@@ -1,6 +1,7 @@
 package Domain.DomainTransport.Controllers;
 import DAL.DALTransport.DriversDAO;
 import DAL.DALTransport.TrucksDAO;
+import Domain.DomainEmployee.JobTypeEnum;
 import Domain.DomainTransport.Obejects.*;
 
 import com.google.gson.JsonObject;
@@ -70,6 +71,14 @@ public class TransportationController {
 
             DriverShifts[shift-1][day-1] = "2";
             TruckShifts[shift-1][day-1] = "2";
+
+            for (Document d : Transport.getTargets()){
+                if (d.getTarget().getType().equals("Store")){
+                    Domain.DomainEmployee.Controller.DataController.SetDB(d.getTarget().getName());
+                    Domain.DomainEmployee.Controller.DataController.InsertToTemplateTable(day - 1,
+                            shift -1, String.valueOf(Transport.getDriver().getDriverID()) , JobTypeEnum.DRIVER);
+                }
+            }
 
             DriversDAO.UPDATE_DRIVER_PREFERENCES(DriverShifts, Transport.getDriver().getDriverID());
             TrucksDAO.UPDATE_TRUCK_TABLE(TruckShifts, Transport.getTruck().getLicence_number());

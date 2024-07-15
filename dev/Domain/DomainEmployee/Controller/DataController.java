@@ -321,7 +321,6 @@ public class DataController {
 
 
 
-
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement preparedStatement = connection.prepareStatement(query);
              PreparedStatement updateStatement = connection.prepareStatement(updateSQL)) {
