@@ -367,15 +367,16 @@ public class IO_Data {
         String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu"};
         String[] shift = {"Morning", "Evening"};
 
-        for(int i = 0; i < drivers[i].length; i++){
+        for(int i = 0; i < drivers.length; i++){
             System.out.println("Shift: " + shift[i]);
             System.out.println("---------------------");
-            for(int j = 0; j < drivers.length; j++){
+            for(int j = 0; j < drivers[i].length; j++){
                 System.out.println("Day:" + days[j]);
                 System.out.println("***********");
+                if(drivers[i][j] == null) { continue; }
                 List<String> drivers_ids = DataController.getValueFromCell(drivers[i][j]);
                 for(String id : drivers_ids){
-                    Driver d = Domain.DomainTransport.Controllers.DataController.getDriver(id);
+                    Driver d = Domain.DomainTransport.Controllers.DataController.getById(Integer.parseInt(id));
                     if(d == null) { continue; }
                     System.out.println("Driver ID: " + id);
                     System.out.println("Driver Name: " + d.getName());
