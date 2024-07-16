@@ -94,7 +94,6 @@ public class DataConnector {
         }
     }
 
-
     /**
      * Input from the user for Truck arguments
      */
@@ -167,7 +166,6 @@ public class DataConnector {
             answer = reader.nextLine();
         }
     }
-
     public static JsonObject printAllTransports() throws SQLException {
         return DataController.chooseAllTransports();
     }

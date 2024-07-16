@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DriversDAO implements IDAO<Driver>{
+public class DriversDAO implements IDAO<Driver> {
     private Connection connection;
     private static final int amount_shifts = 2;  // Assuming there are 2 shifts
     private static final int amount_days = 5;
@@ -16,7 +16,7 @@ public class DriversDAO implements IDAO<Driver>{
     /**
      * DriversDAO Constructor
      */
-    public DriversDAO(){
+    public DriversDAO() {
         this.connection = DB_Connector.getTransportationConnection();
     }
 
@@ -24,7 +24,7 @@ public class DriversDAO implements IDAO<Driver>{
      * Return List of JsonObject that SELECT all the Drivers
      */
     @Override
-    public List<JsonObject> SELECT_ALL()throws SQLException {
+    public List<JsonObject> SELECT_ALL() throws SQLException {
 
         List<JsonObject> all_drivers = new ArrayList<>();
 
@@ -51,13 +51,14 @@ public class DriversDAO implements IDAO<Driver>{
 
         return all_drivers;
     }
+
     /**
      * INSERT onto the DB new Driver
      */
     @Override
     public void INSERT(JsonObject j) throws SQLException {
         String sql = "INSERT INTO Drivers(Name, Licence, Password, Status, Route, " +
-                     "Transport_ID, Truck_Licence_Number, Driver_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+                "Transport_ID, Truck_Licence_Number, Driver_ID) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement driver = connection.prepareStatement(sql);
 
@@ -72,14 +73,15 @@ public class DriversDAO implements IDAO<Driver>{
 
         driver.executeUpdate();
     }
+
     /**
      * Update a Driver in the DB
      */
     @Override
-    public void UPDATE(JsonObject j)throws SQLException {
+    public void UPDATE(JsonObject j) throws SQLException {
 
         String sql = "UPDATE Drivers SET Status = ?, Route = ?, Transport_ID = ?, " +
-                     "Truck_Licence_Number = ? WHERE Driver_ID = ?";
+                "Truck_Licence_Number = ? WHERE Driver_ID = ?";
 
         PreparedStatement driver = connection.prepareStatement(sql);
 
@@ -91,11 +93,12 @@ public class DriversDAO implements IDAO<Driver>{
 
         driver.executeUpdate();
     }
+
     /**
      * DELETE a Driver in the DB
      */
     @Override
-    public void DELETE(JsonObject j)throws SQLException {
+    public void DELETE(JsonObject j) throws SQLException {
 
         String sql = "DELETE FROM Drivers WHERE Driver_ID = ?";
 
@@ -132,6 +135,7 @@ public class DriversDAO implements IDAO<Driver>{
         System.out.println("Table created and rows inserted for id: " + id);
 
     }
+
     public static String UPDATE_DRIVER_PREFERENCES(String[][] preferences, int id) throws SQLException {
 
         String sql1 = String.format("UPDATE \"%s\" SET Sun=?, Mon=?, The=?, Wen=?, Thu=? WHERE rowid=1", id);
@@ -160,6 +164,7 @@ public class DriversDAO implements IDAO<Driver>{
 
         return "Your preferences list has been updated";
     }
+
     public static String[][] GET_DRIVER_PREFERENCES(int id) throws SQLException {
 
         String[][] preferences = new String[amount_shifts][amount_days];
@@ -172,26 +177,16 @@ public class DriversDAO implements IDAO<Driver>{
 
         ResultSet resultSet = statement.executeQuery(getPreferencesSQL);
 
-            int row = 0;
+        int row = 0;
 
-            while (resultSet.next() && row < amount_shifts) {
-                preferences[row][0] = resultSet.getString("Sun");
-                preferences[row][1] = resultSet.getString("Mon");
-                preferences[row][2] = resultSet.getString("The");
-                preferences[row][3] = resultSet.getString("Wen");
-                preferences[row][4] = resultSet.getString("Thu");
-                row++;
-            }
+        while (resultSet.next() && row < amount_shifts) {
+            preferences[row][0] = resultSet.getString("Sun");
+            preferences[row][1] = resultSet.getString("Mon");
+            preferences[row][2] = resultSet.getString("The");
+            preferences[row][3] = resultSet.getString("Wen");
+            preferences[row][4] = resultSet.getString("Thu");
+            row++;
+        }
         return preferences;
-    }
-    public static void INSERT_DRIVER_TO_DB_STORE(int day, int shift, int id, String store) throws SQLException {
-
-        String sql = String.format("UPDATE template ADD \"%s\"=\"%s\" WHERE rowid=\"%s\"",day, id, shift);
-
-        Connection connection = DB_Connector.getStoreConnection(store);
-
-        PreparedStatement pstmt = connection.prepareStatement(sql);
-
-
     }
 }
