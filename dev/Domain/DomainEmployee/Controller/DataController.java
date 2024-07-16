@@ -398,7 +398,16 @@ public class DataController {
         return String.join(",", ids);
     }
 
-    private static String addValueToCell(String currValue, String id){
+    public static List<String> getValueFromCell(String currValue){
+        List<String> ids = new ArrayList<>(List.of(currValue.split(",")));
+
+        if(ids.isEmpty()){
+            return null;
+        }
+        return ids;
+    }
+
+    public static String addValueToCell(String currValue, String id){
         List<String> ids = new ArrayList<>(List.of(currValue.split(",")));
 
         ids.add(id);
@@ -482,6 +491,49 @@ public class DataController {
 
         return tableArray;
     }
+
+    public static String[][] GET_DRIVER_SHIFTS() throws SQLException {
+
+        String[][] preferences = new String[2][5];
+
+        String sql1 = "SELECT Sun, Mon, Tue, Wed, Thu FROM template WHERE rowid = 7";
+        String sql2 = "SELECT Sun, Mon, Tue, Wed, Thu FROM template WHERE rowid = 8";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement pstmtMorning = conn.prepareStatement(sql1);
+             PreparedStatement pstmtEvening = conn.prepareStatement(sql2)) {
+
+            ResultSet resultSet1 = pstmtMorning.executeQuery();
+            ResultSet resultSet2 = pstmtEvening.executeQuery();
+
+            int row = 0;
+
+            if (resultSet1.next()) {
+                preferences[row][0] = resultSet1.getString("Sun");
+                preferences[row][1] = resultSet1.getString("Mon");
+                preferences[row][2] = resultSet1.getString("Tue");
+                preferences[row][3] = resultSet1.getString("Wed");
+                preferences[row][4] = resultSet1.getString("Thu");
+                row++;
+            }
+
+            if (resultSet2.next()) {
+                preferences[row][0] = resultSet2.getString("Sun");
+                preferences[row][1] = resultSet2.getString("Mon");
+                preferences[row][2] = resultSet2.getString("Tue");
+                preferences[row][3] = resultSet2.getString("Wed");
+                preferences[row][4] = resultSet2.getString("Thu");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e; // rethrow the exception after logging it
+        }
+
+        return preferences;
+    }
+
+
 
 
     public static void SetDB(String s) {

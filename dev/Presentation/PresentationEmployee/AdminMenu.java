@@ -3,6 +3,7 @@ package Presentation.PresentationEmployee;
 import Domain.DomainEmployee.Controller.AdminController;
 import Domain.DomainEmployee.Controller.DataController;
 import Domain.DomainEmployee.Controller.SystemController;
+import Domain.DomainEmployee.IO_Data;
 import com.google.gson.JsonObject;
 
 import javax.xml.crypto.Data;
@@ -165,6 +166,7 @@ public class AdminMenu {
                     case 1:
                         // Print
                         System.out.println(AdminController.printAllTypeWeek());
+                        IO_Data.GetDriversInShift();
                         break;
                     case 2:
                         int job = IOJobShiftMenu();

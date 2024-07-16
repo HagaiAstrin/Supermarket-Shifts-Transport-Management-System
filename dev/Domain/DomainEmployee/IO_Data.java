@@ -1,12 +1,14 @@
 package Domain.DomainEmployee;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import Domain.DomainEmployee.Controller.DataController;
+import Domain.DomainTransport.Obejects.Driver;
 import com.google.gson.JsonObject;
 
 
@@ -358,5 +360,27 @@ public class IO_Data {
 
     public static void EraseEmployees() {
         currEmployees = new HashMap<>();
+    }
+
+    public static void GetDriversInShift() throws SQLException {
+        String drivers[][] = DataController.GET_DRIVER_SHIFTS();
+        String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu"};
+        String[] shift = {"Morning", "Evening"};
+
+        for(int i = 0; i < drivers[i].length; i++){
+            System.out.println("Shift: " + shift[i]);
+            System.out.println("---------------------");
+            for(int j = 0; j < drivers.length; j++){
+                System.out.println("Day:" + days[j]);
+                System.out.println("***********");
+                List<String> drivers_ids = DataController.getValueFromCell(drivers[i][j]);
+                for(String id : drivers_ids){
+                    Driver d = Domain.DomainTransport.Controllers.DataController.getDriver(id);
+                    if(d == null) { continue; }
+                    System.out.println("Driver ID: " + id);
+                    System.out.println("Driver Name: " + d.getName());
+                }
+            }
+        }
     }
 }

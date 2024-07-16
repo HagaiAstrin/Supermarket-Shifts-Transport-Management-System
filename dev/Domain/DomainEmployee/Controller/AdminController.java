@@ -2,6 +2,7 @@ package Domain.DomainEmployee.Controller;
 import Domain.DomainEmployee.*;
 import com.google.gson.JsonObject;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class AdminController {
@@ -66,6 +67,10 @@ public class AdminController {
 
     public static String printAllTypeWeek(){
         return WeeklyShift.iterAllJobWeeklyShift();
+    }
+
+    public static void printDrivers() throws SQLException {
+        IO_Data.GetDriversInShift();
     }
 
     public static String printTypeWeek(int job){
