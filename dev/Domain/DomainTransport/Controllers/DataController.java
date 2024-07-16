@@ -388,6 +388,12 @@ public class DataController {
         return (DataController.getAmount("Sites")) + 10;
     }
 
+    public static Driver getById(int id) throws SQLException {
+        if (Drivers.getAmount() == 0)
+            SelectAllDriversFromDB();
+
+        return Drivers.FindByDriverID(id);
+    }
     public static boolean isStorekeeper(String name, String day, String time) throws SQLException {
         return SitesDAO.IS_STORE_KEEPER(name, day, time);
     }
