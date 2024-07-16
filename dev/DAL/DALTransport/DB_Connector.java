@@ -20,7 +20,7 @@ public class DB_Connector {
         if (TransportationConnection == null) {
             try {
                 // Update the path to your .db file
-                String url = "jdbc:sqlite:dev/Data/Transportation.db";
+                String url = "jdbc:sqlite:dev/Data/TransportDB/Transportation.db";
                 TransportationConnection = DriverManager.getConnection(url);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -41,7 +41,7 @@ public class DB_Connector {
     public static Connection getDriversConnection(){
         try {
             // Update the path to your .db file
-            String url = "jdbc:sqlite:dev/Data/Drivers.db";
+            String url = "jdbc:sqlite:dev/Data/TransportDB/Drivers.db";
             DriversConnection = DriverManager.getConnection(url);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,7 +51,7 @@ public class DB_Connector {
     public static Connection getTrucksConnection(){
         try {
             // Update the path to your .db file
-            String url = "jdbc:sqlite:dev/Data/Trucks.db";
+            String url = "jdbc:sqlite:dev/Data/TransportDB/Trucks.db";
             TrucksConnection = DriverManager.getConnection(url);
         } catch (SQLException e) {
             e.printStackTrace();
