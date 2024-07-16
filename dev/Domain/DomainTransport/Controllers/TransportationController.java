@@ -79,7 +79,7 @@ public class TransportationController {
                 if (d.getTarget().getType().equals("Store")){
                     Domain.DomainEmployee.Controller.DataController.SetDB(d.getTarget().getName());
                     Domain.DomainEmployee.Controller.DataController.InsertToTemplateTable(day - 1,
-                            shift -1, String.valueOf(Transport.getDriver().getDriverID()) , JobTypeEnum.DRIVER);
+                            shift -1, String.valueOf(Transport.getDriver().getDriverID()), JobTypeEnum.DRIVER);
                 }
             }
 

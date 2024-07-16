@@ -184,4 +184,14 @@ public class DriversDAO implements IDAO<Driver>{
             }
         return preferences;
     }
+    public static void INSERT_DRIVER_TO_DB_STORE(int day, int shift, int id, String store) throws SQLException {
+
+        String sql = String.format("UPDATE template ADD \"%s\"=\"%s\" WHERE rowid=\"%s\"",day, id, shift);
+
+        Connection connection = DB_Connector.getStoreConnection(store);
+
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+
+
+    }
 }

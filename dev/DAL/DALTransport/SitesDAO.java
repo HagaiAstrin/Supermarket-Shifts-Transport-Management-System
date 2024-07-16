@@ -20,7 +20,6 @@ public class SitesDAO implements IDAO<Site>{
     public SitesDAO(){
         this.connection = DB_Connector.getTransportationConnection();
     }
-
     /**
      * Return List of JsonObject that SELECT all the Sites
      */
@@ -73,7 +72,7 @@ public class SitesDAO implements IDAO<Site>{
         site.executeUpdate();
 
         if (j.get("Type").getAsString().equals("Store")){
-            DB_Creator.copyDatabase("dev/Data/Haiffa.db", j.get("Name").getAsString());
+            DB_Creator.copyDatabase("dev/Data/Empty Store.db", j.get("Name").getAsString());
         }
     }
     @Override
@@ -95,7 +94,6 @@ public class SitesDAO implements IDAO<Site>{
 
 
     // Only SiteDAO Methods:
-
     /**
      * Return True if there is a Stocker in the Store, on the Specific day and in the Specific time
      */
