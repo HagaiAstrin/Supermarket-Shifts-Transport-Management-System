@@ -105,4 +105,12 @@ public class DriverRepository implements IRepository<Driver> {
         return AllDrivers.size();
     }
 
+    public Driver FindByDriverID(int ID) {
+        for (Driver d: AllDrivers){
+            if (d.getDriverID() == ID)
+                return d;
+        }
+        return null;
+    }
+
 }

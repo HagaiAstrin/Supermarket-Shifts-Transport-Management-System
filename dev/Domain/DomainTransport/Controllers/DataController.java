@@ -391,6 +391,4 @@ public class DataController {
     public static boolean isStorekeeper(String name, String day, String time) throws SQLException {
         return SitesDAO.IS_STORE_KEEPER(name, day, time);
     }
-
-
 }
