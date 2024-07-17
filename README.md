@@ -18,11 +18,8 @@ This is a Java-based Management System comprising two main modules:
 
 ## Table of Contents
 - [Installation](#installation)
-- [Usage](#usage)
 - [Features](#features)
 - [System Requirements](#system-requirements)
-- [Contributors](#contributors)
-- [Project Structure](#project-structure)
 
 ## Installation
 
@@ -156,16 +153,14 @@ To access the administrator menu, enter the password: `123456789`. The administr
 - The `TransportatioDataBase` file
 
 
-
 ├── DAL
-│   ├── DALemployee
+│   ├── DALTransport
 │   │   ├── DB_Connector.java
 │   │   ├── IDAO.java
 │   │   ├── DriversDAO.java
 │   │   ├── SitesDAO.java
 │   │   ├── TransportsDAO.java
 │   │   ├── TrucksDAO.java
-│   └── DALTransport
 │       ├── DB_Creator.java
 ├── Data
 │   ├── Afula.db
@@ -210,3 +205,51 @@ To access the administrator menu, enter the password: `123456789`. The administr
 │   │   ├── JobWeeklyShift.java
 │   │   ├── SHA_256_Hasher.java
 │   │   ├── ShiftTypeEnum.java
+│   │   ├── WeeklyShift.java
+├── DomainTransport
+│   ├── Controllers
+│   │   ├── DataController.java
+│   │   ├── DriverController.java
+│   │   ├── SolutionsController.java
+│   │   ├── TransportationController.java
+│   ├── Objects
+│   │   ├── Document.java
+│   │   ├── Driver.java
+│   │   ├── Item.java
+│   │   ├── Site.java
+│   │   ├── Transportation.java
+│   │   ├── TransportDocument.java
+│   │   ├── Truck.java
+│   ├── Repositories
+│   │   ├── DriverRepository.java
+│   │   ├── IRepository.java
+│   │   ├── SitesRepository.java
+│   │   ├── TransportsRepository.java
+│   │   ├── TrucksRepository.java
+├── Presentation
+│   ├── PresentationEmployee
+│   │   ├── AdminMenu.java
+│   │   ├── Menu.java
+│   │   ├── Printer.java
+│   │   ├── Program.java
+│   │   ├── ProgressBar.java
+│   │   ├── Sender.java
+│   │   ├── UserMenu.java
+│   ├── PresentationTransport
+│   │   ├── ChooseSolution.java
+│   │   ├── CreateTransportation.java
+│   │   ├── DataConnector.java
+│   │   ├── DriverMenu.java
+│   │   ├── Main_Transport.java
+│   │   ├── TransportationManagerMenu.java
+│   ├── main.java
+├── Test
+│   ├── TestEmployee
+│   │   ├── PrinterTest.java
+│   │   ├── SenderTest.java
+│   │   ├── Test_DB.java
+│   │   ├── Test_Employees.java
+│   │   ├── Test_JobWeekly_Shift.java
+│   │   ├── Test_SHA256_Hasher.java
+│   ├── TestTransport
+│   │   ├── TransportationManagerTests.java
