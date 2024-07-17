@@ -145,6 +145,7 @@ Remove employee
 Update employee details
 Manage Shifts
 Print all employees
+
 Features
 User Roles: Separate menus and functionalities for managers, drivers, and employees.
 Driver Management: Add and manage drivers with specific license levels.
@@ -152,12 +153,14 @@ Truck Management: Add and manage trucks with specific weight capacities.
 Site Management: Add and manage delivery sites (suppliers and branches).
 Delivery Management: Create, assign, and track deliveries.
 Status Tracking: Track the status of deliveries, drivers, and trucks.
+
 Employee Management: Add, remove, update employee details, manage shifts, and print employee information.
 Validation: Ensure data integrity with proper validation for all inputs.
 Shift Coordination: Ensure that transports to specific stores are only scheduled if a Stock Keeper is present in the shift list for that day and shift.
+
+
 System Requirements
-Java Runtime Environment (JRE) 8 or higher
-The TransportatioDataBase file
+All the Data to run the application
 Project Structure
 DAL
 Copy code
