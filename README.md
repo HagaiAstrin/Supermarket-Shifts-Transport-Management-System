@@ -152,7 +152,7 @@ To access the administrator menu, enter the password: `123456789`. The administr
 - Java Runtime Environment (JRE) 8 or higher
 - The `TransportatioDataBase` file
 
-
+```
 ├── DAL
 │   ├── DALTransport
 │   │   ├── DB_Connector.java
@@ -253,3 +253,4 @@ To access the administrator menu, enter the password: `123456789`. The administr
 │   │   ├── Test_SHA256_Hasher.java
 │   ├── TestTransport
 │   │   ├── TransportationManagerTests.java
+```
