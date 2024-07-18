@@ -254,3 +254,4 @@ To access the administrator menu, enter the password: `123456789`. The administr
 │   ├── TestTransport
 │   │   ├── TransportationManagerTests.java
 ```
+![Screenshot 2024-07-18 135646](https://github.com/user-attachments/assets/070121bd-d48c-4de5-a890-4abacd2128e1)
